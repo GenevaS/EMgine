@@ -1,0 +1,440 @@
+\subsection{Nonfunctional Requirements}\label{sec_ReqsNF}
+The nonfunctional requirement (NF) categories reflect desirable software
+qualities~\citep{ghezzifundamentals2003} and Volere nonfunctional requirements
+categories~\citep{robertson2010mastering}. \progname{} does not have any known
+Security or Political nonfunctional requirements, so the SRS omits these
+categories. There are no known requirements for specifying Correctness or
+Reliability requirements that do not directly correlate with Verifiability and
+are independent of the target application, so the SRS omits these categories.
+
+The SRS adapts relevant nonfunctional requirements from
+GLaDOS~\citep[p.~144--164]{glados}, \progname{}'s precursor.
+
+\paragraph{Robustness}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_RecoverNeutral}:]
+    \progname{}'s operations shall return a valid result and inform game
+    developers if it is unable to produce one from the given inputs and its
+    constraints are known. \vspace*{1mm}\\
+    \textit{Rationale}: There could be situations where the given inputs do not
+    produce a recognized output, but producing one does not change the
+    program's functionality (e.g. a default return value) or is recoverable
+    (e.g. number out of its known range). \progname{} must be able to
+    communicate this to game developers so that they can create recovery
+    strategies. \vspace*{1mm}\\
+    \textit{Fit Criterion}: \progname{} always returns a result doing so is
+    possible and the game developer is made aware of the issue.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_RecoverNoChange}:]
+    \progname{} shall make no changes and inform the game developer if it is
+    not possible to produce an output from the given inputs and a valid result
+    is not available. \vspace*{1mm}\\
+    \textit{Rationale}: There could be situations where the given inputs do not
+    produce a recognized output, and producing one is not possible (e.g.
+    changing a maximum bound). \progname{} must be able to
+    communicate this to game developers so that they can create recovery
+    strategies, and without completing the operation. \vspace*{1mm}\linebreak
+    \textit{Fit Criterion}: \progname{} does make any changes any components if
+    it is not possible to return a valid result and the game developer is made
+    aware of the issue.
+
+\end{itemize}
+
+\paragraph{Performance}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Speed}:] \progname{} shall
+    evaluate and create/update an emotion state in a time frame consistent with
+    human cognitive processing during a reaction time task. \vspace*{1mm}\\
+    \textit{Rationale}: \progname{} imitates emotional responses in digital
+    entities. This promotes an expectation that such responses are the same
+    speed as human responses, which is independent of its computational
+    efficiency (see \nfref{N_Efficient}). \vspace*{1mm}\\
+    \textit{Fit Criterion}: The time taken between accepting system inputs and
+    producing a response must be within 70ms and
+    300ms~\citep[p.~47]{mackenzie2012human}.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Complex}:] \progname{}
+    shall allow game developers to configure parameters to change its
+    complexity for different types of entities at design time
+    (\ref{flexComplex}). \vspace*{1mm}\\
+    \textit{Rationale}: In addition to game entities themselves having variable
+    levels of complexity (e.g. \textit{Pac-man} ghost~\citep{pacman} vs.
+    \textit{Skyrim} citizen~\citep{skyrim}), a game developer might want to
+    change an entity's complexity to reflect its relative importance in the
+    environment (e.g. distance to player), when there is a high concentration
+    of game entities in an area, or other performance-enhancing techniques.
+    \vspace*{1mm}\linebreak
+    \textit{Fit Criterion}: A game developer is able to configure \progname{}
+    for a game entity that has the same complexity as a \textit{Pac-man} ghost
+    to their satisfaction.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Efficient}:] \progname{}
+    shall be resource efficient (\ref{flexScale}). \vspace*{1mm}\\
+    \textit{Rationale}: Video games are known for taxing hardware and software
+    resources to the limit. \progname{} must not impede on other game
+    components' needs to be viable (related to \nfref{N_Complex}).
+    \vspace*{1mm}\\
+    \textit{Fit Criterion}: The efficiency of \progname{} components is no
+    worse than comparable components in a library for one-dimensional physics.
+
+\end{itemize}
+
+\paragraph{Verifiability}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Atomic}:]  \progname{}
+    shall allow each of its ``atomic'' functions to be verified individually.
+    \vspace*{1mm}\\
+    \textit{Rationale}: Game developers are able to pick-and-choose which of
+    \progname{}'s components to use. They must be confident that components
+    that do not depend on others are verifiable on their own. This also
+    supports component maintainability (see \nfref{N_Evolve}) and reusability
+    (see \nfref{N_Reuse}). \vspace*{1mm}\\
+    \textit{Fit Criterion}: Any \progname{} component that is identified as a
+    stand-alone entity can be verified independently of other components.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Trace}:]  \progname{}
+    shall allow game developers to trace components' outputs to their inputs
+    (\ref{easeTrace}). \vspace*{1mm}\\
+    \textit{Rationale}: Game developers will encounter unwanted during
+    development. They must be able to see which of \progname{}'s components is
+    causing the behaviour, verify that the module itself is working as
+    expected, and update their use of it accordingly. \vspace*{1mm}\\
+    \textit{Fit Criterion}: When given an expected output and actual output of
+    a program that uses \progname{}, a game developer is able to identify where
+    the output mismatch starts and correct it.
+
+\end{itemize}
+
+\paragraph{Maintainability}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Support}:] \progname{}
+    shall be self-supporting. \vspace*{1mm}\\
+    \textit{Rationale}: There will be no dedicated team to help \progname{}'s
+    game developers. \vspace*{1mm}\\
+    \textit{Fit Criterion}: Game developers are able to answer questions with
+    only \progname{}'s documentation and examples (related to
+    \nfref{N_CodeDoc}, \nfref{N_Manual}).
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Evolve}:] \progname{}
+    shall isolate theory-specific elements to their own modules. \vspace*{1mm}\\
+    \textit{Rationale}: Research evolves, and so does one's understanding of
+    established theories. If there is a new development that affects
+    \progname{}'s underlying emotion theories, it should be easy to find and
+    update those parts. \progname{} can do this by isolating theory-specific
+    elements in their own units. This is strongly related to, but different
+    from, \nfref{N_Reuse}. \vspace*{1mm}\\
+    \textit{Fit Criterion}: Changes to theory-specific components do not affect
+    theory-agnostic components.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Mod}:]  \progname{}
+    components shall be easy to modify and combine with user-defined ones for
+    game developers with an Object-Oriented design/development background
+    (\ref{flexTasks}, \ref{flexNew}). \vspace*{1mm}\\
+    \textit{Rationale}: \progname{} adheres to standard Object-Oriented design
+    practices (see \nfref{N_OOStandard}). \vspace*{1mm}\\
+    \textit{Fit Criterion}: After their fifth modification to \progname{}, game
+    developers should be able to make modifications within one working day.
+
+    \clearpage
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Languages}:] \progname{}
+    shall be translatable to non-English languages. \vspace*{1mm}\\
+    \textit{Rationale}: \progname{} must not assume that all game developers
+    are proficient in English. \vspace*{1mm}\\
+    \textit{Fit Criterion}: Natural language components of \progname{} and its
+    documentation must be localized to three or fewer files.
+
+\end{itemize}
+
+\paragraph{Reusability}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Reuse}:] \progname{} must
+    allow a game developer to change the underlying emotion theories and/or
+    models. \vspace*{1mm}\\
+    \textit{Rationale}: Some CME elements do not necessarily have to be
+    theory-specific (e.g. definition of emotion intensity versus how it is
+    evaluated). Someone should be able to reuse these parts in completely new
+    CME designs that might use different underlying emotion theories and/or
+    models. This is strongly related to, but different from,
+    \nfref{N_Evolve}.\vspace*{1mm}\\
+    \textit{Fit Criterion}: \progname{} components that are not specified from
+    a particular emotion theory and/or model can be isolated and retooled for a
+    CME that uses different theories.
+
+\end{itemize}
+
+\paragraph{Portability}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Env}:] \progname{} shall
+    be usable with different development environments and tools that it shares
+    an implementation language with directly or could share via an intermediary
+    language. \vspace*{1mm}\\
+    \textit{Rationale}: Game developers will have preferences about development
+    environments, practices, and tools. \progname{} needs to limit its
+    dependence on specific environments and language proprietary elements in
+    \progname{}'s implementation language for longevity and long-term impact.
+    \vspace*{1mm}\\
+    \textit{Fit Criterion}: Game developers are able to use \progname{} in
+    conjunction with their preferred development environment and tools that
+    uses the same implementation language as \progname{} by modifying 5
+    interfaces at most. It follows that if it is possible to interface
+    \progname{} with an environment or tool that has the same implementation
+    language as itself, and it is possible to translate another language into
+    the shared implementation language, then it is possible for game developers
+    to use \progname{} with environments and/or tools in that other language as
+    well.
+
+\end{itemize}
+
+\paragraph{Operational \& Interoperability}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Arch}:]  \progname{} shall
+    be usable with different agent architectures and/or frameworks
+    (\ref{flexArch}) that can be realized in the same implementation language
+    as \progname{} or in a compatible intermediary language. \vspace*{1mm}\\
+    \textit{Rationale}: Game developers will have preferences about agent
+    architectures and frameworks. \progname{} must use generic references to
+    agent components that are also not specific to its implementation language
+    to avoid association with a specific one, which could discourage game
+    developers from using it. \vspace*{1mm}\\
+    \textit{Fit Criterion}: Game developers are able to use \progname{} in
+    conjunction with their preferred agent architecture or framework that can
+    be realized in the same implementation language as \progname{}. It follows
+    that if it is possible to interface \progname{} with an architectures or
+    framework that has the same implementation language as itself, and it is
+    possible to translate another language into the shared implementation
+    language, then it is possible for game developers to use \progname{} with
+    architectures and/or frameworks in that other language as well.
+
+    \clearpage
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Embody}:]  \progname{}'s
+    functionality shall not rely on an entity's embodiment or implementation.
+    \vspace*{1mm}\\
+    \textit{Rationale}: Since \progname{} should be agent architecture and
+    framework independent (see \nfref{N_Arch}), it cannot assume that an entity
+    will have embodiment-specific features that it can use. \vspace*{1mm}\\
+    \textit{Fit Criterion}: \progname{} is usable with game entities with no
+    functional embodiment.
+
+\end{itemize}
+
+\paragraph{Understandability}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Conventions}:]
+    \progname{}'s APIs shall follow the coding conventions of \progname{}'s
+    implementation language. \vspace*{1mm}\\
+    \textit{Rationale}: Following the code and naming conventions of
+    \progname{}'s implementation language will make it easier to understand
+    \progname{}'s content and functionality. \vspace*{1mm}\\
+    \textit{Fit Criterion}: A game developer familiar with the \progname{}'s
+    implementation language understands its structure without referring to
+    \progname{}'s documentation.
+
+\end{itemize}
+
+\paragraph{Usability}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Knowledge}:] \progname{}
+    shall not require game developers to have knowledge of affective science
+    and/or emotion research, nor should it use jargon in any of its
+    descriptions (\ref{easeHide}). \vspace*{1mm}\\
+    \textit{Rationale}: Assuming that most video game designers/developers
+    (Section~\ref{sec:doc_stakeholder}) have little/no academic knowledge of
+    affective science and/or emotion research, it is unrealistic to expect them
+    to know the psychological theories behind \progname{}. \vspace*{1mm}\\
+    \textit{Fit Criterion}: Game developers can implement \progname{}
+    components as-is in game entities without any knowledge of PES, CTE, or PAD
+    Space and without being confused by \progname{}'s terminology and
+    descriptions.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_CodeDoc}:] \progname{}
+    shall document essential usage information in the user-facing software
+    components (\ref{easeAPI}) such that game developers can learn it quickly
+    and confidently. \vspace*{1mm}\\
+    \textit{Rationale}: Game development is a rapid and stressful process, so
+    game developers will not adopt any tool or system that cannot be picked up
+    easily. New-to-\progname{} game developers are likely to try using it as-is
+    to see what it can do and become acquainted with it. Essential information,
+    such as a high-level description of a component's purpose, should be
+    embedded in the user-facing files as a ``quick start'' guide.
+    \vspace*{1mm}\linebreak
+    \textit{Fit Criterion}: \begin{itemize}[noitemsep, nosep]
+        \item A game developer who has not used \progname{} before should not
+        need external product documentation to use its components as-is
+
+        \item An empirical game developer study of game developers
+        (Section~\ref{sec:doc_stakeholder}) with Object-Oriented design
+        experience and whom are given \progname{}'s user manual shall have
+        statistically significant results regarding their confidence in the use
+        of \progname{} after one week of practice
+    \end{itemize}
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Manual}:] \progname{}
+    shall document usage examples for each component, and some ways to combine
+    them. \vspace*{1mm}\\
+    \textit{Rationale}: Game developers that are advanced \progname{} users
+    likely want to customize \progname{} and combine its components in
+    different ways. Additional information about each component, and examples
+    for addressing design problems such as handling multiple simultaneously
+    generated emotion types, must be available to support this.
+    \vspace*{1mm}\\
+    \textit{Fit Criterion}: A game developer should be able to understand and
+    apply concepts from \progname{} documentation.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Custom}:]  \progname{}
+    shall allow game developers to customize and/or redefine its configuration
+    parameters (\ref{flexCustom}). \vspace*{1mm}\\
+    \textit{Rationale}: It is highly unlikely that vanilla \progname{} will
+    meet a game developer's needs perfectly. game developers must be able to
+    tailor \progname{} for their purposes to increase its longevity and
+    long-term impact. \linebreak
+    \textit{Fit Criterion}: A game developer should be able to modify and/or
+    add a \progname{} component without affecting other parts of the system.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Output}:]  \progname{}
+    shall allow game developers to specify how to use its outputs and/or states
+    (\ref{flexOut}). \vspace*{1mm}\\
+    \textit{Rationale}: \progname{} is not supposed to tell game developers
+    \textit{what} to do with its components and outputs, only \textit{how} it
+    can help them accomplish their design goals. Therefore, its documentation
+    should include examples demonstrating what it can do so they can use it as
+    they require. \vspace*{1mm}\\
+    \textit{Fit Criterion}: A game developer can use \progname{} values with
+    game entities that are not NPCs.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_AuthorialEffort}:]
+    \progname{} shall not require a game developer to add ``emotional''
+    functionality on a per-entity basis (\ref{easeAuthor}). \vspace*{1mm}\\
+    \textit{Rationale}: Using \progname{} will increase the development and
+    testing time, but this must be minimized so that its perceived benefits
+    outweigh its costs. \vspace*{1mm}\\
+    \textit{Fit Criterion}: As the number of game entities using \progname{}
+    increases, game developer effort towards implementing \progname{}
+    functionality in entities increases at a rate that is better than linear.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Auto}:]  \progname{} shall
+    allow game developers to automate the storing and decaying of an emotion
+    state if they wish (\ref{easeAuto}). \vspace*{1mm}\\
+    \textit{Rationale}: These are general maintenance tasks that most game
+    developers will want to happen in the absence of emotion generation.
+    Allowing game developers to automate these tasks as they see fit will also
+    reduce authorial burden (see \nfref{N_AuthorialEffort}) \vspace*{1mm}\\
+    \textit{Fit Criterion}: Game developers can set \progname{} to
+    automatically update an emotion state when it generates emotions, and set
+    conditions for initiating emotion decay.
+
+\end{itemize}
+
+\paragraph{Look \& Feel}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Professional}:]
+    \progname{} shall appear to be professional and approachable.
+    \vspace*{1mm}\\
+    \textit{Rationale}: For \progname{} to have an impact outside of the
+    academic sphere, it must appear to be a professionally developed product so
+    that industry people do not hesitate to try it. \vspace*{1mm}\\
+    \textit{Fit Criterion}: \progname{} has a user guide, documented design,
+    and well-organized source code.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_OOStandard}:]  \progname{}
+    shall adhere to standard Object-Oriented design practices. \vspace*{1mm}\\
+    \textit{Rationale}: Game developers typically use Object-Oriented languages
+    such as C/C++, C\#, and Java/ JavaScript \citep{sweeney2006next} and many
+    game engines are based on the Object-Oriented
+    paradigm\footnote{\url{https://en.wikipedia.org/wiki/List_of_game_engines},
+        Accessed July 27, 2022}. \vspace*{1mm}\\
+    \textit{Fit Criterion}: A game developer should be able to use \progname{}'s
+    components as data and/or objects both within game engines and not.
+
+\end{itemize}
+
+\clearpage
+\paragraph{Cultural (World)}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_ChooseEm}:] \progname{}
+    shall allow game developers to choose which kinds of emotion it produces
+    (\ref{flexEm}). \vspace*{1mm}\\
+    \textit{Rationale}: While the biological basis of emotion categories might
+    be universal, the language people describe them with are
+    not~\citep[p.~115--122]{oatley1992best}. \progname{} should not enforce the
+    Euro-American affective lexicon because it might be difficult to understand
+    and/or meaningless to a different culture. This would hinder \progname{}'s
+    overall usability. \vspace*{1mm}\\
+    \textit{Fit Criterion}: Game developers can create their own emotion labels
+    for built-in categories and/or create their own categories (related to
+    \rref{R_MixingEmotionsPES}, \rref{R_PartitionEmotions},
+    \rref{R_MixingEmotionsCTE}).
+\end{itemize}
+
+\paragraph{Cultural (Game Development Work)}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_PX}:] \progname{} shall
+    demonstrate that it improves PX (\ref{easePX}). \vspace*{1mm}\\
+    \textit{Rationale}: A common goal of game design is to create an
+    interesting PX~\citep[p.~11]{mcallister2015video}. \progname{} must show
+    that it contributes to this, which will encourage industry people to try it
+    (related to \nfref{N_Professional}). \vspace*{1mm}\\
+    \textit{Fit Criterion}: An empirical user study of a game with \progname{}
+    functionality and participants that are video game players
+    (Section~\ref{sec:doc_stakeholder}) shall have statistically significant
+    results implying that the game has a better PX than a game without
+    \progname{} functionality.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Novel}:] \progname{} shall
+    demonstrate ways that it can create novel game experiences
+    (\ref{easeNovel}). \vspace*{1mm}\\
+    \textit{Rationale}: Even if \progname{} improves PX (see \nfref{N_PX}),
+    game developers might hesitate to try it if there does not appear to be a
+    sufficient benefit from learning a new tool and integrating it into a game
+    design. \vspace*{1mm}\\
+    \textit{Fit Criterion}: Game demos that use \progname{} will be freely
+    available.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_Examples}:] \progname{}'s
+    game demos shall adhere to common expectations about the connection between
+    goals, events, and emotions. \vspace*{1mm}\\
+    \textit{Rationale}: Even though they are intended as examples, the database
+    elements that are included with the basic architecture should still adhere
+    to commonly held beliefs about how people react to different events.
+    \vspace*{1mm}\linebreak
+    \textit{Fit Criterion}: After playing a demo, 75\% of players should be
+    able to articulate why a game entity ``experienced'' its emotions in
+    relation to its goals and game events.
+
+\end{itemize}
+
+\paragraph{Legal}
+\noindent \begin{itemize}[wide=0pt, leftmargin=*]
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_OSS}:]  \progname{} shall
+    be released as Open-Source Software. \vspace*{1mm}\\
+    \textit{Rationale}: Allowing people to use, study, and change \progname{}'s
+    source code can increase its longevity and long-term impact, as it does not
+    rely on a single developer to update and maintain it. It also encourages
+    trust in \progname{} because game developers can examine its source code
+    (related to \nfref{N_Custom}). \vspace*{1mm}\\
+    \textit{Fit Criterion}: \progname{} is published with an open-source
+    license.
+
+    \item[NF\refstepcounter{nfnum}\thenfnum \label{N_AcademicIntegrity}:]
+    \progname{} shall adhere to all terms and conditions of McMaster's
+    Academic Integrity Policy. \vspace*{1mm}\\
+    \textit{Rationale}: Intellectual honestly and ethical practices are
+    prerequisites for \progname{}'s acceptance, as failure to do so will make
+    stakeholders reject it on principle. As \progname{} design and development
+    is happening at McMaster University, this is the policy to follow.
+    \vspace*{1mm}\\
+    \textit{Fit Criterion}: \progname{} does not violate McMaster's Academic
+    Integrity Policy.
+
+\end{itemize}

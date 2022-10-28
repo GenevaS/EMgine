@@ -1,0 +1,484 @@
+\section{Suggestions for Other Cognitive Architecture Module
+Specifications}\label{appendix_cognitive}
+These are preliminary specifications for types and models that are not
+within the scope of \progname{}, but are necessary for it to function. They
+are to be seen only as suggestions when specifying these supporting modules.
+
+\subsection{Defining Lists of Goals}
+This is a simple specification of an indexed list of items with the type of
+Goal (\tyref{TY_Goal}).
+
+\subsubsection{Type Definitions}
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{TY_GoalIndex} & \bf
+        Type of Goal Labels \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $ \goallabeltype $ \\
+
+        \bf Type & -- \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} An ordered set of labels. These will typically be
+the
+set $[1, 2, ... , n - 1, n]$. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} --
+
+\paragraph{Ref. By} \waitref{TY_GoalSet}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{TY_GoalSet} & \bf Type
+        of Indexed Goal Set \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $ \indexsettype $ \\
+
+        \bf Type & $ \goallabeltype \rightarrow \goaltype $ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} An indexed goal set is an assignment of $\goaltype$
+to
+the labels $\goallabeltype$. Each element in $\goallabeltype$ is uniquely
+assigned a $\goaltype$.
+\\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_Goal}, \waitref{TY_GoalIndex}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+\subsection{Evaluating the Static Importance of a Goal}
+The preliminary specification for evaluating the importance of a Goal
+(\tyref{TY_Goal}) is inspired by \cite{lazarus1991emotion}, which relates
+the importance of goals to an individual's ego-identity.
+
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item[A\refstepcounter{assumpnum}\theassumpnum\label{A_PAEgoOrder}:] Ego
+    types have an order of importance [\waitref{TY_EgoIdentity}].
+\end{itemize}
+
+\subsubsection{Conceptual Models}
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum\label{C_Ego} & \bf Ego
+        Identity \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Ego-identity is a representation of the individual
+in the world, encompassing roles, relationships, and societal functions. It is
+used to categorize, organize, and prioritize personal goals (\cref{C_Goals}).
+
+There are seven types of ego-identity: self esteem, social esteem, moral
+values, ego-ideals, meanings and ideas, other persons and their well-being,
+and life goals. \\\hrule
+
+\paragraph{Source} \citet[p.~101--102]{lazarus1991emotion}
+
+\paragraph{Depends On} --
+
+\paragraph{Ref. By} \waitref{TY_Ego}, \waitref{TY_EgoIdentity},
+\waitref{TY_GoalEgoRelation}, \waitref{T_GoalPriority}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+\subsubsection{Type Definitions}
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{TY_Ego} & \bf Type of
+        Ego \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $\egotype$ \\
+
+        \bf Type & $ \{ \mathtt{SelfEsteem}, \mathtt{SocialEsteem},
+        \mathtt{Morals}, \mathtt{Ideals}, \mathtt{Meaning},
+        \mathtt{WellBeingOfOthers}, $ \\
+        & $ \mathtt{LifeGoals} \} $ \\
+
+        \bf Invariants & $\egotype$ is finite and ordered \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Ego is a set of labels representing the ways an
+individual can view their relationship with the world itself and the
+entities
+in it. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \waitref{C_Ego}
+
+\paragraph{Ref. By} \waitref{TY_EgoIdentity}, \waitref{TY_GoalEgoRelation},
+\waitref{T_GoalPriority}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{TY_EgoIdentity} & \bf
+        Type of Ego Identity \\\hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $\egoidentitytype$ \\
+
+        \bf Type & $ \left\{ \mathtt{importance} : \egotype \rightarrow
+        \mathbb{R^+} \right\} $ \\
+
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Each element in $\egotype$ has a importance
+function
+($\mathtt{importance}$) that returns a non-negative real value denoting its
+relative weight compared to other elements in $\egotype$
+(\aref{A_PAEgoOrder}).
+\\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \aref{A_PAEgoOrder}, \waitref{C_Ego}, \waitref{TY_Ego}
+
+\paragraph{Ref. By} \waitref{T_GoalPriority} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum\label{TY_GoalEgoRelation} &
+        \bf Type of the Goal-Ego Importance \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $ \goalegotype $ \\
+
+        \bf Type & $ \goaltype \times \egotype \rightarrow [ 0, 1 ] $ \\
+
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} The goal-ego importance describes the value each
+$\goaltype$ has with respect to an ego type $o : \egotype$, described as a
+weight in $[0, 1]$  (\waitref{C_Ego}). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_Goal}, \waitref{C_Ego}, \waitref{TY_Ego}
+
+\paragraph{Ref. By} \waitref{T_GoalPriority} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+\subsubsection{Theoretical Models}
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{T_GoalPriority}
+        &
+        \bf Evaluating Static Goal Importance \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $ge : \goalegotype$, $id :
+        \egoidentitytype$ \\
+
+        \bf Output & $\mImportance \defEq \sum_{e \in \egotype} ge(g, e)
+        \cdot id.\mathtt{importance}(e)$ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} The static importance of $g$ given by the sum of
+weights for each type of ego proportional to how much the goal impacts an
+ego type and the importance of the ego type to the NPC ($\sum_{e \in
+    \egotype} ge(g, e) \cdot id.\mathtt{importance}(e)$).
+
+This can be combined with the size of impact that an event has on $g$ to
+get an in-the-moment importance of $g$. \\\hrule
+
+\paragraph{Sources} \citet[p.~94--98]{lazarus1991emotion}
+
+\paragraph{Depends On} \tyref{TY_Goal}, \waitref{C_Ego}, \waitref{TY_Ego},
+\waitref{TY_EgoIdentity} \waitref{TY_GoalEgoRelation}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+\subsection{Modelling Attention}
+Attention is an independent component of cognition that an influence and be
+influenced by emotion.
+
+\subsubsection{Conceptual Model}
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Attend} &\bf
+        Attention \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} The amount of information gathered by the senses is
+usually enormous and the individual is unable to process it all in an efficient
+manner. The attention mechanism evolved to filter, classify, and amplify
+incoming information to manage this volume and ensure that the most important
+information is handled first. Information relevant to an individual's goals
+(\cref{C_Goals}) must be reliably identified in order to produce behaviours
+that increase the likelihood of achieving them. Novel and unexpected stimuli
+prompt a quicker response to maximize the amount of available information for
+cognitive processes. Attention can also be influenced by perceived personal
+relevance, familiarity, and the current emotion state (\cref{C_Emotion}).
+\\\hrule
+
+\paragraph{Source} \cite{robert1980emotion, lazarus1991emotion,
+    slavin2012educational}
+
+\paragraph{Depends On} --
+
+\paragraph{Ref. By} \waitref{TY_Attend}, \waitref{C_Interest},
+\waitref{C_Surprise}
+\\\hrule\vspace{0.5mm}\hrule
+
+\subsubsection{Type Definitions}
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{TY_Attend} & \bf
+        Type of Attention \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $ \attentiontype $ \\
+
+        \bf Type & $ \Bigg\{ \mathtt{focus} : \{ [0,1]_0 : \mathbb{R}, [0,1]_1
+        : \mathbb{R}, ..., [0,1]_n : \mathbb{R} \},
+        \mathtt{novelty} : \{ \mathbb{R}, ..., \mathbb{R} \}, $\\
+        & $\mathtt{familiarity} : \dfrac{1}{\mathtt{novelty}} \Bigg\} $ \\
+
+        \bf Invariant & The sum of the elements in $\mathtt{focus}$ is less
+        than 1 \\
+        & There is a matching element in $\mathtt{novelty}$ for every element
+        in $\mathtt{focus}$ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Attention ($\attentiontype$) is a record of three,
+equal length vectors representing elements in the game environment:
+\begin{itemize}
+    \item The $\mathtt{focus}$ vector represents how much something in the game
+    environment is taking of the NPC's attention as a percentage. The sum of
+    values in $\mathtt{focus}$ cannot exceed 1, or more attention is being used
+    than is available.
+
+    \item The $\mathtt{novelty}$ vector, which corresponds to the elements in
+    $\mathtt{focus}$ represents how unfamiliar the NPC is with that element in
+    the game environment.
+
+    \item The $\mathtt{familiarity}$ vector, derived from the
+    $\mathtt{novelty}$ vector, representing how familiar an NPC is with the
+    element in the game environment
+\end{itemize}\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \waitref{C_Attend}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+\subsection{Modelling Social Relationships}
+Social relationships are prominent elements in CTE. The components needed to
+model and maintain them could stand as an independent unit.
+
+\subsubsection{Conceptual Models}
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Relation} & \bf
+        Social Relationship \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A relationship can be defined by three
+factors---\textit{volatility}, \textit{dependability}, and
+\textit{faith}---which are treated as subjective probability judgements. The
+factors are weighted based on the security and confidence that the individual
+has in the relationship. A relationship's security and confidence is built over
+time via mutually satisfying interactions where the partner demonstrates their
+benevolence and honesty to the individual. These are tied directly to its
+component factors of volatility, dependability, and faith.
+\begin{itemize}
+    \item In the beginning, the \textit{volatility} factor is key as the
+    partner builds confidence by acting in predictable ways that demonstrate
+    care for the individual. At this stage, relationship confidence is
+    negatively impacted by volatile actions as it is difficult for the
+    individual to make accurate predictions about the partner's actions
+    and intentions.
+
+    \item In an established relationship, the partner's \textit{dependability}
+    is developed with each accurate prediction about events containing
+    increasing levels of personal risk where they influenced the
+    outcome. Shared goals, similar beliefs, and attributing part of a
+    personal gain to the partner's involvement all increase
+    dependability. While self-sacrificing actions quickly increase the
+    strength of a relationship, mutual exchanges can also increase a
+    relationship's confidence if the individual's self-esteem is
+    reinforced by their partner.
+
+    \item As an evaluation of the relationship itself, \textit{faith} directly
+    increases the confidence and security of the relationship
+    proportional to the size of the risk taken after an accurate
+    predictions is made. An inaccurate prediction surely decreases
+    confidence in the relationship, but the size and nature of this
+    effect is unclear.
+\end{itemize}
+
+After an event where another player impacted the outcome, the associated
+relationship is updated: positively if a benefit was obtained and negative if a
+loss was incurred. The size of the impact is determined by the size of gain or
+loss, regardless of the accuracy of the prediction. \\\hrule
+
+\paragraph{Source} \cite{rempel1985trust}
+
+\paragraph{Depends On} --
+
+\paragraph{Ref. By} \waitref{TY_SocialRelation}, \waitref{C_Trust}
+\\\hrule\vspace{0.5mm}\hrule
+
+\subsubsection{Type Definitions}
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{TY_SocialRelation} &
+        \bf Type of a Social Relationship \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $ \socialrelationtype $ \\
+
+        \bf Equation & $ \{ \mathtt{volatility} : \mathbb{R},
+        \mathtt{dependability} : \mathbb{R},
+        \mathtt{faith} : \mathbb{R^+}, $ \\
+        & $\mathtt{security} : \mathtt{volatility} \times
+        \mathtt{dependability} \times \mathtt{faith} \rightarrow \mathbb{R^+},$
+        \\
+        & $\mathtt{confidence} : \mathtt{volatility} \times
+        \mathtt{dependability} \times \mathtt{faith} \rightarrow \mathbb{R^+}
+        \} $
+        \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} The social relationship type ($\socialrelationtype$)
+represents the relationship between two NPCs (\waitref{C_Relation}) defined by:
+\begin{itemize}
+    \item Values representing the perceived $\mathtt{volatility}$ and
+    $\mathtt{dependability}$ of the other NPC's behaviours with respect to this
+    NPC's well-being as a real value,
+
+    \item A non-zero, real value for $\mathtt{faith}$ which represents the
+    perceived ``goodness'' of the relationship,
+
+    \item A $\mathtt{security}$ value, a non-negative real value that is a
+    function of $\mathtt{volatility}$, $\mathtt{dependability}$, and
+    $\mathtt{faith}$, where the value of $\mathtt{security}$ is inversely
+    proportional to the belief that the other NPC wishes harm on the NPC
+    holding this relationship, and
+
+    \item A $\mathtt{confidence}$ value, a non-negative real value that is a
+    function of $\mathtt{volatility}$, $\mathtt{dependability}$, and
+    $\mathtt{faith}$, where a higher value represents a greater confidence
+    in the perceived plausibility of this relationship's representation,
+\end{itemize}
+
+The $\mathtt{security}$ and $\mathtt{confidence}$ functions can have different
+definitions between NPCs. There outputs must always depend on the
+$\mathtt{volatility}$, $\mathtt{dependability}$, and $\mathtt{faith}$
+variables. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \waitref{C_Relation}
+
+\paragraph{Ref. By} \waitref{T_AngerIntensity} \\\hrule\vspace{0.5mm}\hrule

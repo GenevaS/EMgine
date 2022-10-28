@@ -1,0 +1,109 @@
+\section{Module Hierarchy}\label{SecMH}
+This section provides an overview of the module design. Modules are summarized
+in a hierarchy decomposed by secrets (Table \ref{TblMH}).The modules listed
+below, which are leaves in the hierarchy tree, are the modules that will
+actually be implemented.
+
+\begin{description}
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mIntensity}:] Emotion
+    Intensity Type Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mIntensityFun}:] Emotion
+    Intensity Function Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mStateType}:] Emotion State
+    Type Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mGenerate}:] Emotion
+    Generation Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mDecay}:] Emotion Intensity
+    Decay Rate Type Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mDecayState}:] Emotion
+    Intensity Decay State Type Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mDecayFun}:] Emotion Decay
+    Function Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mPADType}:] PAD Type Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mPADFun}:] PAD Function Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mEmotionType}:] Emotion Type
+    Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mEmotionFun}:] Emotion
+    Function Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mGoal}:] Goal Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mPlan}:] Plan Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mAttention}:] Attention Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mSocial}:] Social Attachment
+    Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mTime}:] Time Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mWorld}:] World State Module
+
+\end{description}
+
+\begin{table}[h!]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{p{0.16\linewidth} p{0.3\linewidth} p{0.44\linewidth}}
+        \toprule
+        \textbf{Level 1} & \textbf{Level 2} & \textbf{Level 3} \\
+        \midrule
+
+        \multirow{14}{\linewidth}{Behaviour\-/Hiding Module} &
+        \cellcolor[gray]{0.9} & \cellcolor[gray]{0.9}[\mref{mIntensity}]
+        Emotion Intensity Type Module \\
+        & \cellcolor[gray]{0.9}\multirow{-2}{\linewidth}{Emotion Intensity
+        Module} & \cellcolor[gray]{0.9}[\mref{mIntensityFun}] Emotion Intensity
+        Function Module \\
+
+        &  & [\mref{mStateType}] Emotion State Type Module \\
+        &  & [\mref{mGenerate}] Emotion Generation Module \\
+        &  & [\mref{mDecay}] Emotion Intensity Decay Rate Type Module \\
+        &  & [\mref{mDecayState}] Emotion Intensity Decay State Type Module \\
+        & \multirow{-5}{\linewidth}{Emotion State Module} &
+        [\mref{mDecayFun}] Emotion Decay Function Module \\
+
+        & \cellcolor[gray]{0.9} & \cellcolor[gray]{0.9}[\mref{mPADType}] PAD
+        Type Module \\
+        & \cellcolor[gray]{0.9}\multirow{-2}{\linewidth}{PAD Module} &
+        \cellcolor[gray]{0.9}[\mref{mPADFun}] PAD Function Module \\
+
+        &  & [\mref{mEmotionType}] Emotion Type Module \\
+        & \multirow{-2}{\linewidth}{Emotion Module} & [\mref{mEmotionFun}]
+        Emotion Function Module \\
+
+        & \cellcolor[gray]{0.9}[\mref{mGoal}] Goal Module &
+        \cellcolor[gray]{0.9}-- \\
+
+        & [\mref{mPlan}] Plan Module & -- \\
+
+        & \cellcolor[gray]{0.9}[\mref{mAttention}] Attention Module &
+        \cellcolor[gray]{0.9}-- \\
+
+        & [\mref{mSocial}] Social Attachment Module & -- \\
+
+        \midrule
+
+        \multirow{2}{\linewidth}{Software Decision Module} &
+        \cellcolor[gray]{0.9}[\mref{mTime}] Time Module &
+        \cellcolor[gray]{0.9}-- \\
+
+        & [\mref{mWorld}] World State Module & -- \\
+
+        \bottomrule
+    \end{tabular}
+    \caption{Module Hierarchy}
+    \label{TblMH}
+\end{table}

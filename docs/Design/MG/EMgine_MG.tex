@@ -1,0 +1,174 @@
+\documentclass[11pt, titlepage]{article}
+
+\usepackage[letterpaper, hmargin=1in, bmargin=1in, tmargin=1.3in,
+headheight=26pt]{geometry}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{N}[1]{>{\centering\arraybackslash}p{#1}}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage{txfonts}
+\usepackage[shortcuts]{extdash}
+
+\usepackage[nottoc,notlof,notlot,numbib]{tocbibind}
+
+\usepackage{natbib}
+
+\usepackage[page]{totalcount}
+
+\usepackage{fancyhdr}
+\fancyhf{}
+\lhead{Module Guide \\ \progname{}}
+\rhead{Geneva M. Smith \\ Dept. of Computing and Software---McMaster University}
+\lfoot{Ver.~\ref{current_version_MG}}
+\rfoot{\thepage\ of \thepagesMG}
+
+\renewcommand{\footrule}{\vbox to 0pt
+    {\makebox[\textwidth]{\hrulefill}\vss}}
+
+\hypersetup{
+    bookmarks=true,
+    colorlinks=true,
+    linktoc=all,
+    linkcolor=Purple,
+    citecolor=ForestGreen,
+    filecolor=WildStrawberry,
+    urlcolor=Cerulean
+}
+
+\newcommand{\citepg}[2]{\citeauthor{#1}, \citeyear{#1}, p.~#2}
+
+\makeatletter
+\newcommand\newref[1]{#1\def\@currentlabel{#1}}
+\makeatother
+
+\input{../../comments}
+
+\usepackage{xr}
+\externaldocument{../../SRS/EMgine_SRS}
+\newcommand{\rref}[1]{SRS-R\ref{#1}}
+\newcommand{\nfref}[1]{SRS-NF\ref{#1}}
+\newcommand{\tyref}[1]{SRS-TY\ref{#1}}
+\newcommand{\iref}[1]{SRS-IM\ref{#1}}
+\newcommand{\lcref}[1]{SRS-LC\ref{#1}}
+
+\newcounter{acnum}
+\newcommand{\actheacnum}{AC\theacnum}
+\newcommand{\acref}[1]{AC\ref{#1}}
+
+\newcounter{ucnum}
+\newcommand{\uctheucnum}{UC\theucnum}
+\newcommand{\uref}[1]{UC\ref{#1}}
+
+\newcounter{mnum}
+\newcommand{\mthemnum}{M\themnum}
+\newcommand{\mref}[1]{M\ref{#1}}
+
+\input{../../commands}
+
+\usepackage[shortlabels, inline]{enumitem}
+
+\begin{document}
+
+    \newcounter{pagesMG}
+    \setcounter{pagesMG}{\totalpages}
+    % Subtracts one from the total page count so that it does not include the
+    % title page
+    %\addtocounter{pagesMG}{-1}
+
+    \begin{titlepage}
+        \thispagestyle{empty}
+
+        \title{Module Guide for \progname{}: A Computational Model of Emotion
+        for
+        Enhancing Non-Player Character Believability in Games}
+        \author{Geneva M. Smith}
+        \date{October 15, 2022}
+
+        \maketitle
+    \end{titlepage}
+
+    \pagestyle{fancy}
+
+    \vspace*{\fill}
+    \section*{Revision History}
+    \begin{center}
+        \begin{tabular}{m{0.16\linewidth}C{0.15\linewidth}m{0.59\linewidth}}
+            \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+            \midrule
+
+            \vspace*{1mm}October 15, 2022 &
+            \vspace*{1mm}\newref{1.0}\label{current_version_MG} & \vspace*{6mm}
+            \begin{itemize}[noitemsep, nosep, leftmargin=*]
+                \item Completed First Version based on SRS Version~1.0
+            \end{itemize} \\ \midrule
+
+            \vspace*{1mm}July 21, 2022 & \vspace*{1mm}0.8 & \vspace*{6mm}
+            \begin{itemize}[noitemsep, nosep, leftmargin=*]
+                \item Module decomposition and definition based on SRS
+                Version~0.5
+                \item Missing references to Non-Functional Requirements in
+                Section~\ref{SecConnection}
+            \end{itemize} \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    \vspace*{\fill}
+
+    \clearpage
+
+    \tableofcontents
+
+    \clearpage
+
+    \listoftables
+
+    \listoffigures
+
+    \clearpage
+
+    \input{refmaterial}
+
+    \clearpage
+
+    \input{introduction}
+
+    \clearpage
+
+    \input{changes}
+
+    \clearpage
+
+    \input{moduleHierarchy}
+
+    \clearpage
+
+    \input{connect2reqs}
+
+    \clearpage
+
+    \input{ModuleDecomposition/moduleDecomp}
+
+    \clearpage
+
+    \input{traceability}
+
+    \clearpage
+
+    \input{useHierarchy}
+
+    \clearpage
+
+    \bibliographystyle{ACM-Reference-Format}
+    \bibliography{../../../refs/references_documentation,
+    ../../../refs/references, ../../../refs/references_gamedesign,
+    ../../../refs/references_SEPerspective, ../../../refs/references_psych}
+
+\end{document}

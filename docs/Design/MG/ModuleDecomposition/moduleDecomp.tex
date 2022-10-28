@@ -1,0 +1,25 @@
+\section{Module Decomposition}\label{SecMD}
+Modules are decomposed according to the principle of ``information hiding''
+proposed by \citet{ParnasEtAl1984}. Each module documents:
+\begin{itemize}
+
+    \item Its \emph{Secrets}, a brief statement of the design decision hidden 
+    by the module, 
+
+    \item Its \emph{Services}, specifying \emph{what} the module will do 
+    without documenting \emph{how} to do it.
+
+    \item A suggestion for what the module should be \emph{Implemented By}. If 
+    this is \emph{OS}, it means that the operating system or a standard 
+    programming language library provides the module. The system being designed 
+    does not need to provide them. If a there is a dash (\emph{--}), the module 
+    is \textit{not} a leaf node in the module hierarchy (Section~\ref{SecMH}). 
+    It is a ``virtual'' module, and will not have to be implemented unless 
+    required by a programming language.
+
+\end{itemize}
+%Also indicate if the module will be implemented specifically for the software.
+
+\input{ModuleDecomposition/behaviourModules}
+
+\input{ModuleDecomposition/softwareModules}

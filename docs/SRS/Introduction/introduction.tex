@@ -1,0 +1,69 @@
+\section{Introduction}
+This is the Software Requirements Specification (SRS) for \progname{}, a 
+Computational Model of Emotion (CME) for Non-Player Characters (NPCs) to 
+enhance their believability, with the goal of improving long-term player 
+engagement. \progname{} is for \textit{emotion generation}, accepting 
+user-defined information from a game environment to determines what emotion and 
+intensity a NPC is ``experiencing''. How the emotion is expressed and what 
+other effects it could have on game entities is left for game 
+designers/developers to decide.
+
+\progname{} aims to provide a feasible and easy-to-use method for game 
+designers/developers to include emotion in their NPCs, they perceive to be 
+challenging with the current tools and 
+restrictions~\citep{broekens2016emotional}. \progname{} should be modular and 
+portable such that game designers/developers can use it in their regular 
+development environment, and should not require knowledge of affective science, 
+psychology, and/or emotion theories.
+
+A \textit{believable character} ``...allows the audience to suspend their 
+disbelief and...provides a convincing portrayal of the personality they expect
+or come to expect [from the character]''~\cite[p.~1]{loyall1997believable}. 
+Believability is not limited to ``smart'' or ``normal'' characters because it
+depends on the situational context and the character's
+personality~\citep{lisetti2015and, loyall1997believable, reilly1996believable}.
+In short: an NPC must behave reasonably within the context of the game world.
+Generally, NPCs are believable when they~\citep{lankoski2007gameplay,
+    loyall1997believable, warpefelt2013analyzing}:
+\begin{itemize}
+    \item Appear to be self-motivated,
+    
+    \item Are aware of what is happening around them, and
+    
+    \item React in ways appropriate for their surrounding context while
+    adhering to their personality.
+\end{itemize}
+
+\textit{Emotion}, transient responses to changes in the 
+environment~\citep{lazarus1991emotion}, is one element of believable character 
+design~\citep{de2015beyond, emmerich2018m, gard2000building, 
+lankoski2007gameplay, lisetti2015and, loyall1997believable, paiva2005learning, 
+warpefelt2013analyzing}. It is an established aspect of believability in 
+animation~\citep{thomas1981illusion}, and game designers have acknowledged its 
+importance in NPC design~\citep{hudlicka2009foundations, yannakakis2015emotion}.
+
+Characters with emotion address the core features of believability because they 
+convey a character's goals and desires (\textit{self-motivated}) by showing 
+their \textit{awareness} of, \textit{responsiveness} to, and care 
+(\textit{personality}-driven) for their surroundings~\citep{bates1994, 
+broekens2021emotion, reilly1996believable}. It follows that one way to improve 
+an NPC's believability is to have them react emotionally to their 
+surroundings~\citep{togelius2013assessing, yannakakis2015emotion}.
+
+The template presenting this SRS's information is based on 
+\citet{SmithAndLai2005} and \citet{SmithEtAl2007}. The introductory sections 
+describe the project stakeholders (Section~\ref{sec:doc_stakeholder}), purpose 
+of this document (Section~\ref{sec:doc_purpose}), what background and knowledge 
+a reader must have to understand this document (Section~\ref{sec:doc_reader}), 
+the requirement scope (Section~\ref{sec:doc_reqscope}), and the organization of 
+document sections (Section~\ref{sec:doc_org}).
+
+\input{Introduction/stakeholders}
+
+\input{Introduction/purposeofdoc}
+
+\input{Introduction/intendedreader}
+
+\input{Introduction/reqscope}
+
+\input{Introduction/docorg}

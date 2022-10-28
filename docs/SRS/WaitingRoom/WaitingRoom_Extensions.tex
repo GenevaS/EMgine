@@ -1,0 +1,361 @@
+\section{Suggestions for Extending Modelled
+Components}\label{appendix_extensions}
+
+\subsection{Modelling Energy}
+The type of energy (\waitref{TY_Energy}) currently represents a generic store
+that an NPC can have. This can be expanded into different types of energy.
+\textit{Emotional Energy} is one possible kind to include, which could affect
+the updating (\iref{IM_UpdateEmotionState}) and decaying
+(\iref{IM_DecayEmotionState}) of the NPC's internal emotion state. For example,
+an NPC with high emotional energy has an easier time maintaining their current
+emotion than one with low emotional energy.
+
+\subsubsection{Type Definitions}
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{TY_Energy} & \bf Type
+        of Energy \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $\energytype$ \\
+
+        \bf Type & -- \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Energy is an abstract type that is linearly ordered.
+\\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} --
+
+\paragraph{Ref. By} \waitref{T_CopingPotential}, \waitref{T_FearIntensity}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{TY_EnergyChange} & \bf
+        Type of Energy Change \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $\energychangetype$ \\
+
+        \bf Type & -- \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Energy change is an abstract type representing a
+magnitude.
+\\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} --
+
+\paragraph{Ref. By} \waitref{TY_Action}, \waitref{T_CopingPotential} (via
+\waitref{TY_Action}) \\\hrule\vspace{0.5mm}\hrule
+
+\subsection{Modelling Actors and Actions}
+
+\subsubsection{Type Definitions}
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{TY_Actor} & \bf Type
+        of Actor \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $\actortype$ \\
+
+        \bf Type & -- \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Actor is an abstract type representing actors in the
+game environment. Actors are game entities that are able to act on the game
+environment, and include the player, NPCs, and non-sentient environment
+elements (e.g. a storm). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} --
+
+\paragraph{Ref. By} \waitref{T_Accountability}, \waitref{T_AngerIntensity}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{TY_Action} & \bf Type
+        of Action \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $ \actiontype $ \\
+
+        \bf Type & $ \left\{ \mathtt{makesChange} : \worldstatetype \rightarrow
+        \worldstatechangetype, \mathtt{successLikelihood} : \probabilitytype,
+        \mathtt{energyCost} : \energychangetype \right\} $ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} An action ($\actiontype$) is a record containing its
+effect on the world state ($\mathtt{makesChange} : \worldstatetype \rightarrow
+\worldstatechangetype$), its likelihood of being successful
+($\mathtt{successLikelihood} : \probabilitytype$), and the amount of energy
+that is needed to execute it ($\mathtt{energyCost} : \energychangetype$).
+\\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_WorldState}, \tyref{TY_WorldStateChange},  
+\waitref{TY_EnergyChange}
+
+\paragraph{Ref. By} \waitref{T_Accountability}, \waitref{T_CopingPotential},
+\waitref{T_FutureExpectancy}, \waitref{T_FearIntensity},
+\waitref{T_AngerIntensity}, \waitref{I_CopingPotential}
+\\\hrule\vspace{0.5mm}\hrule
+
+\subsection{Coping Potential}
+The model for \textit{Coping Potential} (\waitref{T_CopingPotential}) is
+intended to evaluate individual actions that an NPC can take, but a game
+designer might want to create a plan with these actions. A plan carries
+more weight, but the weight might not be equal to the sum of weights for
+each action. Two models have been created for this based on a separate
+conceptual model, representing empirically collected
+data~\citep{copingquestions}, which can be realized as types (TY) or data
+definitions (DD).
+
+\subsubsection{Conceptual Models}
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Coping}&\bf Coping
+        Strategies\\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Coping strategies are ill-defined classes of
+related
+behaviours developed to address a general collection of related stimuli and
+scenarios. Using a strategy changes the individual-environment
+relationship,
+which can change the individual's emotional state by altering the original
+appraisal (\waitref{C_Appraisal}). There are two types of coping:
+\begin{itemize}
+    \item Problem-focused: Acting directly on the environment to manage
+    demands and change the individual-environment relationship, creating new
+    information for Appraisal. These strategies can be risky and expensive, and
+    are closely related to the individual's power and control over the
+    environment.
+
+    \item Emotion-focused: Changing the individual's internal representations
+    of the individual-environment relationship---changing how the available
+    information is perceived---in order to reduce or eliminate perceived harms
+    and threats. These strategies include changing or omitting information or
+    redirecting attention (\waitref{C_Attend}). In extreme cases, the individual
+    alters or changes their goals (\cref{C_Goals}).
+\end{itemize} \hrule
+
+\paragraph{Source} \cite{lazarus1991emotion}
+
+\paragraph{Depends On} --
+
+\paragraph{Ref. By} \waitref{WR_CopingTypes}, \waitref{WR_CopingSubtypes}, 
+\waitref{C_SA}, \waitref{C_Fear}, \waitref{C_Anger}
+\\\hrule\vspace{0.5mm}\hrule
+
+\subsubsection{Type Definitions}
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{WR_CopingTypes} & \bf
+        Representation of Coping Types \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol &$\mathbb{CP}$\\
+
+        \bf Type & $\left(name: \stringtype, value: \mathbb{R}\right)$ \\
+
+        \bf Equation&$\mathbb{CP} = \mathtt{CopingType}$,
+        where \\
+        & $\mathtt{CopingType} \in \left\{
+        \begin{array}{l}
+            (\mathtt{Confrontive}, 0.70), (\mathtt{Distance}, 0.61),
+            (\mathtt{Self-Control}, 0.70), \\
+            (\mathtt{SeekSocialSupport}, 0.76),
+            (\mathtt{AcceptResponsibility},
+            0.66), \\
+            (\mathtt{EscapeAvoid}, 0.72), (\mathtt{PlanfulProblemSolving},
+            0.68), \\
+            (\mathtt{Positive Reappraisal}, 0.79)
+        \end{array}  \right\}$ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Coping types are a set of coping action classes
+(\waitref{C_Coping}) and their value based on the ``Ways of Coping'' factor
+analysis. Each class has a general theme of coping that can be acted on in
+different ways. \\\hrule
+
+\paragraph{Sources} \cite{copingquestions}
+
+\paragraph{Depends On} \waitref{C_Coping}
+
+\paragraph{Ref. By} \waitref{WR_CopingSubtypes} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{WR_CopingSubtypes} &
+        \bf Representation of Coping Subtypes \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol &$\mathbb{CP_{<:}}$\\
+
+        \bf Type & $\left(name : \stringtype, value : \mathbb{R}\right)$ \\
+
+        \bf Equation&$\mathbb{CP_{<:}} = \mathtt{CS_{>:}}$,
+        where \\
+        & $\mathtt{CS_{Confrontive}} \in \left\{
+        \begin{array}{l}
+            (\mathtt{StandGround}, 0.70), (\mathtt{ChangeAccountablesMind},
+            0.62),
+            \\
+            (\mathtt{ExpressAnger}, 0.61), (\mathtt{LetFeelingsOut}, 0.58),
+            \\
+            (\mathtt{TakeChanceOrRisk}, 0.32), (\mathtt{UnlikelyOutcome},
+            0.30)
+        \end{array}  \right\}$ \\
+
+        & $\mathtt{CS_{Distance}} \in \left\{
+        \begin{array}{l}
+            (\mathtt{RefuseSeriousness}, 0.55), (\mathtt{IgnoreSituation},
+            0.54),
+            \\
+            (\mathtt{RefuseToDwell}, 0.50), (\mathtt{AttemptForget}, 0.50),
+            \\
+            (\mathtt{SeekBrightSide}, 0.34), (\mathtt{AcceptFate}, 0.25)
+        \end{array}  \right\}$ \\
+
+        & $\mathtt{CS_{Self-Control}} \in \left\{
+        \begin{array}{l}
+            (\mathtt{BottleFeelings}, 0.55), (\mathtt{HideFeelings}, 0.46),
+            \\
+            (\mathtt{SaveRelationship}, 0.40), (\mathtt{ReconsiderPlan},
+            0.40), \\
+            (\mathtt{StopInterference}, 0.37), (\mathtt{ImagineRoleModel},
+            0.37), \\
+            (\mathtt{SeeOtherView}, 0.28)
+        \end{array}  \right\}$ \\
+
+        & $\mathtt{CS_{SeekSocialSupport}} \in \left\{
+        \begin{array}{l}
+            (\mathtt{GetInformation}, 0.73), (\mathtt{GetConcreteHelp},
+            0.68), \\
+            (\mathtt{GetAdvice}, 0.58), (\mathtt{DiscussFeelings}, 0.57),
+            \\
+            (\mathtt{AcceptSYmpathy}, 0.56), (\mathtt{ProfessionalHelp},
+            0.45)
+        \end{array}  \right\}$ \\
+
+        & $\mathtt{CS_{AcceptResponsibility}} \in \left\{
+        \begin{array}{l}
+            (\mathtt{CritisizeSelf}, 0.71), (\mathtt{RealizeOwnRole},
+            0.68), \\
+            (\mathtt{PromiseToChange}, 0.49), (\mathtt{Apologize}, 0.39),
+            \\
+        \end{array}  \right\}$ \\
+
+        & $\mathtt{CS_{EscapeAvoid}} \in \left\{
+        \begin{array}{l}
+            (\mathtt{WishAway}, 0.66), (\mathtt{HopeForMiracle}, 0.55), \\
+            (\mathtt{Fantasize}, 0.54), (\mathtt{Overindulge}, 0.49), \\
+            (\mathtt{AvoidOthers}, 0.46), (\mathtt{Denial}, 0.42), \\
+            (\mathtt{TargetOthers}, 0.40), (\mathtt{Oversleep}, 0.36)
+        \end{array}  \right\}$ \\
+
+        & $\mathtt{CS_{PlanfulProblemSolving}} \in \left\{
+        \begin{array}{l}
+            (\mathtt{DoubleEffort}, 0.71), (\mathtt{MakePlan}, 0.61), \\
+            (\mathtt{NextStep}, 0.45), (\mathtt{ImproveSituation}, 0.44),
+            \\
+            (\mathtt{Experience}, 0.40), (\mathtt{MultipleSolutions}, 0.38)
+        \end{array}  \right\}$ \\
+
+        & $\mathtt{CS_{PositiveReappraisal}} \in \left\{
+        \begin{array}{l}
+            (\mathtt{GoodPersonalChange}, 0.79),
+            (\mathtt{GainedExperience}, 0.67),
+            \\
+            (\mathtt{NewFaith}, 0.64), (\mathtt{RediscoverImportance},
+            0.64), \\
+            (\mathtt{Pray}, 0.56), (\mathtt{ChangeSelf}, 0.55), \\
+            (\mathtt{InspiredCreativity}, 0.43)
+        \end{array}  \right\}$ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Coping subtypes are more concrete instances of
+coping types (\waitref{WR_CopingTypes}) with their own values that reflect
+their relative importance to other subtypes of the same super type. Values
+are based on the ``Ways of Coping'' factor analysis. \\\hrule
+
+\paragraph{Sources} \cite{copingquestions}
+
+\paragraph{Depends On} \waitref{C_Coping}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}

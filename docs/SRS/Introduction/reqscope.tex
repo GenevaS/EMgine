@@ -1,0 +1,49 @@
+\subsection{Scope of Requirements}\label{sec:doc_reqscope}
+\progname{} calculates a discrete emotion type/kind/category and associated
+intensity for a game entity---initially, a NPC---from user-defined information
+about the entity's goals, plans to achieve certain world states, attention to
+other entities, social attachments to other entities and game states.
+\progname{} uses this information to update the entity's internal ``emotion''
+state at a given time step. \progname{} also provides the means to decay the
+intensities of an ``excited'' emotion state back to user-defined default values
+such that it can ``calm down''. \progname{} also provides the means for a user
+to query an emotion state for its equivalent representation as a point in PAD
+space.
+
+\progname{} focuses on \textit{emotion generation} alone. Therefore, it does
+not provide the functionality to calculate other types of affect such as
+``core'' affect, mood, and personality. However, providing an emotion state's
+coordinates in PAD space can help \progname{} interface with other
+user-provided components that do. The use of PAD space as a common
+representation for different types of affect and their interactions has proven
+successful in other CMEs~\citep{broekens2004scalable, gebhard2005alma,
+masuyama2018personality}).
+
+The focus on emotion generation also means that \progname{} does not define
+most cognitive entities and functions at all. However, there are some that are
+necessary for CTE's functions---goals, plans, and optional attention and social
+attachment components/functions. \progname{} provides Application Programming
+Interfaces (APIs) for these components. It uses abstract types and/or defines
+them with elements from the provided APIs where possible. This maximizes
+\progname{}'s portability as it gives video game designers/developers as much
+freedom as possible to use an agent architecture of their choice. Providing
+inputs to the attention and social attachment APIs are optional because
+\progname{} can still generate six of the eight ``primary'' emotion types
+defined in PES (\textit{Anger}, \textit{Fear}, \textit{Sadness}, \textit{Joy},
+\textit{Surprise}, and \textit{Disgust}) without them. Using the API for
+attention allows \progname{} to generate \textit{Interest}, and the API for
+social attachment allows \progname{} to generate \textit{Acceptance}.
+
+\progname{}'s users are responsible for providing it with definitions for a
+game entity's goals and plans, and for defining the default emotion state
+intensities and decay rates for each emotion type it contains. Users can
+optionally provide information for the game entity's attention and social
+attachments to other game entities. Users also have the option to define new
+emotion kinds using the provided ``primary'' ones and emotion intensity values.
+
+Due to its intended use in game development, \progname{} design is unconcerned
+with strict adherence to ``realistic'' emotion generation. This means that its
+usage scope is limited to the scope of games, which have been used for
+pedagogical purposes. It is left to the game designers/developers to determine
+if the level of realism provided by \progname{} is appropriate for their
+application.

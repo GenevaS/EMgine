@@ -1,0 +1,76 @@
+\section{Introduction}
+This is the Module Guide (MG) for the \progname{}, a Computational Model of
+Emotion (CME) for Non-Player Characters (NPCs) to enhance their believability,
+with the goal of improving long-term player engagement. \progname{} is for
+\textit{emotion generation}, accepting user-defined information from a game
+environment to determines what emotion and intensity a NPC is ``experiencing''.
+How the emotion is expressed and what other effects it could have on game
+entities is left for game designers/developers to decide. For more information
+about \progname{} and its requirement specification, see its Software
+Requirements Specification (SRS) document (Version~\srsVersion).
+
+\subsection{Purpose of the Document}
+After completing an SRS, the MG is developed~\citep{ParnasEtAl1984}. The MG
+specifies the modular structure of the system and is intended to allow both
+designers and maintainers to easily identify the parts of the software.
+
+Decomposing a system into modules is a commonly accepted approach to developing
+software.  A module is a work assignment for a programmer or programming
+team~\citep{ParnasEtAl1984}. The module decomposition in this MG is based on
+the principle of information hiding~\citep{Parnas1972a}. This principle
+supports design for change, because the ``secrets'' that each module hides
+represent likely future changes. Design for change is valuable in software
+design, where modifications are frequent, especially during initial development
+as the solution space is explored. \progname{}'s design follows
+\citet{ParnasEtAl1984}:
+\begin{itemize}
+    \item System details that are likely to change independently should be the
+    secrets of separate modules.
+    \item Each data structure is implemented in only one module.
+    \item Any other program that requires information stored in a module's data
+    structures must obtain it by calling access programs belonging to that
+    module.
+\end{itemize}
+
+\subsection{Intended Readers of the Document}
+
+\begin{itemize}
+    \item \textbf{New Project Members} \\
+    This document can be a guide for a new project member to aid their
+    understanding of the overall structure and quickly find modules that are
+    relevant to their work.
+    
+    \item \textbf{Maintainers} \\
+    The MG's hierarchical structure improves the maintainers' understanding of
+    the system when they need to make changes. It is crucial for a maintainer
+    to update the relevant sections of the document after changes have been
+    made.
+    
+    \item \textbf{Designers} \\
+    Once the MG has been written, designers can use it to verify the system in
+    various ways, such as consistency among modules, feasibility of the
+    decomposition, and flexibility of the design.
+\end{itemize}
+
+\subsection{Organization of the Document}
+The rest of the document is organized as follows:
+\begin{itemize}
+    \item Section~\ref{SecChange} lists the software requirements'
+    anticipated/likely and unlikely changes
+
+    \item Section~\ref{SecMH} summarizes the module decomposition based on the
+    anticipated changes
+
+    \item Section~\ref{SecConnection} documents design decisions made to 
+    connect the software requirements to modules
+
+    \item Section~\ref{SecMD} gives a description for each module
+
+    \item Section~\ref{SecTM} includes two traceability matrices: one checks
+    the completeness of the design against the requirements provided in the
+    SRS, and the other shows the relation between anticipated changes and
+    modules
+
+    \item Section~\ref{SecUse} describes the \textit{uses} hierarchy between 
+    modules
+\end{itemize}

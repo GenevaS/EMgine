@@ -1,0 +1,128 @@
+\subsubsection{Assumptions}\label{sec_assumptions}
+This section helps formalize the original problem to aid the development of 
+types, models, and definitions by filling in the ambiguous and missing 
+information. The numbers given in the square brackets refer to where the 
+assumption appears: Theoretical Model [T], General Definition [GD], Data 
+Definition [DD], Data Type [TY], Instance Model [IM], or Likely Change [LC]. If 
+there are no square brackets next to an assumption, it is generally applicable.
+
+The Conceptual Models (Section~\ref{sec_conceptual}) have no related 
+assumptions because they are taken from primary sources, with no attempts at 
+elaboration or disambiguation. 
+
+\begin{itemize}
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_TotalFunctions}:]
+    All functions are \textit{total} unless otherwise stated.
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_formal}:]
+    Words describing concepts in conceptual models do not necessarily reflect
+    how they are represented in a formal context.
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Cognition}:]
+    \textit{Cognition} refers to the representation and transformation of
+    knowledge, which might not be concious~\citep[p.~30]{oatley1987towards}.
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Modular}:]
+    The human cognitive system is modular and
+    asynchronous~\citep[p.~31]{oatley1987towards}.
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum 
+    \label{A_Subgoal}:] Each action and/or event that moves an entity towards 
+    its goal is a ``sub-goal'' [\tref{T_CalculateEmotionGP}, 
+    \lcref{LC_Subgoal}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum 
+    \label{A_Goal2Emotion}:] A goal can elicit multiple emotions simultaneously 
+    [\tref{T_CalculateEmotionGP}, \lcref{LC_Goal2Emotion}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum 
+    \label{A_OneState}:] An entity is in exactly one emotion state at any given 
+    time [\tref{T_CalculateEmotionGP}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum 
+    \label{A_EmotionTypeIntensity}:] Emotion type and intensity do not have to 
+    be calculated together [\tref{T_CalculateEmotionGP}, 
+    \lcref{LC_EmotionTypeIntensity}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AppraisalProcess}:]
+    Not all emotions come from the same appraisal process 
+    [\tref{T_CalculateEmotionGP}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Goal2Intensity}:]
+    Emotion intensity is related to the degree that something impacts a goal 
+    [\tref{T_CalculateEmotionIntensity}, \lcref{LC_Goal2Intensity}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Surprise}:]
+    \textit{Surprise} is related to large, rapid changes in an emotion state 
+    [\tref{T_CalculateEmotionSurprise}, \lcref{LC_Surprise}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Surprise2}:]
+    \textit{Surprise} is related to changes in an emotion state that occur soon 
+    after a previous change in emotion state 
+    [\tref{T_CalculateEmotionSurprise}, \lcref{LC_Surprise}].
+
+     \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Interest}:] 
+     \textit{Interest} is related to the amount of time an entity spends 
+     focusing on the same thing [\tref{T_CalculateEmotionInterest}, 
+     \lcref{LC_Interest}].
+
+     \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Acceptance}:] 
+     \textit{Acceptance} is a ``complex'' emotion based on \textit{Joy}
+     [\tref{T_CalculateEmotionAcceptance}].
+
+     \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_DecaySpeed}:] 
+     Emotion decays more quickly the farther it is from the ``equilibrium'' 
+     state [\tref{T_DecayEmotionState}, \lcref{LC_DecaySpeed}].
+
+     \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Equilibrium}:] 
+     Each emotion kind can have its own ``equilibrium'' value 
+     [\tref{T_DecayEmotionState}, \lcref{LC_Equilibrium}].
+
+     \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_DecayRate}:] 
+     Each emotion kind in a state can decay at its own rate 
+     [\tref{T_DecayEmotionState}, \lcref{LC_DecayRate}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_DecayUnique}:] 
+    Decay rates and equilibrium values can vary between entities 
+    [\tref{T_DecayEmotionState}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_OnePADPoint}:] 
+    An emotion state represents a single point in PAD Space 
+    [\tref{T_GetEmotionStatePAD}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_EmotionTerms}:] 
+    Laypeople that judged emotion terms in one of PES and PAD would find that 
+    terms used in the other theory would have comparable meanings 
+    [\tref{T_GetEmotionStatePAD}, \lcref{LC_EmotionTerms}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_PADStats}:] The 
+    number of ratings and standard deviation do not affect an emotion term's 
+    mean values for \textit{pleasure}, \textit{arousal}, and \textit{dominance}
+    [\tref{T_GetEmotionStatePAD}, \lcref{LC_PADStats}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_LimitIntensity}:]
+    Emotion intensities are finite [\tyref{TY_EmotionState}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_PositiveIntensity}:]
+    In PES, the state of ``deep sleep'' implies that all emotion state
+    intensities are zero (0) [\tyref{TY_EmotionIntensity}, 
+    \tyref{TY_EmotionDecayState}, \lcref{LC_PositiveIntensity}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_EmotionPairs}:] In 
+    PES, the state of ``deep sleep'' implies that emotion type pairs are not 
+    coupled [\tyref{TY_EmotionState}, \lcref{LC_EmotionPairs}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Events}:]
+    The environment can be represented by variables and events are changes in
+    those variables  [\tyref{TY_Goal}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_GustatoryGoal}:]
+    Gustatory and self-preservation goals are satisfied by default 
+    [\iref{IM_CalculateEmotionGP}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum 
+    \label{A_UpdateEmotionState}:] Emotion state updates are linear 
+    [\iref{IM_UpdateEmotionState}, \lcref{LC_UpdateEmotionState}].
+
+\end{itemize}

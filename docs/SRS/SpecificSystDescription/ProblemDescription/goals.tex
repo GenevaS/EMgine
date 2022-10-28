@@ -1,0 +1,121 @@
+\subsubsection{Goal Statements}\label{sec_goals}
+Given an entity that is associated with at least one instance of \progname{},
+the entity's goals, a world state, an event that changes or could change that
+world state, and optional world and/or entity knowledge, \progname{}'s goals
+are:
+\begin{itemize}
+
+    \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_EmotionGeneration}]
+    Determining what emotion type and intensity is elicited by a change in game
+    world state.
+
+    \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_EmotionDecay}]
+    Determining what intensity each emotion type has when decaying emotion.
+
+    \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_UpdateEmotionState}]
+    Updating stored emotion values.
+
+    \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_QueryEmotionState}]
+    Allowing queries about stored emotion values.
+
+\end{itemize}
+
+The goal statements only describe \progname{}'s \textit{tasks}. \progname{}
+also requires goals (i.e. high-level requirements) describing its target
+\textit{properties} to guide the selection of its underlying emotion theories
+(Section~\ref{sec_theories}). This process is needed to define the Assumptions
+(Section~\ref{sec_assumptions}) and Conceptual Models
+(Section~\ref{sec_conceptual}). The high-level requirements directly
+incorporate some of the needs of video game designers/developers
+(Section~\ref{sec:doc_stakeholder}) to improve the probability of \progname{}'s
+acceptance, which the SRS incorporates in the nonfunctional requirements
+(Section~\ref{sec_ReqsNF}).
+
+The \textit{flexibility} goals are about making \progname{} adaptable so that
+it can meet game designer needs~\citep[p.~30]{reilly1996believable}. The aim is
+for \progname{} to be applicable to a range of game designs while avoiding
+making decisions for the game developer.
+\begin{enumerate}[label=RF\arabic*]
+    \item\label{flexArch} Independence from an agent architecture so that
+    designers can choose how to integrate \progname{} into their game
+    (\citepg{loyall1997believable}{25--26};
+    \citepg{rodriguez2015computational}{443};
+    \citepg{broekens2016emotional}{218})
+
+    \item\label{flexTasks} Allowing the game designer to choose which of
+    \progname{}'s tasks to use, as well as when and how to use
+    them (\citepg{mascarenhas2022fatima}{8:13};
+    \citepg{guimaraes2022fatima}{20})
+
+    \item\label{flexCustom} Allowing the customization or redefinition of
+    \progname{}'s pre-existing configuration parameters
+    (\citepg{reilly1996believable}{30}; \citepg{guimaraes2022fatima}{20})
+    such as the definition of time and emotion decay rates
+
+    \item\label{flexNew} Allowing designers to integrate new components
+    into \progname{} that influence or are influenced by emotion
+    (\citepg{rodriguez2015computational}{450};
+    \citepg{castellanos2019mechanism}{353}), such as mood, personality,
+    motivations, culture, gender, and physical state
+
+    \item\label{flexEm} Allowing designers to choose which kinds of emotion
+    \progname{} produces (i.e. which emotions an NPC can
+    have)~\citep[p.~331]{hudlicka2014computational}, (e.g. \textit{Anger},
+    \textit{Joy})
+
+    \item\label{flexOut} Allowing designers to specify how to use
+    \progname{}'s outputs~\citep[p.~86]{loyall1997believable}
+
+    \item\label{flexComplex} Allow designers to use \progname{} on
+    different levels of NPC
+    complexity~\citep[p.~220]{broekens2016emotional}, e.g. a
+    \textit{Pac-man} ghost~\citep{pacman} and a \textit{Skyrim}
+    citizen~\citep{skyrim} will not have the same emotional requirements
+
+    \item\label{flexScale} Being efficient and scalable to minimize
+    \progname{}'s impact on overall game performance
+    \citep[p.~42]{popescu2014gamygdala}
+\end{enumerate}
+
+The \textit{ease-of-use} goals concern the usability of \progname{} and showing
+how it supports game development. These aim to make \progname{} more
+user-friendly and minimize maintenance to increase its chances of adoption by
+game developers.
+\begin{enumerate}[label=RE\arabic*]
+    \item\label{easeHide} Hiding the complexity of emotion generation so
+    that game designers do not have to be knowledgeable in emotion
+    psychology to use \progname{} (\citepg{reilly1996believable}{28};
+    \citepg{broekens2016emotional}{220}; \citepg{guimaraes2022fatima}{5})
+
+    \item\label{easeAPI} Providing a clear and understandable Application
+    Programming Interface (API) or similar that shows how to use the
+    different aspects of \progname{}~\citep[p.~218]{broekens2016emotional}
+
+    \item\label{easeAuthor} Minimizing authorial burden as game developers
+    add NPCs to their game~\citep[p.~5]{guimaraes2022fatima}
+
+    \item\label{easeTrace} Allowing \progname{}'s outputs to be traceable
+    and understandable (\citepg{loyall1997believable}{86};
+    \citepg{guimaraes2022fatima}{5, 19--20})---critical for testing---by
+    providing ways to view the range, intensity, and causes of emotion per
+    NPC, per NPC group, and per game world
+    area~\citep[p.~219--220]{broekens2016emotional}
+
+    \item\label{easeAuto} Allowing developers the option to automate the
+    storing and decaying of \progname{}'s internal emotion
+    state~\citep[p.~86]{loyall1997believable}
+
+    \item\label{easePX} Showing that \progname{} improves the player
+    experience, since a sub-par design could be a detriment to the overall
+    game and would not be of use to game development
+
+    \item\label{easeNovel} Providing examples as to how \progname{} can
+    create novel game experiences~\citep[p.~221]{broekens2016emotional}
+\end{enumerate}
+
+The flexibility and ease-of-use goals also imply that \progname{} \textit{must
+not} depend on a particular entity embodiment or implementation because this
+limits the types of entities that it could support (related to \ref{flexArch},
+\ref{flexComplex}), and it \textit{must} support the generation of
+\textit{fast, primary emotions} and \textit{slow, secondary
+emotions}~\citep[p.~60--70]{picard1997affective} (related to \ref{flexComplex}).

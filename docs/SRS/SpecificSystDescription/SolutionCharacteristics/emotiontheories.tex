@@ -1,0 +1,489 @@
+\subsubsection{Emotion Theories and Models}\label{sec_theories}
+All potential \progname{} solutions must be based on emotion theories and data
+to improve its \textit{psychologically validity}, which is necessary for its
+behaviours to be \textit{plausible}~\citep[p.~216--217]{broekens2016emotional}.
+The theories that \progname{} uses must align with its overall design goals.
+
+\progname{}'s theories are Oatley \& Johnson-Laird's Communicative Theory of
+Emotion (CTE), Plutchik's Psycho-Evolutionary Synthesis (PES), and Mehrabian's
+Pleasure-Arousal-Dominance Space (PAD). These were chosen from a pool of
+potential candidates (Table~\ref{tab:theories}) based on their ability to
+satisfy the \textit{flexibility} and \textit{ease-of-use} high-level
+requirements (Section~\ref{sec_systemConstraints}). Note that these
+requirements are theory-agnostic, so any emotion theory that supports them is a
+reasonable choice.
+
+The selection process follows these general steps:
+\begin{enumerate}
+    \item Scoping the high-level requirements as needed
+    \item Scoring each candidate theory
+    \item Choosing theories based on their scores
+\end{enumerate}
+
+\paragraph{Scoping}
+The analysis separates \textit{Providing a clear and understandable API}
+(\ref{easeAPI}) into two---Input and Output---to get a better feel for each
+theory's usefulness. This is an acknowledgement that some theories are better
+for emotion expression, such as Ekman \& Friesen.
+
+The requirement for \textit{Allowing the Integration of New Components}
+(\ref{flexNew}) is broad and should be scoped for the initial design of
+\progname{}. New \progname{} components could be non-affective (e.g. attention)
+and affective (e.g. personality) in nature. Integrating non-affective
+components should be theory-agnostic, as they are part of separate components
+of mind~\citep{cognitiondef}. From a software engineering perspective, one
+could view the mind as a system with distinct, interacting subsystems. Modular
+interfaces that control interactions between \progname{}---as the affective
+subsystem---and components from other subsystems would support this concept,
+while also maintaining \progname{}'s requirements for \textit{Independence from
+an Agent Architecture} (\ref{flexArch}) and \textit{Allowing Developers to
+Specify How to Use Outputs} (\ref{flexOut}). Integrating other affective
+components would depend on \progname{} and its foundational theories. One would
+be limited to only those components that can be represented in terms of the
+emotions or other types of affect that have been connected to them.
+
+This requirements analysis focuses on three other types of affect: core affect,
+mood, and personality. Of these, it prioritizes personality because it is
+necessary for creating the consistent and coherent agent behaviours that
+influence believability (\citepg{reilly1996believable}{26};
+\citepg{loyall1997believable}{19}; \citepg{ortony2002making}{203}).
+
+Finally, the \textit{Minimizing authorial burden} requirement
+(\ref{easeAuthor}) is excluded from the analysis. This is due to its focus on
+helping game developers manage the creation of an increasing NPC population,
+rather than the functionality of \progname{} itself.
+
+\begin{table}[!tbh]
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \caption{Theories Analysed}
+    \label{tab:theories}
+    \begin{tabular}{P{0.2\columnwidth}P{0.65\columnwidth}}
+        \toprule
+        \textbf{Perspective} & \textbf{Theories} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}Discrete & Ekman \& Friesen (Ek.), Izard (Iz.),
+        Plutchik (Plu.) \\
+
+        Dimensional & Valence-Arousal (V-A), PAD Space (PAD) \\
+
+        \rowcolor[gray]{0.9}Appraisal & Frijda (Frj.), Lazarus (Laz.), Scherer
+        (Sch.), Roseman (Ros.), Ortony, Clore, and Collins (OCC), Smith \&
+        Kirby (S \& K), Oatley \& Johnson-Laird (O \& JL) \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{Scoring} Each theory has a set of notes made during their
+examination, guided by individual high-level requirements. After reviewing the
+notes, each theory is assigned a \textit{score} describing its relative
+``suitability'' for that requirement (Table~\ref{tab:scoring}). This step is
+somewhat subjective because a judgement is made without true objective measures
+or methods. The notes are in Appendix~\ref{chapter:reqsTheoryNotes}.
+
+\progname{}'s high-level requirements are divided into two sets:
+\textit{system-level}, which applies to \progname{} as a whole
+(Tables~\ref{tab:theory-req-sys-summary-flexibility} and
+\ref{tab:theory-req-sys-summary-easeofuse}), and \textit{component-level} for
+requirements that only apply to specific pieces of \progname{}
+(Tables~\ref{tab:theory-req-comp-summary-flexibility} and
+\ref{tab:theory-req-comp-summary-easeofuse}). Only appraisal theories are
+assigned categories for component-level requirements because they concern
+process-related elements that discrete and dimensional theories do not address.
+Each theory has unique elements, which might make it better or worse suited for
+a particular requirement. These are noted in the analysis. However, is not
+unusual for theories from the same perspective to satisfy a requirement equally
+well. In these cases, the theories are treated as a collective unit when
+examining the requirement.
+Tables~\ref{tab:theory-req-sys-summary-flexibility},
+\ref{tab:theory-req-sys-summary-easeofuse},
+\ref{tab:theory-req-comp-summary-flexibility}, and
+\ref{tab:theory-req-comp-summary-easeofuse} summarize the scores for each
+theory and requirement.
+
+\begin{table}[!h]
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \caption{Summary of Scoring Categories}
+    \label{tab:scoring}
+    \begin{tabular}{ccP{0.65\columnwidth}}
+        \toprule
+        \textbf{Score Category} & \textbf{Symbol} & \textbf{Definition} \\
+
+        \midrule
+
+        \rowcolor[gray]{0.9}\textit{Strong} & \strong & The theory
+        appears to satisfy the requirement in a clear, understandable way and
+        is likely to aid in \progname{}'s usability
+        \\
+
+        \textit{Good} & \good & The theory appears to satisfy the requirement
+        and is somewhat defined \\
+
+        \rowcolor[gray]{0.9}\textit{Weak} & \weak & The theory
+        describes ways that \textit{could} satisfy the requirement, but it is
+        not fully defined or could make \progname{} harder to use \\
+
+        \textit{Disqualified} & \disqualified & The theory does not seem likely
+        to be able to satisfy this requirement, or it violates other
+        requirements when it can (including psychological validity) \\
+
+        \bottomrule
+
+    \end{tabular}
+\end{table}
+
+\begin{table}[!tbh]
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \caption[Support for System-Level Flexibility High-Level
+    Requirements]{Support for System-Level \textbf{Flexibility} High-Level
+        Requirements}
+    \label{tab:theory-req-sys-summary-flexibility}
+    \footnotesize
+    \begin{threeparttable}
+        \begin{tabular}{@{}cP{0.13\linewidth}cccccccccccc@{}}
+
+            \toprule
+            \multicolumn{2}{c}{} & \hd{\textbf{Ek.}} &
+            \hd{\textbf{Iz.}} & \hd{\textbf{Plu.}} & \hd{\textbf{V-A}}
+            & \hd{\textbf{PAD}} & \hd{\textbf{Frj.}} &
+            \hd{\textbf{Laz.}\textsuperscript{\footnotesize\textpmhg{\Hi}}} &
+            \hd{\textbf{Sch.}} & \hd{\textbf{Ros.}} &
+            \hd{\textbf{OCC}} & \hd{\textbf{S \& K}} & \hd{\textbf{O \&
+                    JL}} \\
+            \midrule
+
+            \rowcolor[gray]{0.9}\ref{flexArch} & \textit{Independence
+                from an Agent Architecture} & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\good} & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\strong} & {\normalsize\good} &
+            \disqualified & {\normalsize\good} & {\normalsize\strong} &
+            {\normalsize\strong} & {\normalsize\strong} \\
+
+            \ref{flexNew} & \textit{Allowing the Integration of
+                Components}{\large\textpmhg{\Hl}} & {\normalsize\weak} &
+            {\normalsize\weak}\textsuperscript{\normalsize\Moon} &
+            {\normalsize\good}\textsuperscript{\normalsize\Moon} &
+            {\normalsize\strong}\textsuperscript{\large\Jupiter} &
+            {\normalsize\strong}\textsuperscript{\large\Jupiter} &
+            {\normalsize\strong} & {\normalsize\weak} & {\normalsize\weak} &
+            {\normalsize\weak} & {\normalsize\strong} & {\normalsize\weak} &
+            {\normalsize\strong} \\
+
+            \rowcolor[gray]{0.9}\ref{flexEm} & \textit{Choosing NPC
+                Emotions} & {\normalsize\weak} & \disqualified &
+            {\normalsize\strong} & {\normalsize\weak} & {\normalsize\good} &
+            {\normalsize\weak} & {\normalsize\weak} & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\good} & {\normalsize\weak} &
+            {\normalsize\strong} \\
+
+            \ref{flexOut} & \textit{Allowing Developers to Specify How to Use
+                CME Outputs} & {\normalsize\good} & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\strong} & {\normalsize\strong} &
+            {\normalsize\strong} & {\normalsize\strong} & {\normalsize\strong} &
+            {\normalsize\strong} & {\normalsize\strong} & {\normalsize\strong}
+            & {\normalsize\strong} \\
+
+            \rowcolor[gray]{0.9}\ref{flexComplex} & \textit{Ability to
+                Operate on Different Levels of NPC Complexity} &
+                {\normalsize\good}
+            & {\normalsize\good} & {\normalsize\good} & {\normalsize\weak} &
+            {\normalsize\weak} & {\normalsize\weak} & {\normalsize\strong} &
+            {\normalsize\strong} & {\normalsize\good} & {\normalsize\good} &
+            {\normalsize\strong} & {\normalsize\good} \\
+
+            \ref{flexScale} & \textit{Be Efficient and Scalable} &
+            {\normalsize\good} & {\normalsize\good} & {\normalsize\good} &
+            {\normalsize\weak} & {\normalsize\weak} &
+            {\normalsize\good}\textsuperscript{\large\Pluto} &
+            {\normalsize\strong} & {\normalsize\good} & {\normalsize\weak} &
+            {\normalsize\good} & {\normalsize\strong} & {\normalsize\strong} \\
+
+            \hline\bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+
+            \footnotesize
+            \vspace*{2mm}
+
+            \item \textit{See Table~\ref{tab:scoring} for score category
+                descriptions.}
+
+            \item {\small\textpmhg{\Hi}} \textit{Excludes the
+                \textit{Coping Process} because it is part of action
+                generation.}
+
+            \item {\Large\textpmhg{\Hl}} \textit{Strictly focusing on
+                core affect, mood, and personality.}
+
+            \item {\normalsize\Moon} \textit{Natively supports integration
+                with Personality.}
+
+            \item {\Large\Jupiter} \textit{Personality integration
+                based on the Five Factor Model (OCEAN).}
+
+            \item {\Large\Pluto} \textit{Might improve if some factors
+                are not necessary for implementation scope.}
+
+        \end{tablenotes}
+    \end{threeparttable}%
+\end{table}
+
+\begin{table}[!tbh]
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \caption[Support for System-Level Ease-of-Use High-Level
+    Requirements]{Support for System-Level \textbf{Ease-of-Use}
+        High-Level Requirements}
+    \label{tab:theory-req-sys-summary-easeofuse}
+    \footnotesize
+    \begin{threeparttable}
+        \begin{tabular}{@{}cP{0.21\linewidth}cccccccccccc@{}}
+
+            \toprule
+            \multicolumn{2}{c}{} & \hd{\textbf{Ek.}} &
+            \hd{\textbf{Iz.}} & \hd{\textbf{Plu.}} &
+            \hd{\textbf{V-A}} & \hd{\textbf{PAD}} &
+            \hd{\textbf{Frj.}} &
+            \hd{\textbf{Laz.}\textsuperscript{\footnotesize\textpmhg{\Hi}}} &
+            \hd{\textbf{Sch.}} & \hd{\textbf{Ros.}} &
+            \hd{\textbf{OCC}} & \hd{\textbf{S \& K}} &
+            \hd{\textbf{O \& JL}} \\
+            \midrule
+
+            \rowcolor[gray]{0.9}\ref{easeAPI} & \textit{Having a Clear
+                API (Output)} & {\normalsize\strong} & {\normalsize\weak} &
+            {\normalsize\good} & {\normalsize\weak} & {\normalsize\weak} &
+            {\normalsize\good} & {\normalsize\strong} & {\normalsize\weak} &
+            {\normalsize\strong} & {\normalsize\good} & {\normalsize\strong} &
+            {\normalsize\strong} \\
+
+            \ref{easePX} & \textit{Showing that Emotions Improve the Player
+                Experience} & {\normalsize\good} & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\good} & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\good} & {\normalsize\strong} &
+            {\normalsize\good} & {\normalsize\weak} & {\normalsize\good} &
+            {\normalsize\good} \\
+
+            \rowcolor[gray]{0.9}\ref{easeNovel} & \textit{Providing
+                Examples of Novel Game Experiences} & {\normalsize\weak} &
+            {\normalsize\weak} & {\normalsize\weak} & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\good} & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\good} & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\good} \\
+
+            \hline\bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+
+            \footnotesize
+            \vspace*{2mm}
+
+            \item \textit{See Table~\ref{tab:scoring} for score category
+                descriptions.}
+
+            \item {\small\textpmhg{\Hi}} \textit{Excludes the
+                \textit{Coping Process} because it is part of action
+                generation.}
+
+        \end{tablenotes}
+    \end{threeparttable}%
+\end{table}
+
+\begin{table}[!tbh]
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \caption[Support for Component-Level Flexibility High-Level
+    Requirements]{Support for Component-Level \textbf{Flexibility}
+        High-Level Requirements}
+    \label{tab:theory-req-comp-summary-flexibility}
+    \footnotesize
+    \begin{threeparttable}
+        \begin{tabular}{@{}cP{0.25\linewidth}ccccccc@{}}
+
+            \toprule
+            \multicolumn{2}{c}{} & \hd{\textbf{Frj.}} &
+            \hd{\textbf{Laz.}\textsuperscript{\footnotesize\textpmhg{\Hi}}} &
+            \hd{\textbf{Sch.}} & \hd{\textbf{Ros.}} &
+            \hd{\textbf{OCC}} & \hd{\textbf{S \& K}} & \hd{\textbf{O \&
+                    JL}} \\
+            \midrule
+
+            \rowcolor[gray]{0.9}\ref{flexTasks} & \textit{Choosing
+                Which Tasks to Use} & {\normalsize\weak} & {\normalsize\weak} &
+            {\normalsize\strong} & \disqualified & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\good} \\
+
+            \ref{flexCustom} & \textit{Customization of Existing Task
+                Parameters} & {\normalsize\strong} & \disqualified &
+            {\normalsize\good} & \disqualified & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\good} \\
+
+            \hline\bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+
+            \footnotesize
+            \vspace*{2mm}
+
+            \item \textit{See Table~\ref{tab:scoring} for score category
+                descriptions.}
+
+            \item {\small\textpmhg{\Hi}} \textit{Excludes the
+                \textit{Coping Process} because it is part of action
+                generation.}
+
+        \end{tablenotes}
+    \end{threeparttable}%
+\end{table}
+
+\begin{table}[!tbh]
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \caption[Support for Component-Level Ease-of-Use High-Level
+    Requirements]{Support for Component-Level \textbf{Ease-of-Use}
+        High-Level Requirements}
+    \label{tab:theory-req-comp-summary-easeofuse}
+    \footnotesize
+    \begin{threeparttable}
+        \begin{tabular}{@{}cP{0.25\linewidth}ccccccc@{}}
+
+            \toprule
+            \multicolumn{2}{c}{} & \hd{\textbf{Frj.}} &
+            \hd{\textbf{Laz.}\textsuperscript{\footnotesize\textpmhg{\Hi}}}
+            & \hd{\textbf{Sch.}} & \hd{\textbf{Ros.}} &
+            \hd{\textbf{OCC}} & \hd{\textbf{S \& K}} &
+            \hd{\textbf{O \& JL}} \\
+            \midrule
+
+            \rowcolor[gray]{0.9}\ref{easeHide} & \textit{Hiding the
+                Complexity of Emotion Generation} & {\normalsize\strong} &
+            {\normalsize\strong} & {\normalsize\strong} & {\normalsize\good} &
+            {\normalsize\good} & {\normalsize\good} & {\normalsize\good} \\
+
+            \ref{easeAPI} & \textit{Having a Clear API (Input)} &
+            {\normalsize\good} & {\normalsize\disqualified} &
+            {\normalsize\good} & {\normalsize\good} & {\normalsize\weak} &
+            {\normalsize\good} & {\normalsize\strong} \\
+
+            \rowcolor[gray]{0.9}\ref{easeTrace} & \textit{Traceable
+                CME Outputs} & {\normalsize\strong} & {\normalsize\strong} &
+            {\normalsize\weak} & {\normalsize\strong} & {\normalsize\strong} &
+            {\normalsize\strong} & {\normalsize\strong} \\
+
+            \ref{easeAuto} & \textit{Allowing the Automatic Storage and Decay
+                of the Emotion State} & {\normalsize\good} & {\normalsize\good}
+                &
+            {\normalsize\good} & {\normalsize\disqualified} &
+            {\normalsize\good} & {\normalsize\good} & {\normalsize\good} \\
+
+            \hline\bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+
+            \footnotesize
+            \vspace*{2mm}
+
+            \item \textit{See Table~\ref{tab:scoring} for score category
+                descriptions.}
+
+            \item {\small\textpmhg{\Hi}} \textit{Excludes the
+                \textit{Coping Process} because it is part of action
+                generation.}
+
+        \end{tablenotes}
+    \end{threeparttable}%
+\end{table}
+
+\paragraph{Choosing Theories} \progname{} prioritizes \ref{flexArch},
+\ref{flexOut}, \ref{flexComplex}, \ref{flexScale}, \ref{easeHide},
+\ref{easeAPI}, and \ref{easeTrace} because it is unlikely that developers will
+adopt \progname{} without them. The remaining requirements offer more options
+to tailor it to different game designs (\ref{flexTasks}, \ref{flexCustom},
+\ref{easeAuto}) and/or could be satisfied as an extension later on
+(\ref{flexNew}, \ref{flexEm}, \ref{easePX}, \ref{easeNovel}).
+
+Theories are \textit{not} immediately discounted if they cannot satisfy a
+requirement (i.e. given score is \textit{Disqualified}). They might be
+extremely strong in other areas. Instead, the coverage achieved by the
+\textit{set} of chosen theories must satisfy all requirements. This allows
+\progname{} to take advantage of the strengths of different theories while also
+compensating for their weaknesses. \progname{} uses one theory from each of the
+discrete, dimensional, and appraisal perspectives to take advantage of each
+perspective's strengths and mitigate its weaknesses.
+
+The discrete and dimensional theories cannot satisfy the need for
+\textit{cognitively generated/slow, secondary emotions}
+(Section~\ref{sec_systemConstraints}). This means that \progname{} must use at
+least one appraisal theory. It is also known that the discrete theories can
+best satisfy the need for \textit{fast, primary emotions}. There is no reason
+to limit the number of theories in \progname{}'s design, as the added
+complexity would be internal to \progname{} (otherwise it would conflict with
+\ref{easeHide}). Therefore, \progname{} must use at least one appraisal and one
+discrete theory.
+
+\progname{} also uses a dimensional theory because they are especially suitable
+for representing different types of affect and their interactions in a common
+space (\ref{flexNew}) and afford more control over what emotions could ``do''
+in an NPC (\ref{flexOut}). The additional design freedom afforded to game
+developers, including a dimensional theory could increase \progname{}'s overall
+applicability.
+\begin{itemize}
+
+    \item \textbf{Appraisal Theory: Oatley \& Johnson-Laird} \\
+    Three theories have \textit{Disqualified} scores: Lazarus, Scherer, and
+    Roseman. Roseman has an ill-defined emotion elicitation process compared to
+    the others, so \progname{} should not use it. Both Lazarus and Scherer are
+    \textit{Disqualified} for a priority requirement (\ref{easeAPI} (Input) and
+    \ref{flexArch} respectively), so \progname{} should not use them either. Of
+    the remaining theories, Oatley \& Johnson-Laird seems the most promising.
+    It has only \textit{Good} or \textit{Strong} scores for all requirements,
+    and all but one priority requirement (\ref{easeHide}) has a \textit{Strong}
+    score.
+
+    \item \textbf{Discrete Theory: Plutchik} \\
+    The discrete theories vary in score for only three requirements:
+    \ref{flexNew}, \ref{flexEm}, and \ref{easeAPI} (Output). \progname{} should
+    not use Izard because it is \textit{Disqualified} for one requirement
+    (\ref{flexEm}) and has no \textit{Strong} scores. Plutchik has a better
+    overall score distribution compared to Ekman \& Friesen (7 \textit{Good}
+    scores to 5, and the same number of \textit{Disqualified} and
+    \textit{Strong} scores) and to better support \ref{flexEm}. Oatley \&
+    Johnson-Laird already has a \textit{Strong} score for \ref{easeAPI}
+    (Output), so the overall design benefits more from Plutchik than Ekman \&
+    Friesen.
+
+    \item \textbf{Dimensional Theory: PAD Space} \\
+    V-A and PAD Space have identical scores, except for
+    one---\ref{flexEm}---which PAD Space scores higher on. Therefore, I chose
+    to use PAD Space for \progname{}. If needed, V-A space can be constructed
+    in PAD space due to their overlapping dimensions
+    (Table~\ref{tab:affectiveDimensions}).
+
+\end{itemize}
+
+\begin{table}[!tbh]
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \caption{Comparison of Dimensions in Dimensional Theories}
+    \label{tab:affectiveDimensions}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Dimension} &
+        {\begin{tabular}[c]{@{}c@{}}\textbf{Valence-Arousal} \\
+                (\textbf{V-A})\end{tabular}} &
+        {\begin{tabular}[c]{@{}c@{}}\textbf{PAD} \\
+                \textbf{\citep{mehrabian1996pleasure}}\end{tabular}} \\ \hline
+
+        \rowcolor[gray]{0.9}Pleasure/Valence & \checkmark &
+        \checkmark \\
+
+        Arousal & \checkmark & \checkmark \\
+
+        \rowcolor[gray]{0.9}Dominance &  & \checkmark \\
+        \hline\bottomrule
+    \end{tabular}
+\end{table}

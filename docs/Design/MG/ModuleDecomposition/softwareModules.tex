@@ -1,0 +1,36 @@
+\subsection{Software Decision Module}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The design decision based on mathematical theorems,
+    physical facts, or programming considerations. The secrets of this module
+    are \emph{not} described in the SRS. For \progname{}, these are are
+    user-defined modules.
+
+    \item[Services:] \progname{} provides the API describing necessary data
+    types and methods, but the end-user must implement them as they are unique
+    to their application (e.g. video game).
+
+    \item[Implemented By:] --
+\end{description}
+
+\subsubsection{Time Module (\mref{mTime})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] Implementation of the Time and Delta Time data structures.
+
+    \item[Services:]  Provides the required data structures and methods
+    associated with the Time and Delta Time data types.
+
+    \item[Implemented By:] End-User
+\end{description}
+
+\subsubsection{World State Module (\mref{mWorld})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] Implementation of the World State data structure.
+
+    \item[Services:] Provides the required data structures and methods
+    associated with the World State data types.
+
+    \item[Implemented By:] End-User
+\end{description}

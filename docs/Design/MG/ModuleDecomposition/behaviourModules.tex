@@ -1,0 +1,221 @@
+\subsection{Behaviour-Hiding Module}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:]The contents of the required behaviours.
+
+    \item[Services:] Includes programs that provide externally visible behaviour
+    of the system as specified in the SRS (Ver.~\srsVersion). The programs in
+    this module will need to change if the SRS changes.
+
+    \item[Implemented By:] --
+\end{description}
+
+\subsubsection{Emotion Intensity Module}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] ``Virtual'' module containing the emotion intensity modules.
+
+    \item[Services:] Using Emotion Intensity data type, separated by data
+    structure (\mref{mIntensity}) and methods (\mref{mIntensityFun})
+
+    \item[Implemented By:] --
+\end{description}
+
+\subsubsection{Emotion Intensity Type Module (\mref{mIntensity})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The internal representation of the Emotion Intensity data
+    type.
+
+    \item[Services:] Stores the Emotion Intensity data type, enforces its
+    constraints, and provides methods for using it.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Emotion Intensity Function Module (\mref{mIntensityFun})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The method for calculating emotion intensity.
+
+    \item[Services:] Evaluates emotion intensity using Goal data, and optional
+    Attention and Social Attachment data. Returns the result as Emotion
+    Intensity data.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Emotion State Module}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] ``Virtual'' module containing the emotion state, emotion
+    decay, and PAD modules.
+
+    \item[Services:] Using emotion state data type and associated emotion decay
+    and PAD data types, separated by data structures (\mref{mStateType},
+    \mref{mDecay}, \mref{mPADType}) and methods (\mref{mGenerate},
+    \mref{mDecayFun}, \mref{mPADFun}).
+
+    \item[Implemented By:] --
+\end{description}
+
+\subsubsection{Emotion State Type Module (\mref{mStateType})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The internal representation of the Emotion State data type.
+
+    \item[Services:] Stores the Emotion State data type, enforces its
+    constraints, and provides methods for using it.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Emotion Generation Module (\mref{mGenerate})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The method for calculating which kind of emotion the
+    current world state elicits.
+
+    \item[Services:] Evaluates what emotion an entity is ``experiences'' using
+    Goal, Plan, and World State data. Returns the result as Emotion Kind data.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Emotion Intensity Decay Rate Type Module (\mref{mDecay})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The internal representation of the Emotion Intensity Decay
+    Rate data type.
+
+    \item[Services:] Stores the Emotion Intensity Decay Rate data type,
+    enforces its constraints, and provides methods for using it.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Emotion Intensity Decay State Type Module (\mref{mDecayState})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The internal representation of the Emotion Intensity Decay
+    State data type.
+
+    \item[Services:] Stores the Emotion Intensity Decay State data type,
+    enforces its constraints, and provides methods for using it.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Emotion Decay Function Module (\mref{mDecayFun})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The method for calculating the temporal decay of emotion
+    intensity.
+
+    \item[Services:] Evaluates emotion intensity using an Emotion Intensity
+    data, Emotion Decay data, decay constants, and Time data. Returns the
+    result as Emotion Intensity data.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{PAD Type Module (\mref{mPADType})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The internal representation of the PAD data type.
+
+    \item[Services:] Stores the PAD data type, enforces its constraints, and
+    provides methods for using it.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{PAD Function Module (\mref{mPADFun})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The method of converting Emotion State data into a PAD data.
+
+    \item[Services:] Evaluates ``equivalent'' PAD data from Emotion State data.
+    Returns the result as PAD data.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Emotion Module}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] ``Virtual'' module containing the emotion modules.
+
+    \item[Services:] Using Emotion data type, separated by data structure
+    (\mref{mEmotionType}) and methods (\mref{mEmotionFun})
+
+    \item[Implemented By:] --
+\end{description}
+
+\subsubsection{Emotion Type Module (\mref{mEmotionType})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The internal representation of the Emotion data type.
+
+    \item[Services:] Stores the Emotion data type, enforces its constraints,
+    and provides methods for using it.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Emotion Function Module (\mref{mEmotionFun})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] The method for evaluating Emotion State data from Emotion
+    data.
+
+    \item[Services:] Calculates Emotion-data dependant Emotion State data using
+    a decay constant, and Emotion Decay and Time data. Returns the result as
+    Emotion State.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Goal Module (\mref{mGoal})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] Implementation of the Goal data structure.
+
+    \item[Services:] Stores the Goal data type, enforces its constraints, and
+    provides methods for using it.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Plan Module (\mref{mPlan})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] Implementation of the Plan data structure.
+
+    \item[Services:] Stores the Plan data type, enforces its constraints,
+    and provides methods for using it.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Attention Module (\mref{mAttention})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] Implementation of the Attention data structure.
+
+    \item[Services:] Provides the required data structures and methods
+    associated with the Attention data type.
+
+    \item[Implemented By:] \progname{}
+\end{description}
+
+\subsubsection{Social Attachment Module (\mref{mSocial})}
+
+\begin{description}[font=\scshape]
+    \item[Secrets:] Implementation of the Social Attachment data structure.
+
+    \item[Services:] Provides the required data structures and methods
+    associated with the Social Attachment data type.
+
+    \item[Implemented By:] \progname{}
+\end{description}

@@ -1,0 +1,103 @@
+\documentclass[11pt, titlepage]{article}
+
+\usepackage[letterpaper, hmargin=1in, bmargin=1in, tmargin=1.3in,
+headheight=26pt]{geometry}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{array}   % Used for table formatting
+\newcolumntype{P}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{N}[1]{>{\centering\arraybackslash}p{#1}}
+\usepackage{multirow}
+\usepackage[shortcuts]{extdash}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+
+\usepackage[nottoc,notlof,notlot,numbib]{tocbibind}
+
+\usepackage{natbib}
+
+\usepackage[page]{totalcount}
+
+\usepackage{fancyhdr}
+\fancyhf{}
+\lhead{Concept Summary \\ \progname{}}
+\rhead{Geneva M. Smith \\ Dept. of Computing and Software---McMaster University}
+\lfoot{Ver.~\ref{current_version_concept}}
+\rfoot{\thepage\ of \thepages}
+
+\renewcommand{\footrule}{\vbox to 0pt
+    {\makebox[\textwidth]{\hrulefill}\vss}}
+
+\hypersetup{
+    bookmarks=true,
+    colorlinks=true,
+    linktoc=all,
+    linkcolor=Purple,
+    citecolor=ForestGreen,
+    filecolor=WildStrawberry,
+    urlcolor=Cerulean
+}
+
+\newcommand{\citepg}[2]{\citeauthor{#1}, \citeyear{#1}, p.~#2}
+\newcommand{\citeg}[1]{\citeauthor{#1}, \citeyear{#1}}
+
+\makeatletter
+\newcommand\newref[1]{#1\def\@currentlabel{#1}}
+\makeatother
+
+\input{../comments}
+
+\input{../commands}
+
+\usepackage[shortlabels, inline]{enumitem}
+
+\begin{document}
+
+    \newcounter{pages}
+    \setcounter{pages}{\totalpages}
+
+    \begin{titlepage}
+        \thispagestyle{empty}
+
+        \title{Concept Summary for \progname{}: A Computational Model of
+        Emotion for Enhancing Non-Player Character Believability in Games}
+        \author{Geneva M. Smith}
+        \date{October 23, 2022}
+
+        \maketitle
+    \end{titlepage}
+
+    \pagestyle{fancy}
+
+    \vspace*{\fill}
+    \section*{Revision History}
+    \begin{center}
+        \begin{tabular}{m{0.17\linewidth}C{0.13\linewidth}m{0.6\linewidth}}
+            \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+            \midrule
+            \vspace*{1mm}October 23, 2022 &
+            \vspace*{1mm}\newref{1.0}\label{current_version_concept} &
+            \vspace*{5mm}
+            \begin{itemize}[noitemsep, nosep]
+                \item Initial version
+            \end{itemize} \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    \vspace*{\fill}
+
+    \clearpage
+
+    \input{content}
+
+    \clearpage
+
+    \bibliographystyle {ACM-Reference-Format}
+    \bibliography{../../refs/references, ../../refs/references_gamedesign,
+    ../../refs/references_SEPerspective, ../../refs/references_psych}
+
+\end{document}

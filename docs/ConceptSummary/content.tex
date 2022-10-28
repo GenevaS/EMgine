@@ -1,0 +1,153 @@
+\section{\progname{} Concept Summary}\label{appendix:concept}
+\progname{} is a Computational Model of Emotion (CME) for Non-Player Characters
+(NPCs) to enhance their believability, with the goal of improving long-term
+player engagement. \progname{} is for \textit{emotion generation}, accepting
+user-defined information from a game environment to determines what emotion and
+intensity a NPC is ``experiencing''. How the emotion is expressed and what
+other effects it could have on game entities is left for game
+designers/developers to decide.
+
+You can find all Software Development Artifacts (SDAs) related to \progname{}
+at:
+\begin{center}
+    \url{https://github.com/GenevaS/EMgine}
+\end{center}
+
+\paragraph{Design Goals} \progname{} aims to provide a feasible and easy-to-use
+method for game designers/developers to include emotion in their NPCs, which
+they perceive to be challenging with the current tools and
+restrictions~\citep{broekens2016emotional}. \progname{} should:
+\begin{itemize}
+
+    \item Be modular and portable such that game designers/developers can use
+    it in their regular development environment
+
+    \item Be flexible to allow game designers/developers the freedom to choose
+    when, where, and which of \progname{}'s components to use
+
+    \item Not require knowledge of affective science, psychology, and/or
+    emotion theories to use
+
+    \item Be efficient with respect to computational resources
+
+    \item Demonstrate that it positively impacts the player experience
+
+\end{itemize}
+
+\paragraph{Background: Computational Model of Emotion} A \textit{Computational
+Model of Emotion (CME)} is a software system that is influenced by emotion
+research, embodying at least one emotion theory as the basis for its stimuli
+evaluation, emotion elicitation, and emotional behaviour generation
+mechanisms~\citep[p.~2, 14]{osuna2020seperspective}. This theoretical
+foundation helps define a CME's mechanisms, components, phases, and
+architecture which software engineering techniques and methods can
+implement~\citep[p.~139]{osuna2021toward}.
+
+There are two types of CME, differing in requirements and validation:
+\textit{research-oriented} and \textit{domain-specific} or \textit{applied}
+(\citepg{hudlicka2019modeling}{130--131};
+\citepg{osuna2020seperspective}{4--6}). Research-oriented models emulate
+structures, processes, and mechanisms in order to understand their design and
+structure in biological agents. In software engineering terms,
+research-oriented systems are white-box models because they must have
+explainable behaviours and mechanisms that lead to affective phenomena. In
+contrast, domain-specific models aim to produce specific aspects of affective
+phenomena and need only mimic the processes that produce them. They are
+black-box models, where the transformation of inputs into affective phenomena
+is not important, as long as it has the desired effects. Generally, the degree
+of realism in the CME's mechanisms and behaviours is proportional to its design
+complexity~\citep[p.~83]{rosis2003from}. This implies that domain-specific CMEs
+are unlikely to be exactly alike, even if they target the same domain. This
+also means that any emotion theory that satisfies the CME's needs is a viable
+choice.
+
+An emotion generation engine that strives to create a more engaging player
+experience via believable NPCs is a \textit{domain-specific} CME. This imposes
+fewer design constraints than a research-oriented system as it is not a strict
+model of affective phenomena~\citep[p.~233]{sloman2005architectural}.
+Validation also differs from research-oriented systems, as it is defined by how
+well it engages a player rather than how closely it resembles true affective
+phenomena~\citep[p.~131]{hudlicka2019modeling}. This bodes well for converting
+informal emotion theories into the formal domain of software, which necessarily
+includes making assumptions and design decisions that existing research might
+not support (\citepg{marsella2010computational}{21, 23};
+\citepg{hudlicka2019modeling}{130}). A software engineering approach would
+systematically account for these factors, producing a well-designed CME.
+
+\paragraph{Background: Player Engagement} \textit{Engagement} is a quality of
+the user experience describing a positive human-computer
+interaction~\citep[p.~1094]{o2013examining}. It is difficult to define, as
+people use it interchangeably with related concepts like flow and immersion
+(\citepg{brockmyer2009development}{624}; \citepg{turner2014figure}{33};
+\citepg{glas2015definitions}{944}; \citepg{cairns2016engagement}{81};
+\citepg{doherty2018engagement}{99:4}). It can also have a subtly different
+meaning in a given context. This makes sense given that it overlaps with
+different elements of each concept, such as attention.
+
+Engagement is a multidimensional concept encompassing cognitive, emotional, and
+behavioural influences measuring the user's temporal, cognitive, or emotional
+investment in the interaction (\citepg{o2010development}{62--63};
+\citepg{o2016theoretical}{22}). It is not an ``all or nothing'' quality, and
+can fluctuate over the course of the
+interaction~\citep[p.~19]{o2016theoretical}. Engagement is both a process and
+product of an interaction, existing both during and after human-computer
+interactions (\citepg{o2016theoretical}{22}). This dual nature of engagement
+results in a cyclical relationship---the process of engagement can lead to the
+product of engagement, which in turn influences the likelihood that the user
+will re-enter the process later~\citep[p.~945]{o2008user}.
+
+Engagement is difficult to measure due to its subjectivity and dual
+process-product nature, but it has common elements that makes it possible to
+compare experiences between users~\citep[p.~41]{calvillo2015assessing}. These
+are broadly categorized as aesthetics, perceived usability, focused attention
+and reward.
+
+Engagement with the game is a fundamental goal of games, having a key role
+in player satisfa\-/ction---``the degree to which the player feels gratified
+with his or her experience while playing a video
+game''~\citep[p.~1220]{phan2016development}. Players have a disposition towards
+being, and expect to be, engaged when they
+play~\citep[p.~84]{cairns2016engagement}. This could be because playing a game
+is a voluntary activity done for pleasure (\citepg{poels2007always}{86--87};
+\citepg{yannakakis2015emotion}{459}) in which they are an active
+participant~\citep[p.~94]{mayra2007fundamental}. Emotional engagement is one
+way to engage players, caused by the player's personal feelings aroused by an
+in-game event, character, asset attributes, or another player which causes them
+to want to continue playing~\citep[p.~406--407]{schonau2012sure}.
+
+\paragraph{Background: Believable Character} A \textit{believable character}
+``...allows the audience to suspend their disbelief and...provides a convincing
+portrayal of the personality they expect or come to expect [from the
+character]''~\cite[p.~1]{loyall1997believable}. Believability is not limited to
+``smart'' or ``normal'' characters because it depends on the situational
+context and the character's personality~\citep{lisetti2015and,
+loyall1997believable, reilly1996believable}. In short: an NPC must behave
+reasonably within the context of the game world. Generally, NPCs are believable
+when they~\citep{lankoski2007gameplay, loyall1997believable,
+warpefelt2013analyzing}:
+\begin{itemize}
+    \item Appear to be self-motivated,
+
+    \item Are aware of what is happening around them, and
+
+    \item React in ways appropriate for their surrounding context while
+    adhering to their personality.
+\end{itemize}
+
+\textit{Emotion}, transient responses to changes in the
+environment~\citep{lazarus1991emotion}, is one element of believable character
+design~\citep{de2015beyond, emmerich2018m, gard2000building,
+    lankoski2007gameplay, lisetti2015and, loyall1997believable,
+    paiva2005learning,
+    warpefelt2013analyzing}. It is an established aspect of believability in
+animation~\citep{thomas1981illusion}, and game designers have acknowledged its
+importance in NPC design~\citep{hudlicka2009foundations, yannakakis2015emotion}.
+
+Characters with emotion address the core features of believability because they
+convey a character's goals and desires (\textit{self-motivated}) by showing
+their \textit{awareness} of, \textit{responsiveness} to, and care
+(\textit{personality}-driven) for their surroundings~\citep{bates1994,
+    broekens2021emotion, reilly1996believable}. It follows that one way to
+    improve
+an NPC's believability is to have them react emotionally to their
+surroundings~\citep{togelius2013assessing, yannakakis2015emotion}.

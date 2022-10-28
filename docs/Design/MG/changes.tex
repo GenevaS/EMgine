@@ -1,0 +1,107 @@
+\section{Anticipated and Unlikely Changes}\label{SecChange}
+Possible changes are classified into two categories based on likeliness:
+Anticipated (Section~\ref{SecAchange}) and Unlikely (Section~\ref{SecUchange}).
+
+\subsection{Anticipated Changes}\label{SecAchange}
+Anticipated changes are decisions and information that are to be hidden
+inside modules. Ideally, changing one of the anticipated changes will only
+require changing the one module that hides the associated decision. This is an
+adaptation of the \textit{design for change} approach to software design. Where
+applicable, associated Likely Changes [SRS-LC] from the SRS (Ver.~\srsVersion)
+appear in square brackets.
+
+\begin{description}
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acTimeImpl}:] The
+    implementation of time and, consequently, delta time.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acEmotionIntensityMin}:]
+    The minimum value of emotion intensity [\lcref{LC_PositiveIntensity}].
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acIntensityAlgo}:] The
+    algorithm/method for calculating emotion intensity
+    [\lcref{LC_Goal2Intensity}].
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acUpdateIntensityAlgo}:]
+    The algorithm/method for updating emotion intensity 
+    [\lcref{LC_UpdateEmotionState}].
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acElicitSurpriseAlgo}:]
+    The algorithm/method for calculating intensity of \textit{Surprise}
+    [\lcref{LC_Surprise}].
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acElicitInterestAlgo}:]
+    The algorithm/method for calculating intensity of \textit{Interest}
+    [\lcref{LC_Interest}].
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acElicitAcceptanceAlgo}:]
+    The algorithm/method for calculating intensity of \textit{Acceptance}.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acEmotionKindType}:] The
+    implementation of emotion kinds data structure [\lcref{LC_EmotionPairs}].
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acAppraisalAlgo}:] The
+    algorithm/method for generating emotion kinds [\lcref{LC_Subgoal},
+    \lcref{LC_Goal2Emotion}, \lcref{LC_EmotionTypeIntensity}].
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acEmotionStateImpl}:] The
+    implementation of emotion state data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acEmotionDecayStateImpl}:]
+    The implementation of emotion state decay data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acDecayIntensityAlgo}:] The
+    algorithm/method for decaying emotion intensity [\lcref{LC_DecaySpeed},
+    \lcref{LC_Equilibrium}, \lcref{LC_DecayRate}].
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acDecayStateAlgo}:] The
+    algorithm/method for decaying an emotion state.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acEmotionState}:] The
+    implementation of emotion data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acPADPointType}:] The
+    implementation of PAD point data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acState2PADAlgo}:] The
+    algorithm/method for converting an emotion state to a PAD point
+    [\lcref{LC_EmotionTerms}, \lcref{LC_PADStats}].
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acWorldStateImpl}:] The
+    implementation of world state data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acWorldStateChangeImpl}:]
+    The implementation of world event data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acDistanceImpl}:] The
+    implementation of distance between world states data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acDistanceChangeImpl}:] The
+    implementation of change in distance between world states data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acGoalImpl}:] The
+    implementation of goal data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acPlanImpl}:] The
+    implementation of plan data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acAttentionImpl}:] The
+    definition and/or implementation of attention data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acAttachmentImpl}:] The
+    definition and/or implementation of social attachment data structure.
+
+\end{description}
+
+\subsection{Unlikely Changes}\label{SecUchange}
+Module design should be as general as possible, but a general system is
+typically more complex. Sometimes this complexity is not necessary and fixing
+some design decisions at the system architecture stage can simplify the
+software design. These decisions are \textit{unlikely changes} because they are
+not intended to be changed due to the potentially large number of design
+elements that need to be modified to accommodate them.
+
+\progname{} does not have any known unlikely changes, as its goal is for users 
+to choose, organize, modify, and reuse its modules as they see fit. These needs 
+also motivate its conception as a library of components (see 
+Section~\ref{SecConnection} for reasoning).

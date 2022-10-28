@@ -1,0 +1,1573 @@
+\section{Suggestions for Modelling Lazarus's Cognitive
+Appraisal}\label{appendix_lazarus}
+
+\subsection{Assumptions}
+
+\begin{itemize}
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AchievingGoals}:]
+    Changing the completion status of a goal is worth more than a change that
+    does not [\waitref{T_GoalCongruence}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_ActOn}:]
+    Only one NPC action can be executed at a time [\waitref{T_CopingPotential}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_AppraisalTime}:]
+    Appraisals operate on the scale of time steps [\waitref{T_CopingPotential}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_emotionRepr}:]
+    Each emotion category can be uniquely identified by a combination of
+    appraisal values [\waitref{T_AppraisalCA}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_EgoIdentity}:]
+    If ego involvement is listed as ego-identity, any of the ego types can be
+    used as well as references to relationships and knowledge
+    [\waitref{T_AppraisalCA}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_PAEgo}:]
+    The ego type used in an appraisal is tied to the affected goal
+    [\waitref{T_AppraisalCA}].
+
+    \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_EgoAffirmation}:]
+    Confirming the importance of an ego type, goal, relationship, or other type
+    of knowledge is a praise-worthy act
+\end{itemize}
+
+\subsection{Conceptual Models}
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Appraisal} &
+        \bf Appraisal \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} In CA, an appraisal assigns personal
+significance to the individual-environment relationship. It integrates
+objective, but not always truthful, knowledge with the individual's goals
+equally via cognitive processes. Both knowledge and Goals (\cref{C_Goals}) are
+necessary in appraisal and make the process faster and more selective.
+
+Appraisal is divided into two units, primary (\waitref{C_PA})
+and secondary (\waitref{C_SA}), whose responses represent knowledge that
+have been assigned personal significance. These are mapped to a core relational
+theme and the associated emotional response pattern.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \begin{threeparttable}
+        \begin{tabular}{@{}lccl|lll@{}}
+            \toprule
+            & \multicolumn{3}{c|}{\textbf{Primary} (\waitref{C_PA})} &
+            \multicolumn{3}{c}{\textbf{Secondary} (\waitref{C_SA})} \\
+            & \textbf{Rel.} & \textbf{Congr.} & \textbf{Ego} &
+            \textbf{Acc.} & \textbf{CP} & \textbf{FE} \\ \midrule
+
+            \textbf{Fear} (\waitref{C_Fear}) & Y* & -*\textpmhg{\Hc} &
+            Identity, Meaning* & N/A & Uncertain & Uncertain \\
+
+            \textbf{Anger} (\waitref{C_Anger}) & Y* & -* & Esteem (Self,
+            Social)* & Blame* & Favours \textit{Attack}! & Improve with
+            \textit{Attack}! \\
+
+            \textbf{Sadness} (\waitref{C_Sadness}) & Y* & -* & Any* & None* &
+            Unfavourable* & Potential to improve\textpmhg{\HW} \\
+
+            \textbf{Joy} (\waitref{C_Joy}) & Y* & +* & Any & N/A & N/A &
+            Favours continuation*\textpmhg{\Hi} \\
+
+            \textbf{Disgust} (\waitref{C_Disgust}) & Y* & -* & Any* & N/A & N/A
+            & N/A \\
+
+            \textbf{Trust} (\waitref{C_Trust}) & Y* & +* &
+            Identity*\textpmhg{\Hibp} & N/A & N/A & Favours
+            continuation\textpmhg{\Hi} \\
+            \midrule\bottomrule
+        \end{tabular}
+
+        \begin{tablenotes}
+            \item [*] Sufficient and necessary to the appraisal.
+
+            \item [!] Facilitates emotion.
+
+            \item [\textpmhg{\Hc}] Expected congruence.
+
+            \item [\textpmhg{\HW}] Associates it with hope. If unfavourable, it
+            is associated with hopelessness and depression. CA sees
+            \textit{Sadness} and depression as different states.
+
+            \item [\textpmhg{\Hi}] If unfavourable or uncertain, the emotion is
+            muted or undermined.
+
+            \item [\textpmhg{\Hibp}] Affirmed by another individual (``...a
+            desire for mutual affection, which is affirming to our
+            ego-identity...'' \cite[p.~278]{lazarus1991emotion}.).
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+Appraisals are not necessarily sequential in nature, but are ordered by their
+relative importance---if the results of primary appraisal determine the event
+to be irrelevant, then secondary appraisal has limited, if any, value.
+Appraisal questions can be answered in any order and are used to filter through
+potential emotions in structure reminiscent of a decision tree, from least to
+most specific emotion, starting with its valence.
+
+While not disagreeing with the purpose of \textit{Interest} or
+\textit{Surprise} in PES, CA does not consider them full emotions. They are
+instead considered to be states of arousal that watches and waits for
+additional information for the appraisal process and does not have an
+appraisal pattern itself.\\\hrule
+
+\paragraph{Source} \cite{lazarus1991emotion}
+
+\paragraph{Depends On} \cref{C_Goals}, \waitref{C_PA}, \waitref{C_SA}
+
+\paragraph{Ref. By} --
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_PA} & \bf
+        Primary
+        Appraisal \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} In CA, primary appraisal -- which can be
+influenced by needs, desires, values, and beliefs about personal relevance
+--
+is required for all emotions and can usually determine if the experience is
+positive or negative by determining:
+\begin{itemize}
+    \item \textbf{Goal Relevance (Rel.)}: Establishes if there are personal
+    goal (\cref{C_Goals}) or stakes affected by the current
+    individual-environment relationship. ``If there is no goal relevance,
+    there
+    cannot be an emotion; if there is, one or another emotion will occur,
+    depending on the outcome of the transaction.''
+
+    \item \textbf{Goal Congruence (Congr.)}: ``Goal congruence or
+    incongruence
+    refers to the extent to which a transaction is consistent or
+    inconsistent
+    with what a person wants -- that is, either it thwarts or facilitates
+    personal goals'' (\cref{C_Goals}).
+
+    \item \textbf{Type of Ego-involvement (Ego)} (\waitref{C_Ego}): ``...refers
+    to the diverse aspects of ego-identity or personal commitments.'' It
+    establishes what aspect of the self is affected. Ego-involvement is
+    ``...probably involved in all or most emotions, but in different ways
+    depending on the type of ego-involvement that is engaged by a
+    transaction'', distinguishing between similar emotions, such as
+    \textit{Joy} (no involvement) and \textit{Affection} (identity).
+\end{itemize}
+
+\hrule
+
+\paragraph{Source} \citet[p.~149--150]{lazarus1991emotion}
+
+\paragraph{Depends On} \cref{C_Goals}
+
+\paragraph{Ref. By} \waitref{C_Fear}, \waitref{C_Anger}, \waitref{C_Sadness},
+\waitref{C_Joy}, \waitref{C_Interest}, \waitref{C_Surprise},
+\waitref{C_Disgust}, \waitref{C_Trust}, \waitref{C_Appraisal},
+\waitref{T_GoalRelevance}, \waitref{T_GoalCongruence}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_SA} & \bf
+        Secondary Appraisal \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} In CA, secondary appraisal asks what resources
+and actions are available to the individual for coping with the
+individual-environment relationship, which specifies which emotion is felt.
+It
+can be influenced by expectations and beliefs about potential actions and
+the
+individual's ability to act on them. It establishes:
+\begin{itemize}
+    \item \textbf{Accountability (Acc.)}: Assigns \textit{Blame} and
+    \textit{Credit} for the individual-environment relationship. It
+    ``derives from knowing who or what is accountable or responsible...if this
+    knowledge is accompanied by the knowledge that the...act was under the
+    accountable person's control, credit or blame is assigned.''
+
+    \item \textbf{Coping Potential (CP)}: ``Coping potential refers to whether
+    and how the person can manage the demands of the encounter or actualized
+    personal commitments...'' (\waitref{C_Coping}). At this point, nothing is
+    acted on as it ``is not actually coping but only an evaluation by a
+    person of the prospects for doing or thinking something that will, in turn,
+    change or protect the person-environment relationship''. How much energy
+    the individual believes they have is likely a factor, as the pursuit of
+    goals must require it.
+
+    \item \textbf{Future Expectations (FE)}: ``Future expectancy has to do with
+    whether for any reason things are likely to change psychologically for the
+    better or worse (i.e., becoming more or less goal congruent).''
+\end{itemize} \hrule
+
+\paragraph{Source} \citet[p.~150]{lazarus1991emotion}
+
+\paragraph{Depends On} \cref{C_Goals}, \waitref{C_Coping}
+
+\paragraph{Ref. By} \waitref{C_Appraisal}, \waitref{C_Fear}, \waitref{C_Anger},
+\waitref{C_Sadness}, \waitref{C_Joy}, \waitref{C_Interest},
+\waitref{C_Surprise}, \waitref{C_Disgust}, \waitref{C_Trust},
+\waitref{T_Accountability}, \waitref{T_CopingPotential},
+\waitref{T_FutureExpectancy}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Fear} & \bf Fear
+        \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} \textit{Fear} is characterized by:
+\begin{itemize}
+    \item Self-preservation or the avoidance of pain---physical, mental, or
+    spiritual
+    \item Changes in the person-environment relationship that create:
+    \begin{itemize}
+        \item A threat or increased risk of imminent physical harm, or
+        \item Uncertain threats to the individual's mental or spiritual
+        well-being
+    \end{itemize}
+    \item Both \textit{Coping Potential} and the potential \textit{Future
+        Impact (Expectancy)} are uncertain (\waitref{C_SA})
+\end{itemize}
+
+Stimuli are evaluated on their perceived probability of risk increase. The
+most
+common triggers are directly associated with self-preservation and pain
+avoidance, such as falling and snakes, or with the absence of a stimuli or
+event associated with safety, such as a protective individual or object.
+
+The intensity of \textit{Fear} is likely impacted by the severity of the
+potential harm (\waitref{C_PA}), if the harm is immediate or pending, and if
+there
+are coping strategies (\waitref{C_Coping}) that can be used to mitigate the
+threat.\\\hrule
+
+\paragraph{Source} \cite{robert1980emotion, lazarus1991emotion,
+    ekman2007emotions}
+
+\paragraph{Depends On} \cref{C_Emotion}, \waitref{C_Coping}, \waitref{C_PA}, 
+\waitref{C_SA}
+
+\paragraph{Ref. By} \waitref{T_FearIntensity}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Anger} & \bf
+        Anger \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A harmful action that halts the progression of goal
+achievement impacting the perception of the self is key to \textit{Anger},
+where something:
+\begin{itemize}
+    \item Is identified as being accountable for the harmful action
+    \item They are perceived to have had control or agency over the harmful
+    action
+\end{itemize}
+
+Stimuli or events that are unwanted and predicted to lead to harmful
+consequences, such as threats and rejection, often result in \textit{Anger}. A
+frustrated goal (\cref{C_Goals}) can result in \textit{Anger} as it might be
+perceived as a threat the the individual's identity if they tie its achievement
+to their self-worth. \textit{Anger} can also be caused by another's perceived
+\textit{Anger} if the cause is known.
+
+The importance of the affected goal, degree of blockage (\waitref{C_PA}), and
+the degree of blame (\waitref{C_SA}) assigned impact the intensity of
+\textit{Anger}. If blame cannot be assigned, a scapegoat might be used as a
+coping strategy (\waitref{C_Coping}) or compound the intensity of the current
+scenario with the next one that induces \textit{Anger}. \\\hrule
+
+\paragraph{Source} \cite{robert1980emotion, lazarus1991emotion,
+    ekman2007emotions}
+
+\paragraph{Depends On} \cref{C_Emotion}, \waitref{C_Coping} \waitref{C_PA}, 
+\waitref{C_SA}
+
+\paragraph{Ref. By} \waitref{T_AngerIntensity}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Sadness} & \bf
+        Sadness \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} The definition of loss is essential to identifying
+triggers of \textit{Sadness}. In this context, a loss is something that the
+individual:
+\begin{itemize}
+    \item Wants but no longer possesses,
+    \item Are helpless to regain, and
+    \item Have not yet been able to compensate or adjust for.
+\end{itemize}
+
+Separation, real or imagined failures, and helplessness are instances of
+this
+type of loss. \textit{Sadness} can also be triggered by another's
+\textit{Sadness} as it is an empathetic emotion and easily mirrored.
+
+The intensity of \textit{Sadness} is directly impacted by the degree
+(\waitref{C_PA}) and permanence (\waitref{C_SA}) of the loss. The intensity of
+previous experiences of \textit{Joy} (\waitref{C_Joy}) have also been cited,
+implying that a priority value is assigned to the retainment of what was
+lost and has a role in determining the intensity of the experienced
+\textit{Sadness}.\\\hrule
+
+\paragraph{Source} \cite{robert1980emotion, lazarus1991emotion,
+    ekman2007emotions, izard1977human}
+
+\paragraph{Depends On} \cref{C_Emotion}, \waitref{C_PA}, \waitref{C_SA}, 
+\waitref{C_Joy}
+
+\paragraph{Ref. By} --
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Joy} &\bf
+        Joy
+        \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} \textit{Joy} is defined by goal progression
+(\waitref{C_PA}) when the individual perceives their life to be generally
+good.
+Depending on the type of goals (\cref{C_Goals}) affected, this can mean:
+\begin{itemize}
+    \item Maintaining the person-environment relationship as it is when the
+    goal is to maintain the current situation, or
+    \item Observing changes in the person-environment relationship that
+    makes
+    the achievement of a goal more likely to occur.
+\end{itemize}
+
+\textit{Joy} is triggered by stimuli and events that cause the individual to
+feel safe and secure in their surroundings where little personal effort is
+required to maintain it. This can include being with loved ones, relief from
+physical pain and discomfort, and praise.
+
+Factors impacting the intensity of \textit{Joy} include a positive evaluation
+of future progress (\waitref{C_SA}) and the elapsed time since progression was
+made on the affected goal such that a large time gap increases intensity.
+Intensity might also be inversely proportional to the likelihood of goal
+achievement, where the more unlikely goal achievements elicit stronger
+reactions than highly likely goal achievements. \\\hrule
+
+\paragraph{Source} \cite{robert1980emotion, lazarus1991emotion,
+    ekman2003unmasking, ekman2007emotions}
+
+\paragraph{Depends On} \cref{C_Emotion}, \waitref{C_PA}, \waitref{C_SA}
+
+\paragraph{Ref. By} \waitref{C_Sadness}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Interest} & \bf
+        Interest \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} \textit{Interest} is a response to something that:
+\begin{itemize}
+    \item Will likely impact a goal in the future
+    \item Can be inspected to reduce the uncertainty of its future impact
+\end{itemize}
+
+\textit{Interest} arises when something catches the individual's attention
+(\waitref{C_Attend}) and provides some level of stimulation---a conscious
+change in perception, by observing something novel, or by considering
+possibilities in relation to goal achievement (\waitref{C_PA})---principally
+guided by novelty and complexity. In general, people tend to find the most
+interest in one of three types: objects, ideas, or people.
+
+It is likely that the desirability of the potential benefit of the event,
+person, or object, coupled with the likelihood of a beneficial pay-off
+(\waitref{C_SA}), are factors in the evaluation of \textit{Interest}. As
+indicators of when \textit{Interest} might be invoked, novelty and complexity
+might also play a role in the emotion's intensity.\\\hrule
+
+\paragraph{Source} \cite{robert1980emotion, lazarus1991emotion, izard1977human,
+    tomkins1962affect, occ}
+
+\paragraph{Depends On} \cref{C_Emotion}, \waitref{C_Attend}, \waitref{C_PA},
+\waitref{C_SA}
+
+\paragraph{Ref. By} --
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Surprise} & \bf
+        Surprise \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} \textit{Surprise} is a response to events that an
+individual is ill-prepared for which are:
+\begin{itemize}
+    \item Sudden
+    \item Unexpected or incorrectly predicted
+\end{itemize}
+
+As it is impossible to elicit \textit{Surprise} from a correctly predicted
+outcome, the trigger is the size of the difference between what is observed
+(\waitref{C_Attend}) and what was expected regardless of the person, event, or
+object itself.
+
+\textit{Surprise} is influenced by the level of uncertainty, which reflects how
+much information the individual needs to collect in order to appraise the
+situation effectively (\waitref{C_PA}, \waitref{C_SA}) and the confidence level
+of a prediction about the individual-environment relationship. This is
+complemented by familiarity, which can help reduce the amount of information
+necessary to gather information. \\\hrule
+
+\paragraph{Source} \cite{robert1980emotion, lazarus1991emotion,
+    ekman2007emotions, occ, izard1977human}
+
+\paragraph{Depends On} \cref{C_Emotion}, \waitref{C_Attend}, \waitref{C_PA},
+\waitref{C_SA}
+
+\paragraph{Ref. By} --
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Disgust} & \bf
+        Disgust \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Distaste is the underlying theme of \textit{Disgust},
+which is identified by:
+\begin{itemize}
+    \item Self-preservation (\cref{C_Goals})
+    \item The anticipation of harm if contacted (\waitref{C_PA})
+    \item Coping potential and future expectancy are known (\waitref{C_SA})
+\end{itemize}
+
+Compared to other emotions, \textit{Disgust} is restricted in content and rigid
+in the type of factors that can elicit it. The most common universal trigger of
+\textit{Disgust} is bodily fluid that has left the body -- blood, mucus,
+faeces, vomit, and urine. Other themes -- including strange things, diseases,
+misfortune, and moral taint -- are learned and heavily influenced by
+personality and culture.
+
+The level of unappealingness of the stimuli has a significant impact on the
+intensity of \textit{Disgust}, both from sensory evaluations and in
+anticipation of contamination from ``indigestion''. A counter factor, the
+degree of familiarity with it and its origins, can temper the reaction.
+\\\hrule
+
+\paragraph{Source} \cite{robert1980emotion, lazarus1991emotion,
+    rozin1999disgust, occ}
+
+\paragraph{Depends On} \cref{C_Emotion}, \cref{C_Goals}, \waitref{C_PA}, 
+\waitref{C_SA}
+
+\paragraph{Ref. By} --
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{C_Trust} & \bf
+        Trust \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Affective \textit{Trust}, or \textit{Affection} in CA,
+is an emotion arising from a long-term relationship with an honest and
+benevolent partner. This suggests that \textit{Trust} is identified by:
+\begin{itemize}
+    \item A desire to care for the partner and a willingness to put oneself at
+    risk for them -- physically, emotionally, or socially
+
+    \item An future expectation that the partner will demonstrate their care
+    for the individual, often via an affirmation of the individual's value and
+    increased security, confidence, and intimacy in the relationship
+\end{itemize}
+
+As it is tied to relationships (\waitref{C_Relation}) and expectations of future
+benefits, \textit{Trust} is likely triggered when an individual makes a risk
+assessment involving the partner where a favourable outcome is expected
+(\waitref{C_PA}, \waitref{C_SA}). After the event has passed, the individual
+will likely experience another emotion fitting to the outcome.
+
+The intensity of \textit{Trust} is influenced by the individual's relationship
+with the partner. The component factors of a relationship
+-- volatility, dependability, and faith -- influence the intensity of
+\textit{Trust}. Their relative weights are determined by the confidence and
+security of the relationship, and also by the individual's gender -- men treat
+these factors independently whereas women tend to associate them.
+\begin{itemize}
+    \item When no personal relationship exists intensity is influenced solely
+    on the partner's reputation and past and current actions -- their
+    volatility.
+
+    \item Once a relationship is established, the individual's perception of
+    their partner's dependability has more influence than their past
+    experiences on predictions of future outcomes -- their dependability.
+
+    \item When the relationship has developed to the highest level of
+    confidence and security, the individual puts weight in faith -- the
+    strength of the relationship and their personal security and self-esteem
+    than their partner's history, actions, or dependability when determining
+    how much risk they are willing to put themselves in.
+\end{itemize}
+
+\hrule
+
+\paragraph{Source} \cite{robert1980emotion, lazarus1991emotion,
+    rempel1985trust}
+
+\paragraph{Depends On} \cref{C_Emotion}, \waitref{C_Relation}, \waitref{C_PA},
+\waitref{C_SA}
+
+\paragraph{Ref. By} --
+\\\hrule\vspace{0.5mm}\hrule
+
+\subsection{Theoretical Models}
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{T_GoalRelevance} &
+        \bf Evaluating Goal Relevance \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$, $s_{\Delta} :
+        \worldstatechangetype$ \\
+
+        \bf Output & $r \defEq |g.\mathtt{goal'}(s, s_{\Delta})|$
+        \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A change in the game state ($s_{\Delta}$) from the
+current state ($s$) is relevant to a goal ($g$) if its function
+$\mathtt{goal'}(s, s_{\Delta})$ returns a value whose magnitude is non-zero.
+This indicates that there is a change in $s$ by $s_\Delta$ which moves it
+closer to the state represented by $\mathtt{goal}$. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_WorldState}, \tyref{TY_WorldStateChange}, 
+\tyref{TY_Goal}, \waitref{C_PA}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{T_GoalCongruence} &
+        \bf Evaluating Goal Congruence \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$ $s_{\Delta} :
+        \worldstatechangetype$, $B \in \mathbb{R^+}$ \\
+
+        \bf Output & $c \defEq cg + b$ where \\
+
+        & $cg = g.\mathtt{goal'}(s, s_{\Delta})$, and \\
+        & $b = \begin{cases}
+            B \cdot cg, & G > 0 \wedge G' = 0 \\
+
+            -B \cdot cg, & G = 0 \wedge G' > 0\\
+
+            0, & \text{Otherwise} \\
+        \end{cases}$ \\
+        & \hspace{5mm} where $ G = g.\mathtt{goal}(s) $\\
+        & \hspace{8mm} and $ G' = g.\mathtt{goal'}(s, s_{\Delta}) $ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Goal congruence ($c$) is a measure of how a change in
+the world state ($s_{\Delta}$) affects the completion status of a goal
+$g.\mathtt{goal'}(s, s_{\Delta})$.
+
+A value $b$ proportional to $cg$ is added to $c$ to ``boost'' the value
+(\aref{A_AchievingGoals}) when a previously unsatisfied goal is now satisfied
+($g.\mathtt{goal}(s) > 0 \wedge g.\mathtt{goal'}(s, s_{\Delta}) = 0$) or a
+previously completed goal is no longer satisfied ($g.\mathtt{goal}(s) = 0
+\wedge g.\mathtt{goal'}(s, s_{\Delta}) > 0$). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_WorldState}, \tyref{TY_WorldStateChange}, 
+\tyref{TY_Goal}, \aref{A_AchievingGoals}, \waitref{C_PA}
+
+\paragraph{Ref. By} \waitref{T_Accountability}, \waitref{T_CopingPotential},
+\waitref{T_FutureExpectancy}, \waitref{T_AppraisalCA},
+\waitref{T_AngerIntensity}, \waitref{I_CopingPotential}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{T_Accountability} &
+        \bf Evaluating Accountability \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $(\mActor : \actortype, a : \actiontype, \mDeliberate :
+        \mathbb{B})$, $g : \goaltype$, $s : \worldstatetype$, $B \in
+        \mathbb{R^+}$ \\
+
+        \bf Output & $acc \defEq \begin{cases}
+            \text{Credit}, & \mDeliberate \wedge C > 0 \\
+
+            \text{Blame}, & \mDeliberate \wedge C < 0 \\
+
+            \text{None}, & \text{Otherwise} \\
+        \end{cases}$ \\
+
+        & where $C = c(g, s, a.\mathtt{makesChange}(s), B)$ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Accountability ($acc$) is a categorical assignment of
+fault for an action ($a$) that is caused by an actor ($\mActor$). It is derived
+from an assigned value of the actor's intention ($\mDeliberate$) and an
+evaluation of benefit or harm given by goal congruence ($c(g, s,
+a.\mathtt{makesChange}(s), B)$):
+\begin{itemize}
+    \item Credit is given if the event is deliberately caused and is beneficial
+    ($\mDeliberate \wedge c(g, s, a.\mathtt{makesChange}(s), B) > 0$),
+
+    \item Blame is given if the event is deliberate and causes harm
+    ($\mDeliberate \wedge c(g, s, a.\mathtt{makesChange}(s), B) < 0$), and
+
+    \item Neither Credit or Blame is given if the event is not deliberately
+    caused ($\neg \mDeliberate$) or has no effect on the evaluated goal ($c(g,
+    s, a.\mathtt{makesChange}(s), B) = 0$).
+\end{itemize}
+\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_WorldState}, \tyref{TY_Goal}, 
+\waitref{TY_Actor}, \waitref{TY_Action}, \waitref{C_SA}, 
+\waitref{T_GoalCongruence}
+
+\paragraph{Ref. By} \waitref{T_AppraisalCA}, \waitref{T_AngerIntensity}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{T_CopingPotential}
+        &
+        \bf Evaluating Coping Potential \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $a : \overrightarrow{\actiontype}$, $g : \goaltype$, $s :
+        \worldstatetype$, $B \in \mathbb{R^+}$, $E : \energytype$, $ d : [0, 1]
+        \in \mathbb{R^+}$ \\
+
+        \bf Output & $cp \defEq \sum_{i = 0}^{n} d^i \cdot q(i)$ \\
+
+        & where $q = p \text{ sorted in descending order}$ \\
+
+        & and $p(i) = \begin{cases}
+            C(i) \cdot L(i) \cdot J(i), & J(i) < 1 \wedge C(i) > 0 \\
+
+            0, & \text{Otherwise} \\
+        \end{cases} $ \\
+
+        & \hspace{5mm} where $C(i) = c(g, s, a(i).\mathtt{makesChange}(s), B)$,
+        \\
+        & \hspace{15mm} $L(i) = a(i).\mathtt{successLikelihood} $, \\
+        & \hspace{9mm} and $J(i) = 1 - \frac{a(i).\mathtt{energyCost}}{E}$ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Coping potential ($cp$) is a sum of the effectiveness
+of a vector of actions ($a : \overrightarrow{\actiontype}$). Actions are
+assumed to be independent because only one action can be executed at a time
+(\aref{A_ActOn}) and appraisals are evaluated on a moment-to-moment basis
+(\aref{A_AppraisalTime}).
+
+The vector of action effectiveness values is sorted in descending order ($q$),
+and each value is decayed by a factor of $d^i$. This maintains the full value
+of the most effective action's value the total coping potential, but the value
+of additional actions has increasingly diminished returns. This ensures that the
+additional value associated with having multiple effective actions is
+preserved, but recognizes that one might not see a difference when adding
+another effective action to an already large set.
+
+The effectiveness of an action ($p(i)$) is measured by how useful it is, its
+likelihood of success, and how easy it is to act on. This is given by the
+product of its expected goal congruence ($c(g, s, a(i).\mathtt{makesChange},
+B)$), likelihood of success ($a(i).\mathtt{successLikelihood}$), and
+anticipated energy usage ($a(i).\mathtt{energyCost}$) as it relates to the
+available energy ($E$).
+
+An action is excluded from the vector of potential actions if it does not
+affect or negatively affects the given goal ($C \not > 0$), or it requires more
+than the available energy ($J \not < 1$). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_WorldState}, \tyref{TY_Goal}, \aref{A_ActOn}, 
+\aref{A_AppraisalTime},  \waitref{TY_Energy}, \waitref{TY_EnergyChange} (via 
+\waitref{TY_Action}), \waitref{TY_Action}, \waitref{C_SA}, 
+\waitref{T_GoalCongruence}
+
+\paragraph{Ref. By} \waitref{T_AppraisalCA}, \waitref{T_FearIntensity},
+\waitref{I_CopingPotential} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{T_FutureExpectancy}
+        &
+        \bf Evaluating Future Expectancy \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$, $a :
+        \overrightarrow{\actiontype}$, $\mOtherChange : \worldstatechangetype$,
+        $B : \mathbb{R^+}$ \\
+
+        \bf Output & $fe \defEq c(g, s, \Delta S, B) - c(g, s, s_{\Delta}, B)$
+        \\
+        & where $\Delta S = a(i).\mathtt{makesChange}(s) + \mOtherChange$ \\
+        & and $i = \mathtt{arg max}_{a} \text{ }
+        a.\mathtt{successLikelihood}(s)$ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Future expectancy ($fe$) is an evaluation of the
+difference in goal congruence between this world state ($c(g, s, s_{\Delta},
+B)$) and the next predicted world state ($c(g, s, \Delta S, B)$). If the
+difference is:
+\begin{itemize}
+    \item Positive ($fe > 0$), then the next world state is predicted to be
+    more goal congruent -- an improvement over the current world state
+
+    \item Negative ($fe < 0$), then the next world state is predicted to be
+    less goal congruent -- worse than the current than the current world state
+
+    \item Zero ($fe = 0$), then the next world state is predicted to have the
+    same goal congruence -- there is no improvement or loss over the current
+    world state
+\end{itemize}
+
+The next predicted world state is the sum of two world state changes. One is
+the action that is most likely to succeed from a vector of actions ($a(i) \in
+\overrightarrow{\actiontype}$), representing the part of the future that the
+NPC can control. The other is a world state change that is not caused by the
+NPC's actions -- the parts of the future that the NPC cannot control -- such as
+the actions of others and naturally occurring events ($\mOtherChange$). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_WorldState}, \tyref{TY_WorldStateChange}, 
+\tyref{TY_Goal}, \waitref{TY_Action}, \waitref{C_SA}, \waitref{T_GoalCongruence}
+
+\paragraph{Ref. By} \waitref{T_AppraisalCA}, \waitref{I_FutureExpectancy}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{T_AppraisalCA} &
+        \bf Evaluating Emotion Type from an Appraisal (\textit{Fear},
+        \textit{Anger}, \textit{Sadness}, \textit{Joy}, \textit{Disgust}, and
+        \textit{Trust}) \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $ge(g) : \goalegotype$, $s :
+        \worldstatetype$, $s_{\Delta} : \worldstatechangetype$, $B :
+        \mathbb{R^+}$, $(\mActor : \actortype, a : \actiontype, \mDeliberate :
+        \mathbb{B})$, $a : \overrightarrow{\actiontype}$, $E : \energytype$, $d
+        : [0,1] \in \mathbb{R^+}$, $T_{cp} : \mathbb{R^+}$, $T_{fe} :
+        \mathbb{R^+}$ \\
+
+        \bf Output & $e \defEq \text{match } (C, GE, A, CP, FE) \text{ to}$ \\
+
+        & $\mid (C < 0, O, \text{None}, CP < T_{cp}, \_) \rightarrow
+        \text{Sadness}$ \\
+
+        & $\mid (C < 0, ge(g, \mathtt{SelfEsteem}) > 0 \vee ge(g,
+        \mathtt{SocialEsteem}) > 0, \text{Blame}, \_, \_) \rightarrow
+        \text{Anger}$ \\
+
+        & $\mid (C > 0, \_, \_, \_, FE > T_{fe}) \rightarrow
+        \text{Joy}$ \\
+
+        & $\mid (C < 0, O, \_, \_, \_) \rightarrow \text{Fear}$ \\
+
+        & $\mid (C < 0, O, \_, \_, \_) \rightarrow \text{Disgust}$ \\
+
+        & $\mid (C > 0, O, \_, \_, \_) \rightarrow \text{Trust}$ \\
+
+        & $\text{fi}$ \\
+
+        & where $R = r(g, s, s_{\Delta}, \varepsilon)$, \\
+        & $C = c(g, s, s_{\Delta}, B)$, \\
+        & $A = acc((\mActor, a, \mDeliberate), g, s, B)$, \\
+        & $CP = cp(\{a\}, g, s, B, E, d)$, $FE = fe()$, \\
+        & and $O = \{\exists o \in ge(g) \mid ge(g).o > 0\}$ \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} An appraisal (\waitref{C_Appraisal}) is the output of
+pattern matching where each emotion kind has a unique pattern
+(\aref{A_emotionRepr}). Since some patterns are more detailed than others, the
+patterns are read sequentially to avoid unintentional matches.
+
+A pattern is comprised of values for goal congruence ($C$), the ego type
+associated with $g$ ($GE$, \aref{A_EgoIdentity}, \aref{A_PAEgo}),
+accountability ($A$), coping potential ($CP$), and future expectancy
+($FE$).\\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_WorldState}, \tyref{TY_WorldStateChange}, 
+\tyref{TY_Goal}, \aref{A_emotionRepr}, \aref{A_EgoIdentity}, \aref{A_PAEgo}, 
+\waitref{TY_Energy}, \waitref{TY_Actor}, \waitref{TY_Action}, 
+\waitref{TY_GoalEgoRelation}, \waitref{C_Appraisal}, 
+\waitref{T_GoalCongruence}, \waitref{T_Accountability}, 
+\waitref{T_CopingPotential}, \waitref{T_FutureExpectancy}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum
+        \label{T_FearIntensity} &
+        \bf Determining the Intensity of \textit{Fear} \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$, $B : \mathbb{R^+}$,
+        $a : \overrightarrow{\actiontype}$, $E : \energytype$, $d : [0,1] \in
+        \mathbb{R^+}$, $t_{\Delta} : \timetype$ \\
+
+        \vspace*{-1.5mm} \bf Output & \vspace*{-1.5mm}
+        $I_{\mFear} : \responsestrength \defEq \begin{cases}
+            \dfrac{g.\mathtt{importance}}{t_{\Delta} \cdot
+                cp(a, g, s, B, E, d)}, & cp > 0 \wedge
+            t_{\Delta} > 0 $\vspace*{1mm}$\\
+            g.\mathtt{importance}, & \text{Otherwise} \\
+        \end{cases}
+        $
+        \vspace*{1mm}\\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A change in the intensity of \textit{Fear} ($I_{\mFear}
+: \responsestrength$) is:
+\begin{itemize}
+    \item Proportional to the importance of the affected goal
+    ($g.\mathtt{importance}$)---a higher importance increases intensity
+
+    \item Inversely proportional to the time that the event is expected
+    ($t_{\Delta}$), such that a shorter expected time increases intensity
+
+    \item Inversely proportional to the NPC's ability to mitigate risk as
+    measured by their coping potential ($cp(a, g, s, B, E,$ $d)$), such that a
+    higher coping potential decreases intensity
+\end{itemize}
+
+If at least one of $cp$ or $t_{\Delta}$ are 0, then the intensity of
+\textit{Fear} is equivalent to the importance of the goal. This represents
+situations where the NPC has no available actions that can affect the current
+world state ($cp = 0$), or when there is no time to prepare for the harmful
+event ($t_{\Delta} = 0$). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_Time}, \tyref{TY_DeltaIntensity}, 
+\tyref{TY_WorldState}, \tyref{TY_Goal}, \waitref{TY_Energy}, 
+\waitref{TY_Action}, \waitref{C_Fear}, \waitref{T_CopingPotential}
+
+\paragraph{Ref. By} \waitref{I_FearIntensityE}, \waitref{I_FearIntensityT},
+\waitref{I_FearIntensityTE} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum
+        \label{T_AngerIntensity} &
+        \bf Determining the Intensity of \textit{Anger} \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$, $B : \mathbb{R^+}$,
+        $(\mActor : \actortype, a : \actiontype, \mDeliberate : \mathbb{B})$,
+        $rl : \socialrelationtype$\\
+
+        \bf Output & $I_{\mAnger} : \responsestrength \defEq \begin{cases}
+            A, & acc((\mActor, a, \mDeliberate), g, s, B) = \text{Blame} \\
+            0, & \text{Otherwise} \\
+        \end{cases}$
+        \\
+        \vspace*{-2mm} & \vspace*{-2mm}
+        where $A = g.\mathtt{importance} \cdot \mControl + I_{\mStore}$, \\
+        & $\mControl = \dfrac{rl.\mathtt{confidence}}{rl.\mathtt{security}} +
+        c(g, s, a.\mathtt{makesChange}(s), B)$,
+        \vspace*{1mm}\\
+        & and $I_{\mStore} = \begin{cases}
+            A, & acc((\mActor, a, \mDeliberate), g, s, B) \neq \text{Blame} \\
+            0, & \text{Otherwise} \\
+        \end{cases}$ \vspace*{1.5mm}\\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A change in the intensity of \textit{Anger}
+($I_{\mAnger} : \responsestrength$) is:
+\begin{itemize}
+    \item Proportional to the importance of the affected goal
+    ($g.\mathtt{importance}$)---a higher importance increases intensity
+
+    \item Proportional to the degree of \textit{Blame} that the offending
+    $\mActor$ is perceived to have, represented as a perceived amount of
+    control over their actions ($\mControl$), such that a higher degree of
+    control increases intensity
+
+    \item Linearly increased by the total intensity of all previous encounters
+    of \textit{Anger} since the last \textit{Blame} assignment where it could
+    not be assigned ($I_{\mStore}$), representing a suppression of
+    \textit{Anger} since no suitable target is available
+\end{itemize}
+
+If Blame has been successfully assigned to $\mActor$ in the evaluation of
+accountability ($acc((\mActor, a,\allowbreak \mDeliberate), g, s,$ $B) = 
+\text{Blame}$), the intensity is equivalent to $A$ and $I_{\mStore}$ is reset 
+to $0$; otherwise, the emotion is suppressed and the intensity is $0$ and the 
+stored intensity of \textit{Anger} is $I_{\mStore}$.
+
+The degree of $\mControl$ that $\mActor$ has is a linear combination of two
+parts. The first is an evaluation of the relationship between this NPC and
+$\mActor$. The relationship is evaluated by: the confidence in the NPC's
+knowledge of the relationship ($rl.\mathtt{confidence}$), such that a higher
+confidence increases perceived control; and an evaluation of how much harm the
+NPC believes $\mActor$ intends ($rl.\mathtt{security}$), such that a higher
+value decreases perceived control. The second part is an evaluation of how much
+harm the action of $\mActor$ has caused, given as a congruence evaluation on
+their action ($c(g, s, a.\mathtt{makesChange}(s)$). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_DeltaIntensity}, \tyref{TY_WorldState}, 
+\tyref{TY_Goal}, \waitref{TY_Actor}, \waitref{TY_Action}, 
+\waitref{TY_SocialRelation}, \waitref{C_Anger}, \waitref{T_GoalCongruence}, 
+\waitref{T_Accountability}
+
+\paragraph{Ref. By} \waitref{I_AngerIntensityS}, \waitref{I_AngerIntensityR},
+\waitref{I_AngerIntensitySR} \\\hrule\vspace{0.5mm}\hrule
+
+\subsection{Instance Models}
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{I_CopingPotential}
+        &
+        \bf (Instance Model) Evaluating Coping Potential with No Energy
+        Cost \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input& $a : \overrightarrow{\actiontype}$, $g : \goaltype$, $s
+        :
+        \worldstatetype$, $B \in \mathbb{R^+}$, $ d : [0, 1] \in
+        \mathbb{R^+}$
+        \\
+
+        \bf Output & $cp \defEq \sum_{i = 0}^{n} d^i \cdot q(i)$ \\
+
+        & where $q = p \text{ sorted in descending order}$ \\
+
+        & and $p(i) = \begin{cases}
+            C(i) \cdot L(i), & C(i) > 0 \\
+
+            0, & \text{Otherwise} \\
+        \end{cases} $ \\
+
+        & \hspace{5mm} where $C(i) = c(g, s, a(i).\mathtt{makesChange}(s),
+        B)$,
+        \\
+        & \hspace{9mm} and $L(i) = a(i).\mathtt{successLikelihood} $ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} If energy is assumed to be infinite, then the
+effectiveness of an action is only measured by its goal congruence ($c(g,
+s,
+a(i).\mathtt{makesChange}, B)$) and likelihood of success
+($a(i).\mathtt{successLikelihood}$). Actions with no or negative effects on
+the
+goal ($g$) are excluded from the vector of potential actions.
+
+Coping potential ($cp$) remains the sum of the effectiveness ($p(i)$) of
+the
+vector of these actions ($a : \overrightarrow{\actiontype}$). The vector is
+sorted in descending order ($q$) and each action is decayed by a factor of
+$d^i$. This ensures that the full value of the most effective action is
+maintained in the sum, but each subsequent effectiveness is reduced such
+that
+there are diminishing returns on large sets of actions. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_WorldState}, \tyref{TY_Goal}, 
+\waitref{TY_Action}, \waitref{T_GoalCongruence}, \waitref{T_CopingPotential}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{I_FutureExpectancy} &
+        \bf Evaluating Future Expectancy with NPC Actions Only \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$, $a :
+        \overrightarrow{\actiontype}$, $B : \mathbb{R^+}$ \\
+
+        \bf Output & $fe \defEq c(g, s, \Delta S, B) - c(g, s, s_{\Delta}, B)$
+        \\
+        & where $\Delta S = a(i).\mathtt{makesChange}(s)$ \\
+        & and $i = \mathtt{arg max}_{a} \text{ }
+        a.\mathtt{successLikelihood}(s)$ \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Future expectancy ($fe$) is an evaluation of the
+difference in goal congruence between this world state ($c(g, s, s_{\Delta},
+B)$) and the next predicted world state ($c(g, s, \Delta S, B)$). If the
+difference is:
+\begin{itemize}
+    \item Positive ($fe > 0$), then the next world state is predicted to be
+    more goal congruent -- an improvement over the current world state
+
+    \item Negative ($fe < 0$), then the next world state is predicted to be
+    less goal congruent -- worse than the current than the current world state
+
+    \item Zero ($fe = 0$), then the next world state is predicted to have the
+    same goal congruence -- there is no improvement or loss over the current
+    world state
+\end{itemize}
+
+The next predicted world state is determined by an action that is most likely
+to succeed from a vector of available actions ($a(i) \in a :
+\overrightarrow{\actiontype}$). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_WorldState}, \tyref{TY_WorldStateChange}, 
+\tyref{TY_Goal}, \waitref{TY_Action}, \waitref{T_GoalCongruence}, 
+\waitref{T_FutureExpectancy}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{I_FearIntensityE} &
+        \bf Calculating the Intensity of \textit{Fear} with Energy and without
+        Time \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$, $B : \mathbb{R^+}$,
+        $\{a : \actiontype\}$, $E : \energytype$, $d : [0,1] \in \mathbb{R^+}$
+        \\
+
+        \vspace*{-1.5mm} \bf Output & \vspace*{-1.5mm}
+        $I_{\mFear} : \responsestrength \defEq
+        \dfrac{g.\mathtt{importance}}{cp(\{a
+            : \actiontype\}, g, s, B, E, d)} $
+        \vspace*{1mm}\\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A change in the intensity of \textit{Fear} ($I_{\mFear}
+: \responsestrength$) without time considerations is:
+\begin{itemize}
+    \item Proportional to the importance of the affected goal
+    ($g.\mathtt{importance}$)---a higher importance increases intensity
+
+    \item Inversely proportional to the NPC's ability to mitigate risk as
+    measured by their coping potential ($cp(\{a : \actiontype\}, g, s, B, E,
+    d)$), such that a higher coping potential decreases intensity
+\end{itemize}
+\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_DeltaIntensity}, \tyref{TY_WorldState}, 
+\tyref{TY_Goal}, \waitref{TY_Energy}, \waitref{TY_Action}, 
+\waitref{T_CopingPotential}, \waitref{T_FearIntensity}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{I_FearIntensityT} &
+        \bf Calculating the Intensity of \textit{Fear} without Energy and with
+        Time \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$, $B : \mathbb{R^+}$,
+        $\{a : \actiontype\}$, $d : [0,1] \in \mathbb{R^+}$, $t_{\Delta} :
+        \timetype$ \\
+
+        \vspace*{-1.5mm} \bf Output & \vspace*{-1.5mm}
+        $I_{\mFear} : \responsestrength \defEq
+        \dfrac{g.\mathtt{importance}}{t_{\Delta} \cdot cp(\{a : \actiontype\},
+            g, s, B, d)} $
+        \vspace*{1mm}\\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A change in the intensity of \textit{Fear} ($I_{\mFear}
+: \responsestrength$) without energy considerations is:
+\begin{itemize}
+    \item Proportional to the importance of the affected goal
+    ($g.\mathtt{importance}$)---a higher importance increases intensity
+
+    \item Inversely proportional to the time that the event is expected
+    ($t_{\Delta}$), such that a shorter expected time increases intensity
+
+    \item Inversely proportional to the NPC's ability to mitigate risk as
+    measured by their coping potential ($cp(\{a : \actiontype\}, g, s, B, d)$),
+    such that a higher coping potential decreases intensity
+\end{itemize}
+\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_Time}, \tyref{TY_DeltaIntensity}, 
+\tyref{TY_WorldState}, \tyref{TY_Goal}, \waitref{TY_Action}, 
+\waitref{T_FearIntensity}, \waitref{I_CopingPotential}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{I_FearIntensityTE} &
+        \bf Calculating the Intensity of \textit{Fear} without Energy or Time \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$, $B : \mathbb{R^+}$,
+        $\{a : \actiontype\}$, $d : [0,1] \in \mathbb{R^+}$
+        \\
+
+        \vspace*{-1.5mm} \bf Output & \vspace*{-1.5mm}
+        $I_{\mFear} : \responsestrength \defEq
+        \dfrac{g.\mathtt{importance}}{cp(\{a : \actiontype\}, g, s, B, d)} $
+        \vspace*{1mm}\\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A change in the intensity of \textit{Fear} ($I_{\mFear}
+: \responsestrength$) without energy or time considerations is:
+\begin{itemize}
+    \item Proportional to the importance of the affected goal
+    ($g.\mathtt{importance}$)---a higher importance increases intensity
+
+    \item Inversely proportional to the NPC's ability to mitigate risk as
+    measured by their coping potential ($cp(\{a : \actiontype\}, g, s, B, d)$),
+    such that a higher coping potential decreases intensity
+\end{itemize}
+\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_DeltaIntensity}, \tyref{TY_WorldState}, 
+\tyref{TY_Goal}, \waitref{TY_Action}, \waitref{T_FearIntensity}, 
+\waitref{I_CopingPotential}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{I_AngerIntensityS} &
+        \bf Calculating the Intensity of \textit{Anger} with Stored Intensity
+        and without a Social Relationship \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$, $B : \mathbb{R^+}$,
+        $(\mActor : \actortype, a : \actiontype, \mDeliberate : \mathbb{B})$\\
+
+        \bf Output & $I_{\mAnger} : \responsestrength \defEq \begin{cases}
+            A, & acc((\mActor, a, \mDeliberate), g, s, B) = \text{Blame} \\
+            0, & \text{Otherwise} \\
+        \end{cases}$
+        \\
+        \vspace*{-2mm} & \vspace*{-2mm}
+        where $A = g.\mathtt{importance} \cdot c(g, s,
+        a.\mathtt{makesChange}(s),
+        B) + I_{\mStore}$,
+        \vspace*{1mm}\\
+        & and $I_{\mStore} = \begin{cases}
+            A, & acc((\mActor, a, \mDeliberate), g, s, B) \neq \text{Blame} \\
+            0, & \text{Otherwise} \\
+        \end{cases}$ \vspace*{1.5mm}\\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A change in the intensity of \textit{Anger}
+($I_{\mAnger} : \responsestrength$) is:
+\begin{itemize}
+    \item Proportional to the importance of the affected goal
+    ($g.\mathtt{importance}$)---a higher importance increases intensity
+
+    \item Proportional to the degree of \textit{Blame} that the offending
+    $\mActor$ is perceived to have, such that a higher degree of control
+    increases intensity
+
+    \item Linearly increased by the total intensity of all previous encounters
+    of \textit{Anger} since the last \textit{Blame} assignment where it could
+    not be assigned ($I_{\mStore}$), representing a suppression of
+    \textit{Anger} since no suitable target is available
+\end{itemize}
+
+If Blame has been successfully assigned to $\mActor$ in the evaluation of
+accountability ($acc((\mActor, a,\allowbreak \mDeliberate), g, s,$ $B) = 
+\text{Blame}$), the intensity is equivalent to $A$ and $I_{\mStore}$ is reset 
+to $0$; otherwise, the emotion is suppressed and the intensity is $0$ and the 
+stored intensity of \textit{Anger} is $I_{\mStore}$.
+
+The degree of control that $\mActor$ has is an evaluation of how much harm the
+action of $\mActor$ has caused, given as a congruence evaluation on their
+action ($c(g, s, a.\mathtt{makesChange}(s)$). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_DeltaIntensity}, \tyref{TY_WorldState}, 
+\tyref{TY_Goal}, \waitref{TY_Actor}, \waitref{TY_Action}, 
+\waitref{T_GoalCongruence}, \waitref{T_Accountability}, 
+\waitref{T_AngerIntensity}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{I_AngerIntensityR} &
+        \bf Calculating the Intensity of \textit{Anger} without Stored
+        Intensity and with a Social Relationship \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$, $B : \mathbb{R^+}$,
+        $(\mActor : \actortype, a : \actiontype, \mDeliberate : \mathbb{B})$,
+        $rl : \socialattachmenttype$\\
+
+        \bf Output & $I_{\mAnger} : \responsestrength \defEq \begin{cases}
+            A, & acc((\mActor, a, \mDeliberate), g, s, B) = \text{Blame} \\
+            0, & \text{Otherwise} \\
+        \end{cases}$
+        \\
+        \vspace*{-2mm} & \vspace*{-2mm}
+        where $A = g.\mathtt{importance} \cdot \mControl$
+        \\
+        & and $\mControl = \dfrac{rl.\mathtt{confidence}}{rl.\mathtt{security}}
+        + c(g, s, a.\mathtt{makesChange}(s), B)$ \vspace*{1.5mm}\\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A change in the intensity of \textit{Anger}
+($I_{\mAnger} : \responsestrength$) is:
+\begin{itemize}
+    \item Proportional to the importance of the affected goal
+    ($g.\mathtt{importance}$)---a higher importance increases intensity
+
+    \item Proportional to the degree of \textit{Blame} that the offending
+    $\mActor$ is perceived to have, represented as a perceived amount of
+    control over their actions ($\mControl$), such that a higher degree of
+    control increases intensity
+\end{itemize}
+
+If Blame has been successfully assigned to $\mActor$ in the evaluation of
+accountability ($acc((\mActor, a,\allowbreak \mDeliberate), g, s,$ $B) = 
+\text{Blame}$), the intensity is equivalent to the calculated intensity ($A$); 
+otherwise, the emotion is suppressed and the intensity is $0$.
+
+The degree of $\mControl$ that $\mActor$ has is a linear combination of two
+parts. The first is an evaluation of the relationship between this NPC and
+$\mActor$. The relationship is evaluated by: the confidence in the NPC's
+knowledge of the relationship ($rl.\mathtt{confidence}$), such that a higher
+confidence increases perceived control; and an evaluation of how much harm the
+NPC believes $\mActor$ intends ($rl.\mathtt{security}$), such that a higher
+value decreases perceived control. The second part is an evaluation of how much
+harm the action of $\mActor$ has caused, given as a congruence evaluation on
+their action ($c(g, s, a.\mathtt{makesChange}(s)$). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_DeltaIntensity}, \tyref{TY_WorldState}, 
+\tyref{TY_Goal}, \waitref{TY_Actor}, \waitref{TY_Action}, 
+\waitref{TY_SocialRelation}, \waitref{C_Anger}, \waitref{T_GoalCongruence}, 
+\waitref{T_Accountability}, \waitref{T_AngerIntensity}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf WR\refstepcounter{waitnum}\thewaitnum \label{I_AngerIntensitySR} &
+        \bf Calculating the Intensity of \textit{Anger} without Stored
+        Intensity and without a Social Relationship \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype$, $s : \worldstatetype$\, $B :
+        \mathbb{R^+}$, $(\mActor : \actortype, a : \actiontype, \mDeliberate :
+        \mathbb{B})$ \\
+
+        \bf Output & $I_{\mAnger} : \responsestrength \defEq \begin{cases}
+            A, & acc((\mActor, a, \mDeliberate), g, s, B) = \text{Blame} \\
+            0, & \text{Otherwise} \\
+        \end{cases}$
+        \\
+        \vspace*{-2mm} & \vspace*{-2mm}
+        where $A = g.\mathtt{importance} \cdot c(g, s,
+        a.\mathtt{makesChange}(s), B) $, \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A change in the intensity of \textit{Anger}
+($I_{\mAnger} : \responsestrength$) is:
+\begin{itemize}
+    \item Proportional to the importance of the affected goal
+    ($g.\mathtt{importance}$)---a higher importance increases intensity
+
+    \item Proportional to the degree of \textit{Blame} that the offending
+    $\mActor$ is perceived to have, represented as a perceived amount of
+    control over their actions, such that a higher degree of control increases
+    intensity
+\end{itemize}
+
+If Blame has been successfully assigned to $\mActor$ in the evaluation of
+accountability ($acc((\mActor, a,\allowbreak \mDeliberate), g, s,$ $B) = 
+\text{Blame}$), the intensity is equivalent to the calculated intensity ($A$); 
+otherwise, the emotion is suppressed and the intensity is $0$.
+
+The degree of control that $\mActor$ has is an evaluation of how much harm the
+action of $\mActor$ has caused, given as a congruence evaluation on their
+action ($c(g, s, a.\mathtt{makesChange}(s)$). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_DeltaIntensity}, \tyref{TY_WorldState}, 
+\tyref{TY_Goal}, \waitref{TY_Actor}, \waitref{TY_Action}, \waitref{C_Anger}, 
+\waitref{T_GoalCongruence}, \waitref{T_Accountability}, 
+\waitref{T_AngerIntensity}
+
+\paragraph{Ref. By} -- \\\hrule\vspace{0.5mm}\hrule

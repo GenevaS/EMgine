@@ -1,0 +1,338 @@
+\subsubsection{Theoretical Models}\label{sec_theoretical}
+
+These models refine the Conceptual Models (Section~\ref{sec_conceptual}) using
+natural language to improve their precision. This is a necessary step for
+reducing ambiguity by explicitly stating how the primary sources are understood
+and showing how they relate to the mathematically-defined Data Types
+(Section~\ref{sec_typedefs}) and Instance Models (Section~\ref{sec_instance})
+using Assumptions (Section~\ref{sec_assumptions}).
+
+~\newline\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf T\refstepcounter{theorynum}\thetheorynum
+        \label{T_CalculateEmotionGP} &
+        \bf Evaluate Emotion Kind from Goals and Plans \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} The emotion kinds (``modes'') that CTE defines
+(\cref{C_Appraisal-CTE})---\textit{Happiness}, \textit{Sadness}, \textit{Fear},
+\textit{Anger}, \textit{Disgust}---in terms of goals (\cref{C_Goals}) and plans
+(\cref{C_Plans}) can be re-conceptualized as follows:
+\begin{itemize}
+    \item \textit{Joy} (\textit{Happiness}) occurs when an action moves an
+    entity closer to achieving a goal, assuming that each such action is a goal
+    itself (i.e. a ``sub-goal'' of the goal, \aref{A_Subgoal})
+
+    \item \textit{Sadness} occurs when an entity has a plan where a next step
+    is impossible to achieve (i.e. ``failure of a plan''), or a goal becomes
+    impossible to achieve (i.e. ``loss of a goal'')
+
+    \item \textit{Fear} (\textit{Anxiety}) occurs when there is a threat to
+    self-preservation (i.e. ``self-preservation goal threatened''), which
+    requires a prediction about a future world state based on the current world
+    state and an action that could change it
+
+    \item \textit{Anger} occurs when an entity has a plan where the next step
+    cannot be reached after an intentional action to achieve it, but there are
+    one or more other actions that can (i.e. the plan is ``frustrated'' because
+    it is still feasible, but it had to change to remain so)
+
+    \item \textit{Disgust} occurs when an entity has been ``contaminated'' or
+    encounters ``contaminated'' substances that it wants to avoid (i.e.
+    ``gustatory goal violated'')
+\end{itemize}
+
+It is assumed that a single goal can trigger more than one emotion
+(\aref{A_Goal2Emotion}) and they all contribute to a single emotion state
+(\aref{A_OneState}).
+
+Emotion intensity is evaluated separately (\aref{A_EmotionTypeIntensity}, see
+\tref{T_CalculateEmotionIntensity}). The emotions \textit{Surprise},
+\textit{Interest}, and \textit{Acceptance} are evaluated differently because
+they are not part of CTE's primary emotions (\aref{A_AppraisalProcess}, see
+\tref{T_CalculateEmotionSurprise}, \tref{T_CalculateEmotionInterest}, and
+\tref{T_CalculateEmotionAcceptance} respectively). \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \aref{A_Subgoal}, \aref{A_Goal2Emotion},
+\aref{A_OneState}, \aref{A_EmotionTypeIntensity},
+\aref{A_AppraisalProcess}, \cref{C_Appraisal-CTE}, \cref{C_Goals},
+\cref{C_Plans}
+
+\paragraph{Ref. By} \iref{IM_CalculateEmotionGP} \\\hrule\vspace{0.5mm}\hrule
+
+~\newpage\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf T\refstepcounter{theorynum}\thetheorynum
+        \label{T_CalculateEmotionIntensity} &
+        \bf Evaluate Emotion Intensity \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Emotion intensity (\cref{C_EmIntensity-CTE}) is
+proportional to the force causing an emotion state (``entrained'') and how
+fixed or non-adjustable that force is (``locked in''). This could be related to
+the degree that something impacts a goal (\aref{A_Goal2Intensity})---either a
+stand-alone goal or as part of a plan (i.e. a ``sub-goal'')---such that an
+entity would want to maintain the momentum caused by an emotion ``mode'' as
+long as that goal is affected. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \aref{A_Goal2Intensity}, \cref{C_EmIntensity-CTE}
+
+\paragraph{Ref. By} \tyref{TY_EmotionIntensity},
+\iref{IM_CalculateEmotionIntensity} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf T\refstepcounter{theorynum}\thetheorynum
+        \label{T_CalculateEmotionSurprise} &
+        \bf Evaluate \textit{Surprise} Emotion and Intensity \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} An ``interruption and abrupt transition'' to a
+different emotion state elicits \textit{Surprise} (\cref{C_EmOther}). This
+suggests that it occurs when there is a large, rapid change in emotion
+intensity (\aref{A_Surprise}), and/or there the emotion state recently changed
+and it is changing again (``sudden, unexpected event'', \aref{A_Surprise2}).
+
+For intensity, this implies that it is inversely proportional to time such that
+less time it takes for the emotion intensity change to occur and/or between the
+recently changed emotion state and the current change to a ``new'' emotion
+state creates a higher intensity response. Intensity rapidly decreases as time
+elapses. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \aref{A_Surprise}, \aref{A_Surprise2}, \cref{C_EmOther}
+
+\paragraph{Ref. By} \tyref{TY_EmotionIntensity},
+\iref{IM_CalculateEmotionSurpriseElicit}, \iref{IM_CalculateEmotionSurprise}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf T\refstepcounter{theorynum}\thetheorynum
+        \label{T_CalculateEmotionInterest} &
+        \bf Evaluate \textit{Interest} Emotion and Intensity \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} ``Sustained attention to certain external events''
+elicits \textit{Interest} (\cref{C_EmOther}), implying that it occurs when an
+entity is focused on the same thing (e.g. task, another entity) for an extended
+period of time (\aref{A_Interest}). This suggests that there is a ``baseline''
+amount of attention/time paid to something before it triggers
+\textit{Interest}, which can differ between foci.
+
+For intensity, this implies that it is proportional to the amount of time spent
+focused on the same thing and relative to the ``baseline'' time spent. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \aref{A_Interest}, \cref{C_EmOther}
+
+\paragraph{Ref. By} \tyref{TY_EmotionIntensity},
+\iref{IM_CalculateEmotionInterestElicit}, \iref{IM_CalculateEmotionInterest}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf T\refstepcounter{theorynum}\thetheorynum
+        \label{T_CalculateEmotionAcceptance} &
+        \bf Evaluate \textit{Acceptance} Emotion and Intensity \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Taking \textit{Acceptance} as a ``complex'' emotion
+(\cref{C_ComplexEmotions-CTE}), it can be defined as \textit{Joy}
+(\textit{Happiness}) elaborated with information about social relationships
+(\cref{C_Relation-CTE}) such that an entity experiences \textit{Acceptance}
+when it attributes a state of \textit{Joy} to another entity that they have an
+established relationship with (\aref{A_Acceptance}). An entity might also
+establish a relationship with another entity that is attributed with causing
+the state, which would also elicit \textit{Acceptance}.
+
+For intensity, this implies that it is proportional to the intensity of
+\textit{Joy} and the strength of the relationship with the entity that the
+state is attributed to. \\\hrule
+
+\paragraph{Sources} \citet[p.~178--179]{oatley1992best}
+
+\paragraph{Depends On} \aref{A_Acceptance}, \cref{C_ComplexEmotions-CTE},
+\cref{C_Relation-CTE}
+
+\paragraph{Ref. By} \tyref{TY_EmotionIntensity},
+\iref{IM_CalculateEmotionAcceptanceElicit},
+\iref{IM_CalculateEmotionAcceptance} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf T\refstepcounter{theorynum}\thetheorynum
+        \label{T_DecayEmotionState} &
+        \bf Decaying Emotion State \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Emotion decay (\cref{C_EmDecay}) is a function of time
+such that the emotion state returns to its ``equilibrium'' intensities as time
+progresses. It is assumed that:
+\begin{itemize}
+    \item The speed that intensities return to ``equilibrium'' are assumed to
+    be functions of distance such that larger differences between an intensity
+    and its ``equilibrium'' cause larger changes in intensity
+    (\aref{A_DecaySpeed})
+
+    \item Each emotion kind has its own ``equilibrium'' value
+    (\aref{A_Equilibrium}) and can decay at different rates (\aref{A_DecayRate})
+
+    \item Decay rates and equilibrium values can differ between entities
+    (\aref{A_DecayUnique})
+\end{itemize}
+\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \aref{A_DecaySpeed}, \aref{A_Equilibrium},
+\aref{A_DecayRate}, \aref{A_DecayUnique}, \cref{C_EmDecay}
+
+\paragraph{Ref. By} \tyref{TY_EmotionDecay}, \tyref{TY_EmotionDecayState},
+\iref{IM_DecayEmotionState} \\\hrule\vspace{0.5mm}\hrule
+
+~\clearpage
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf T\refstepcounter{theorynum}\thetheorynum
+        \label{T_GetEmotionStatePAD} &
+        \bf Getting an Emotion State as a PAD Point \\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Assuming that an entity can only occupy one point in
+PAD Space at any given time (\aref{A_OnePADPoint}), the intensities for each
+discrete emotion in an emotion state must be combined into a single value for
+each dimension in the space. This requires reference points for each emotion
+type in PES because it defines the emotion state structure
+(\cref{C_EmotionStruct}) that emotion intensities are mapped to.
+
+In both theories, laypeople evaluated emotion terms for their contents. In both
+experiments, the laypeople were likely from the same age group (university
+undergraduates, college and graduate students), likely from the United States
+(in the case of PAD, Californian), and likely to have participated in the
+experiments around the same time given the publishing year of the work (1980).
+Therefore, it is reasonable to assume that the meaning of the terms in PES and
+PAD Space would be judged to be identical or nearly identical to each other by
+the same laypeople (\aref{A_EmotionTerms}).
+
+The circumplex representing the relative similarity of emotion term
+meanings~\citep[p.~170]{robert1980emotion} was divided into ranges,
+representing what language laypeople typical describe PES emotion kinds with.
+Gaps between areas are small (0.3\textdegree{} at least, 7.3\textdegree{} at
+most), so they are ignored. The list of 145 emotion terms from PES and 151 from
+PAD~\citep[p.~42--45]{mehrabian1980basic} were compared for common terms, which
+were listed by PES emotion kind. An emotion term was selected from each list
+based on its similarity to the emotion kind label. There was no such term for
+\textit{Acceptance}, so \progname{} uses the term closest to the mean range on
+the circumplex (i.e. ``Affectionate''). Where possible, emotion terms that had
+statistical significance ($p < 0.01$) for all dimensions define reference
+points (e.g. \textit{Astonished} is statistically significant on all three
+dimensions, whereas \textit{Surprised} is only significant for two). All terms
+achieved significance for \textit{pleasure} and \textit{arousal}.
+\textit{Interested} and \textit{Disgust} are not statistically significant for
+\textit{dominance}.
+
+An emotion term's \textit{pleasure}, \textit{arousal}, and \textit{dominance}
+mean values (\cref{C_PAD}) form a reference point. Number of ratings and
+standard deviation do not affect reference points (\aref{A_PADStats}).
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{ccccc}
+        \toprule
+        \multicolumn{2}{c}{\textbf{PES}} &  &  & \\
+        $k \in \emotionkindstype$ & Range on Circumplex (\textdegree) & Term  &
+        Circumplex Location (\textdegree) & PAD Ref.~\# \\
+        \midrule
+
+        \rowcolor[gray]{0.9}\textit{Fear} & $[65.0, 86.0]$ & Terrified & 75.5 &
+        102 \\
+
+        \textit{Anger} & $[200.6, 249.0]$ & Angry & 212.0 & 82 \\
+
+        \rowcolor[gray]{0.9}\textit{Sadness} & $[88.3, 138.0]$ & Sad & 108.5 &
+        151 \\
+
+        \textit{Joy} & $[323.4, 338.3]$ & Joyful & 323.4 & 20 \\
+
+        \rowcolor[gray]{0.9}\textit{Interest} & $[249.7, 322.4]$ & Interested &
+        315.7 & 8 \\
+
+        \textit{Surprise} & $[138.3, 156.7]$ & Astonished & 148.0 & 74 \\
+
+        \rowcolor[gray]{0.9}\textit{Disgust} & $[160.3, 193.7]$ & Disgusted &
+        161.3 & 75 \\
+
+        \textit{Acceptance} & $[340.7, 57.7]$ & Affectionate & 52.3 & 34 \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\hrule
+
+\paragraph{Sources} \citet[p.~40, 42--45]{mehrabian1980basic},
+\citet[p.~159, 170]{robert1980emotion}, \cite{conte1976circumplex}
+
+\paragraph{Depends On} \aref{A_OnePADPoint}, \aref{A_EmotionTerms},
+\aref{A_PADStats}, \cref{C_EmotionStruct}, \cref{C_PAD}
+
+\paragraph{Ref. By} \iref{IM_GetEmotionStatePAD} \\\hrule\vspace{0.5mm}\hrule

@@ -1,0 +1,127 @@
+\subsection{Functional Requirements}\label{sec_functionalreqs}
+
+\progname{} must:
+\noindent \begin{itemize}
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_Types}:] Enforce data
+    type definitions (Section~\ref{sec_typedefs}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_TimeType}:] Provide a
+    formal specification of $\timetype$ and $\deltatimetype$ for users to
+    implement (\tyref{TY_Time}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_IntensityTypeUse}:]
+    Provide a data type for $\emotionintensitytype$
+    (\tyref{TY_EmotionIntensity}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_IntensityChangeType}:]
+    Provide a data type for $\responsestrength$ (\tyref{TY_DeltaIntensity}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_IntensityDecayType}:]
+    Provide a data type for $\emotiondecaytype$ (\tyref{TY_EmotionDecay}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_EmotionKindsType}:]
+    Provide a data type for $\emotionkindstype$ (\tyref{TY_EmotionKind}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_EmotionStateType}:]
+    Provide a data type for $\emotionstatetype$ (\tyref{TY_EmotionState}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_EmotionDecayStateType}:]
+    Provide a data type for $\emotionstatedecaytype$
+    (\tyref{TY_EmotionDecayState}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_EmotionType}:] Provide a
+    data type for $\emotiontype$ (\tyref{TY_Emotion}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_PADPointType}:] Provide
+    a data type for $\padpoint$ (\tyref{TY_PAD}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_WorldType}:] Provide a
+    formal specification of $\worldstatetype$ for users to implement
+    (\tyref{TY_WorldState}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_WorldChangeType}:]
+    Provide a formal specification of $\worldstatechangetype$ for users to
+    implement (\tyref{TY_WorldStateChange}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_DistanceType}:] Provide
+    a formal specification of $\statedistancetype$ for users to implement
+    (\tyref{TY_DistanceBetweenWorldStates}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_DistanceChangeType}:]
+    Provide a formal specification of $\statedistancechangetype$ for users to
+    implement (\tyref{TY_DistanceBetweenWorldStatesChange}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_GoalType}:] Provide a
+    data type for $\goaltype$ that a user can extend with additional
+    information (\tyref{TY_Goal}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_PlanType}:] Provide a
+    data type for $\plantype$ that a user can extend with additional
+    information (\tyref{TY_Plan}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_Attention}:] Provide a
+    data type for $\attentiontype$ that a user can extend with additional
+    information (\tyref{TY_Attention}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_SocialAttachment}:]
+    Provide a data type for $\socialattachmenttype$ that a user can extend with
+    additional information (\tyref{TY_Relation-CTE}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_MixingEmotionsPES}:]
+    Provide a method to define new emotion kinds/types/categories
+    (\cref{C_ComplexEmotion}) as functions of $\emotionkindstype$ and
+    $\emotionintensitytype$ (\tyref{TY_EmotionKind},
+    \tyref{TY_EmotionIntensity}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_PartitionEmotions}:]
+    Provide a method to define new emotion types (\cref{C_ComplexEmotion}) as
+    partitions of $\emotionintensitytype$ for a $k : \emotionkindstype$
+    (\tyref{TY_EmotionIntensity}, \tyref{TY_EmotionKind}).
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_MixingEmotionsCTE}:]
+    Provide a method to define new emotion types (\cref{C_ComplexEmotions-CTE})
+    as functions of $\emotionkindstype$ (\tyref{TY_EmotionKind}) and functions
+    of $\mathbb{B}$.
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_GenerateEmotionCTE}:]
+    Provide a method for computing an emotion kind/type/category using
+    \iref{IM_CalculateEmotionGP}, \iref{IM_CalculateEmotionSurpriseElicit},
+    \iref{IM_CalculateEmotionInterestElicit}, and
+    \iref{IM_CalculateEmotionAcceptanceElicit}.
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_CalculateIntensity}:]
+    Provide a method for computing emotion intensity using using
+    \iref{IM_CalculateEmotionIntensity}, \iref{IM_CalculateEmotionSurprise},
+    \iref{IM_CalculateEmotionInterest}, and
+    \iref{IM_CalculateEmotionAcceptance}.
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_DecayIntensity}:] Provide
+    a method for computing a decayed emotion intensity using
+    \iref{IM_DecayEmotionState}.
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_DecayEmotion}:] Provide a
+    method for computing the decayed intensities of an emotion state using
+    \iref{IM_DecayEmotion}.
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_UpdateAnIntensity}:]
+    Provide a method for updating the intensity associated with an emotion
+    kind/type/category using \iref{IM_UpdateEmotionState}.
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_UpdateEmotionState}:]
+    Provide a method for updating the intensities in an emotion state using
+    \iref{IM_UpdateEmotionState2}.
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_UpdateEmotion}:] Provide
+    a method for updating emotion with an emotion state using
+    \iref{IM_UpdateEmotion}.
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_GetEmotionState}:]
+    Provide a method for getting an emotion state from emotion using
+    \iref{IM_GetEmotionState}.
+
+    \item[R\refstepcounter{reqnum}\thereqnum \label{R_Convert2PAD}:] Provide a
+    method for ``translating'' and emotion state into a PAD point using
+    \iref{IM_GetEmotionStatePAD}.
+
+\end{itemize}
