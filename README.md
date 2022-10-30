@@ -12,3 +12,10 @@ The repository for this project is organized as:
 
 1. docs: Any and all documentation produced by EMgine's development
 2. refs: Supporting research and resources
+
+## License ##
+EMgine's concept, specification, design, and testing documentation are licensed 
+under the [CC BY-SA 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+Its source code and documentation, including user manuals, are licensed under the 
+[BSD 3-Clause license](LICENSE).
+
