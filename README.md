@@ -10,7 +10,7 @@ left for game designers/developers to decide.
 
 The repository for this project is organized as:
 
-1. docs: Any and all documentation produced by EMgine's development
+1. docs: Any and all documentation produced during EMgine's development
 2. refs: Supporting research and resources
 
 ## License ##
