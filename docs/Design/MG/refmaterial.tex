@@ -1,7 +1,77 @@
 \section{Reference Material}
 
-This section records the units, symbols, abbreviations and acronyms, and
-mathematical notation that appears in this document for easy reference.
+This section records the symbols, abbreviations, and acronyms that appear in
+this document for easy reference.
+
+\subsection*{Table of Symbols}
+
+The table that follows summarizes the symbols used in this document along with
+their units, listed in alphabetical order. These correspond to the symbols in
+\progname{}'s Software Requirement Specification (SRS) at
+\href{https://github.com/GenevaS/EMgine/blob/main/docs/SRS/EMgine_SRS.pdf}{https://github.com/GenevaS/EMgine/blob/main/docs\newline
+    /SRS/EMgine\_SRS.pdf}
+
+\noindent \begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{C{0.1\textwidth} C{0.2\textwidth}
+            m{0.6\textwidth}} \toprule
+        \textbf{Symbol} & \textbf{Type} & \textbf{Description}\\
+        \midrule
+
+        \colourRow$\attentiontype$ & \tyref{TY_Attention} & The time elapsed
+        while focusing on $x$ \\
+
+        $\statedistancetype$ & \tyref{TY_DistanceBetweenWorldStates} & The
+        difference between two game world states \\
+
+        \colourRow$\statedistancechangetype$ &
+        \tyref{TY_DistanceBetweenWorldStatesChange} & The change that a game
+        world event makes to a game world state \\
+
+        $\emotiontype$ & \tyref{TY_Emotion} & Emotion states over
+        time \\
+
+        \colourRow$\emotionstatetype$ & \tyref{TY_EmotionState} & An emotion
+        state \\
+
+        $\emotionstatedecaytype$ & \tyref{TY_EmotionDecayState} & An emotion
+        decay state \\
+
+        \colourRow$\goaltype$ & \tyref{TY_Goal} & An entity's goal \\
+
+        $\emotionintensitytype$ & \tyref{TY_EmotionIntensity} & Emotion
+        intensity \\
+
+        \colourRow$\responsestrength$ & \tyref{TY_DeltaIntensity} & A change in
+        emotion intensity \\
+
+        $\emotiondecaytype$ & \tyref{TY_EmotionDecay} & Emotion decay constant
+        \\
+
+        \colourRow$\emotionkindstype$ & \tyref{TY_EmotionKind} & Allowable
+        emotion labels/types \\
+
+        $\plantype$ & \tyref{TY_Plan} & An entity's plan \\
+
+        \colourRow$\padpoint$ & \tyref{TY_PAD} & A point in PAD space \\
+
+        $\worldstatetype$ & \tyref{TY_WorldState} & A game world state \\
+
+        \colourRow$\worldstatechangetype$ & \tyref{TY_WorldStateChange} & A
+        game action that changes a game world state \\
+
+        $\socialattachmenttype$ & \tyref{TY_Relation-CTE} & A social attachment
+        to entity $A$ \\
+
+        \colourRow$\timetype$ & \tyref{TY_Time} & Abstract, linearly ordered
+        time \\
+
+        $\deltatimetype$ & \tyref{TY_Time} & The difference between two times \\
+
+        \bottomrule
+    \end{tabular}
+
+\end{center}
 
 \subsection*{Abbreviations and Acronyms}
 
@@ -13,30 +83,32 @@ mathematical notation that appears in this document for easy reference.
         \textbf{Text} & \textbf{Description} \\
         \midrule
 
-        \rowcolor[gray]{0.9}AC & Anticipated Change \\
+        \colourRow AC & Anticipated Change \\
 
         API & Application Programming Interface \\
 
-        \rowcolor[gray]{0.9}DAG & Directed Acyclic Graph \\
+        \colourRow CP & Component \\
 
-        M & Module \\
+        DAG & Directed Acyclic Graph \\
 
-        \rowcolor[gray]{0.9}MG & Module Guide \\
+        \colourRow M & Module \\
 
-        NPC & Non-Player Character (Games) \\
+        MG & Module Guide \\
 
-        \rowcolor[gray]{0.9}OS & Operating System \\
+        \colourRow NPC & Non-Player Character (Games) \\
 
-        SRS-R & Requirement from the Software Requirements Specification \\
+        OS & Operating System \\
 
-        \rowcolor[gray]{0.9}SC & Scientific Computing \\
+        \colourRow SRS-R & Requirement from the Software Requirements
+        Specification \\
 
-        SRS & Software Requirements Specification \\
+        SC & Scientific Computing \\
 
-        \rowcolor[gray]{0.9}SRS-LC & Likely Change from the Software
-        Requirements Specification \\
+        \colourRow SRS & Software Requirements Specification \\
 
-        UC & Unlikely Change \\
+        SRS-LC & Likely Change from the Software Requirements Specification \\
+
+        \colourRow UC & Unlikely Change \\
 
         \bottomrule
     \end{tabular}

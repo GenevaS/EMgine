@@ -12,9 +12,6 @@ appear in square brackets.
 
 \begin{description}
 
-    \item[\refstepcounter{acnum} \actheacnum \label{acTimeImpl}:] The
-    implementation of time and, consequently, delta time.
-
     \item[\refstepcounter{acnum} \actheacnum \label{acEmotionIntensityMin}:]
     The minimum value of emotion intensity [\lcref{LC_PositiveIntensity}].
 
@@ -23,16 +20,16 @@ appear in square brackets.
     [\lcref{LC_Goal2Intensity}].
 
     \item[\refstepcounter{acnum} \actheacnum \label{acUpdateIntensityAlgo}:]
-    The algorithm/method for updating emotion intensity 
-    [\lcref{LC_UpdateEmotionState}].
+    The algorithm/method for updating emotion intensity with an intensity
+    change.
 
-    \item[\refstepcounter{acnum} \actheacnum \label{acElicitSurpriseAlgo}:]
-    The algorithm/method for calculating intensity of \textit{Surprise}
-    [\lcref{LC_Surprise}].
-
-    \item[\refstepcounter{acnum} \actheacnum \label{acElicitInterestAlgo}:]
-    The algorithm/method for calculating intensity of \textit{Interest}
-    [\lcref{LC_Interest}].
+    \item[\refstepcounter{acnum} \actheacnum \label{acIntensityEvalAlgo}:]
+    The algorithm/method for calculating emotion intensity
+    [\lcref{LC_Interest}]. Although each of \progname{}'s supported emotion
+    kinds have their own intensity model, end-users do not need to know that
+    they are calculated differently. They also collectively share the same
+    secret: their method for evaluating emotion intensity. Therefore, these are
+    associated with one AC.
 
     \item[\refstepcounter{acnum} \actheacnum \label{acElicitAcceptanceAlgo}:]
     The algorithm/method for calculating intensity of \textit{Acceptance}.
@@ -42,7 +39,11 @@ appear in square brackets.
 
     \item[\refstepcounter{acnum} \actheacnum \label{acAppraisalAlgo}:] The
     algorithm/method for generating emotion kinds [\lcref{LC_Subgoal},
-    \lcref{LC_Goal2Emotion}, \lcref{LC_EmotionTypeIntensity}].
+    \lcref{LC_Goal2Emotion}, \lcref{LC_EmotionTypeIntensity}]. Although each of
+    \progname{}'s supported emotion kinds have their own elicitation model,
+    end-users do not need to know that they are calculated differently. They
+    also collectively share the same secret: the method for emotion
+    elicitation. Therefore, these are gathered into one module.
 
     \item[\refstepcounter{acnum} \actheacnum \label{acEmotionStateImpl}:] The
     implementation of emotion state data structure.
@@ -67,29 +68,32 @@ appear in square brackets.
     algorithm/method for converting an emotion state to a PAD point
     [\lcref{LC_EmotionTerms}, \lcref{LC_PADStats}].
 
-    \item[\refstepcounter{acnum} \actheacnum \label{acWorldStateImpl}:] The
-    implementation of world state data structure.
-
-    \item[\refstepcounter{acnum} \actheacnum \label{acWorldStateChangeImpl}:]
-    The implementation of world event data structure.
-
-    \item[\refstepcounter{acnum} \actheacnum \label{acDistanceImpl}:] The
-    implementation of distance between world states data structure.
-
-    \item[\refstepcounter{acnum} \actheacnum \label{acDistanceChangeImpl}:] The
-    implementation of change in distance between world states data structure.
-
     \item[\refstepcounter{acnum} \actheacnum \label{acGoalImpl}:] The
     implementation of goal data structure.
 
     \item[\refstepcounter{acnum} \actheacnum \label{acPlanImpl}:] The
     implementation of plan data structure.
 
+    \item[\refstepcounter{acnum} \actheacnum \label{acAttachmentImpl}:] The
+    definition and/or implementation of social attachment data structure.
+
     \item[\refstepcounter{acnum} \actheacnum \label{acAttentionImpl}:] The
     definition and/or implementation of attention data structure.
 
-    \item[\refstepcounter{acnum} \actheacnum \label{acAttachmentImpl}:] The
-    definition and/or implementation of social attachment data structure.
+    \item[\refstepcounter{acnum} \actheacnum \label{acTimeImpl}:] The
+    implementation of time and, consequently, delta time.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acWorldStateImpl}:] The
+    implementation of World State View (WSV) data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acWorldStateChangeImpl}:]
+    The implementation of world event data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acDistanceImpl}:] The
+    implementation of distance between WSVs data structure.
+
+    \item[\refstepcounter{acnum} \actheacnum \label{acDistanceChangeImpl}:] The
+    implementation of change in distance between WSVs data structure.
 
 \end{description}
 
@@ -101,7 +105,7 @@ software design. These decisions are \textit{unlikely changes} because they are
 not intended to be changed due to the potentially large number of design
 elements that need to be modified to accommodate them.
 
-\progname{} does not have any known unlikely changes, as its goal is for users 
-to choose, organize, modify, and reuse its modules as they see fit. These needs 
-also motivate its conception as a library of components (see 
+\progname{} does not have any known unlikely changes, as its goal is for users
+to choose, organize, modify, and reuse its modules as they see fit. These needs
+also motivate its conception as a library of components (see
 Section~\ref{SecConnection} for reasoning).

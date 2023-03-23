@@ -4,6 +4,7 @@
 headheight=26pt]{geometry}
 
 \usepackage{graphicx}
+\usepackage[hyphens]{url}
 \usepackage{hyperref}
 \usepackage{array}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
@@ -26,21 +27,30 @@ headheight=26pt]{geometry}
 \usepackage{fancyhdr}
 \fancyhf{}
 \lhead{Module Guide \\ \progname{}}
-\rhead{Geneva M. Smith \\ Dept. of Computing and Software---McMaster University}
+\rhead{Geneva M. Smith and Dr. Jacques Carette \\ Dept. of Computing and
+Software---McMaster University}
 \lfoot{Ver.~\ref{current_version_MG}}
 \rfoot{\thepage\ of \thepagesMG}
 
 \renewcommand{\footrule}{\vbox to 0pt
     {\makebox[\textwidth]{\hrulefill}\vss}}
 
+\newcommand{\colourRow}{\rowcolor[gray]{0.9}}
+\newcommand{\colourCell}{\cellcolor[gray]{0.9}}
+
+\definecolor{CoolPurple}{RGB}{117, 0, 235}
+\definecolor{NatureGreen}{RGB}{8, 104, 11}
+\definecolor{SeaBlue}{RGB}{6, 97, 122}
+\definecolor{Lilac}{RGB}{178, 131, 206}
+
 \hypersetup{
     bookmarks=true,
     colorlinks=true,
     linktoc=all,
-    linkcolor=Purple,
-    citecolor=ForestGreen,
+    linkcolor=CoolPurple,
+    citecolor=NatureGreen,
     filecolor=WildStrawberry,
-    urlcolor=Cerulean
+    urlcolor=SeaBlue
 }
 
 \newcommand{\citepg}[2]{\citeauthor{#1}, \citeyear{#1}, p.~#2}
@@ -53,6 +63,9 @@ headheight=26pt]{geometry}
 
 \usepackage{xr}
 \externaldocument{../../SRS/EMgine_SRS}
+\externaldocument{../../SRS/SpecificSystDescription/specificsysdesc}
+\externaldocument{../../SRS/Requirements/requirements}
+\externaldocument{../../SRS/LikelyChanges/likelychanges}
 \newcommand{\rref}[1]{SRS-R\ref{#1}}
 \newcommand{\nfref}[1]{SRS-NF\ref{#1}}
 \newcommand{\tyref}[1]{SRS-TY\ref{#1}}
@@ -70,6 +83,10 @@ headheight=26pt]{geometry}
 \newcounter{mnum}
 \newcommand{\mthemnum}{M\themnum}
 \newcommand{\mref}[1]{M\ref{#1}}
+
+\newcounter{cpnum}
+\newcommand{\mthecpnum}{CP\thecpnum}
+\newcommand{\cpref}[1]{CP\ref{#1}}
 
 \input{../../commands}
 
@@ -89,8 +106,8 @@ headheight=26pt]{geometry}
         \title{Module Guide for \progname{}: A Computational Model of Emotion
         for
         Enhancing Non-Player Character Believability in Games}
-        \author{Geneva M. Smith}
-        \date{October 15, 2022}
+        \author{Geneva M. Smith and Dr. Jacques Carette}
+        \date{Version~\ref{current_version_MG} (March 23, 2023)}
 
         \maketitle
     \end{titlepage}
@@ -102,10 +119,24 @@ headheight=26pt]{geometry}
     \begin{center}
         \begin{tabular}{m{0.16\linewidth}C{0.15\linewidth}m{0.59\linewidth}}
             \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+
+            \midrule
+
+            \vspace*{1mm}March 23, 2023 &
+            \vspace*{1mm}\newref{1.5}\label{current_version_MG} &
+            \vspace*{5mm}
+            \begin{itemize}[noitemsep, nosep, leftmargin=*]
+                \item Updated to reflect SRS Version~1.5
+                \item Collapsed Emotion Decay Function Module into Emotion
+                Intensity Decay and Emotion State Decay Modules
+                \item Added description of \progname{}'s software architecture
+                and component design
+            \end{itemize} \\
+
             \midrule
 
             \vspace*{1mm}October 15, 2022 &
-            \vspace*{1mm}\newref{1.0}\label{current_version_MG} & \vspace*{6mm}
+            \vspace*{1mm}\newref{1.0} & \vspace*{6mm}
             \begin{itemize}[noitemsep, nosep, leftmargin=*]
                 \item Completed First Version based on SRS Version~1.0
             \end{itemize} \\ \midrule
@@ -158,6 +189,10 @@ headheight=26pt]{geometry}
 
     \clearpage
 
+    \input{architecture}
+
+    \clearpage
+
     \input{traceability}
 
     \clearpage
@@ -168,7 +203,9 @@ headheight=26pt]{geometry}
 
     \bibliographystyle{ACM-Reference-Format}
     \bibliography{../../../refs/references_documentation,
-    ../../../refs/references, ../../../refs/references_gamedesign,
-    ../../../refs/references_SEPerspective, ../../../refs/references_psych}
+    ../../../refs/references, ../../../refs/references_psych,
+    ../../../refs/references_gamedesign, ../../../refs/references_definitions,
+    ../../../refs/references_media, ../../../refs/references_SEPerspective,
+    ../../../refs/references_Geneva}
 
 \end{document}

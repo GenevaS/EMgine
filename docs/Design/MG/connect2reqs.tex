@@ -6,112 +6,122 @@ modules. Table~\ref{TblRT} lists the connection between requirements and
 modules.
 
 \paragraph{Library of Components}
-This MG treats \progname{} as a library of components due to its need to be an 
-``understandable black box'' design. \progname{} must not require users to have 
-an understanding of affective science and/or emotion research 
-(\nfref{N_Knowledge}) and have reasonable compatibility with different agent 
-architectures/frameworks (\nfref{N_Arch}), game entity embodiment 
-(\nfref{N_Embody}), and development environments (\nfref{N_Env}). Together with 
-its requirement to clearly document usage information for user-facing 
-(\nfref{N_CodeDoc}), \progname{} already lends itself to a black box as it 
-focuses on the relation between inputs and outputs with no claims about the 
-underlying process~\citep[p.~601]{wehrle1995potential}. This aligns with the 
-description of domain-specific CMEs, where the transformation of inputs into 
-affective phenomena is not important, as long as it has the desired effects 
-(\citepg{hudlicka2019modeling}{130--131}; 
-\citepg{osuna2020seperspective}{4--6}). However, it would be difficult to 
-support the Verifiability requirements (\nfref{N_Atomic}, \nfref{N_Trace}) if 
-one could not see how \progname{}'s parts passed information to each other. 
-Therefore, \progname{}'s components should be black boxes, but not their 
-connections so that its overall behaviour can be 
+This MG treats \progname{} as a library of components due to its need to be an
+``understandable black box'' design. \progname{} must not require users to have
+an understanding of affective science and/or emotion research
+(\nfref{N_Knowledge}) and have reasonable compatibility with different agent
+architectures/frameworks (\nfref{N_Arch}), game entity embodiment
+(\nfref{N_Embody}), and development environments (\nfref{N_Env}). Together with
+its requirement to clearly document usage information for user-facing
+(\nfref{N_CodeDoc}), \progname{} already lends itself to a black box as it
+focuses on the relation between inputs and outputs with no claims about the
+underlying process~\citep[p.~601]{wehrle1995potential}. This aligns with the
+description of domain-specific CMEs, where the transformation of inputs into
+affective phenomena is not important, as long as it has the desired effects
+(\citepg{hudlicka2019modeling}{130--131};
+\citepg{osuna2020seperspective}{4--6}). However, it would be difficult to
+support the Verifiability requirements (\nfref{N_Atomic}, \nfref{N_Trace}) if
+one could not see how \progname{}'s parts passed information to each other.
+Therefore, \progname{}'s components should be black boxes, but not their
+connections so that its overall behaviour can be
 explained~\citep[p.~20]{guimaraes2022fatima}.
 
-This implies that a component-based software 
-architecture~\citep[p.~248--261]{qian2010software} is best, where each step in 
-emotion generation is a component. This would:
+This suggests that a component-based software
+architecture~\citep[p.~248--261]{qian2010software} is best, where each of
+\progname{}'s ``tasks'' is a discrete component that users can include,
+exclude, and change as needed. A component-based design approach is common in
+CME development~\citep[p.~141]{osuna2021toward}. This approach would:
 \begin{itemize}
-    \item Increase \progname{}'s portability by specifying what each component 
-    is guaranteed to provide~\citep[p.~254]{qian2010software} so that designers 
-    can use existing, tested and validated systems and enables fast and easy 
-    integration of new components~\citep[p.~443]{rodriguez2015computational}, 
-    increasing its compatibility with agent architectures/frameworks 
-    (\nfref{N_Arch}), game entity embodiment (\nfref{N_Embody}), and 
-    development environments (\nfref{N_Env})
+    \item Increase \progname{}'s portability by specifying what each component
+    is guaranteed to provide so that designers can use existing, tested and
+    validated systems and enables fast and easy integration of new
+    components~\citep[p.~443]{rodriguez2015computational}, increasing its
+    compatibility with agent architectures/frameworks (\nfref{N_Arch}), game
+    entity embodiment (\nfref{N_Embody}), and development environments
+    (\nfref{N_Env})
 
-    \item Allow designers to call \progname{}'s components as they see fit,     
-    supporting customization and modifiability (\nfref{N_Mod}, 
-    \nfref{N_ChooseEm}), efficiency (\nfref{N_Complex}, 
-    \nfref{N_Efficient})~\citep[p.~466]{carbone2020radically}, enabling users 
-    to specify how to use (\nfref{N_Output}) and verify (\nfref{N_Atomic}, 
-    \nfref{N_Trace}) \progname{} outputs, and---potentially---demonstrating how 
-    \progname{} could improve the player experience (\nfref{N_PX}) and/or 
-    create novel game experiences (\nfref{N_Novel})
+    \item Mandates well-defined interfaces to show what each component requires
+    and provides, including its configuration parameters, supporting
+    customization (\nfref{N_Custom}, \nfref{N_ChooseEm})
 
-    \item Have the potential for developing authoring tools that interface with 
-    and manage \progname{} components, which could reduce total authorial 
+    \item Allow designers to call \progname{}'s components as they see fit,
+    supporting modifiability (\nfref{N_Mod}) and automation of emotion decay
+    \nfref{N_Auto}
+
+    \item Enable users to specify how to use (\nfref{N_Output}) and verify
+    (\nfref{N_Atomic}, \nfref{N_Trace}) \progname{} outputs,
+    and---potentially---demonstrating how \progname{} could improve the player
+    experience (\nfref{N_PX}) and/or create novel game experiences
+    (\nfref{N_Novel})
+
+    \item Allow designers to add or swap \progname{}'s components, supporting
+    \textit{Allow the Integration of New Components} (\ref{flexNew}),
+    \textit{Allowing developers to choose which kinds of emotion \progname{}
+        produces} (\ref{flexEm}), and efficiency (\nfref{N_Complex},
+        \nfref{N_Efficient})~\citep[p.~466]{carbone2020radically}
+
+    \item Have the potential for developing authoring tools that interface with
+    and manage \progname{} components, which could reduce total authorial
     effort (\nfref{N_AuthorialEffort})
 \end{itemize}
 
-Ongoing work on the FAtiMA architecture and its descendants, the FAtiMA Modular 
-framework and FAtiMA Toolkit, found this approach 
-successful~\citep[p.~8:2, 8:12--8:13]{mascarenhas2022fatima}. After gaining 
-feedback from people in the games industry\footnote{As part of the ``Realising 
-an Applied Gaming Eco-system'' (RAGE) project 
-(\url{https://cordis.europa.eu/project/id/644187}).}, the FAtiMA Toolkit's 
-designers realized it as a library of components so that its parts can work 
-autonomously. A library-based approach also alleviates some of \progname{}'s 
-design requirements, as it no long has to ``...be generic enough to encompass 
-all possible forms of a perception-action cycle in an 
-agent.''~\citep[p.~8:12]{mascarenhas2022fatima}. This also increased the 
-Toolkit's chances of adoption, as it allows game designers to use it in their 
-existing systems and/or frameworks and avoiding the complexity and 
-accessibility issues of other agent 
-architectures~\citep[p.~3]{guimaraes2022fatima}. In the same vein, \progname{} 
-would be a \textit{library of components} so it can take advantage of these 
-benefits. Users would also be free to focus on what sequence of components for 
-emotion processing works for their needs because no one really knows what order 
-they truly run in~\citep[p.~142]{moffat1997personality}.
+Ongoing work on the FAtiMA architecture and its descendants, the FAtiMA Modular
+framework and FAtiMA Toolkit, found this approach
+successful~\citep[p.~8:2, 8:12--8:13]{mascarenhas2022fatima}. After gaining
+feedback from people in the games industry\footnote{As part of the ``Realising
+an Applied Gaming Eco-system'' (RAGE) project
+(\href{https://cordis.europa.eu/project/id/644187}{https://cordis.europa.eu/project/id/644187}).},
+ the FAtiMA Toolkit's designers realized it as a library of components so that
+its parts can work autonomously. This also increased the Toolkit's chances of
+adoption, as it allows game designers to use it in their existing systems
+and/or frameworks and avoiding the complexity and accessibility issues of other
+agent architectures~\citep[p.~3]{guimaraes2022fatima}. This also lets users
+focus on what emotion processing sequence works for their needs rather than
+constraining them to ``\progname{}'s process'' because no one really knows what
+order emotion processes truly run in~\citep[p.~142]{moffat1997personality}.
 
 \paragraph{Pre-Built Components}
 A library of components creates opportunities for \progname{} to address
 additional nonfunctional requirements by pre-building some compound components,
-such as a default \textit{``engine''}. 
+such as a default \textit{``engine''}.
 
-While each emotion generation component would be a black 
-box~\citep[p.~253]{qian2010software}, a user might not know when they should 
-use a component---or if it is even necessary, which might require some 
-knowledge of affective science and/or emotion research to bridge (violates 
-\nfref{N_Knowledge}). A component-based software architecture supports this 
-need too by pre-building some compound components. It could come with an 
-``engine''---a pre-built component that is itself a ``system'' of 
-components~\citep[p.~249]{qian2010software} that minimizes the necessary inputs 
-for emotion generation. It would accept data and returns an emotion state, 
-without the designer knowing how it 
-works~\citep[p.~443]{rodriguez2015computational}. These would also serve as 
-usage examples (\nfref{N_CodeDoc}, \nfref{N_Manual}, \nfref{N_Knowledge}) 
+While each of \progname{}'s components are
+black-boxes~\citep[p.~253]{qian2010software}, users might not know when they
+should use a component---or if it is even necessary. This might require some
+knowledge of affective science and/or emotion research to bridge (violates
+\nfref{N_Knowledge}). A component-based software architecture supports this need
+too by allowing the specification of a prebuilt component---an
+``engine''---that is itself a ``system'' of
+components~\citep[p.~249]{qian2010software} that minimizes the necessary
+decisions and inputs needed for emotion processing. It would accept data and
+return an emotion state, without the designer knowing how it
+works~\citep[p.~443]{rodriguez2015computational}. These would also serve as
+usage examples (\nfref{N_CodeDoc}, \nfref{N_Manual}, \nfref{N_Knowledge})
 and/or as parts for automating tasks (\nfref{N_Auto}).
 
-In this form, \progname{} would be similar to GAMYGDALA which compares itself 
-to a physics engine~\citep[p.~32]{popescu2014gamygdala}. Designers have applied 
-GAMYGDALA to: an arcade and puzzle game~\citep{broekens2015emotion}; a 
-narrative generation framework to drive character 
-emotions~\citep{kaptein2015affective}; implement affective decision-making in 
-fighting game characters~\citep{yuda2019creating}; and modify it with the fuzzy 
-logic, classical conditioning, and learning from another 
-CME\footnote{FLAME~\citep{el2000flame}}~\citep[p.~4]{code2015learning}. The 
-breadth of games that GAMYGDALA appears in suggests that, even pre-packaged as 
-a large component, \progname{} could also find success.
+This prebuilt component or ``engine'' is similar to GAMYGDALA, which compares
+itself to a physics engine~\citep[p.~32]{popescu2014gamygdala}. Due to its
+plugin nature, designers have successfully applied GAMYGDALA to: arcade and
+puzzle games~\citep{broekens2015emotion}; a narrative generation framework to
+drive character emotions~\citep{kaptein2015affective}; and implement affective
+decision-making in fighting game characters~\citep{yuda2019creating}. A
+developer has also successfully integrated the fuzzy logic, classical
+conditioning, and learning from another CME\footnote{FLAME~\citep{el2000flame}}
+with GAMYGDALA~\citep[p.~4]{code2015learning}. The breadth of games that
+developers have applied GAMYGDALA to and the potential for extensibility
+suggests that \progname{}'s inclusion of a large, prefabricated component could
+further increase its chances for success.
 
 \paragraph{Separating Data Types and Functions}
-\progname{}'s module decomposition separates data types (\mref{mIntensity},
-\mref{mDecay}, \mref{mDecayState}, \mref{mPADType}, \mref{mEmotionType}) from
-functions that use them (\mref{mIntensityFun}, \mref{mDecayFun},
-\mref{mPADFun}, \mref{mEmotionFun}). While this increases the total modules, it
-also improves an end-user's ability to adopt individual parts of \progname{} as
-needed (\nfref{N_Efficient}, \nfref{N_Reuse}, \nfref{N_Mod}) and change the
-underlying theories (\nfref{N_Evolve}), and ensures that theory-agnostic
-components (e.g. \mref{mStateType}) are separated from theory-specific ones
-(e.g. \mref{mGenerate}).
+Where possible, \progname{}'s module decomposition separates data types
+(\mref{mIntensity}, \mref{mPADType}, \mref{mEmotionType}) from functions that
+use them (\mref{mIntensityFun}, \mref{mPADFun}, \mref{mEmotionFun}). While this
+increases the total modules, it also improves an end-user's ability to adopt
+individual parts of \progname{} as needed (\nfref{N_Efficient},
+\nfref{N_Reuse}, \nfref{N_Mod}) and change the underlying theories
+(\nfref{N_Evolve}), and ensures that theory-agnostic components (e.g.
+\mref{mStateType}) are separated from theory-specific ones (e.g.
+\mref{mGenerate}).
 
 \paragraph{User-Defined APIs}
 \progname{} also encapsulates each Application Programming Interface (API) that

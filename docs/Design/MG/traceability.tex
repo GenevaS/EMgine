@@ -1,8 +1,8 @@
 \section{Traceability Matrices}
 \label{SecTM}
-Two traceability matrices are provided to show connections between modules and
-the requirements developed in the SRS, and between modules and anticipated
-changes.
+Traceability matrices show the connections modules and the requirements
+developed in the SRS, between modules and anticipated changes, and between
+components and modules.
 
 % the table should use mref, the requirements should be named, use something
 % like fref
@@ -14,48 +14,46 @@ changes.
         \textbf{Module} & \textbf{Requirements} \\
         \midrule
 
-        \rowcolor[gray]{0.9}\mref{mIntensity} & \rref{R_Types},
+        \colourRow\mref{mIntensity} & \rref{R_Types},
         \rref{R_IntensityTypeUse}, \rref{R_IntensityChangeType},
-        \rref{R_MixingEmotionsPES}, \rref{R_PartitionEmotions} \\
+        \rref{R_MixingEmotionsPES}, \rref{R_PartitionEmotions},
+        \rref{R_UpdateAnIntensity} \\
 
         \mref{mIntensityFun} & \rref{R_CalculateIntensity} \\
 
-        \rowcolor[gray]{0.9}\mref{mStateType} & \rref{R_Types},
+        \colourRow\mref{mStateType} & \rref{R_Types},
         \rref{R_EmotionKindsType}, \rref{R_EmotionStateType},
         \rref{R_MixingEmotionsPES}, \rref{R_PartitionEmotions},
-        \rref{R_MixingEmotionsCTE}, \rref{R_UpdateAnIntensity},
-        \rref{R_UpdateEmotionState} \\
+        \rref{R_MixingEmotionsCTE}, \rref{R_UpdateEmotionState} \\
 
         \mref{mGenerate} & \rref{R_GenerateEmotionCTE} \\
 
-        \rowcolor[gray]{0.9}\mref{mDecay} & \rref{R_Types},
-        \rref{R_IntensityDecayType} \\
+        \colourRow\mref{mDecay} & \rref{R_Types}, \rref{R_IntensityDecayType},
+        \rref{R_DecayIntensity} \\
 
-        \mref{mDecayState} & \rref{R_Types}, \rref{R_EmotionDecayStateType} \\
+        \mref{mDecayState} & \rref{R_Types}, \rref{R_EmotionDecayStateType},
+        \rref{R_DecayEmotion} \\
 
-        \rowcolor[gray]{0.9}\mref{mDecayFun} & \rref{R_DecayIntensity} \\
+        \colourRow\mref{mPADType} & \rref{R_Types}, \rref{R_PADPointType} \\
 
-        \mref{mPADType} & \rref{R_Types}, \rref{R_PADPointType} \\
+        \mref{mPADFun} & \rref{R_Convert2PAD} \\
 
-        \rowcolor[gray]{0.9}\mref{mPADFun} & \rref{R_Convert2PAD} \\
-
-        \mref{mEmotionType} & \rref{R_Types}, \rref{R_EmotionType},
+        \colourRow\mref{mEmotionType} & \rref{R_Types}, \rref{R_EmotionType},
         \rref{R_UpdateEmotion}, \rref{R_GetEmotionState} \\
 
-        \rowcolor[gray]{0.9}\mref{mEmotionFun} & \rref{R_DecayEmotion} \\
+        \mref{mEmotionFun} & \rref{R_NewESFromDecay} \\
 
-        \mref{mGoal} & \rref{R_Types}, \rref{R_GoalType} \\
+        \colourRow\mref{mGoal} & \rref{R_Types}, \rref{R_GoalType} \\
 
-        \rowcolor[gray]{0.9}\mref{mPlan} & \rref{R_Types}, \rref{R_PlanType} \\
+        \mref{mPlan} & \rref{R_Types}, \rref{R_PlanType} \\
+
+        \colourRow\mref{mSocial} & \rref{R_Types}, \rref{R_SocialAttachment} \\
 
         \mref{mAttention} & \rref{R_Types}, \rref{R_Attention} \\
 
-        \rowcolor[gray]{0.9}\mref{mSocial} & \rref{R_Types},
-        \rref{R_SocialAttachment} \\
+        \colourRow\mref{mTime} & \rref{R_Types}, \rref{R_TimeType} \\
 
-        \mref{mTime} & \rref{R_Types}, \rref{R_TimeType} \\
-
-        \rowcolor[gray]{0.9}\mref{mWorld} & \rref{R_Types}, \rref{R_WorldType},
+        \mref{mWorld} & \rref{R_Types}, \rref{R_WorldType},
         \rref{R_WorldChangeType}, \rref{R_DistanceType},
         \rref{R_DistanceChangeType} \\
 
@@ -73,42 +71,40 @@ changes.
         \textbf{Module} & \textbf{Anticipated Changes}\\
         \midrule
 
-        \rowcolor[gray]{0.9}\mref{mIntensity} & \acref{acEmotionIntensityMin} \\
+        \colourRow\mref{mIntensity} & \acref{acEmotionIntensityMin},
+        \acref{acUpdateIntensityAlgo} \\
 
-        \mref{mIntensityFun} & \acref{acIntensityAlgo},
-        \acref{acElicitSurpriseAlgo}, \acref{acElicitInterestAlgo},
-        \acref{acElicitAcceptanceAlgo} \\
+        \mref{mIntensityFun} & \acref{acIntensityEvalAlgo} \\
 
-        \rowcolor[gray]{0.9}\mref{mStateType} & \acref{acUpdateIntensityAlgo},
-        \acref{acEmotionKindType}, \acref{acEmotionStateImpl} \\
+        \colourRow\mref{mStateType} & \acref{acEmotionKindType},
+        \acref{acEmotionStateImpl} \\
 
         \mref{mGenerate} & \acref{acAppraisalAlgo} \\
 
-        \rowcolor[gray]{0.9}\mref{mDecay} & \acref{acDecayIntensityAlgo} \\
+        \colourRow\mref{mDecay} & \acref{acDecayIntensityAlgo} \\
 
-        \mref{mDecayState} & \acref{acEmotionDecayStateImpl} \\
+        \mref{mDecayState} & \acref{acEmotionDecayStateImpl},
+        \acref{acDecayStateAlgo} \\
 
-        \rowcolor[gray]{0.9}\mref{mDecayFun} & \acref{acDecayIntensityAlgo} \\
+        \colourRow\mref{mPADType} & \acref{acPADPointType} \\
 
-        \mref{mPADType} & \acref{acPADPointType} \\
+        \mref{mPADFun} & \acref{acState2PADAlgo} \\
 
-        \rowcolor[gray]{0.9}\mref{mPADFun} & \acref{acState2PADAlgo} \\
+        \colourRow\mref{mEmotionType} & \acref{acEmotionState} \\
 
-        \mref{mEmotionType} & \acref{acEmotionState} \\
+        \mref{mEmotionFun} & -- \\
 
-        \rowcolor[gray]{0.9}\mref{mEmotionFun} & \acref{acDecayStateAlgo} \\
+        \colourRow\mref{mGoal} & \acref{acGoalImpl} \\
 
-        \mref{mGoal} & \acref{acGoalImpl} \\
+        \mref{mPlan} & \acref{acPlanImpl} \\
 
-        \rowcolor[gray]{0.9}\mref{mPlan} & \acref{acPlanImpl} \\
+        \colourRow\mref{mSocial} & \acref{acAttachmentImpl} \\
 
         \mref{mAttention} & \acref{acAttentionImpl} \\
 
-        \rowcolor[gray]{0.9}\mref{mSocial} & \acref{acAttachmentImpl} \\
+        \colourRow\mref{mTime} & \acref{acTimeImpl} \\
 
-        \mref{mTime} & \acref{acTimeImpl} \\
-
-        \rowcolor[gray]{0.9}\mref{mWorld} & \acref{acWorldStateImpl},
+        \mref{mWorld} & \acref{acWorldStateImpl},
         \acref{acWorldStateChangeImpl}, \acref{acDistanceImpl},
         \acref{acDistanceChangeImpl} \\
 
@@ -120,23 +116,29 @@ changes.
 
 Generally, each anticipated change should map to one module because it implies
 that each module contains information that only it knows about the design.
-However, in \progname{}'s design, three modules address multiple anticipated
+However, in \progname{}'s design, five modules address multiple anticipated
 changes:
 \begin{itemize}
 
-    \item \mref{mIntensityFun} contains all of the functions that calculate
-    emotion intensity. The SRS (Ver.~\srsVersion) calculates the intensity for
-    some emotion kinds differently. End-users do not need to know that they are
-    calculated differently, and there is the potential for consolidating them
-    into a single emotion intensity function. They also collectively share the
-    same secret: the method for evaluating emotion intensity. Therefore, these
-    are encapsulated into one module.
+    \item \mref{mIntensity} collects the emotion intensity data types and
+    function for updating an Emotion Intensity with an Emotion Intensity
+    Change. Changing the minimum intensity (\acref{acEmotionIntensityMin}) will
+    likely cause changes to the method for ``combining'' the two intensity
+    types (\acref{acUpdateIntensityAlgo}). Therefore, these are gathered into
+    one module.
 
     \item \mref{mStateType} contains the types for emotion kinds and emotion
     state. The emotion state type (\acref{acEmotionStateImpl}) directly depends
     on the type of emotion kinds (\acref{acEmotionKindType}), and the function
     for updating emotion intensity (\acref{acUpdateIntensityAlgo}) directly
-    depends on the emotion state type. This tight coupling between components
+    depends on the emotion state type. This tight coupling between models
+    implies that changes to one likely mean changes to another, so they should
+    be in the same module.
+
+    \item \mref{mDecayState} contains the emotion decay state data type and the
+    method for decaying an emotion state. The emotion state decay method
+    (\acref{acDecayStateAlgo}) directly depends on the emotion state decay data
+    type (\acref{acEmotionDecayStateImpl}). This tight coupling between models
     implies that changes to one likely mean changes to another, so they should
     be in the same module.
 
@@ -144,9 +146,3 @@ changes:
     are interrelated and inseparable, so they should be in the same module.
 
 \end{itemize}
-
-There is also one anticipated change, \acref{acDecayIntensityAlgo} covered by
-two modules (\mref{mDecay}, \mref{mDecayFun}). This is due to their mutual
-reliance on the same underlying model. However, one could feasibly modify only
-one of these modules if that model does not change. Therefore, they are
-separated to afford users more flexibility in how they use them.

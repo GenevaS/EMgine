@@ -19,13 +19,10 @@ actually be implemented.
     Generation Module
 
     \item [\refstepcounter{mnum} \mthemnum \label{mDecay}:] Emotion Intensity
-    Decay Rate Type Module
+    Decay Module
 
-    \item [\refstepcounter{mnum} \mthemnum \label{mDecayState}:] Emotion
-    Intensity Decay State Type Module
-
-    \item [\refstepcounter{mnum} \mthemnum \label{mDecayFun}:] Emotion Decay
-    Function Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mDecayState}:] Emotion State
+    Decay Module
 
     \item [\refstepcounter{mnum} \mthemnum \label{mPADType}:] PAD Type Module
 
@@ -41,10 +38,10 @@ actually be implemented.
 
     \item [\refstepcounter{mnum} \mthemnum \label{mPlan}:] Plan Module
 
-    \item [\refstepcounter{mnum} \mthemnum \label{mAttention}:] Attention Module
-
     \item [\refstepcounter{mnum} \mthemnum \label{mSocial}:] Social Attachment
     Module
+
+    \item [\refstepcounter{mnum} \mthemnum \label{mAttention}:] Attention Module
 
     \item [\refstepcounter{mnum} \mthemnum \label{mTime}:] Time Module
 
@@ -52,7 +49,7 @@ actually be implemented.
 
 \end{description}
 
-\begin{table}[h!]
+\begin{table}[ht!]
     \centering
     \small
     \renewcommand{\arraystretch}{1.2}
@@ -61,46 +58,46 @@ actually be implemented.
         \textbf{Level 1} & \textbf{Level 2} & \textbf{Level 3} \\
         \midrule
 
-        \multirow{14}{\linewidth}{Behaviour\-/Hiding Module} &
-        \cellcolor[gray]{0.9} & \cellcolor[gray]{0.9}[\mref{mIntensity}]
-        Emotion Intensity Type Module \\
-        & \cellcolor[gray]{0.9}\multirow{-2}{\linewidth}{Emotion Intensity
-        Module} & \cellcolor[gray]{0.9}[\mref{mIntensityFun}] Emotion Intensity
+        \multirow{14}{\linewidth}{Behaviour\-/Hiding Module} & \colourCell &
+        \colourCell \textbf{\mref{mIntensity}} Emotion Intensity Type Module \\
+        & \colourCell \multirow{-2}{\linewidth}{Emotion Intensity Module} &
+        \colourCell \textbf{\mref{mIntensityFun}} Emotion Intensity Function
+        Module \\
+
+        &  & \textbf{\mref{mStateType}} Emotion State Type Module \\
+        & \multirow{-2}{\linewidth}{Emotion State Module} &
+        \textbf{\mref{mGenerate}} Emotion Generation Module \\
+
+        & \colourCell & \colourCell \textbf{\mref{mDecay}} Emotion Intensity
+        Decay Module \\
+        & \colourCell \multirow{-2}{\linewidth}{Emotion Decay Module} &
+        \colourCell \textbf{\mref{mDecayState}} Emotion State Decay Module \\
+
+        &  &  \textbf{\mref{mPADType}} PAD Type Module \\
+        & \multirow{-2}{\linewidth}{PAD Module} & \textbf{\mref{mPADFun}} PAD
         Function Module \\
 
-        &  & [\mref{mStateType}] Emotion State Type Module \\
-        &  & [\mref{mGenerate}] Emotion Generation Module \\
-        &  & [\mref{mDecay}] Emotion Intensity Decay Rate Type Module \\
-        &  & [\mref{mDecayState}] Emotion Intensity Decay State Type Module \\
-        & \multirow{-5}{\linewidth}{Emotion State Module} &
-        [\mref{mDecayFun}] Emotion Decay Function Module \\
+        & \colourCell & \colourCell \textbf{\mref{mEmotionType}} Emotion Type
+        Module \\
+        & \colourCell \multirow{-2}{\linewidth}{Emotion Module} & \colourCell
+        \textbf{\mref{mEmotionFun}} Emotion Function Module \\
 
-        & \cellcolor[gray]{0.9} & \cellcolor[gray]{0.9}[\mref{mPADType}] PAD
-        Type Module \\
-        & \cellcolor[gray]{0.9}\multirow{-2}{\linewidth}{PAD Module} &
-        \cellcolor[gray]{0.9}[\mref{mPADFun}] PAD Function Module \\
+        &  & \textbf{\mref{mGoal}} Goal Module \\
 
-        &  & [\mref{mEmotionType}] Emotion Type Module \\
-        & \multirow{-2}{\linewidth}{Emotion Module} & [\mref{mEmotionFun}]
-        Emotion Function Module \\
+        &  & \textbf{\mref{mPlan}} Plan Module \\
 
-        & \cellcolor[gray]{0.9}[\mref{mGoal}] Goal Module &
-        \cellcolor[gray]{0.9}-- \\
+        &  & \textbf{\mref{mSocial}} Social Attachment Module \\
 
-        & [\mref{mPlan}] Plan Module & -- \\
-
-        & \cellcolor[gray]{0.9}[\mref{mAttention}] Attention Module &
-        \cellcolor[gray]{0.9}-- \\
-
-        & [\mref{mSocial}] Social Attachment Module & -- \\
+        & \multirow{-4}{\linewidth}{Entity Module} & \textbf{\mref{mAttention}}
+        Attention Module \\
 
         \midrule
 
-        \multirow{2}{\linewidth}{Software Decision Module} &
-        \cellcolor[gray]{0.9}[\mref{mTime}] Time Module &
-        \cellcolor[gray]{0.9}-- \\
+        \multirow{2}{\linewidth}{Software Decision Module} & \colourCell &
+        \colourCell \textbf{\mref{mTime}} Time Module \\
 
-        & [\mref{mWorld}] World State Module & -- \\
+        & \colourCell \multirow{-2}{\linewidth}{World Module} & \colourCell
+        \textbf{\mref{mWorld}} World State Module \\
 
         \bottomrule
     \end{tabular}
