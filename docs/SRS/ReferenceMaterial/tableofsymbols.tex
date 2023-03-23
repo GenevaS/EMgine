@@ -31,45 +31,54 @@ and \ref{appendix_lazarus}) do not appear in this table.
 
         $\emotionstatetype$ & \tyref{TY_EmotionState} & An emotion state \\
 
-        \rowcolor[gray]{0.9}$\goaltype$ & \tyref{TY_Goal} & An entity's goal \\
+        \rowcolor[gray]{0.9}$\emotionstatedecaytype$ &
+        \tyref{TY_EmotionDecayState} & An emotion decay state \\
 
-        $\emotionintensitytype$ & \tyref{TY_EmotionIntensity} & Emotion
+        $\goaltype$ & \tyref{TY_Goal} & An entity's goal \\
+
+        \rowcolor[gray]{0.9}$\emotionintensitytype$ &
+        \tyref{TY_EmotionIntensity} & Emotion intensity \\
+
+        $\responsestrength$ & \tyref{TY_DeltaIntensity} & A change in emotion
         intensity \\
 
-        \rowcolor[gray]{0.9}$\responsestrength$ & \tyref{TY_DeltaIntensity} & A
-        change in emotion intensity \\
+        \rowcolor[gray]{0.9}$\emotiondecaytype$ & \tyref{TY_EmotionDecay} &
+        Emotion decay constant \\
 
-        $\emotiondecaytype$ & \tyref{TY_EmotionDecay} & Emotion decay constant
+        $\emotionkindstype$ & \tyref{TY_EmotionKind} & Allowable emotion
+        labels/types \\
+
+        \rowcolor[gray]{0.9}$\mathbb{N}$ & -- & The natural numbers, zero
+        inclusive \\
+
+        $\plantype$ & \tyref{TY_Plan} & An entity's plan \\
+
+        \rowcolor[gray]{0.9}$\padpoint$ & \tyref{TY_PAD} & A point in PAD space
         \\
 
-        \rowcolor[gray]{0.9}$\emotionkindstype$ & \tyref{TY_EmotionKind} &
-        Allowable emotion labels/types \\
+        $\mathbb{R}$ & -- & The reals \\
 
-        $\mathbb{N}$ & -- & The set of natural numbers, including zero \\
-
-        \rowcolor[gray]{0.9}$\plantype$ & \tyref{TY_Plan} & A plan as a series
-        of world states \\
-
-        $\padpoint$ & \tyref{TY_PAD} & A point in PAD space \\
-
-        \rowcolor[gray]{0.9}$\mathbb{R}$ & -- & The set of real numbers \\
-
-        $\mathbb{R}_{\geq0}$ & -- & The set of non-negative real values \\
-
-        \rowcolor[gray]{0.9}$\mathbb{R}_{>0}$ & -- & The set of positive
+        \rowcolor[gray]{0.9}$\mathbb{R}_{\geq0}$ & -- & The set of non-negative
         real values \\
 
-        $\worldstatetype$ & \tyref{TY_WorldState} & A game world state \\
+        $\mathbb{R}_{>0}$ & -- & The set of positive
+        real values \\
 
-        \rowcolor[gray]{0.9}$\worldstatechangetype$ &
-        \tyref{TY_WorldStateChange} & A game action that changes a game world
-        state \\
+        \rowcolor[gray]{0.9}$\worldstatetype$ & \tyref{TY_WorldState} & A game
+        world state \\
 
-        $\socialattachmenttype$ & \tyref{TY_Relation-CTE} & A social attachment
-        to entity $A$ \\
+        $\worldstatechangetype$ & \tyref{TY_WorldStateChange} & A game action
+        that changes a game world state \\
 
-        \rowcolor[gray]{0.9}$\timetype$ & \tyref{TY_Time} & Abstract, linearly 
-        ordered time \\
+        \rowcolor[gray]{0.9}$\socialattachmenttype$ & \tyref{TY_Relation-CTE} &
+        A social attachment to entity $A$ \\
+
+        $\timetype$ & \tyref{TY_Time} & Abstract, linearly ordered time \\
+
+        \rowcolor[gray]{0.9}$\deltatimetype$ & \tyref{TY_Time} & The difference
+        between two times \\
+
+        $\mathbb{Z}$ & -- & The integers \\
 
         \bottomrule
     \end{longtable*}

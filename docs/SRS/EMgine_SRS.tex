@@ -31,6 +31,7 @@ headheight=26pt]{geometry}
 \usepackage{txfonts}
 \usepackage{hieroglf}
 \usepackage{relsize}
+\usepackage{textcomp}
 
 \usepackage[nottoc,notlof,notlot,numbib]{tocbibind}
 
@@ -51,14 +52,19 @@ headheight=26pt]{geometry}
 
 %\usepackage{refcheck}
 
+\definecolor{CoolPurple}{RGB}{117, 0, 235}
+\definecolor{NatureGreen}{RGB}{8, 104, 11}
+\definecolor{SeaBlue}{RGB}{6, 97, 122}
+\definecolor{Lilac}{RGB}{178, 131, 206}
+
 \hypersetup{
     bookmarks=true,
     colorlinks=true,
     linktoc=all,
-    linkcolor=Purple,
-    citecolor=ForestGreen,
+    linkcolor=CoolPurple,
+    citecolor=NatureGreen,
     filecolor=WildStrawberry,
-    urlcolor=Cerulean
+    urlcolor=SeaBlue
 }
 
 \newcommand{\citepg}[2]{\citeauthor{#1}, \citeyear{#1}, p.~#2}
@@ -149,6 +155,9 @@ headheight=26pt]{geometry}
 \newcommand{\weak}{\RStar}
 \newcommand{\disqualified}{--}
 
+\newcommand{\colourRow}{\rowcolor[gray]{0.9}}
+\newcommand{\colourCell}{\cellcolor[gray]{0.9}}
+
 \begin{document}
 
     \newcounter{pages}
@@ -164,7 +173,7 @@ headheight=26pt]{geometry}
         Computational Model of Emotion for Enhancing Non-Player Character
         Believability in Games}
         \author{Geneva M. Smith and Dr. Jacques Carette}
-        \date{October 22, 2022}
+        \date{Version~\ref{current_version_SRS} (March 22, 2023)}
 
         \maketitle
     \end{titlepage}
@@ -177,8 +186,60 @@ headheight=26pt]{geometry}
         \begin{tabular}{m{0.17\linewidth}C{0.15\linewidth}m{0.58\linewidth}}
             \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
             \midrule
-             \vspace*{1mm}October 22, 2022 &
-             \vspace*{1mm}\newref{1.0}\label{current_version_SRS} &
+            \vspace*{1mm}March 22, 2023 &
+            \vspace*{1mm}\newref{1.5}\label{current_version_SRS} &
+            \vspace*{5mm}
+            \begin{itemize}[noitemsep, nosep]
+                \item Separated Emotion Generation Goal into Elicitation
+                \gsref{G_EmotionElicitation} and Intensity Evaluation
+                \gsref{G_EmotionIntensity} Goals
+
+                \item Updated Conceptual Models \cref{C_EmOther},
+                \cref{C_EmIntensity-CTE} with additional information from the
+                affective science literature
+
+                \item Refined descriptions of Theoretical Models
+                \tref{T_CalculateEmotionGP},
+                \tref{T_CalculateEmotionIntensity},
+                \tref{T_CalculateEmotionAcceptance},
+                 \tref{T_CalculateEmotionInterest},
+                \tref{T_CalculateEmotionSurprise}, \tref{T_DecayEmotionState},
+                \tref{T_GetEmotionStatePAD}
+
+                \item Redefinition of Data Types \tyref{TY_Goal},
+                \tyref{TY_Plan}, \tyref{TY_Relation-CTE}
+
+                \item Updated descriptions of Data Types
+                \tyref{TY_EmotionKind}, \tyref{TY_EmotionState},
+                \tyref{TY_EmotionDecayState}, \tyref{TY_WorldState},
+                \tyref{TY_WorldStateChange}
+
+                \item Redefinition of Instance Models \iref{IM_ElicitJoy},
+                \iref{IM_ElicitSadness}, \iref{IM_ElicitFear},
+                \iref{IM_ElicitAnger}, \iref{IM_ElicitDisgust},
+                \iref{IM_CalculateEmotionAcceptanceElicit},
+                \iref{IM_CalculateEmotionInterestElicit},
+                \iref{IM_CalculateEmotionSurpriseElicit},
+                \iref{IM_JoyIntensity}, \iref{IM_SadnessIntensity},
+                \iref{IM_FearIntensity}, \iref{IM_AngerIntensity},
+                \iref{IM_DisgustIntensity},
+                \iref{IM_CalculateEmotionAcceptance},
+                \iref{IM_CalculateEmotionInterest},
+                \iref{IM_CalculateEmotionSurprise},
+                \iref{IM_DecayEmotionIntensity}, \iref{IM_DecayEmotionState},
+                \iref{IM_GetNextEmotionByDecay}, \iref{IM_UpdateEmotionState},
+
+                \item Significant changes to Assumptions and Likely Changes due
+                to updates of Conceptual Models, Theoretical Models, Data
+                Types, and Instance Models
+
+                \item Updated Traceability matrices and graphs to reflect
+                changes
+            \end{itemize} \\
+
+            \midrule
+
+             \vspace*{1mm}October 22, 2022 & \vspace*{1mm}\newref{1.0} &
              \vspace*{5mm}
              \begin{itemize}[noitemsep, nosep]
                  \item Completed Initial Version
@@ -240,10 +301,13 @@ headheight=26pt]{geometry}
 
     \bibliographystyle {ACM-Reference-Format}
     \bibliography
-    {../../refs/references, ../../refs/references_gamedesign,
-    ../../refs/references_SEPerspective, ../../refs/references_documentation,
-    ../../refs/references_psych, ../../refs/references_definitions,
-    ../../refs/references_media, ../../refs/references_Geneva}
+    {../../../BibFiles/references_documentation, ../../../BibFiles/references,
+    ../../../BibFiles/references_psych,
+    ../../../BibFiles/references_gamedesign,
+    ../../../BibFiles/references_definitions,
+     ../../../BibFiles/references_media,
+    ../../../BibFiles/references_SEPerspective,
+    ../../../BibFiles/references_Geneva}
 
     \clearpage
 

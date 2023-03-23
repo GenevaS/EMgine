@@ -5,9 +5,12 @@ world state, and optional world and/or entity knowledge, \progname{}'s goals
 are:
 \begin{itemize}
 
-    \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_EmotionGeneration}]
-    Determining what emotion type and intensity is elicited by a change in game
-    world state.
+    \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_EmotionElicitation}]
+    Determining what emotion type is elicited by a change in game world state.
+
+    \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_EmotionIntensity}]
+    Determining what emotion intensity is elicited by a change in game world
+    state.
 
     \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_EmotionDecay}]
     Determining what intensity each emotion type has when decaying emotion.
@@ -16,7 +19,7 @@ are:
     Updating stored emotion values.
 
     \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_QueryEmotionState}]
-    Allowing queries about stored emotion values.
+    Allowing queries about stored emotion data.
 
 \end{itemize}
 

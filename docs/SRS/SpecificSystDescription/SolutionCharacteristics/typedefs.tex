@@ -7,7 +7,7 @@ interfaces.
 Data types \tyref{TY_Time}, \tyref{TY_WorldState}, \tyref{TY_WorldStateChange},
 \tyref{TY_DistanceBetweenWorldStates},
 \tyref{TY_DistanceBetweenWorldStatesChange}, \tyref{TY_Goal}, \tyref{TY_Plan},
-\tyref{TY_Attention}, and \tyref{TY_Relation-CTE} are APIs for users to
+\tyref{TY_Relation-CTE}, and \tyref{TY_Attention} are APIs for users to
 implement for their specific needs.
 \begin{itemize}
     \item \tyref{TY_Time}, \tyref{TY_WorldState}, \tyref{TY_WorldStateChange},
@@ -15,49 +15,18 @@ implement for their specific needs.
     \tyref{TY_DistanceBetweenWorldStatesChange}, and \tyref{TY_Goal} are
     mandatory
 
-    \item \tyref{TY_Plan} is optional, but necessary for \textit{Anger}
+    \item \tyref{TY_Plan} is optional, but necessary for modelling
+    \textit{Anger} and using the complete \textit{Sadness} model
 
-    \item \tyref{TY_Attention} is optional, but necessary for \textit{Interest}
-
-    \item \tyref{TY_Relation-CTE} is optional, but necessary for
+    \item \tyref{TY_Relation-CTE} is optional, but necessary for modelling
     \textit{Acceptance}
+
+    \item \tyref{TY_Attention} is optional, but necessary for modelling
+    \textit{Interest}
+
 \end{itemize}
 
 ~\newline\noindent
-\begin{minipage}{\textwidth}
-    \renewcommand*{\arraystretch}{1.5}
-    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
-        \hline
-        \rowcolor[gray]{0.9}
-        \bf TY\refstepcounter{typenum}\thetypenum
-        \label{TY_Time} & \bf Type of Time and Delta Time \\
-        \hline
-    \end{tabular}
-
-    \renewcommand*{\arraystretch}{1.5}
-    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Symbol & $\timetype, \deltatimetype$ \\
-
-        \bf Type & -- \\\hline
-    \end{tabular}
-\end{minipage}
-
-\paragraph{Description} Time is an abstract type that is linearly ordered. A
-Delta Time is the difference between two Time values. \\\hrule
-
-\paragraph{Sources} --
-
-\paragraph{Depends On} --
-
-\paragraph{Ref. By} \tyref{TY_Emotion}, \tyref{TY_Attention},
-\iref{IM_CalculateEmotionSurpriseElicit}, \iref{IM_CalculateEmotionSurprise},
-\iref{IM_DecayEmotionState}, \iref{IM_UpdateEmotion},
-\iref{IM_GetEmotionState}, \iref{IM_DecayEmotion}, \rref{R_TimeType}
-\\\hrule\vspace{0.5mm}\hrule
-
-~\newline
-
-\noindent
 \begin{minipage}{\textwidth}
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
@@ -78,20 +47,19 @@ Delta Time is the difference between two Time values. \\\hrule
 \end{minipage}
 
 \paragraph{Description} Emotion intensity (\tref{T_CalculateEmotionIntensity},
-\tref{T_CalculateEmotionSurprise}, \tref{T_CalculateEmotionInterest},
-\tref{T_CalculateEmotionAcceptance}) is a real, non-negative value
-(\aref{A_PositiveIntensity}). \\\hrule
+\tref{T_CalculateEmotionAcceptance}, \tref{T_CalculateEmotionInterest},
+\tref{T_CalculateEmotionSurprise}) is a non-negative real value
+(\aref{A_ContinuousIntensity}, \aref{A_PositiveIntensity}). \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \aref{A_PositiveIntensity},
-\tref{T_CalculateEmotionIntensity}, \tref{T_CalculateEmotionSurprise},
-\tref{T_CalculateEmotionInterest}, \tref{T_CalculateEmotionAcceptance}
+\paragraph{Depends On} \aref{A_ContinuousIntensity}, \aref{A_PositiveIntensity},
+\tref{T_CalculateEmotionIntensity}, \tref{T_CalculateEmotionAcceptance},
+\tref{T_CalculateEmotionInterest}, \tref{T_CalculateEmotionSurprise}
 
 \paragraph{Ref. By} \tyref{TY_DeltaIntensity}, \tyref{TY_EmotionState},
-\tyref{TY_EmotionDecayState}, \iref{IM_CalculateEmotionAcceptanceElicit},
-\iref{IM_DecayEmotionState}, \iref{IM_UpdateEmotionState},
-\iref{IM_UpdateEmotionState2}, \rref{R_IntensityTypeUse},
+\tyref{TY_EmotionDecayState}, \iref{IM_DecayEmotionIntensity},
+\iref{IM_UpdateEmotionState}, \rref{R_IntensityTypeUse},
 \rref{R_MixingEmotionsPES}, \rref{R_PartitionEmotions}
 \\\hrule\vspace{0.5mm}\hrule
 
@@ -120,21 +88,24 @@ Delta Time is the difference between two Time values. \\\hrule
 of a difference to be applied to an emotion intensity
 (\tyref{TY_EmotionIntensity}). It is a real value because:
 \begin{itemize}
-    \item Emotion intensity can both increase and decrease, and
+    \item Emotion intensity is assumed to both increase and decrease
+    (\aref{A_RealIntensityChanges}), and
 
-    \item The magnitude of a change should not be pre-emptively constrained to
-    fit the type of $\emotionintensitytype$ in case $\responsestrength$ has
-    other uses
+    \item The magnitude of a change should not be explicitly coupled to fit the
+    type of $\emotionintensitytype$
 \end{itemize} \hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \tyref{TY_EmotionIntensity}
+\paragraph{Depends On} \aref{A_RealIntensityChanges},
+\tyref{TY_EmotionIntensity}
 
-\paragraph{Ref. By} \iref{IM_CalculateEmotionIntensity},
-\iref{IM_CalculateEmotionSurprise}, \iref{IM_CalculateEmotionInterest},
-\iref{IM_CalculateEmotionAcceptance}, \iref{IM_UpdateEmotionState},
-\rref{R_IntensityChangeType} \\\hrule\vspace{0.5mm}\hrule
+\paragraph{Ref. By} \iref{IM_JoyIntensity}, \iref{IM_SadnessIntensity},
+\iref{IM_FearIntensity}, \iref{IM_AngerIntensity}, \iref{IM_DisgustIntensity},
+\iref{IM_CalculateEmotionAcceptance}, \iref{IM_CalculateEmotionInterest},
+\iref{IM_CalculateEmotionSurprise}, \iref{IM_UpdateEmotionState},
+\iref{IM_UpdateEmotionState2}, \rref{R_IntensityChangeType}
+\\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
 
@@ -160,15 +131,21 @@ of a difference to be applied to an emotion intensity
 \paragraph{Description} Emotion decay rate (\tref{T_DecayEmotionState}) is a
 real-valued, strictly positive constant. It is equivalent to the spring
 constant $k_s$ in a damped harmonic oscillator, which is always strictly
-positive. \\\hrule
+positive.
+
+Note that this tightly couples the emotion decay model
+(\iref{IM_DecayEmotionState}) with the data type such that changing the
+underlying model of one likely means changing the other as well. \\\hrule
 
 \paragraph{Sources}
 {\small\url{https://en.wikipedia.org/wiki/Harmonic_oscillator#Damped_harmonic_oscillator}}
 
-\paragraph{Depends On} \tref{T_DecayEmotionState}
+\paragraph{Depends On} \tref{T_DecayEmotionState},
+\iref{IM_DecayEmotionIntensity}
 
-\paragraph{Ref. By} \tyref{TY_EmotionDecayState}, \iref{IM_DecayEmotionState},
-\rref{R_IntensityDecayType} \\\hrule\vspace{0.5mm}\hrule
+\paragraph{Ref. By} \tyref{TY_EmotionDecayState},
+\iref{IM_DecayEmotionIntensity}, \rref{R_IntensityDecayType}
+\\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
 
@@ -198,19 +175,25 @@ positive. \\\hrule
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} Emotion kinds is an enumeration representing the
-primary emotion kinds from PES (\cref{C_EmotionStruct}). ``Opposing'' emotions
-as defined in PES are enforced via the invariant regarding unique pairings.
-\\\hrule
+\paragraph{Description} Emotion kinds is an enumeration representing the PES
+emotion kinds (\cref{C_EmotionStruct}). ``Opposing'' emotions as defined in PES
+are enforced via the invariant regarding unique pairings. They are not
+functionally paired such that the experience of one reduces the experience of
+the other because it would make a state of ``deep sleep'' impossible
+(\aref{A_EmotionPairs}).
+
+Defining Emotion Kinds independently of Emotion Intensity
+(\tyref{TY_EmotionIntensity}) allows them to be theory-agnostic (i.e. not
+strictly tied to PES). This means that \progname{} can still be functional if
+there is \textit{some} definition for Emotion Kinds, which could have differing
+types and number labels than PES. \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \cref{C_EmotionStruct}
+\paragraph{Depends On} \aref{A_EmotionPairs}, \cref{C_EmotionStruct}
 
 \paragraph{Ref. By} \tyref{TY_EmotionState}, \tyref{TY_EmotionDecayState},
-\iref{IM_CalculateEmotionGP}, \iref{IM_UpdateEmotionState},
-\iref{IM_UpdateEmotionState2}, \iref{IM_DecayEmotion},
-\iref{IM_GetEmotionStatePAD}, \rref{R_EmotionKindsType},
+\iref{IM_UpdateEmotionState2}, \rref{R_EmotionKindsType},
 \rref{R_MixingEmotionsPES}, \rref{R_PartitionEmotions},
 \rref{R_MixingEmotionsCTE} \\\hrule\vspace{0.5mm}\hrule
 
@@ -235,9 +218,8 @@ as defined in PES are enforced via the invariant regarding unique pairings.
         \rightarrow \emotionintensitytype, \mathtt{max} : \emotionkindstype
         \rightarrow \emotionintensitytype \right\}  $ \\
 
-        \bf Invariant & $\forall k \in \emotionkindstype \Rightarrow 0 \leq
-        \mathtt{intensities}(k) \leq \mathtt{max}(k) $
-        (\aref{A_LimitIntensity}) \\
+        \bf Invariant & $\forall k : \emotionkindstype \Rightarrow 0 \leq
+        \mathtt{intensities}(k) \leq \mathtt{max}(k) $ \\
         \hline
     \end{tabular}
 \end{minipage}
@@ -245,27 +227,36 @@ as defined in PES are enforced via the invariant regarding unique pairings.
 \paragraph{Description} An emotion state is a record with:
 \begin{itemize}
 
-    \item An intensity function $\mathtt{intensities}$ mapping each element in
-    $\emotionkindstype$ (\tyref{TY_EmotionKind}) to an intensity value
-    $\emotionintensitytype$ (\tyref{TY_EmotionIntensity})
+    \item A function $\mathtt{intensities}$ mapping Emotion Kinds
+    (\tyref{TY_EmotionKind}) to Emotion Intensities
+    (\tyref{TY_EmotionIntensity}), representing the current intensity of each
+    emotion kind in the state. This is similar to a vector of intensity values,
+    which Computational Models of Emotion commonly use to represent affective
+    states.
 
-    \item An intensity function $\mathtt{max}$ mapping each element in
-    $\emotionkindstype$ (\tyref{TY_EmotionKind}) to a maximum intensity value
-    $\emotionintensitytype$ (\tyref{TY_EmotionIntensity})
+    \item A function $\mathtt{max}$ mapping Emotion Kinds
+    (\tyref{TY_EmotionKind}) to a maximum intensity value
+    (\tyref{TY_EmotionIntensity}). This encodes a maximum intensity for each
+    emotion kind individually, allowing users to vary this value between
+    emotion kinds in a state. Storing maximum intensities in the Emotion State
+    Data Type localizes these constraints to a specific state, allowing the
+    maximum intensities of other states to vary. This also makes it easy to
+    ensure that its constraints are satisfied when updating
+    $\mathtt{intensities}$.
 
 \end{itemize}
 
-The invariant ensures that emotion intensity is finite
+\noindent The invariant ensures that emotion intensity is finite
 (\aref{A_LimitIntensity}). Each element in $\emotionstatetype$ is independent
 (\aref{A_EmotionPairs}, \cref{C_Emotion}).\\\hrule
 
-\paragraph{Sources} --
+\paragraph{Sources} \citet[p.~358]{broekens2021emotion}
 
-\paragraph{Depends On} \aref{A_LimitIntensity}, \aref{A_EmotionPairs},
+\paragraph{Depends On} \aref{A_EmotionPairs}, \aref{A_LimitIntensity},
 \cref{C_Emotion}, \tyref{TY_EmotionIntensity}, \tyref{TY_EmotionKind}
 
 \paragraph{Ref. By} \tyref{TY_Emotion}, \iref{IM_UpdateEmotionState2},
-\iref{IM_UpdateEmotion}, \iref{IM_GetEmotionState}, \iref{IM_DecayEmotion},
+\iref{IM_UpdateEmotion}, \iref{IM_GetEmotionState}, \iref{IM_DecayEmotionState},
 \iref{IM_GetEmotionStatePAD}, \rref{R_EmotionStateType}
 \\\hrule\vspace{0.5mm}\hrule
 
@@ -278,7 +269,7 @@ The invariant ensures that emotion intensity is finite
         \hline
         \rowcolor[gray]{0.9}
         \bf TY\refstepcounter{typenum}\thetypenum
-        \label{TY_EmotionDecayState} & \bf Type of Emotion State Decay \\
+        \label{TY_EmotionDecayState} & \bf Type of Emotion Decay State \\
         \hline
     \end{tabular}
 
@@ -290,35 +281,43 @@ The invariant ensures that emotion intensity is finite
         \rightarrow \emotionintensitytype, \mathtt{decayRates} :
         \emotionkindstype \rightarrow \emotiondecaytype \right\} $ \\
 
-        \bf Invariants & Given an $es : \emotionstatedecaytype$,
-        $\left(\mathlarger\sum_{k \in\emotionkindstype}
-        es.\mathtt{equilibrium}\left(k\right)\right) > 0$
-        (\aref{A_PositiveIntensity})
-        \vspace*{2mm}\\\hline
+        \bf Invariants & $\left(\mathlarger\sum_{k \in\emotionkindstype}
+        \mathtt{equilibrium}\left(k\right)\right) > 0$ \vspace*{2mm}\\\hline
     \end{tabular}
 \end{minipage}
 
 \paragraph{Description} Emotion state decay (\tref{T_DecayEmotionState}) is a
-record that has:
+record tied to Emotion State via $\emotionkindstype$ (\tyref{TY_EmotionKind})
+that has:
 \begin{itemize}
-    \item An equilibrium intensity function $\mathtt{equilibrium}$ mapping each
-    element in $\emotionkindstype$ (\tyref{TY_EmotionKind}) to a ``stable''
-    intensity value $\emotionintensitytype$ (\tyref{TY_EmotionIntensity}), and
 
-    \item An emotion decay rate function $\mathtt{decayRates}$ mapping each
-    element in $\emotionkindstype$ to a rate of decay $\emotiondecaytype$
-    (\tyref{TY_EmotionDecay}) to use when returning to them equilibrium values.
+    \item The function $\mathtt{equilibrium}$ maps Emotion Kinds to Emotion
+    Intensities ($\emotionkindstype \rightarrow \emotionintensitytype$,
+    \tyref{TY_EmotionIntensity}), encoding the ``equilibrium'' intensity for
+    each $k : \emotionkindstype$. It must satisfies the invariant to prevent
+    situations where every value in $\mathtt{equilibrium}$ is zero (i.e.
+    constantly zero, \aref{A_PositiveIntensity}), assumed to be a state of
+    ``deep sleep''. Therefore, at least one emotion type in the equilibrium
+    state must be non-zero for the entity to be ``awake''.
+
+    \item The function $\mathtt{decayRates}$ maps Emotion Kinds to Emotion
+    Intensity Decay Rates ($\emotionkindstype \rightarrow \emotiondecaytype$,
+    \tyref{TY_EmotionDecay}), encoding the decay rate for each emotion kind.
+    This allows users to vary decay rates between kinds
+    (\tref{T_DecayEmotionState}).
+
 \end{itemize}
 
-The equilibrium function is not constantly zero (\aref{A_PositiveIntensity}).
-\\\hrule
+Collecting this information into Emotion Decay State makes it easier to
+maintain and access for automating a decay process (\ref{easeAuto}). \\\hrule
 
 \paragraph{Sources} --
 
 \paragraph{Depends On} \aref{A_PositiveIntensity}, \tref{T_DecayEmotionState},
 \tyref{TY_EmotionIntensity}, \tyref{TY_EmotionDecay}, \tyref{TY_EmotionKind}
 
-\paragraph{Ref. By} \iref{IM_DecayEmotion}, \rref{R_EmotionDecayStateType}
+\paragraph{Ref. By} \iref{IM_DecayEmotionState},
+\iref{IM_GetNextEmotionByDecay}, \rref{R_EmotionDecayStateType}
 \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
@@ -346,16 +345,17 @@ The equilibrium function is not constantly zero (\aref{A_PositiveIntensity}).
 
 \paragraph{Description} Emotion $\emotiontype$ (\cref{C_Emotion}) is the
 assignment of an emotion state $\emotionstatetype$ (\tyref{TY_EmotionState}) to
-each instant in time $t : \timetype$ (\tyref{TY_Time}).
+an instant in time $t : \timetype$ (\tyref{TY_Time}).
 \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \cref{C_Emotion}, \tyref{TY_Time},
-\tyref{TY_EmotionState}
+\paragraph{Depends On} \cref{C_Emotion}, \tyref{TY_EmotionState},
+\tyref{TY_Time}
 
 \paragraph{Ref. By} \iref{IM_UpdateEmotion}, \iref{IM_GetEmotionState},
-\iref{IM_DecayEmotion}, \rref{R_EmotionType} \\\hrule\vspace{0.5mm}\hrule
+\iref{IM_GetNextEmotionByDecay}, \rref{R_EmotionType}
+\\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
 
@@ -403,7 +403,40 @@ point in the space defined by the \textit{pleasure} ($P$), \textit{arousal}
         \hline
         \rowcolor[gray]{0.9}
         \bf TY\refstepcounter{typenum}\thetypenum
-        \label{TY_WorldState} & \bf Type of Game World State \\
+        \label{TY_Time} & \bf Type of Time and Delta Time \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $\timetype, \deltatimetype$ \\
+
+        \bf Type & -- \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Time is an abstract type that is linearly ordered. A
+Delta Time is the difference between two Time values. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} --
+
+\paragraph{Ref. By} \tyref{TY_Emotion}, \tyref{TY_Attention},
+\iref{IM_DecayEmotionIntensity}, \iref{IM_UpdateEmotion},
+\iref{IM_GetEmotionState}, \iref{IM_DecayEmotionState},
+\iref{IM_GetNextEmotionByDecay}, \rref{R_TimeType} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf TY\refstepcounter{typenum}\thetypenum
+        \label{TY_WorldState} & \bf Type of Game World State View (WSV) \\
         \hline
     \end{tabular}
 
@@ -417,16 +450,22 @@ point in the space defined by the \textit{pleasure} ($P$), \textit{arousal}
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} A game world state is an abstract type describing a
-configuration of game world characters, objects, and variables. \\\hrule
+\paragraph{Description} A world state ``view'' is a subset of the game world
+state $\mathbb{W}$, an abstract type describing a configuration of game world
+characters, objects, and variables (\aref{A_Events}). A subset is sufficient
+because entities only need to know aspects that are relevant to them, which is
+frequently only a portion of $\mathbb{W}$. \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} --
+\paragraph{Depends On} \aref{A_Events}
 
 \paragraph{Ref. By} \tyref{TY_DistanceBetweenWorldStates},
 \tyref{TY_DistanceBetweenWorldStatesChange}, \tyref{TY_Goal}, \tyref{TY_Plan},
-\iref{IM_CalculateEmotionGP}, \iref{IM_CalculateEmotionIntensity},
+\iref{IM_ElicitJoy}, \iref{IM_ElicitSadness}, \iref{IM_ElicitFear},
+\iref{IM_ElicitAnger}, \iref{IM_ElicitDisgust},
+\iref{IM_CalculateEmotionAcceptanceElicit},
+\iref{IM_CalculateEmotionSurpriseElicit}, \iref{IM_SadnessIntensity},
 \rref{R_WorldType} \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
@@ -454,15 +493,24 @@ configuration of game world characters, objects, and variables. \\\hrule
 
 \paragraph{Description} A game world event is an abstract type describing a
 game action that changes a game world's configuration of characters, objects,
-and/or variables. \\\hrule
+and/or variables. An event is a subset of elements in a WSV
+(\tyref{TY_WorldState}) because evaluations only need to know about
+``changing'' aspects relevant to the entity.
+
+\progname{} evaluates the next WSV caused by an event by applying the event to
+the current WSV $\worldstatetype \times \worldstatechangetype$. \progname{}
+evaluate this as $s \oplus s_{\Delta}$, shorthand for $\mathtt{apply}(x, y)$,
+which is a function that changes $x$ by $y$ (\aref{A_Events}). \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} --
+\paragraph{Depends On} \aref{A_Events}
 
 \paragraph{Ref. By} \tyref{TY_DistanceBetweenWorldStatesChange},
-\tyref{TY_Goal}, \tyref{TY_Plan}, \iref{IM_CalculateEmotionGP},
-\iref{IM_CalculateEmotionIntensity}, \rref{R_WorldChangeType}
+\tyref{TY_Goal}, \tyref{TY_Plan}, \iref{IM_ElicitJoy}, \iref{IM_ElicitSadness},
+\iref{IM_ElicitFear}, \iref{IM_ElicitAnger}, \iref{IM_ElicitDisgust},
+\iref{IM_CalculateEmotionAcceptanceElicit},
+\iref{IM_CalculateEmotionSurpriseElicit}, \rref{R_WorldChangeType}
 \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
@@ -489,16 +537,17 @@ and/or variables. \\\hrule
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} The distance between two game world states
-$s_x : \worldstatetype$ and $s_y : \worldstatetype$ (\tyref{TY_WorldState}) is
-an abstract type describing the difference between each configuration element
-in $s_x$ and $s_y$. \\\hrule
+\paragraph{Description} The distance between two WSVs $s_x : \worldstatetype$
+and $s_y : \worldstatetype$ (\tyref{TY_WorldState}) is an abstract type
+describing the difference between each configuration element in $s_x$ and
+$s_y$. \\\hrule
 
 \paragraph{Sources} --
 
 \paragraph{Depends On} \tyref{TY_WorldState}
 
-\paragraph{Ref. By} \tyref{TY_Goal}, \iref{IM_CalculateEmotionGP},
+\paragraph{Ref. By} \tyref{TY_Goal}, \iref{IM_ElicitJoy},
+\iref{IM_ElicitSadness}, \iref{IM_ElicitFear}, \iref{IM_DisgustIntensity},
 \rref{R_DistanceType} \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
@@ -524,16 +573,19 @@ in $s_x$ and $s_y$. \\\hrule
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} A change in distance of a game world state $s :
-\worldstatetype$ (\tyref{TY_WorldState}) caused by a game world event $s_\Delta
-: \worldstatechangetype$ (\tyref{TY_WorldStateChange}) is an abstract type
+\paragraph{Description} A change in distance of a WSV $s : \worldstatetype$
+(\tyref{TY_WorldState}) caused by a game world event $s_\Delta :
+\worldstatechangetype$ (\tyref{TY_WorldStateChange}) is an abstract type
 describing the magnitude of change that $s_\Delta$ causes in $s$. \\\hrule
 
 \paragraph{Sources} --
 
 \paragraph{Depends On} \tyref{TY_WorldState}, \tyref{TY_WorldStateChange}
 
-\paragraph{Ref. By} \tyref{TY_Goal}, \iref{IM_CalculateEmotionGP},
+\paragraph{Ref. By} \tyref{TY_Goal}, \iref{IM_ElicitJoy},
+\iref{IM_ElicitSadness}, \iref{IM_ElicitFear}, \iref{IM_ElicitDisgust},
+\iref{IM_CalculateEmotionAcceptanceElicit}, \iref{IM_JoyIntensity},
+\iref{IM_FearIntensity}, \iref{IM_CalculateEmotionAcceptance},
 \rref{R_DistanceChangeType} \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
@@ -553,38 +605,65 @@ describing the magnitude of change that $s_\Delta$ causes in $s$. \\\hrule
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
         \bf Symbol & $ \goaltype $ \\
 
-        \bf Type & $ \{ \mathtt{goal} : \worldstatetype \rightarrow
-        \statedistancetype$, $\mathtt{goal'} : \worldstatetype \times
-        \worldstatechangetype \rightarrow \statedistancechangetype$,
-        $\mathtt{importance} : \mathbb{R}_{\geq0} \} $ \\
+        \bf Type & $ \{ \mathtt{goalState} : \worldstatetype \rightarrow
+            \mathbb{B}, \mathtt{goal} : \worldstatetype \rightarrow
+            \statedistancetype, \mathtt{goal'} : \worldstatetype \times
+            \worldstatechangetype \rightarrow \statedistancechangetype,
+            \mathtt{importance} : \mathbb{R}_{\geq0}, $
+            $ \mathtt{type} \subseteq \{ \mathtt{SelfPreservation},
+            \mathtt{Gustatory} \} \} $ \\
         \hline
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} A goal (\cref{C_Goals}) is represented by a function
-$\mathtt{goal}$ mapping a world state $\worldstatetype$ (\tyref{TY_WorldState})
-to a distance measurement $\statedistancetype$
-(\tyref{TY_DistanceBetweenWorldStates}) between it and the desired world state.
+\paragraph{Description} A goal (\cref{C_Goals}) is represented by:
+\begin{itemize}
 
-The derivative of $\mathtt{goal}$---$\mathtt{goal'}$---measures a change in in
-the distance $\statedistancechangetype$
-(\tyref{TY_DistanceBetweenWorldStatesChange}) between the old state $s :
-\worldstatetype$ and the new state that has been changed by $s_{\Delta} :
-\worldstatechangetype$ (\tyref{TY_WorldStateChange}), evaluated as $s \oplus
-s_{\Delta}$ (\aref{A_Events}).
+    \item The $\mathtt{goalState}$ predicate represents the entity's desired
+    WSV $\worldstatetype$ (\tyref{TY_WorldState}). If they are not already in
+    $\mathtt{goalState}$ and striving to maintain it, they are in another state
+    and want to move towards or away from $\mathtt{goalState}$.
 
-A non-negative $\mathtt{importance}$ value indicates the importance of the goal
-relative to other goals that this NPC has. \\\hrule
+    \item The function $\mathtt{goal}$ maps a WSV $\worldstatetype$ to a
+    distance $\statedistancetype$ (\tyref{TY_DistanceBetweenWorldStates})
+    between it and $\mathtt{goalState}$ to measure the difference between the
+    current WSV and desired one.
 
-\paragraph{Sources} \citet[p.~361]{broekens2021emotion}
+    \item The function $\mathtt{goal'}$ is the derivative of $\mathtt{goal}$,
+    measuring a change in the distance $\statedistancechangetype$
+    (\tyref{TY_DistanceBetweenWorldStatesChange}) to $\mathtt{goalState}$ when
+    a WSV $s: \worldstatetype$ is changed by a game event $s_{\Delta} :
+    \worldstatechangetype$ (\tyref{TY_WorldStateChange}).
 
-\paragraph{Depends On} \aref{A_Events}, \cref{C_Goals}, \tyref{TY_WorldState},
-\tyref{TY_WorldStateChange}, \tyref{TY_DistanceBetweenWorldStates},
+    \item The goal's perceived relative $\mathtt{importance}$ to the entity
+    such that higher values reflect a higher importance, mimicking an
+    individual's tendency to be motivated to achieve higher importance goals
+    over lower importance ones. If this is set to zero, \progname{} assumes
+    that the goal has no importance to the entity and does not trigger emotion
+    processes when affected by world events.
+
+    \item CTE's descriptions of emotion-elicitation conditions imply that goals
+    can be assigned the types of \textit{Self-Preservation} and/or
+    \textit{Gustatory} (\tref{T_CalculateEmotionGP}). Goal $\mathtt{type}$
+    stores this information, allowing a goal to have none, one, or both of
+    these types.
+
+\end{itemize}
+\hrule
+
+\paragraph{Sources} \citet[p.~361]{broekens2021emotion},
+\citet[p.~204]{izard1977human}
+
+\paragraph{Depends On} \cref{C_Goals}, \tref{T_CalculateEmotionGP},
+\tyref{TY_WorldState}, \tyref{TY_WorldStateChange},
+\tyref{TY_DistanceBetweenWorldStates},
 \tyref{TY_DistanceBetweenWorldStatesChange}
 
-\paragraph{Ref. By} \tyref{TY_Plan}, \iref{IM_CalculateEmotionGP},
-\iref{IM_CalculateEmotionIntensity}, \rref{R_GoalType}
-\\\hrule\vspace{0.5mm}\hrule
+\paragraph{Ref. By} \iref{IM_ElicitJoy}, \iref{IM_ElicitSadness},
+\iref{IM_ElicitFear}, \iref{IM_ElicitDisgust},
+\iref{IM_CalculateEmotionAcceptanceElicit}, \iref{IM_JoyIntensity},
+\iref{IM_SadnessIntensity}, \iref{IM_FearIntensity},
+\iref{IM_DisgustIntensity}, \rref{R_GoalType} \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
 
@@ -603,34 +682,98 @@ relative to other goals that this NPC has. \\\hrule
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
         \bf Symbol & $\plantype$ \\
 
-        \bf Type & $\left(p_0 : \worldstatetype, p_1 : \worldstatetype, ...,
-        p_n : \worldstatetype\right)$ \\
+        \bf Type & $\{ \mathtt{actions} : ({\worldstatechangetype}_1, ...,
+        {\worldstatechangetype}_n), \mathtt{toProgress} : ((\worldstatetype
+        \rightarrow \mathbb{B})_0, ..., (\worldstatetype \rightarrow
+        \mathbb{B})_n),$ \newline
+        $ \mathtt{nextStep} : \worldstatetype \times \mathbb{N}
+        \rightarrow \worldstatetype, \mathtt{isFeasible} : \worldstatetype
+        \rightarrow \mathbb{B} \} $ \newline
+        $\text{where } n : \mathbb{N}_{>0}, $ \newline
+        $\mathtt{nextStep}(s : \worldstatetype, i : \mathbb{N}) = \begin{cases}
+            s, & i = 0 \\
+            \mathtt{nextStep}(s, i) \oplus \mathtt{planActions}(i), &
+            \mathit{Otherwise}
+        \end{cases}, $ \newline
+        $\text{and } \mathtt{isFeasible}(s : \worldstatetype) =
+        \bigwedge_{i=0}^{n} \mathtt{toProgress}(i, \mathtt{nextStep}(s, i))$ \\
         \hline
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} A plan (\cref{C_Plans}) is represented by a sequence of
-world states $p_i : \worldstatetype$ (\tyref{TY_WorldState}) with $0 \leq i
-\leq n$ and changes between them $s_{\Delta} : \worldstatechangetype$
-(\tyref{TY_WorldStateChange}), such that:
+\paragraph{Description} A plan (\cref{C_Plans}) is represented by:
 \begin{itemize}
-    \item A plan is \textit{useful} iff $\mathtt{goal} \left(s :
-    \worldstatetype, p_n : \worldstatetype\right) < \mathtt{goal} \left(s :
-    \worldstatetype, p_0 : \worldstatetype\right)$ (\tyref{TY_Goal}), and
 
-    \item A plan is \textit{feasible} iff $\forall i : \mathbb{N} \leq n,
-    p_{i-1} : \worldstatetype, p_{i} : \worldstatetype \; | \; \exists
-    s_{\Delta} : \worldstatechangetype \implies \left(p_{i-1} \oplus s_{\Delta}
-    \right) \rightarrow p_{i} $
+    \item A sequence of $\mathtt{actions}$ as world events
+    (\tyref{TY_WorldStateChange}) such that applying them to an initial WSV
+    (\tyref{TY_WorldState}) generates a series of ``good'' WSVs that satisfy a
+    sequence of predicates on them representing plan progression
+    ($\mathtt{toProgress}$), where each element in $\mathtt{actions}$ is
+    something the entity can do (i.e. there are no elements in
+    $\mathtt{actions}$ that the entity believes are impossible)
+
+    \item At some step $i : \mathbb{N}$, the function $\mathtt{nextStep}$
+    evaluates the next WSV in the plan by applying the $ith$ plan action to the
+    $ith$ $\mathtt{nextStep}$ where $\mathtt{nextStep}(s, 0)$ is the initial
+    state $s : \worldstatetype$
+
+    \item A constant $\mathtt{isFeasible}$ generated by checking that, for each
+    step $i : \mathbb{N}$ starting from $i = 0$ and a WSV $s :
+    \worldstatetype$, each evaluation of $\mathtt{nextStep}(s, i)$ satisfies
+    the $ith$ condition in $\mathtt{toProgress}$
+
 \end{itemize}
-\hrule
+
+The Plan Data Type is not explicitly connected to the Goal type so that users
+can apply it to entity plans that are not oriented towards an
+\progname{}-specific goal $\goaltype$ (\tyref{TY_Goal}). \\\hrule
 
 \paragraph{Sources} --
 
 \paragraph{Depends On} \cref{C_Plans}, \tyref{TY_WorldState},
-\tyref{TY_WorldStateChange}, \tyref{TY_Goal}
+\tyref{TY_WorldStateChange}
 
-\paragraph{Ref. By} \iref{IM_CalculateEmotionGP}, \rref{R_PlanType}
+\paragraph{Ref. By} \iref{IM_ElicitSadness}, \iref{IM_ElicitAnger},
+\iref{IM_SadnessIntensity}, \iref{IM_AngerIntensity}, \rref{R_PlanType}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf TY\refstepcounter{typenum}\thetypenum
+        \label{TY_Relation-CTE} & \bf Type of Social Attachment \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Symbol & $\socialattachmenttype$ \\
+
+        \bf Type & $\mathbb{Z}$ \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} A social attachment is an extensible type containing a
+``degree'' or ``level'' of attachment to some other entity $A$. A social
+attachment is linearly ordered such that higher ``degrees'' or ``levels''
+represents a closer attachment to $A$ which can reflect a ``history'' with $A$
+(\cref{C_Relation-CTE}).
+
+Since Social Attachment is just an association between two entities, what users
+take as the ``other'' entity need not be limited to other characters---it could
+refer to objects, actions, or other game elements. \\\hrule
+
+\paragraph{Sources} \citet[p.~359--360]{broekens2021emotion}
+
+\paragraph{Depends On} \cref{C_Relation-CTE}
+
+\paragraph{Ref. By} \iref{IM_CalculateEmotionAcceptanceElicit},
+\iref{IM_CalculateEmotionAcceptance}, \rref{R_SocialAttachment}
 \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
@@ -655,8 +798,8 @@ world states $p_i : \worldstatetype$ (\tyref{TY_WorldState}) with $0 \leq i
 \end{minipage}
 
 \paragraph{Description} Attention (\cref{C_Attention}) is an extensible type
-containing the number of consecutive, discrete time steps $t : \deltatimetype$
-(\tyref{TY_Time}) that have elapsed while focusing on $x$. \\\hrule
+containing the number of consecutive time steps $t : \deltatimetype$
+(\tyref{TY_Time}) that have elapsed while focusing on some $x$. \\\hrule
 
 \paragraph{Sources} --
 
@@ -664,39 +807,4 @@ containing the number of consecutive, discrete time steps $t : \deltatimetype$
 
 \paragraph{Ref. By} \iref{IM_CalculateEmotionInterestElicit},
 \iref{IM_CalculateEmotionInterest}, \rref{R_Attention}
-\\\hrule\vspace{0.5mm}\hrule
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-    \renewcommand*{\arraystretch}{1.5}
-    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
-        \hline
-        \rowcolor[gray]{0.9}
-        \bf TY\refstepcounter{typenum}\thetypenum
-        \label{TY_Relation-CTE} & \bf Type of Social Attachment \\
-        \hline
-    \end{tabular}
-
-    \renewcommand*{\arraystretch}{1.5}
-    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Symbol & $\socialattachmenttype$ \\
-
-        \bf Type & $\mathbb{N}$ \\\hline
-    \end{tabular}
-\end{minipage}
-
-\paragraph{Description} A social attachment to an entity $A$ is an extensible
-type containing a ``degree'' or ``level'' of attachment to $A$. A social
-attachment is linearly ordered such that higher ``degrees'' or ``levels''
-represents a closer attachment to $A$ which can reflect a history with $A$
-(\cref{C_Relation-CTE}). \\\hrule
-
-\paragraph{Sources} --
-
-\paragraph{Depends On} \cref{C_Relation-CTE}
-
-\paragraph{Ref. By} \iref{IM_CalculateEmotionAcceptanceElicit},
-\iref{IM_CalculateEmotionAcceptance}, \rref{R_SocialAttachment}
 \\\hrule\vspace{0.5mm}\hrule

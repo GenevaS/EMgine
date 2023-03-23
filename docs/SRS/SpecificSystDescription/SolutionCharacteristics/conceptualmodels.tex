@@ -13,7 +13,7 @@ original material. The $13$ models are grouped by concern:
     \cref{C_EmOther}, \cref{C_EmIntensity-CTE}, \cref{C_EmDecay}]
 
     \item Knowledge necessary for generating emotion via PES and CTE
-    [\cref{C_Goals}, \cref{C_Plans}, \cref{C_Attention}, \cref{C_Relation-CTE}]
+    [\cref{C_Goals}, \cref{C_Plans}, \cref{C_Relation-CTE}, \cref{C_Attention}]
 
 \end{enumerate}
 
@@ -214,7 +214,8 @@ affective reactions that are operative in any situation:
 The range of each dimension is $-1$ to $1$ representing mean ratings for
 emotion terms. Means are based on ratings from $16$ to $31$ subjects,
 transformed to the $-1$ to $1$ scale. Statistical significance---measured from
-a mean of $0$---and standard deviations differ between ratings.
+a mean of $0$ with $(p > 0.01)$---and standard deviations differ between
+ratings.
 
 Three dimensions are optimal for general characterizations and measurements of
 emotional states, as two dimensions cannot distinguish between clusters of
@@ -240,7 +241,7 @@ affect and additional dimensions added little value to evaluations\\\hrule
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} CTE hypothesises that a system can change its emotion
+\paragraph{Description} CTE hypothesizes that a system can change its emotion
 ``mode'' (i.e. type) at plan junctures, identifiable by changes in the likely
 success of a plan (\cref{C_Plans}). These junctures are assumed to be
 distinctive and recurring. The system enters a ``mode'' based on the current
@@ -305,23 +306,29 @@ the ``mode'' and the scheduling of voluntary actions. \\\hrule
 \textit{Interest} are ``emotions''. CTE is unsure of their status, but proposes
 that:
 \begin{itemize}
-    \item Sudden, unexpected events cause \textit{Surprise}, and could
-    represent an interruption and abrupt transition to another emotion ``mode''
-    (\cref{C_Appraisal-CTE})
+    \item \textit{Surprise} ``...is elicited by a sudden unexpected
+    event...''~\citep[p.~33]{oatley1987towards}. This seems to align with the
+    ``stopping'' behaviour tendencies that PES associates with
+    \textit{Surprise}. Sudden, unexpected events cause \textit{Surprise}, and
+    could represent an interruption and abrupt transition to another emotion
+    ``mode'' (\cref{C_Appraisal-CTE})
 
-    \item Sustained attention (\cref{C_Attention}) to certain external events
-    implies \textit{Interest}
+    \item \textit{Interest} ``...implies sustained attention to certain external
+    events''~\citep[p.~33]{oatley1987towards} (\cref{C_Attention}). This seems
+    to align with the ``starting'' behaviour tendencies that PES associates
+    with \textit{Interest}
 \end{itemize}
 
 Both descriptions imply that \textit{Surprise} and \textit{Interest} can
 coexist with, or are part of, other emotion ``modes''.\\\hrule
 
-\paragraph{Source} \cite{oatley1987towards, oatley1992best}
+\paragraph{Source} \cite{oatley1987towards, oatley1992best},
+\cite{plutchik1984emotions}
 
 \paragraph{Depends On} \cref{C_Appraisal-CTE}, \cref{C_Attention}
 
-\paragraph{Ref. By} \tref{T_CalculateEmotionSurprise},
-\tref{T_CalculateEmotionInterest}
+\paragraph{Ref. By} \tref{T_CalculateEmotionInterest},
+\tref{T_CalculateEmotionSurprise}
 \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
@@ -341,7 +348,18 @@ coexist with, or are part of, other emotion ``modes''.\\\hrule
 \paragraph{Description} Overall, emotion intensity is a relatively understudied
 topic. CTE proposes that the intensity of an emotion (\cref{C_Emotion})
 corresponds to how entrained the system is in a ``mode''
-(\cref{C_Appraisal-CTE}) and to what degree it is ``locked into'' it. \\\hrule
+(\cref{C_Appraisal-CTE}) and to what degree it is ``locked into'' it. There
+appear to be four determinant categories of emotion intensity evaluation:
+\begin{itemize}
+    \item How much the entity ``values'' affected internal conditions (e.g.
+    goals),
+    \item The ``seriousness'' or ``value'' of the event that affected those
+    internal conditions,
+    \item Contextual considerations of elements such as coping, support, and
+    unexpectedness, and
+    \item The entity's personality attributes that affect factors such as
+    emotion response thresholds and dispositions towards different emotions.
+\end{itemize}\hrule
 
 \paragraph{Source} \cite{frijda1992complexity, oatley1987towards,
 oatley1992best}
@@ -377,7 +395,7 @@ emotion and as well as one or more decay functions. \\\hrule
 
 ~\newline
 
-\noindent
+\clearpage\noindent
 \begin{minipage}{\textwidth}
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
@@ -389,17 +407,18 @@ emotion and as well as one or more decay functions. \\\hrule
 \end{minipage}
 
 \paragraph{Description} Goals compel systems to act in ways that achieve a
-desired objective. They are essential for emotion processing, identifying
-what elements of the current world state are relevant to an individual rather
-than relying on properties of the environment alone. Goals are also connected
-to emotions, partially motivating emotion-driven behaviours.
+desired objective. They are essential for emotion processing, identifying what
+elements of the current world state are relevant to an individual rather than
+relying on properties of the environment alone. Entities use goals to know when
+events impact them and by how much. Goals are also connected to emotions,
+partially motivating emotion-driven behaviours.
 
 PES describes goals as being in service to global adaptational problems,
 whereas CTE view them as symbolic representations of possible environmental
 states that a system wants to achieve. \\\hrule
 
 \paragraph{Source} \cite{oxfordGoals}, \citet[p.~223]{broekens2016emotional},
-\cite{robert1980emotion, oatley1987towards}
+\cite{robert1980emotion, oatley1987towards}, \citet[p.~208]{ortony2002making}
 
 \paragraph{Depends On} --
 
@@ -443,31 +462,6 @@ environment, and often only looks one or two steps ahead. \\\hrule
     \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
         \hline
         \rowcolor[gray]{0.9}
-        \bf C\refstepcounter{conceptnum}\theconceptnum \label{C_Attention} &
-        \bf Attention \\\hline
-    \end{tabular}
-\end{minipage}
-
-\paragraph{Description} Attention is a set of mechanisms that allow a
-limited-capacity system to select salient or goal-relevant information. These
-mechanisms might work in parallel. Behavioural effects of attention vary
-between systems, partially due to personality. \\\hrule
-
-\paragraph{Source} \cite{oxfordAttention}
-
-\paragraph{Depends On} --
-
-\paragraph{Ref. By} \cref{C_EmOther}, \tyref{TY_Attention}
-\\\hrule\vspace{0.5mm}\hrule
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-    \renewcommand*{\arraystretch}{1.5}
-    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
-        \hline
-        \rowcolor[gray]{0.9}
         \bf C\refstepcounter{conceptnum}\theconceptnum \label{C_Relation-CTE} &
         \bf Social Relationship \\\hline
     \end{tabular}
@@ -496,4 +490,29 @@ implicitly based on precedents and customs (i.e. culture). \\\hrule
 
 \paragraph{Ref. By} \cref{C_ComplexEmotions-CTE},
 \tref{T_CalculateEmotionAcceptance}, \tyref{TY_Relation-CTE}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf C\refstepcounter{conceptnum}\theconceptnum \label{C_Attention} &
+        \bf Attention \\\hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Attention is a set of mechanisms that allow a
+limited-capacity system to select salient or goal-relevant information. These
+mechanisms might work in parallel. Behavioural effects of attention vary
+between systems, partially due to personality. \\\hrule
+
+\paragraph{Source} \cite{oxfordAttention}
+
+\paragraph{Depends On} --
+
+\paragraph{Ref. By} \cref{C_EmOther}, \tyref{TY_Attention}
 \\\hrule\vspace{0.5mm}\hrule

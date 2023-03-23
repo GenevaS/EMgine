@@ -23,10 +23,10 @@ with an ``X'' may have to be modified as well.
     \item Table~\ref{tab:traceIM2T} shows the dependencies of Instance Models
     on Theoretical Models
 
+    \item Table~\ref{tab:traceIM} shows the dependencies between Instance Models
+
     \item Table~\ref{tab:traceIM2TY} shows the dependencies of Instance Models
     on Data Types
-
-    \item Table~\ref{tab:traceIM} shows the dependencies between Instance Models
 
     \item Table~\ref{tab:traceCTY2Reqs} shows the dependencies of Functional
     Requirements on Conceptual Models and Type Definitions
@@ -41,100 +41,115 @@ with an ``X'' may have to be modified as well.
     \begin{table}[tbh]
         \centering
         \resizebox{\linewidth}{!}{%
-        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
         \hline
-
+% Starts at A5
             & \aref{A_Subgoal} & \aref{A_Goal2Emotion} & \aref{A_OneState}
             & \aref{A_EmotionTypeIntensity} & \aref{A_AppraisalProcess} &
-            \aref{A_Goal2Intensity} & \aref{A_Surprise} &
-            \aref{A_Surprise2} & \aref{A_Interest} & \aref{A_Acceptance} &
+            \aref{A_Goal2Intensity} & \aref{A_CTE2PES} &
+            \aref{A_Acceptance} & \aref{A_Interest} & \aref{A_Surprise} &
             \aref{A_DecaySpeed} & \aref{A_Equilibrium} & \aref{A_DecayRate}
             & \aref{A_DecayUnique} & \aref{A_OnePADPoint} &
             \aref{A_EmotionTerms} & \aref{A_PADStats} &
-            \aref{A_LimitIntensity} & \aref{A_PositiveIntensity} &
-            \aref{A_EmotionPairs} & \aref{A_Events} &
-            \aref{A_GustatoryGoal} & \aref{A_UpdateEmotionState} \\\hline
+            \aref{A_ContinuousIntensity} & \aref{A_RealIntensityChanges} &
+            \aref{A_PositiveIntensity} & \aref{A_EmotionPairs} &
+            \aref{A_LimitIntensity} & \aref{A_Events} & \aref{A_CostFunction} &
+            \aref{A_CausedByFunction} & \aref{A_EventProbabilityFunction} &
+            \aref{A_DistFunction} & \aref{A_MaxGoalImportanceFunction} \\\hline
 
-            \tref{T_CalculateEmotionGP} & X & X & X & X & X &  &  &  &  &
-            &  &  &  &  &  &  &  &  &  &  &  & &  \\\hline
+            \tref{T_CalculateEmotionGP} & X & X & X & X & X &  & X &  &  &
+            &  &  &  &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
             \tref{T_CalculateEmotionIntensity} &  &  &  &  &  & X &  &  &
-            &  &  &  &  &  &  &  &  &  &  &  &  & &  \\\hline
+            &  &  &  &  &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
-            \tref{T_CalculateEmotionSurprise} &  &  &  &  &  &  & X & X &
-            &  &  &  &  &  &  &  &  &  &  &  &  & &  \\\hline
+            \tref{T_CalculateEmotionAcceptance} &  &  &  &  &  &  &  & X &
+            &  &  &  &  &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
             \tref{T_CalculateEmotionInterest} &  &  &  &  &  &  &  &  & X
-            &  &  &  &  &  &  &  &  &  &  &  &  & &  \\\hline
+            &  &  &  &  &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
-            \tref{T_CalculateEmotionAcceptance} &  &  &  &  &  &  &  &  &
-            & X &  &  &  &  &  &  &  &  &  &  &  & &  \\\hline
+            \tref{T_CalculateEmotionSurprise} &  &  &  &  &  &  &  &  &
+            & X &  &  &  &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
             \tref{T_DecayEmotionState} &  &  &  &  &  &  &  &  &  &  & X &
-            X & X & X &  &  &  &  &  &  &  & &  \\\hline
+            X & X & X &  &  &  &  &  &  &  & & &&&&& \\\hline
 
             \tref{T_GetEmotionStatePAD} &  &  &  &  &  &  &  &  &  &  &  &
-            &  &  & X & X & X &  &  &  &  & &  \\\hline
+            &  &  & X & X & X &  &  &  &  & & &&&&& \\\hline
 
             \tyref{TY_EmotionIntensity} &  &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  &  & X &  &  & &  \\\hline
+            &  &  &  &  &  & X &  & X &  & & &&&&& \\\hline
+
+            \tyref{TY_DeltaIntensity} &  &  &  &  &  &  &  &  &  &  &  &
+            &  &  &  &  &  &  & X &  &  & & &&&&& \\\hline
+
+            \tyref{TY_EmotionKind} &  &  &  &  &  &  &  &  &  &  &  &
+            &  &  &  &  &  &  &  &  & X & & &&&&& \\\hline
 
             \tyref{TY_EmotionState} &  &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  & X &  & X &  & &  \\\hline
+            &  &  &  &  &  &  &  &  & X & X & &&&&& \\\hline
 
-            \tyref{TY_EmotionDecayState} &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  &  &  & X &  &  & &  \\\hline
+            \tyref{TY_EmotionDecayState} &  &  &  &  &  &  &  &  &  &  &  &
+            &  &  &  &  &  &  &  & X &  &  & &&&&& \\\hline
 
-            \tyref{TY_Goal} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  & X & &  \\\hline
+            \tyref{TY_WorldState} &  &  &  &  &  &  &  &  &  &  &  &
+            &  &  &  &  &  &  &  &  &  &  & X &&&&& \\\hline
 
-            \iref{IM_CalculateEmotionGP} &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  &  &  &  &  &  & X &  \\\hline
+            \tyref{TY_WorldStateChange} &  &  &  &  &  &  &  &  &  &  &  &
+            &  &  &  &  &  &  &  &  &  &  & X &&&&& \\\hline
 
-            \iref{IM_UpdateEmotionState} &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  &  &  &  &  &  & & X \\\hline
+            \iref{IM_ElicitAnger} &  &  &  &  &  &  &  &  &  &  &  &
+            &  &  &  &  &  &  &  &  &  &  &  & X &&&& \\\hline
+
+            \iref{IM_CalculateEmotionAcceptanceElicit} &  &  &  &  &  &  &  &
+            &  &  &  & &  &  &  &  &  &  &  &  &  &  &  &  & X &&& \\\hline
+
+            \iref{IM_CalculateEmotionSurpriseElicit} &  &  &  &  &  &  &  &
+            &  &  &  & &  &  &  &  &  &  &  &  &  &  &  &  &  & X && \\\hline
+
+            \iref{IM_SadnessIntensity} &  &  &  &  &  &  &  &
+            &  &  &  & &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X
+            \\\hline
+
+            \iref{IM_AngerIntensity} &  &  &  &  &  &  &  &  &  &  &  &
+            &  &  &  &  &  &  &  &  &  &  &  & X &&&& \\\hline
 
             \lcref{LC_Subgoal} & X &  &  &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  &  &  & &  \\\hline
+            &  &  &  &  &  &  &  & & &&&&& \\\hline
 
             \lcref{LC_Goal2Emotion} &  & X &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  &  &  &  & &  \\\hline
+            &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
             \lcref{LC_EmotionTypeIntensity} &  &  &  & X &  &  &  &  &  &
-            &  &  &  &  &  &  &  &  &  &  &  & &  \\\hline
+            &  &  &  &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
             \lcref{LC_Goal2Intensity} &  &  &  &  &  & X &  &  &  &  &  &
-            &  &  &  &  &  &  &  &  &  & &  \\\hline
-
-            \lcref{LC_Surprise} &  &  &  &  &  &  & X & X &  &  &  &  &  &
-            &  &  &  &  &  &  &  & &  \\\hline
+            &  &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
             \lcref{LC_Interest} &  &  &  &  &  &  &  &  & X &  &  &  &  &
-            &  &  &  &  &  &  &  & &  \\\hline
+            &  &  &  &  &  &  &  & &  &&&&& \\\hline
 
             \lcref{LC_DecaySpeed} &  &  &  &  &  &  &  &  &  &  & X &  &
-            &  &  &  &  &  &  &  &  & &  \\\hline
+            &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
             \lcref{LC_Equilibrium} &  &  &  &  &  &  &  &  &  &  &  & X &
-            &  &  &  &  &  &  &  &  & &  \\\hline
+            &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
-            \lcref{LC_DecayRate} &  &  &  &  &  &  &  &  &  &  &  &  & X &
-            &  &  &  &  &  &  &  & &  \\\hline
+            \lcref{LC_DecayRate} &  &  &  &  &  &  &  &  &  &  &  &  & X
+            &  &  &  &  &  &  &  &  & & &&&&& \\\hline
 
             \lcref{LC_EmotionTerms} &  &  &  &  &  &  &  &  &  &  &  &  &
-            &  &  & X &  &  &  &  &  & &  \\\hline
+            &  &  & X &  &  &  &  &  & & &&&&& \\\hline
 
-            \lcref{LC_PADStats} &  &  &  &  &  &  &  &  &  &  &  &  &  &
-            &  &  & X &  &  &  &  & &  \\\hline
+            \lcref{LC_PADStats} &  &  &  &  &  &  &  &  &  &  &  &  &
+            &  &  &  & X &  &  &  &  & & &&&&& \\\hline
 
-            \lcref{LC_PositiveIntensity} &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  &  &  & X &  &  & &  \\\hline
+            \lcref{LC_PositiveIntensity} &  &  &  &  &  &  &  &  &  &  &  &  &
+            &  &  &  &  &  &  & X &  & & &&&&& \\\hline
 
             \lcref{LC_EmotionPairs} &  &  &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  &  & X &  & &  \\\hline
-
-            \lcref{LC_UpdateEmotionState} &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  &  &  &  &  &  & & X \\\hline
+            &  &  &  &  &  &  &  & X & & &&&&& \\\hline
 
         \end{tabular}%
         }
@@ -154,7 +169,7 @@ with an ``X'' may have to be modified as well.
         \cref{C_ComplexEmotion} & \cref{C_ComplexEmotions-CTE} &
         \cref{C_PAD} & \cref{C_Appraisal-CTE} & \cref{C_EmOther} &
         \cref{C_EmIntensity-CTE} & \cref{C_EmDecay} & \cref{C_Goals} &
-        \cref{C_Plans} & \cref{C_Attention} & \cref{C_Relation-CTE} \\
+        \cref{C_Plans} & \cref{C_Relation-CTE} & \cref{C_Attention} \\
         \hline
 
         \cref{C_Emotion} & X &  &  &  &  &  &  &  &  & X &  &  &  \\ \hline
@@ -165,15 +180,15 @@ with an ``X'' may have to be modified as well.
         \cref{C_ComplexEmotion} &  & X & X &  &  &  &  &  &  &  &  &  &  \\
         \hline
 
-        \cref{C_ComplexEmotions-CTE} &  &  &  & X &  & X &  &  &  &  &  &
-        & X \\ \hline
+        \cref{C_ComplexEmotions-CTE} &  &  &  & X &  & X &  &  &  &  &  & X
+        &  \\ \hline
 
         \cref{C_PAD} &  &  &  &  & X &  &  &  &  &  &  &  &  \\ \hline
 
         \cref{C_Appraisal-CTE} &  &  &  &  &  & X &  &  &  & X & X &  &  \\
         \hline
 
-        \cref{C_EmOther} &  &  &  &  &  & X & X &  &  &  &  & X &  \\ \hline
+        \cref{C_EmOther} &  &  &  &  &  & X & X &  &  &  &  &  & X \\ \hline
 
         \cref{C_EmIntensity-CTE} & X &  &  &  &  & X &  & X &  &  &  &  &
         \\ \hline
@@ -184,10 +199,10 @@ with an ``X'' may have to be modified as well.
 
         \cref{C_Plans} &  &  &  &  &  &  &  &  &  & X & X &  &  \\ \hline
 
-        \cref{C_Attention} &  &  &  &  &  &  &  &  &  &  &  & X &  \\ \hline
+        \cref{C_Relation-CTE} &  &  &  &  &  &  &  &  &  &  &  & X &  \\\hline
 
-        \cref{C_Relation-CTE} &  &  &  &  &  &  &  &  &  &  &  &  & X \\
-        \hline
+        \cref{C_Attention} &  &  &  &  &  &  &  &  &  &  &  &  & X \\ \hline
+
     \end{tabular}
     \caption{Traceability between Conceptual Models}
     \label{tab:traceC}
@@ -205,11 +220,11 @@ with an ``X'' may have to be modified as well.
             \cref{C_ComplexEmotion} & \cref{C_ComplexEmotions-CTE} &
             \cref{C_PAD} & \cref{C_Appraisal-CTE} & \cref{C_EmOther} &
             \cref{C_EmIntensity-CTE} & \cref{C_EmDecay} & \cref{C_Goals} &
-            \cref{C_Plans} & \cref{C_Attention} & \cref{C_Relation-CTE} &
+            \cref{C_Plans} & \cref{C_Relation-CTE} & \cref{C_Attention} &
             \tref{T_CalculateEmotionGP} & \tref{T_CalculateEmotionIntensity} &
-            \tref{T_CalculateEmotionSurprise} &
+            \tref{T_CalculateEmotionAcceptance} &
             \tref{T_CalculateEmotionInterest} &
-            \tref{T_CalculateEmotionAcceptance} & \tref{T_DecayEmotionState} &
+            \tref{T_CalculateEmotionSurprise} & \tref{T_DecayEmotionState} &
             \tref{T_GetEmotionStatePAD} \\ \hline
 
             \tref{T_CalculateEmotionGP} &  &  &  &  &  & X &  &  &  & X & X &
@@ -218,20 +233,20 @@ with an ``X'' may have to be modified as well.
             \tref{T_CalculateEmotionIntensity} &  &  &  &  &  &  &  & X &  &
             &  &  & &  & X &  &  &  &  &  \\ \hline
 
-            \tref{T_CalculateEmotionSurprise} &  &  &  &  &  &  & X &  &  &  &
-            &  & &  &  & X &  &  &  &  \\ \hline
+            \tref{T_CalculateEmotionAcceptance} &  &  &  & X &  &  &  &  &  &
+            &  & X &  &  &  & X &  &  &  & \\ \hline
 
             \tref{T_CalculateEmotionInterest} &  &  &  &  &  &  & X &  &  &  &
             &  & &  &  &  & X &  &  &  \\ \hline
 
-            \tref{T_CalculateEmotionAcceptance} &  &  &  & X &  &  &  &  &  &
-            &  &  & X &  &  &  &  & X &  & \\ \hline
+            \tref{T_CalculateEmotionSurprise} &  &  &  &  &  &  & X &  &  &  &
+            &  & &  &  &  &  & X &  &  \\ \hline
 
             \tref{T_DecayEmotionState} &  &  &  &  &  &  &  &  & X &  &  &  &
             &  &  &  &  &  & X &  \\ \hline
 
             \tref{T_GetEmotionStatePAD} &  & X &  &  & X &  &  &  &  &  &  &  &
-             &  &  &  &  &  &  &  \\ \hline
+             &  &  &  &  &  &  & X \\ \hline
 
             \tyref{TY_EmotionIntensity} &  &  &  &  &  &  &  &  &  &  &  &  &
             &  & X & X & X & X &  &  \\ \hline
@@ -254,29 +269,17 @@ with an ``X'' may have to be modified as well.
             \tyref{TY_PAD} &  &  &  &  & X &  &  &  &  &  &  &  & &  &  &
             &  &  &  &  \\ \hline
 
-            \tyref{TY_WorldState} &  &  &  &  &  &  &  &  &  &  &  &  & &  &
-            &  & &  &  &  \\ \hline
-
-            \tyref{TY_WorldStateChange} &  &  &  &  &  &  &  &  &  &  &  &  &
-            &  &  &  &  &  &  &  \\ \hline
-
-            \tyref{TY_DistanceBetweenWorldStates} &  &  &  &  &  &  &  &  &  &
-            &  &  & &  &  &  &  &  &  &  \\ \hline
-
-            \tyref{TY_DistanceBetweenWorldStatesChange} &  &  &  &  &  &  &  &
-            &  & X &  &  & &  &  &  &  &  &  &  \\ \hline
-
-            \tyref{TY_Goal} &  &  &  &  &  &  &  &  &  & X &  &  & &  &  &  &
+            \tyref{TY_Goal} &  &  &  &  &  &  &  &  &  & X &  &  & & X &  &  &
             &  &  &  \\ \hline
 
             \tyref{TY_Plan} &  &  &  &  &  &  &  &  &  &  & X &  & &  &  &  &
             &  &  &  \\ \hline
 
-            \tyref{TY_Attention} &  &  &  &  &  &  &  &  &  &  &  & X & &  &
-            &  &  &  &  &  \\ \hline
-
-            \tyref{TY_Relation-CTE} &  &  &  &  &  &  &  &  &  &  &  &  & X &
+            \tyref{TY_Relation-CTE} &  &  &  &  &  &  &  &  &  &  &  & X &  &
             &  &  &  &  &  &  \\ \hline
+
+            \tyref{TY_Attention} &  &  &  &  &  &  &  &  &  &  &  &  & X &  &
+            &  &  &  &  &  \\ \hline
 
         \end{tabular}
         \caption{Traceability between Conceptual Models, Theoretical Models,
@@ -294,40 +297,40 @@ with an ``X'' may have to be modified as well.
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
             \hline
 
-            & \tyref{TY_Time} & \tyref{TY_EmotionIntensity} &
-            \tyref{TY_DeltaIntensity} & \tyref{TY_EmotionDecay} &
-            \tyref{TY_EmotionKind} & \tyref{TY_EmotionState} &
-            \tyref{TY_EmotionDecayState} & \tyref{TY_Emotion} & \tyref{TY_PAD}
-            & \tyref{TY_WorldState} & \tyref{TY_WorldStateChange} &
+            & \tyref{TY_EmotionIntensity} & \tyref{TY_DeltaIntensity} &
+            \tyref{TY_EmotionDecay} & \tyref{TY_EmotionKind} &
+            \tyref{TY_EmotionState} & \tyref{TY_EmotionDecayState} &
+            \tyref{TY_Emotion} & \tyref{TY_PAD} & \tyref{TY_Time} &
+            \tyref{TY_WorldState} & \tyref{TY_WorldStateChange} &
             \tyref{TY_DistanceBetweenWorldStates} &
             \tyref{TY_DistanceBetweenWorldStatesChange} & \tyref{TY_Goal} &
-            \tyref{TY_Plan} & \tyref{TY_Attention} & \tyref{TY_Relation-CTE}
+            \tyref{TY_Plan} & \tyref{TY_Relation-CTE} & \tyref{TY_Attention}
             \\\hline
 
-            \tyref{TY_Time} & X &  &  &  &  & && &  & & & & & & & & \\\hline
-
-            \tyref{TY_EmotionIntensity} && X &&  &  &  &&  &  &  && & & & & &
+            \tyref{TY_EmotionIntensity} & X &  &&  &  &  &&  &  &  && & & & & &
             \\\hline
 
-            \tyref{TY_DeltaIntensity} && X & X & &  &  &  & &  &  &  & & & & &
-            & \\\hline
+            \tyref{TY_DeltaIntensity} & X & X &  & &  &  &  & &  &  &  & & & &
+            & & \\\hline
 
-            \tyref{TY_EmotionDecay} & &&& X &  &  &  &  &&  &  & & & & & &
+            \tyref{TY_EmotionDecay} & && X &  &  &  &  &  &&  &  & & & & & &
             \\\hline
 
-            \tyref{TY_EmotionKind}  && & & & X &  &  &  &&  & & & & & & &
+            \tyref{TY_EmotionKind} && & & X &  &  &  &  &&  & & & & & & &
             \\\hline
 
-            \tyref{TY_EmotionState} && X &  &  & X & X &  & &  &  &  & & & & & &
+            \tyref{TY_EmotionState} & X &  &  & X & X &  &  & &  &  &  & & & &
+            & & \\\hline
+
+            \tyref{TY_EmotionDecayState} & X &  & X & X &  & X &  & &  &  &  &
+            & & & & & \\\hline
+
+            \tyref{TY_Emotion} &  &  &&& X &  & X &  & X &  &  & & & & & &
             \\\hline
 
-            \tyref{TY_EmotionDecayState} && X &  & X & X &  & X & &  &  &  & & &
-            & & & \\\hline
+            \tyref{TY_PAD} &  &  &&&  &  &  & X &  &  &  & & & & & &\\\hline
 
-            \tyref{TY_Emotion} & X &  &&&  & X &  & X & &  &  & & & & & &
-            \\\hline
-
-            \tyref{TY_PAD} &  &  &&&  &  &  &  & X &  &  & & & & & &\\\hline
+            \tyref{TY_Time} &  &  &  &  &  & && & X & & & & & & & & \\\hline
 
             \tyref{TY_WorldState} &  &  &  &  &  & && &  & X & & & && & &
             \\\hline
@@ -344,13 +347,13 @@ with an ``X'' may have to be modified as well.
             \tyref{TY_Goal} &&  &  &  & && & &  & X & X & X & X & X &
             &&\\\hline
 
-            \tyref{TY_Plan} &  &  &&&  &  &  & &  & X & X &  &  & X & X & &
+            \tyref{TY_Plan} &  &  &&&  &  &  & &  & X & X &  &  &  & X & &
             \\\hline
 
-            \tyref{TY_Attention} & X & &  &  &  &  & & & & &  &&& & & X
-            & \\\hline
+            \tyref{TY_Relation-CTE} &  &  &  &  &  &&&& & & & &  & && X &
+            \\\hline
 
-            \tyref{TY_Relation-CTE} &  &  &  &  &  &&&& & & & &  & &&& X
+            \tyref{TY_Attention} &  & &  &  &  &  & & & X & &  &&& & & & X
             \\\hline
 
         \end{tabular}%
@@ -361,49 +364,54 @@ with an ``X'' may have to be modified as well.
     \vspace*{\fill}
 \end{landscape}
 
-\vspace*{\fill}
+{\vspace*{\fill}
 \begin{table}[tbh]
     \centering
         \begin{tabular}{|c|c|c|c|c|c|c|c|}
             \hline
 
-            & \tref{T_CalculateEmotionGP} &
-            \tref{T_CalculateEmotionIntensity} &
-            \tref{T_CalculateEmotionSurprise} &
-            \tref{T_CalculateEmotionInterest} &
+            & \tref{T_CalculateEmotionGP} & \tref{T_CalculateEmotionIntensity}&
             \tref{T_CalculateEmotionAcceptance} &
-            \tref{T_DecayEmotionState} & \tref{T_GetEmotionStatePAD} \\\hline
+            \tref{T_CalculateEmotionInterest}  &
+            \tref{T_CalculateEmotionSurprise} & \tref{T_DecayEmotionState} &
+            \tref{T_GetEmotionStatePAD} \\\hline
 
-            \iref{IM_CalculateEmotionGP} & X &  &  &  &  & & \\\hline
+            \iref{IM_ElicitJoy} & X &  &  &  &  & & \\\hline
 
-            \iref{IM_CalculateEmotionSurpriseElicit} &  &  & X &  & & &
+            \iref{IM_ElicitSadness} & X &  &  &  &  & & \\\hline
+
+            \iref{IM_ElicitFear} & X &  &  &  &  & & \\\hline
+
+            \iref{IM_ElicitAnger} & X &  &  &  &  & & \\\hline
+
+            \iref{IM_ElicitDisgust} & X &  &  &  &  & & \\\hline
+
+            \iref{IM_CalculateEmotionAcceptanceElicit} &  &  & X &  &  & &
             \\\hline
 
             \iref{IM_CalculateEmotionInterestElicit} &  &  &  & X &  &  &
             \\\hline
 
-            \iref{IM_CalculateEmotionAcceptanceElicit} &  &  &  &  & X & &
+            \iref{IM_CalculateEmotionSurpriseElicit} &  &  &  &  & X & &
             \\\hline
 
-            \iref{IM_CalculateEmotionIntensity} &  & X &  &  &  &  & \\\hline
+            \iref{IM_JoyIntensity} & X & X &  &  &  &  & \\\hline
 
-            \iref{IM_CalculateEmotionSurprise} &  &  & X &  &  & & \\\hline
+            \iref{IM_SadnessIntensity} & X & X &  &  &  &  & \\\hline
+
+            \iref{IM_FearIntensity} & X & X &  &  &  &  & \\\hline
+
+            \iref{IM_AngerIntensity} & X & X &  &  &  &  & \\\hline
+
+            \iref{IM_DisgustIntensity} & X & X &  &  &  &  & \\\hline
+
+            \iref{IM_CalculateEmotionAcceptance} &  &  & X &  &  & & \\\hline
 
             \iref{IM_CalculateEmotionInterest} &  &  &  & X &  & & \\\hline
 
-            \iref{IM_CalculateEmotionAcceptance} &  &  &  &  & X & & \\\hline
+            \iref{IM_CalculateEmotionSurprise} &  &  &  &  & X & & \\\hline
 
-            \iref{IM_DecayEmotionState} & &  & &  &  & X & \\\hline
-
-            \iref{IM_UpdateEmotionState} &&  & & &  &  &  \\\hline
-
-            \iref{IM_UpdateEmotionState2} & &&&  &  &  &   \\\hline
-
-            \iref{IM_UpdateEmotion}  && & & &  &  &  \\\hline
-
-            \iref{IM_GetEmotionState} &&  &  &  &  &  &  \\\hline
-
-            \iref{IM_DecayEmotion} &&  &  &  &  &  &   \\\hline
+            \iref{IM_DecayEmotionIntensity} & &  & &  &  & X & \\\hline
 
             \iref{IM_GetEmotionStatePAD} &  &  &&&  &  & X \\\hline
 
@@ -412,143 +420,127 @@ with an ``X'' may have to be modified as well.
     \label{tab:traceIM2T}
 \end{table}
 \vspace*{\fill}
+\begin{table}[tbh]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+
+        & \iref{IM_ElicitJoy} & \iref{IM_DecayEmotionIntensity}&
+        \iref{IM_UpdateEmotionState} & \iref{IM_UpdateEmotion} &
+        \iref{IM_GetEmotionState} & \iref{IM_DecayEmotionState} \\\hline
+
+        \tyref{TY_EmotionDecay}  &  & X &  & &  &  \\\hline
+
+        \iref{IM_CalculateEmotionAcceptanceElicit} & X &  &  &  & &
+        \\\hline
+
+        \iref{IM_UpdateEmotionState2} &  &  & X &  &  & \\\hline
+
+        \iref{IM_DecayEmotionState} &  & X &  &  &  &  \\\hline
+
+        \iref{IM_GetNextEmotionByDecay} &  & & & X & X & X \\\hline
+
+    \end{tabular}
+    \caption{Traceability between Instance Models and a Data Type}
+    \label{tab:traceIM}
+\end{table}
+\vspace*{\fill}}
 
 \begin{landscape}
     \vspace*{\fill}
     \begin{table}[tbh]
         \centering
-        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-            \hline
+        \resizebox{0.975\linewidth}{!}{%
+            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
 
-            & \tyref{TY_Time} & \tyref{TY_EmotionIntensity} &
-            \tyref{TY_DeltaIntensity} & \tyref{TY_EmotionDecay} &
-            \tyref{TY_EmotionKind} & \tyref{TY_EmotionState} &
-            \tyref{TY_EmotionDecayState} & \tyref{TY_Emotion} & \tyref{TY_PAD}
-            & \tyref{TY_WorldState} & \tyref{TY_WorldStateChange} &
-            \tyref{TY_DistanceBetweenWorldStates} &
-            \tyref{TY_DistanceBetweenWorldStatesChange} & \tyref{TY_Goal} &
-            \tyref{TY_Plan} & \tyref{TY_Attention} & \tyref{TY_Relation-CTE}
-            \\\hline
+                & \tyref{TY_EmotionIntensity} & \tyref{TY_DeltaIntensity} &
+                \tyref{TY_EmotionDecay} & \tyref{TY_EmotionKind} &
+                \tyref{TY_EmotionState} & \tyref{TY_EmotionDecayState} &
+                \tyref{TY_Emotion} & \tyref{TY_PAD} & \tyref{TY_Time} &
+                \tyref{TY_WorldState} & \tyref{TY_WorldStateChange} &
+                \tyref{TY_DistanceBetweenWorldStates} &
+                \tyref{TY_DistanceBetweenWorldStatesChange} & \tyref{TY_Goal} &
+                \tyref{TY_Plan} & \tyref{TY_Relation-CTE} &
+                \tyref{TY_Attention}
+                \\\hline
 
-            \iref{IM_CalculateEmotionGP} &  &  &  &  & X & && &  & X & X & X &
-            X & X & X & & \\\hline
+            \iref{IM_ElicitJoy} &  &  &  &  &  & && &  & X & X & X & X & X &  &
+            & \\\hline
 
-            \iref{IM_CalculateEmotionSurpriseElicit} & X &  &  &  &  & &&
-            &  & &  & & & & & &  \\\hline
+            \iref{IM_ElicitSadness} &  &  &  &  &  & && &  & X & X & X &  & X
+            & X & & \\\hline
 
-            \iref{IM_CalculateEmotionInterestElicit} &  &  &  &  &  & &&
-            &  & & & & & & & X & \\\hline
+            \iref{IM_ElicitFear} &  &  &  &  &  & && &  & X & X & X & X & X &
+            & & \\\hline
 
-            \iref{IM_CalculateEmotionAcceptanceElicit} &  & X & X &  &  &
-            && &  & & & & & & & & X \\\hline
+            \iref{IM_ElicitAnger} &  &  &  &  &  & && &  & X & X &  &  &  & X &
+            & \\\hline
 
-            \iref{IM_CalculateEmotionIntensity} &  &  & X &  &  & && &  & X
-            & X & & & X & & &  \\\hline
-
-            \iref{IM_CalculateEmotionSurprise} & X &  & X &  &  & && &  & &
-            & & & & & & \\\hline
-
-            \iref{IM_CalculateEmotionInterest} &  &  & X &  &  & && &  & &
-            & & & & & X & \\\hline
-
-            \iref{IM_CalculateEmotionAcceptance} &  &  & X &  &  & && &  &
-            & & & & & & & X \\\hline
-
-            \iref{IM_DecayEmotionState} & X & X && X &  &  &&  &  &  && & & &
-            & &  \\\hline
-
-            \iref{IM_UpdateEmotionState} && X & X & & X &  &  & &  &  &  & &
-            && & & \\\hline
-
-            \iref{IM_UpdateEmotionState2} & & X &&  & X & X &  &  &&  &  & & &
+            \iref{IM_ElicitDisgust} &  &  &  &  &  & && &  & X & X &  & X & X
             &  & & \\\hline
 
-            \iref{IM_UpdateEmotion} & X & & & &  & X &  & X &&  & & & & &  & &
+            \iref{IM_CalculateEmotionAcceptanceElicit} &  &  &  &  &  &
+            && &  & X & X & & X & X & & X & \\\hline
+
+            \iref{IM_CalculateEmotionInterestElicit} &  &  &  &  &  & &&
+            &  & & & & & & &  & X \\\hline
+
+            \iref{IM_CalculateEmotionSurpriseElicit} &  &  &  &  &  & &&
+            &  & X & X & & & & & &  \\\hline
+
+            \iref{IM_JoyIntensity} &  & X & &  &  & && &  & &  & & X & X &  & &
             \\\hline
 
-            \iref{IM_GetEmotionState} & X &  &  &  & & X &  & X &  &  &  & &
-            &  & & & \\\hline
+            \iref{IM_SadnessIntensity} &  & X &  &  &  & && &  & X
+            &  & & & X & X & &  \\\hline
 
-            \iref{IM_DecayEmotion} & X &  &  &  & X & X & X & X &  &  &
+            \iref{IM_FearIntensity} &  & X & &  &  & && &  & &  & & X & X &  &
+            &  \\\hline
+
+            \iref{IM_AngerIntensity} &  & X &  &  &  & && &  &  &  & & &  & X &
+            &  \\\hline
+
+            \iref{IM_DisgustIntensity} &  & X &  &  &  & && &  & &  & X & & X &
+            & &  \\\hline
+
+            \iref{IM_CalculateEmotionAcceptance} &  & X &  &  &  & && &  & &
+            & & X & & & X & \\\hline
+
+            \iref{IM_CalculateEmotionInterest} &  & X &  &  &  & && &  &
+            & & & & & & & X \\\hline
+
+            \iref{IM_CalculateEmotionSurprise} &  & X &  &  &  & && &  & &
             & & & & & & \\\hline
 
-            \iref{IM_GetEmotionStatePAD} &  &  &&& X & X &  &  & X &  &  & &
+            \iref{IM_DecayEmotionIntensity} & X &  & X &  &  &  &&  & X &  && &
+            & & & &  \\\hline
+
+            \iref{IM_UpdateEmotionState} & X & X &  & &  &  &  & &  &  &  & &
+            && & & \\\hline
+
+            \iref{IM_UpdateEmotionState2} & & X && X & X &  &  &  &&  &  & & &
+            &  & & \\\hline
+
+            \iref{IM_UpdateEmotion} &  & & & & X &  & X &  & X &  & & & & &  & &
+            \\\hline
+
+            \iref{IM_GetEmotionState} &  & & & & X &  & X &  & X &  & & & & &
+            & & \\\hline
+
+            \iref{IM_DecayEmotionState} &  &  &&  & X & X &&  & X &  && & & &
+            & & \\\hline
+
+            \iref{IM_GetNextEmotionByDecay} &  &  &&  &  & X & X &  & X &  && &
+            & & & & \\\hline
+
+            \iref{IM_GetEmotionStatePAD} &  &  &&& X &  &  & X &  &  &  & &
             & &  & &  \\\hline
 
-        \end{tabular}
+        \end{tabular}%
+        }
         \caption{Traceability between Instance Models and Data Types}
         \label{tab:traceIM2TY}
-    \end{table}
-    \vspace*{\fill}
-\end{landscape}
-
-\begin{landscape}
-    \vspace*{\fill}
-    \begin{table}[tbh]
-        \centering
-        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-            \hline
-
-            & \iref{IM_CalculateEmotionGP} &
-            \iref{IM_CalculateEmotionSurpriseElicit} &
-            \iref{IM_CalculateEmotionInterestElicit} &
-            \iref{IM_CalculateEmotionAcceptanceElicit} &
-            \iref{IM_CalculateEmotionIntensity} &
-            \iref{IM_CalculateEmotionSurprise} &
-            \iref{IM_CalculateEmotionInterest} &
-            \iref{IM_CalculateEmotionAcceptance} & \iref{IM_DecayEmotionState}
-            & \iref{IM_UpdateEmotionState} & \iref{IM_UpdateEmotionState2} &
-            \iref{IM_UpdateEmotion} & \iref{IM_GetEmotionState} &
-            \iref{IM_DecayEmotion} & \iref{IM_GetEmotionStatePAD} \\\hline
-
-            \iref{IM_CalculateEmotionGP} & X &  &  &  &  & && &  &  &  &  &  &
-            & \\\hline
-
-            \iref{IM_CalculateEmotionSurpriseElicit} &  & X &  &  &  & &&
-            &  & &  & & & & \\\hline
-
-            \iref{IM_CalculateEmotionInterestElicit} &  &  & X &  &  & &&
-            &  & & & & & & \\\hline
-
-            \iref{IM_CalculateEmotionAcceptanceElicit} &  &  &  & X &  &
-            && &  & & & & & & \\\hline
-
-            \iref{IM_CalculateEmotionIntensity} &  &  &  &  & X & && &  &
-            &  & & &  & \\\hline
-
-            \iref{IM_CalculateEmotionSurprise} &  &  &  &  &  & X && &  & &
-            & & & & \\\hline
-
-            \iref{IM_CalculateEmotionInterest} &  &  &  &  &  & & X & &  & &
-            & & & & \\\hline
-
-            \iref{IM_CalculateEmotionAcceptance} &  &  &  &  &  & && X &  &
-            & & & & & \\\hline
-
-            \iref{IM_DecayEmotionState} &  &  &&  &  &  &&  & X &  && & & &
-            \\\hline
-
-            \iref{IM_UpdateEmotionState} &&  &  & &  &  &  & &  & X &  & &
-            && \\\hline
-
-            \iref{IM_UpdateEmotionState2} & &  &&  &  &  &  &  &&  & X & & &
-            & \\\hline
-
-            \iref{IM_UpdateEmotion} &  & & & &  &  &  &  &&  & & X & & &
-            \\\hline
-
-            \iref{IM_GetEmotionState} &  &  &  &  & &  &  &  &  &  &  & & X &
-            & \\\hline
-
-            \iref{IM_DecayEmotion} &  &  &  &  &  &  &  &  & X &  & X & & X & X
-            & \\\hline
-
-            \iref{IM_GetEmotionStatePAD} &  &  &&&  &  &  &  &  &  &  & & & & X
-            \\\hline
-
-        \end{tabular}
-        \caption{Traceability between Instance Models}
-        \label{tab:traceIM}
     \end{table}
     \vspace*{\fill}
 \end{landscape}
@@ -558,83 +550,87 @@ with an ``X'' may have to be modified as well.
 \begin{table}[tbh]
     \centering
     \resizebox{\linewidth}{!}{%
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
         \hline
 
-        & \cref{C_ComplexEmotion} & \cref{C_ComplexEmotions-CTE} &
-        \tyref{TY_Time} & \tyref{TY_EmotionIntensity} &
+        & \ref{sec_DataConstraints} & \cref{C_ComplexEmotion} &
+        \cref{C_ComplexEmotions-CTE} & \tyref{TY_EmotionIntensity} &
         \tyref{TY_DeltaIntensity} & \tyref{TY_EmotionDecay} &
         \tyref{TY_EmotionKind} & \tyref{TY_EmotionState} &
         \tyref{TY_EmotionDecayState} & \tyref{TY_Emotion} & \tyref{TY_PAD} &
-        \tyref{TY_WorldState} & \tyref{TY_WorldStateChange} &
+        \tyref{TY_Time} & \tyref{TY_WorldState} & \tyref{TY_WorldStateChange} &
         \tyref{TY_DistanceBetweenWorldStates} &
         \tyref{TY_DistanceBetweenWorldStatesChange} & \tyref{TY_Goal} &
-        \tyref{TY_Plan} & \tyref{TY_Attention} & \tyref{TY_Relation-CTE}
+        \tyref{TY_Plan} & \tyref{TY_Relation-CTE} & \tyref{TY_Attention}
         \\\hline
 
-        \rref{R_TimeType} &  &  & X &  &  & &  & &  & & & && & & & & & \\\hline
+        \rref{R_Types}  & X & &  &  &  &  & &  & &  & & & && & & & & & \\\hline
 
-        \rref{R_IntensityTypeUse} &  &  &  & X &  & &  & &  & & & && & & & & &
+        \rref{R_IntensityTypeUse} & & &  & X &  &  & &  & &  & & & && & & & & &
         \\\hline
 
-        \rref{R_IntensityChangeType} &  &  &  &  & X & &  & &  & & & && & & & &
+        \rref{R_IntensityChangeType} &&  &  &  & X &  & &  & &  & & & && & & & &
         & \\\hline
 
-        \rref{R_IntensityDecayType} &  &  &  &  &  & X &  & &  & & & && & & & &
+        \rref{R_IntensityDecayType} &&  &  &  &  & X &  &  & &  & & & && & & & &
         & \\\hline
 
-        \rref{R_EmotionKindsType} &  &  &  &  &  &  & X & &  & & & && & & & &
+        \rref{R_EmotionKindsType} &&  &  &  &  &  & X &  & &  & & & && & & & &
         & \\\hline
 
-        \rref{R_EmotionStateType} &  &  &  &  &  &  &  & X &  & & & && & & & &
+        \rref{R_EmotionStateType} &&  &  &  &  &  &  & X &  &  & & & && & & & &
         & \\\hline
 
-        \rref{R_EmotionDecayStateType} &  &  &  &  &  &  &  &  & X & & & && & &
+        \rref{R_EmotionDecayStateType} &&  &  &  &  &  &  &  & X &  & & & && & &
         & & &  \\\hline
 
-        \rref{R_EmotionType} &  &  &  &  &  &  &  &  &  & X & & && & &  & &  &
+        \rref{R_EmotionType} &&  &  &  &  &  &  &  &  & X &  & & && & &  & &  &
         \\\hline
 
-        \rref{R_PADPointType} &  &  &  &  &  &  &  &  &  &  & X & && & &  & &
+        \rref{R_PADPointType} &&  &  &  &  &  &  &  &  &  & X &  & && & &  & &
         & \\\hline
 
-        \rref{R_WorldType} &  &  &  &  &  &  &  &  &  &  &  & X && & & & &  &
+        \rref{R_TimeType} &&  &  &  &  &  & &  & &  &  & X & && & & & & &
         \\\hline
 
-        \rref{R_WorldChangeType} &  &  &  &  &  &  &  &  &  &  &  &  & X & & &
+        \rref{R_WorldType} &&  &  &  &  &  &  &  &  &  &  &  & X && & & & &  &
+        \\\hline
+
+        \rref{R_WorldChangeType} &&  &  &  &  &  &  &  &  &  &  &  &  & X & & &
         & &  &  \\\hline
 
-        \rref{R_DistanceType} &  &  &  &  &  &  &  &  &  &  &  &  &  & X & &
+        \rref{R_DistanceType} &&  &  &  &  &  &  &  &  &  &  &  &  &  & X & &
         & &  & \\\hline
 
-        \rref{R_DistanceChangeType} &  &  &  &  &  &  &  &  &  &  &  &  &  & &
+        \rref{R_DistanceChangeType} &&  &  &  &  &  &  &  &  &  &  &  &  &  & &
         X &  & &  & \\\hline
 
-        \rref{R_GoalType} &  &  &  &  &  &  &  &  &  &  &  &  &  & &  & X & &
+        \rref{R_GoalType} &&  &  &  &  &  &  &  &  &  &  &  &  &  & &  & X & &
         & \\\hline
 
-        \rref{R_PlanType} &  &  &  &  &  &  &  &  &  &  &  &  &  & &  &  & X &
+        \rref{R_PlanType} & &  &  &  &  &  &  &  &  &  &  &  &  &  & &  &  & X &
         &  \\\hline
 
-        \rref{R_Attention} &  &  &  &  &  &  &  &  &  &  &  &  &  & &  &  &  &
+        \rref{R_SocialAttachment} &&  &  &  &  &  &  &  &  &  &  &  &  &  & &
+        &  &  &
         X &  \\\hline
 
-        \rref{R_SocialAttachment} &  &  &  &  &  & &  & &  & & & && & & & & & X
+        \rref{R_Attention} & &  &  &  &  &  & &  & &  & & & && & & & & & X
         \\\hline
 
-        \rref{R_MixingEmotionsPES} & X &  &  & X &  & & X & &  & & & && & & & &
-        & \\\hline
+        \rref{R_MixingEmotionsPES} && X &  & X &  &  & X &  & &  & & & && & & &
+        & & \\\hline
 
-        \rref{R_PartitionEmotions} & X &  &  & X &  & & X & &  & & & && & & & &
-        &  \\\hline
+        \rref{R_PartitionEmotions} && X &  & X &  &  & X &  & &  & & & && & & &
+        & & \\\hline
 
-        \rref{R_MixingEmotionsCTE} &  & X &  &  &  & & X & &  & & & && & & & &
+        \rref{R_MixingEmotionsCTE} &&  & X &  &  &  & X &  & &  & & & && & & & &
         & \\\hline
 
     \end{tabular}%
 }
-    \caption{Traceability between Conceptual Models, Type Definitions, and
-    Requirements}
+    \caption{Traceability between Data Constraints, Conceptual Models, Type
+    Definitions, and Requirements}
     \label{tab:traceCTY2Reqs}
     \end{table}
 \vspace*{\fill}
@@ -644,51 +640,57 @@ with an ``X'' may have to be modified as well.
     \vspace*{\fill}
 \begin{table}[tbh]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \resizebox{\linewidth}{!}{%
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
         \hline
 
-        & \ref{sec_DataConstraints} & \iref{IM_CalculateEmotionGP} &
-        \iref{IM_CalculateEmotionSurpriseElicit} &
-        \iref{IM_CalculateEmotionInterestElicit} &
+        & \iref{IM_ElicitJoy} & \iref{IM_ElicitSadness} & \iref{IM_ElicitFear}
+        & \iref{IM_ElicitAnger} & \iref{IM_ElicitDisgust} &
         \iref{IM_CalculateEmotionAcceptanceElicit} &
-        \iref{IM_CalculateEmotionIntensity} &
-        \iref{IM_CalculateEmotionSurprise} &
-        \iref{IM_CalculateEmotionInterest} &
-        \iref{IM_CalculateEmotionAcceptance} & \iref{IM_DecayEmotionState}
-        & \iref{IM_UpdateEmotionState} & \iref{IM_UpdateEmotionState2} &
-        \iref{IM_UpdateEmotion} & \iref{IM_GetEmotionState} &
-        \iref{IM_DecayEmotion} & \iref{IM_GetEmotionStatePAD} \\\hline
+        \iref{IM_CalculateEmotionInterestElicit} &
+        \iref{IM_CalculateEmotionSurpriseElicit} &
+        \iref{IM_JoyIntensity} & \iref{IM_SadnessIntensity} &
+        \iref{IM_FearIntensity} & \iref{IM_AngerIntensity} &
+        \iref{IM_DisgustIntensity} & \iref{IM_CalculateEmotionAcceptance} &
+        \iref{IM_CalculateEmotionInterest} & \iref{IM_CalculateEmotionSurprise}
+        & \iref{IM_DecayEmotionIntensity} & \iref{IM_UpdateEmotionState} &
+        \iref{IM_UpdateEmotionState2} & \iref{IM_UpdateEmotion} &
+        \iref{IM_GetEmotionState} & \iref{IM_DecayEmotionState} &
+        \iref{IM_GetNextEmotionByDecay} & \iref{IM_GetEmotionStatePAD} \\\hline
 
-        \rref{R_Types} & X &  &  &  &  &  &  &  &  &  &  &  && & & \\\hline
+        \rref{R_GenerateEmotionCTE} & X & X & X & X & X & X & X & X &  & & & &&
+        & & &&&&&&&& \\\hline
 
-        \rref{R_GenerateEmotionCTE} &  & X & X & X & X & &  & &  & & & && & &
+        \rref{R_CalculateIntensity} &  &  &  &  &  &  &  &  & X & X & X & X & X
+        & X & X & X &  &&&&&&& \\\hline
+
+        \rref{R_DecayIntensity} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &
+        & X &&&&&&& \\\hline
+
+        \rref{R_DecayEmotion} &  &  &  &  &  & &  & &  & & & && &  & &&&&&& X
+        && \\\hline
+
+        \rref{R_NewESFromDecay} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &
+        &  &&&&&& X & \\\hline
+
+        \rref{R_UpdateAnIntensity} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &
+        &  &  & X &&&&&& \\\hline
+
+        \rref{R_UpdateEmotionState} &  &  &  &  &  &  &  &  &  &  &  &  &  &
+        &  &  &  &  & X &&&&& \\\hline
+
+        \rref{R_UpdateEmotion} &  &  &  &  &  &  &  &  &  &  &  &  &  &
+        &  &  &  &  &  & X &&&& \\\hline
+
+        \rref{R_GetEmotionState} &  &  &  &  &  &  &  &  &  &  &  &  &  &
+        &  &  &  &  &  && X &&& \\\hline
+
+        \rref{R_Convert2PAD} &  &  &  &  &  & &  & &  & & & && & & &&&&&&&& X
         \\\hline
 
-        \rref{R_CalculateIntensity} &  &  &  &  &  & X & X & X & X & & & && &
-        &  \\\hline
-
-        \rref{R_DecayIntensity} &  &  &  &  &  & &  & &  & X & & && & &
-        \\\hline
-
-        \rref{R_DecayEmotion} &  &  &  &  &  & &  & &  & & & && & X &  \\\hline
-
-        \rref{R_UpdateAnIntensity} &  &  &  &  &  & &  & &  & & X & && & &
-        \\\hline
-
-        \rref{R_UpdateEmotionState} &  &  &  &  &  & &  & &  & &  & X && & &
-        \\\hline
-
-        \rref{R_UpdateEmotion} &  &  &  &  &  & &  & &  & &  &  & X & & &
-        \\\hline
-
-        \rref{R_GetEmotionState} &  &  &  &  &  & &  & &  & &  &  &  & X & &
-        \\\hline
-
-        \rref{R_Convert2PAD} &  &  &  &  &  & &  & &  & & & && & & X \\\hline
-
-    \end{tabular}
-    \caption{Traceability between Data Constraints, Instance Models, and
-    Requirements}
+    \end{tabular}%
+    }
+    \caption{Traceability between Instance Models and Requirements}
     \label{tab:traceIM2Reqs}
 \end{table}
 \vspace*{\fill}
@@ -713,10 +715,13 @@ be changed.
     Models, Theoretical Models and other Data Types, and Theoretical Model
     dependencies on Conceptual Models
 
-    \item Figure~\ref{fig:T-TY2IM} shows Instance Model dependencies on
-    Theoretical Models and Data Types
+    \item Figure~\ref{fig:T2IM} shows Instance Model dependencies on
+    Theoretical Models
+
+    \item Figure~\ref{fig:TY2IM} shows Instance Model dependencies on Data Types
 
     \item Figure~\ref{fig:IM} shows Instance Model dependencies on each other
+    and \tyref{TY_EmotionDecay}
 
     \item Figure~\ref{fig:M2R} shows the dependencies of Functional
     Requirements on Conceptual Models, Data Types, and Instance Models
@@ -746,7 +751,7 @@ be changed.
 
 \begin{figure}[tbh]
     \centering
-    \includegraphics[height=0.96\textheight]{figures/assumptions2All.pdf}
+    \includegraphics[height=0.88\textheight]{figures/assumptions2All.pdf}
     \caption[Dependencies on Assumptions]{Dependencies on Assumptions (Orange)
     (Section~\ref{sec_assumptions})}
     \label{fig:A2All}
@@ -755,7 +760,7 @@ be changed.
 \begin{landscape}
     \begin{figure}[tbh]
         \centering
-        \includegraphics[width=\linewidth]{figures/concept2types_revised.pdf}
+        \includegraphics[width=0.93\linewidth]{figures/concept2types_revised.pdf}
         \caption[Traceability between Theoretical Models and Data Types, and
         their dependencies on Conceptual Models]{Traceability between
         Theoretical Models (Green) and Data Types (Purple), and their
@@ -767,24 +772,38 @@ be changed.
 \end{landscape}
 
 \begin{landscape}
+    \vspace*{\fill}
     \begin{figure}[tbh]
         \centering
-        \includegraphics[width=0.88\linewidth]{figures/types2instance.pdf}
-        \caption[Instance Models and their Dependencies on Theoretical Models
-        and Data Types]{Instance Models (Yellow) and their Dependencies on
-        Theoretical Models (Green) and Data Types (Purple)
-        (Sections~\ref{sec_theoretical}, \ref{sec_typedefs},
+        \includegraphics[width=0.85\linewidth]{figures/theoretical2instance.pdf}
+        \caption[Instance Models and their Dependencies on Theoretical
+        Models]{Instance Models (Yellow) and their Dependencies on
+        Theoretical Models (Green) (Sections~\ref{sec_theoretical}
         and~\ref{sec_instance})}
-        \label{fig:T-TY2IM}
+        \label{fig:T2IM}
     \end{figure}
+    \vspace*{\fill}
 \end{landscape}
 
 \vspace*{\fill}
 \begin{figure}[tbh]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/instance2instance.pdf}
-    \caption[Dependencies between Instance Models]{Dependencies between
-        Instance Models (Section~\ref{sec_instance})}
+    \includegraphics[width=0.82\linewidth]{figures/types2instance.pdf}
+    \caption[Instance Models and their Dependencies on Data Types]{Instance
+    Models (Yellow) and their Dependencies on Data Types (Purple)
+        (Sections~\ref{sec_typedefs} and~\ref{sec_instance})}
+    \label{fig:TY2IM}
+\end{figure}
+\vspace*{\fill}
+
+\vspace*{\fill}
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/instance2instance.pdf}
+    \caption[Dependencies between Instance Models and
+    \tyref{TY_EmotionDecay}]{Dependencies between Instance Models
+    (Section~\ref{sec_instance}) and \tyref{TY_EmotionDecay}
+    (Section~\ref{sec_typedefs})}
     \label{fig:IM}
 \end{figure}
 \vspace*{\fill}
@@ -794,9 +813,8 @@ be changed.
     \includegraphics[width=\linewidth]{figures/reqs2All.pdf}
     \caption[Functional Requirements and their Dependencies on Conceptual
     Models, Data Types, Instance Models, and Data Constraints]{Functional
-    Requirements (Red) and
-    their Dependencies on Conceptual Models (Blue), Data Types (Purple),
-    Instance Models (Yellow), and Data Constraints
+    Requirements (Red) and their Dependencies on Conceptual Models (Blue), Data
+    Types (Purple), Instance Models (Yellow), and Data Constraints
     (Sections~\ref{sec_conceptual}, \ref{sec_typedefs}, \ref{sec_instance},
     \ref{sec_DataConstraints}, and \ref{sec_functionalreqs})}
     \label{fig:M2R}

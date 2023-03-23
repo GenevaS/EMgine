@@ -4,22 +4,28 @@ into mathematical representations using Assumptions
 (Section~\ref{sec_assumptions}) and Data Types (Section~\ref{sec_typedefs}).
 These models address \progname{}'s Goals (Section~\ref{sec_goals}):
 \begin{itemize}
-    \item \gsref{G_EmotionGeneration} is solved by
-    \iref{IM_CalculateEmotionGP}, \iref{IM_CalculateEmotionSurpriseElicit},
-    \iref{IM_CalculateEmotionInterestElicit},
-    \iref{IM_CalculateEmotionAcceptanceElicit},
-    \iref{IM_CalculateEmotionIntensity}, \iref{IM_CalculateEmotionSurprise},
-    \iref{IM_CalculateEmotionInterest}, and \iref{IM_CalculateEmotionAcceptance}
+    \item \gsref{G_EmotionElicitation} is addressed by \iref{IM_ElicitJoy},
+    \iref{IM_ElicitSadness}, \iref{IM_ElicitFear}, \iref{IM_ElicitAnger},
+    \iref{IM_ElicitDisgust}, \iref{IM_CalculateEmotionAcceptanceElicit},
+    \iref{IM_CalculateEmotionInterestElicit}, and
+    \iref{IM_CalculateEmotionSurpriseElicit}
 
-    \item \gsref{G_EmotionDecay} is solved by \iref{IM_DecayEmotionState} and
-    \iref{IM_DecayEmotion}
+    \item \gsref{G_EmotionIntensity} is addressed by \iref{IM_JoyIntensity},
+    \iref{IM_SadnessIntensity}, \iref{IM_FearIntensity},
+    \iref{IM_AngerIntensity}, \iref{IM_DisgustIntensity},
+    \iref{IM_CalculateEmotionAcceptance}, \iref{IM_CalculateEmotionInterest},
+    and \iref{IM_CalculateEmotionSurprise}
 
-    \item \gsref{G_UpdateEmotionState} is solved by
+    \item \gsref{G_EmotionDecay} is addressed by
+    \iref{IM_DecayEmotionIntensity}, \iref{IM_DecayEmotionState}, and
+    \iref{IM_GetNextEmotionByDecay}
+
+    \item \gsref{G_UpdateEmotionState} is addressed by
     \iref{IM_UpdateEmotionState}, \iref{IM_UpdateEmotionState2}, and
     \iref{IM_UpdateEmotion}
 
-    \item \gsref{G_QueryEmotionState} is solved by \iref{IM_GetEmotionState} and
-    \iref{IM_GetEmotionStatePAD}
+    \item \gsref{G_QueryEmotionState} is addressed by \iref{IM_GetEmotionState}
+    and \iref{IM_GetEmotionStatePAD}
 \end{itemize}
 
 ~\newline\noindent
@@ -29,159 +35,136 @@ These models address \progname{}'s Goals (Section~\ref{sec_goals}):
         \hline
         \rowcolor[gray]{0.9}
         \bf IM\refstepcounter{instnum}\theinstnum
-        \label{IM_CalculateEmotionGP} &
-        \bf Calculate Emotion from Goals and Plans (\textit{Joy},
-        \textit{Sadness}, \textit{Anger}, \textit{Fear}, \textit{Disgust}) \\
+        \label{IM_ElicitJoy} &
+        \bf Evaluate \textit{Joy} Elicitation \\
         \hline
     \end{tabular}
 
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input & $s : \worldstatetype$, $s_\Delta : \worldstatechangetype$,
-        $g : \goaltype$, $p : \plantype$, $o \in \left\{ \mathtt{Gustatory},
-        \mathtt{Preserve} \right\}$ \vspace*{2mm}\\
+        \bf Input & $g : \goaltype, s_{prev} : \worldstatetype, s_\Delta :
+        \worldstatechangetype, \epsilon_{J} : \statedistancechangetype$
+        \vspace*{2mm}\\
 
-        \bf Output & $\begin{aligned}[t]
-            \mathit{em} : \{ \mJoy &= (\statedistancetype, \statedistancetype,
-            \statedistancechangetype)^?, \mSadness = ( \worldstatetype,
-            \statedistancetype )^?, \mFear = (\statedistancetype,
-            \statedistancetype, \statedistancechangetype)^?, \\
-            \mAnger &= (\worldstatetype, ({\worldstatechangetype}^m))^?,
-            \mDisgust = (\statedistancetype, \statedistancetype,
-            \statedistancechangetype)^? \} \\
-            &\defEq \{ \mJoy = J, \mSadness = S, \mFear = F, \mAnger = A,
-            \mDisgust = D \}
-        \end{aligned}$ \vspace*{2mm}\\
+        \bf Output & $ (\mathit{dist}_{prev} : \statedistancetype,
+        \mathit{dist}_{now} : \statedistancetype, \mathit{dist}_\Delta :
+        \statedistancechangetype)^? \defEq J$ \vspace*{2mm}\\
 
-        & where $J : (\statedistancetype, \statedistancetype,
-        \statedistancechangetype)^? = \begin{cases}
-            \parbox{0.15\columnwidth}{$(g.\mathtt{goal}\left(s\right), \\
-            g.\mathtt{goal}\left(s \oplus s_\Delta\right), \\
-            g.\mathtt{goal'}\left(s, s_\Delta\right))$,} &
-            \parbox{0.38\columnwidth}{$g.\mathtt{goal'}\left(s, s_\Delta\right)
-            > 0 \\ \land \, g.\mathtt{goal}\left(s \oplus
-            s_\Delta\right) < g.\mathtt{goal}\left(s\right)$} \\
-            \emptyset, & Otherwise \\
-        \end{cases}$ \vspace*{1mm}\\
-
-        & $S : ( \worldstatetype, \statedistancetype )^? = \begin{cases}
-            (s \, {\oplus} \, s_\Delta, g.\mathtt{goal}\left(s\right)), &
-            \parbox{0.6\columnwidth}{$\left(s \, {=} \, p_i \, {\land} \,
-            \nexists j :\mathbb{N} \, {|} \, s \, {\oplus} \, s_\Delta \,
-            {\neq} \, p_{i+j} \, {\land} \\ \nexists \, d \, {:} \,
-            \worldstatechangetype \, {|} \, s \, {\oplus} \, d \, {=} \,
-            p_{i+1}\right) \\ \lor \; g.\mathtt{goal}\left(s\right) =
-            \pm\infty$} \\
-            \emptyset, & Otherwise \\
-        \end{cases}$ \vspace*{1mm}\\
-
-        & $\mathit{F} : ( \statedistancetype, \statedistancetype,
-        \statedistancechangetype )^? = \begin{cases}
-           \parbox{0.15\columnwidth}{$(g.\mathtt{goal}\left(s\right), \\
-           g.\mathtt{goal}\left(s \oplus s_\Delta\right), \\
-           g.\mathtt{goal'}\left(s, s_\Delta\right))$,} &
-           \parbox{0.6\columnwidth}{$o = \mathtt{Preserve}
-           \land g.\mathtt{goal'}\left(s, s_\Delta\right) > 0 \\ \land
-           g.\mathtt{goal}\left(s \oplus s_\Delta\right) >
-           g.\mathtt{goal}\left(s\right)$} \\
-          \emptyset, & Otherwise \\
-        \end{cases}$ \vspace*{1mm}\\
-
-        & $\mathit{A} : ( \worldstatetype, ({\worldstatechangetype}^m) )^? =
-        \begin{cases}
-            \parbox{0.15\columnwidth}{$(p_i \, {\oplus} \, s_\Delta, \\
-                \left(d_0, .., d_m\right))$,} &
-            \parbox{0.6\columnwidth}{$s \, {=} \, p_i \, {\land} \,
-                p_i \, {\oplus} \, s_\Delta \, {\neq} \, p_{i+1} \\ \land
-                \exists \, \left(d_0, .., d_m\right), m > 0 \; | \; s \oplus
-                d_0 \oplus ... \oplus d_m = p_{i+1}$} \\
-            \emptyset, & Otherwise \\
-        \end{cases}$ \vspace*{1mm}\\
-
-        & $\mathit{D} : ( \statedistancetype, \statedistancetype,
-        \statedistancechangetype )^? = \begin{cases}
-            \parbox{0.15\columnwidth}{$(g.\mathtt{goal}\left(s\right), \\
-            g.\mathtt{goal}\left(s \oplus s_\Delta\right), \\
-            g.\mathtt{goal'}\left(s, s_\Delta\right)$,} &
-            \parbox{0.6\columnwidth}{$o = \mathtt{Gustatory} \land
-            g.\mathtt{goal'}\left(s, s_\Delta\right) > 0 \\ \land
-            g.\mathtt{goal}\left(s \oplus s_\Delta\right) >
-            g.\mathtt{goal}\left(s\right)$} \\
-            \emptyset, & Otherwise \\
+        & where $J = \begin{cases}
+            \parbox{0.25\linewidth}{$(g.\mathtt{goal}(s_{prev}), \\
+                g.\mathtt{goal}(s_{prev} \oplus s_\Delta), \\
+                g.\mathtt{goal'}(s_{prev}, s_\Delta))$, } &
+            \parbox{0.38\columnwidth}{$g.\mathtt{goal}(s_{prev}) >
+            g.\mathtt{goal}(s_{prev} \oplus s_\Delta) \\
+              \land | \, g.\mathtt{goal'}(s_{prev}, s_\Delta) \, | >
+              \epsilon_{J} $} \\[20pt]
+            \text{None}, & Otherwise \\
         \end{cases}$ \vspace*{1mm}\\
         \hline
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} Given a world state $s$ (\tyref{TY_WorldState}), a
-game world event $s_\Delta$ (\tyref{TY_WorldStateChange}), a goal $g$
-(\tyref{TY_Goal}), and a plan to achieve that goal $p$ (\tyref{TY_Plan}),
-return a record of world state, event, and distance information for each of
-\textit{Joy}, \textit{Sadness}, \textit{Anger}, \textit{Fear}, \textit{Disgust}
-if it is elicited and nothing if it is not. These evaluations are based on CTE
-(\tref{T_CalculateEmotionGP}):
-\begin{itemize}
-    \item The game world event causes a change in distance
-    ($g.\mathtt{goal'}\left(s, s_\Delta\right) : \statedistancechangetype > 0$,
-    \tyref{TY_DistanceBetweenWorldStatesChange}) that \textit{decreases} the
-    distance to $g$ ($g.\mathtt{goal}\left(s \oplus s_\Delta\right) :
-    \statedistancetype < g.\mathtt{goal}\left(s\right) : \statedistancetype$,
-    \tyref{TY_DistanceBetweenWorldStates}), then the entity is achieving its
-    ``sub-goals'' and it experiences $\mJoy$
+\paragraph{Description} Given an entity goal (\tyref{TY_Goal}), the
+\textit{previous WSV} (\tyref{TY_WorldState}), an event that transformed the
+\textit{previous WSV} into the current one (\tyref{TY_WorldStateChange}), and a
+``tolerance'' threshold for distance changes between WSVs
+(\tyref{TY_DistanceBetweenWorldStatesChange}), evaluate the elicitation of
+\textit{Joy} (\tref{T_CalculateEmotionGP}) by determining if the event
+progresses the entity \textit{towards} goal achievement by evaluating if the
+distance to the goal state (\tyref{TY_DistanceBetweenWorldStates}) is larger in
+the \textit{previous WSV} unchanged by the event compared to the WSV changed by
+the event ($g.\mathtt{goal}(s_{prev}) > g.\mathtt{goal}(s_{prev} \oplus
+s_\Delta)$) such that it causes a noticeable change in distance to a goal from
+a WSV by evaluating if its magnitude exceeds a minimum ``threshold''
+($| \, g.\mathtt{goal'}(s_{prev}, s_\Delta) \, | > \epsilon_{J}$).
 
-    \item The game world state is in the entity's plan ($s = p_i$), and the
-    game world event does not move the entity to the next state in its plan
-    ($p_i \oplus s_\Delta : \worldstatetype \neq p_{i+1} : \worldstatetype$)
-    and there is no game world event that will ($\nexists d :
-    \worldstatechangetype \; | \; p_i \oplus d = p_{i+1}$), or $g$ is no longer
-    achievable, i.e. ``lost'' ($g.\mathtt{goal}\left(s\right) :
-    \statedistancetype = \pm\infty$), then the entity experiences $\mSadness$
+If the condition fails, the function returns None because the event did not
+elicit \textit{Joy} for this goal.
 
-    \item The goal is self-preservational ($o = \mathtt{Preserve}$) and there
-    is a game world event ($g.\mathtt{goal'}\left(s, s_\Delta\right) :
-    \statedistancechangetype > 0$) that \textit{increases} the distance to $g$
-    ($g.\mathtt{goal}\left(s \oplus s_\Delta\right) : \statedistancetype >
-    g.\mathtt{goal}\left(s\right) : \statedistancetype$,
-    \aref{A_GustatoryGoal}), then the entity experiences $\mFear$
-
-    \item The game world state is in the entity's plan ($s = p_i$) and the game
-    world event does not move the entity to the next state in its plan ($p_i
-    \oplus s_\Delta : \worldstatetype \neq p_{i+1} : \worldstatetype$) but
-    there are at least two game world events that transform $s$ into $p_i$
-    ($\exists \, (d_0, .., d_m), m > 0 \; | \; s \oplus d_0 \oplus ... \oplus
-    d_m = p_{i+1}$), then the entity's plan is ``frustrated'' but still
-    feasible and it experiences $\mAnger$
-
-    \item The goal is gustatory ($o = \mathtt{Gustatory}$) and there is a
-    game world event ($g.\mathtt{goal'}\left(s, s_\Delta\right) :
-    \statedistancechangetype > 0$) that \textit{increases} the distance to $g$
-    ($g.\mathtt{goal}\left(s \oplus s_\Delta\right) : \statedistancetype >
-    g.\mathtt{goal}\left(s\right) : \statedistancetype$,
-    \aref{A_GustatoryGoal}), then the entity experiences $\mDisgust$
-
-    \item None of these situations apply then the game world event does not
-    impact the entity and it does not experience an emotion
-\end{itemize}
-
-\paragraph{Comments} The difference between \textit{Fear} and \textit{Disgust}
-appears minimal because they are both triggered by \textit{increases} in goal
-distance ($g.\mathtt{goal}\left(s \oplus s_\Delta\right) : \statedistancetype >
-g.\mathtt{goal}\left(s\right) : \statedistancetype$). This is due to an
-assumption that gustatory and self-preservation goals are satisfied by default
-(\aref{A_GustatoryGoal}) such that changes increasing distance trigger the
-emotion (e.g. there is no reason to be fearful \textit{until} there is a change
-in the entity's personal safety, or to be disgusted until something disgusting
-appears). However, the choice of $s$ and $s_\Delta$ changes \textit{when} the
-world state changes i.e. $s$ is the previous state and $s_\Delta$ changed it
-into the current game world state, or $s$ is the current world state and
-$s_\Delta$ predicts what the next world state will be relative to $s$. \\\hrule
+The threshold $\epsilon_{J}$ controls the entity's ``sensitivity'' to changes
+such it experiences \textit{Joy} more easily with lower threshold values
+compared to high ones. \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \aref{A_GustatoryGoal}, \tref{T_CalculateEmotionGP},
-\tyref{TY_EmotionKind}, \tyref{TY_WorldState}, \tyref{TY_WorldStateChange},
-\tyref{TY_DistanceBetweenWorldStates},
-\tyref{TY_DistanceBetweenWorldStatesChange}, \tyref{TY_Goal}, \tyref{TY_Plan}
+\paragraph{Depends On} \tref{T_CalculateEmotionGP}, \tyref{TY_WorldState},
+\tyref{TY_WorldStateChange}, \tyref{TY_DistanceBetweenWorldStates},
+\tyref{TY_DistanceBetweenWorldStatesChange}, \tyref{TY_Goal}
+
+\paragraph{Ref. By} \iref{IM_CalculateEmotionAcceptanceElicit},
+\rref{R_GenerateEmotionCTE} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_ElicitSadness} &
+        \bf Evaluate \textit{Sadness} Elicitation \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype^?, p : \plantype^?, s_{prev} :
+        \worldstatetype, s_\Delta : \worldstatechangetype$ \vspace*{2mm}\\
+
+        \bf Output & $( g_{sadness} : \goaltype^?,
+        p_{sadness} : \plantype^?, s_{now} : \worldstatetype,
+        \mathit{dist}_{now} : \statedistancetype^? )^? \defEq S$ \vspace*{2mm}\\
+
+        & $S = \begin{cases}
+            (\text{None}, p, s_{prev} \oplus s_\Delta, \text{None}), &
+            \parbox{0.54\linewidth}{$p \neq \text{None} \land
+                p.\mathtt{isFeasible}(s_{prev}) \\
+                \land \neg p.\mathtt{isFeasible}(s_{prev} \oplus s_\Delta)$}
+            \\[10pt]
+
+            \parbox{0.22\linewidth}{$(g, \text{None}, s_{prev} \oplus s_\Delta,
+                \\
+                g.\mathtt{goal}(s_{prev} \oplus s_\Delta)),$} &
+            g \neq \text{None} \land | \, g.\mathtt{goal}(s_{prev} \oplus
+            s_\Delta) \, | \, = +\infty \\[10pt]
+
+            \text{None}, & Otherwise \\
+        \end{cases}$ \vspace*{1mm}\\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Given either an entity goal (\tyref{TY_Goal}) or plan
+(\tyref{TY_Plan}), the \textit{previous WSV} (\tyref{TY_WorldState}), and an
+event that transformed the \textit{previous WSV} into the current one
+(\tyref{TY_WorldStateChange}), evaluate the elicitation of \textit{Sadness}
+(\tref{T_CalculateEmotionGP}) by:
+\begin{itemize}
+
+    \item If given a plan ($p \neq \text{None}$), determine if the plan was
+    feasible in the \textit{previous WSV} and is not feasible in the current
+    WSV created by applying the event to the previous WSV
+    ($p.\mathtt{isFeasible}(s_{prev}) \land \neg p.\mathtt{isFeasible}(s_{prev}
+    \oplus s_\Delta)$).
+
+    \item If given a goal ($g \neq \text{None}$), determine if the event
+    created a WSV from the \textit{previous WSV} where the distance to the goal
+    state (\tyref{TY_DistanceBetweenWorldStates}) is infinitely large in WSV
+    changed by the event (i.e. is unachievable, $| \, g.\mathtt{goal}(s_{prev}
+    \oplus s_\Delta) \, | \, = +\infty$).
+
+\end{itemize}
+
+If both conditions fail, the function returns None because the event did not
+elicit \textit{Sadness} for this goal. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tref{T_CalculateEmotionGP}, \tyref{TY_WorldState},
+\tyref{TY_WorldStateChange}, \tyref{TY_DistanceBetweenWorldStates},
+\tyref{TY_Goal}, \tyref{TY_Plan}
 
 \paragraph{Ref. By} \rref{R_GenerateEmotionCTE} \\\hrule\vspace{0.5mm}\hrule
 
@@ -194,43 +177,320 @@ $s_\Delta$ predicts what the next world state will be relative to $s$. \\\hrule
         \hline
         \rowcolor[gray]{0.9}
         \bf IM\refstepcounter{instnum}\theinstnum
-        \label{IM_CalculateEmotionSurpriseElicit} &
-        \bf Calculate Emotion of \textit{Surprise} \\
+        \label{IM_ElicitFear} &
+        \bf Evaluate \textit{Fear} Elicitation \\
         \hline
     \end{tabular}
 
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input &  $\{ t : \timetype, t' : \timetype \rightarrow t < t' \}$,
-        $\mathit{tolerance} : \deltatimetype $ \\
+        \bf Input & $g : \goaltype, g' : \goaltype^?, s_{now} : \worldstatetype,
+        s_\Delta : \worldstatechangetype, \epsilon_{F} :
+        \statedistancechangetype$ \vspace*{2mm}\\
 
-        \bf Output & $ s : \deltatimetype^? \defEq \begin{cases}
+        \bf Output & $( g_{fear} : \goaltype, \mathit{dist}_{now} :
+        \statedistancetype, \mathit{dist}_{next} : \statedistancetype,
+        \mathit{dist}_\Delta : \statedistancechangetype, g_{lost} : \goaltype^?
+        )^? \defEq F$ \vspace*{2mm}\\
 
-            t' - t, & t' - t < \mathit{tolerance} \\
+        & where $\mathit{F} = \begin{cases}
+            \parbox{0.25\linewidth}{$(g, g.\mathtt{goal}(s_{now}), \\
+                g.\mathtt{goal}(s_{now} \oplus s_\Delta), \\
+                g.\mathtt{goal'}(s_{now}, s_\Delta), \\
+                \text{None})$,} &
+            \parbox{0.46\linewidth}{$\mathtt{SelfPreservation} \in
+                g.\mathtt{type} \\
+                \land \neg(g.\mathtt{goal}(s_{now}) > g.\mathtt{goal}(s_{now}
+                \oplus s_\Delta)) \\
+                \land | \, g.\mathtt{goal'}(s_{now}, s_\Delta) \, | >
+                \epsilon_{F}$} \\[25pt]
 
-            \emptyset, & Otherwise \\
+            \parbox{0.25\linewidth}{$(g, g.\mathtt{goal}(s_{now}), \\
+                g.\mathtt{goal}(s_{now} \oplus s_\Delta), g')$,} &
+            \parbox{0.46\linewidth}{$g' \neq \text{None} \\
+                \land \mathtt{WillConflict}(g, g', s_{now}, s_\Delta)$} \\[15pt]
 
-        \end{cases} $
-        \vspace*{2mm}\\ \hline
+            \parbox{0.25\linewidth}{$(g', g'.\mathtt{goal}(s_{now}), \\
+                g'.\mathtt{goal}(s_{now} \oplus s_\Delta), g)$,} &
+            \parbox{0.46\linewidth}{$g' \neq \text{None} \\
+                \land \mathtt{WillConflict}(g', g, s_{now}, s_\Delta)$} \\[10pt]
+
+            \text{None}, & Otherwise \\
+
+        \end{cases}$ \vspace*{1em}\newline
+        $\text{where } \mathtt{WillConflict}(g_1, g_2, s_{now}, s_\Delta)$
+        \newline
+        $= (g_1.\mathtt{goal}(s_{now}) > g_1.\mathtt{goal}(s_{now} \oplus
+        s_\Delta)) \land | \, g_2.\mathtt{goal}(s_{now} \oplus s_\Delta) \, |
+        \, = +\infty$ \vspace*{1mm}\\
+        \hline
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} Given the current time $t' : \timetype$ and the time
-that the system last changed its emotion ``mode'' $t : \timetype$
-(\tyref{TY_Time}), as well as a tolerance threshold $\mathit{tolerance} :
-\deltatimetype $, output the difference between $t'$ and $t$ if
-\textit{Surprise} is elicited and nothing if it is not.
+\paragraph{Description} Given at least one of two entity goals
+(\tyref{TY_Goal}), the \textit{current WSV} (\tyref{TY_WorldState}), an event
+that will transform the \textit{current WSV} into a future one
+(\tyref{TY_WorldStateChange}), and a ``tolerance'' threshold for distance
+changes between WSVs (\tyref{TY_DistanceBetweenWorldStatesChange}), evaluate
+the elicitation of \textit{Fear} (\tref{T_CalculateEmotionGP}) by:
+\begin{itemize}
 
-\textit{Surprise} is elicited if the difference between $t'$ and $t$ is less
-than $\mathit{tolerance}$. The closer that $t'$ and $t$ are, the smaller the
-difference between them (more ``sudden''). The value of $\mathit{tolerance}$ is
-a ``tolerance'' such that higher values makes an entity more susceptible to
-\textit{Surprise} (i.e. easier to elicit because it allows for larger
-differences between $t'$ and $t$). \\\hrule
+    \item Determining if the entity perceives a threat to its goal $g$ by
+    evaluating if it concerns self-preservation ($\mathtt{SelfPreservation} \in
+    g.\mathtt{type}$) and there is a potential event that progresses an entity
+    \textit{away} from goal achievement by increasing the distance to the goal
+    state compared to the \textit{current WSV} ($\neg(g.\mathtt{goal}(s_{now})$
+    $> g.\mathtt{goal}(s_{now} \oplus s_\Delta))$) such that it causes a
+    noticeable change from an evaluation of its minimum ``threshold''
+    ($| \, g.\mathtt{goal'}(s_{now}, s_\Delta) \, | > \epsilon_{F}$).
+
+    \item If given two goals ($g' \neq \text{None}$), determining if they
+    conflict by evaluating if the potential event progresses one while
+    simultaneously making the distance to the other
+    (\tyref{TY_DistanceBetweenWorldStates}) infinitely large
+    ($\mathtt{WillCon-}$ $\mathtt{flict}$ $(g_1, g_2, s_{now}, s_\Delta)$).
+
+\end{itemize}
+
+If all conditions fail, the function returns None because the event did not
+elicit \textit{Fear} for these goals.
+
+The threshold $\epsilon_{F}$ controls the entity's ``sensitivity'' to changes
+such it experiences \textit{Fear} more easily with lower threshold values
+compared to high ones. \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \tref{T_CalculateEmotionSurprise}, \tyref{TY_Time}
+\paragraph{Depends On} \tref{T_CalculateEmotionGP}, \tyref{TY_WorldState},
+\tyref{TY_WorldStateChange}, \tyref{TY_DistanceBetweenWorldStates},
+\tyref{TY_DistanceBetweenWorldStatesChange}, \tyref{TY_Goal}
+
+\paragraph{Ref. By} \rref{R_GenerateEmotionCTE} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_ElicitAnger} &
+        \bf Evaluate \textit{Anger} Elicitation \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $s_{prev} : \worldstatetype, s_\Delta :
+        \worldstatechangetype, ps : \{\plantype\}$ \vspace*{2mm}\\
+
+        \bf Output & $( s_{now} :
+        \worldstatetype, p_{fail} : \plantype, ps_{alt} : \{\plantype\} )^?
+        \defEq A$ \vspace*{2mm}\\
+
+        & where $\mathit{A} = \begin{cases}
+            \parbox{0.35\linewidth}{$(s_{prev} \oplus s_\Delta, p_\alpha,
+                \forall p \in \{\plantype\} \\ \rightarrow
+                p.\mathtt{isFeasible}(s_{prev} \oplus s_\Delta) $,} &
+            \parbox{0.45\linewidth}{$\exists p_\alpha \in ps \rightarrow
+                (\forall p \in ps \\
+                \text{   }\rightarrow p \neq p_\alpha \land
+                \mathtt{Cost}(p_\alpha)
+                \leq \mathtt{Cost}(p)) \\
+                \land \neg p_\alpha.\mathtt{isFeasible}(s_{prev} \oplus
+                s_\Delta) \\
+                \land \exists p \in ps \rightarrow
+                p.\mathtt{isFeasible}(s_{prev}
+                \oplus s_\Delta)$} \\[25pt]
+
+            \text{None}, & Otherwise \\
+        \end{cases}$ \vspace*{1mm}\\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Given the previous WSV (\tyref{TY_WorldState}), and
+event that transformed the \textit{previous WSV} into the current one
+(\tyref{TY_WorldStateChange}), and a set of entity plans (\tyref{TY_Plan}),
+evaluate the elicitation of \textit{Anger} (\tref{T_CalculateEmotionGP}) by
+determining if the transition from the \textit{previous WSV} into the current
+one makes the entity's lowest effort plan ($\exists p_\alpha \in ps
+\rightarrow (\forall p \in ps \rightarrow p \neq p_\alpha \land
+\mathtt{Cost}(p_\alpha) \leq \mathtt{Cost}(p)$, \aref{A_CostFunction})
+impossible to progress ($\neg p_\alpha.\mathtt{isFeasible}(s_{prev} \oplus
+s_\Delta)$), but there is at least one other plan for achieving the same
+end-state ($\exists p \in ps \rightarrow p.\mathtt{isFeasible}(s_{prev} \oplus
+s_\Delta)$). Therefore, the entity can continue working towards a desired
+end-state but must use a plan that requires more effort (``frustrated'') and
+the entity experiences \textit{Anger}.
+
+If the condition fails, the function returns None because the event did not
+elicit \textit{Anger} for this goal.
+
+Note that the set of plans that the model returns is a strict subset of the
+provided set of plans $ps_f \subset ps$ because it has at least one plan fewer
+due to the infeasibility of $p_\alpha$. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \aref{A_CostFunction}, \tref{T_CalculateEmotionGP},
+\tyref{TY_WorldState}, \tyref{TY_WorldStateChange}, \tyref{TY_Plan}
+
+\paragraph{Ref. By} \rref{R_GenerateEmotionCTE} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_ElicitDisgust} &
+        \bf Evaluate \textit{Disgust} Elicitation \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $g : \goaltype, s_{prev} : \worldstatetype, s_\Delta :
+        \worldstatechangetype, \epsilon_{DS} : \statedistancechangetype,
+        \epsilon_{DN} : \statedistancechangetype$ \vspace*{2mm}\\
+
+        \bf Output & $(\mathit{dist}_{prev} : \statedistancetype,
+        \mathit{dist}_{now} : \statedistancetype, \mathit{dist}_\Delta :
+        \statedistancechangetype)^? \defEq D$ \vspace*{2mm}\\
+
+        & where $\mathit{D} = \begin{cases}
+            \parbox{0.25\linewidth}{$(g.\mathtt{goal}(s_{prev}), \\
+                g.\mathtt{goal}(s_{prev} \oplus s_\Delta), \\
+                g.\mathtt{goal'}(s_{prev}, s_\Delta))$,} &
+            \parbox{0.4\linewidth}{$\mathtt{Gustatory} \in
+                g.\mathtt{type} \\
+                \land g.\mathtt{goal}(s_{prev}) \leq \epsilon_{DS} \\
+                \land g.\mathtt{goal}(s_{prev} \oplus s_\Delta) > \epsilon_{DS}
+                \\
+                \land | \, g.\mathtt{goal'}(s_{prev}, s_\Delta) \, | >
+                \epsilon_{DN}) $} \\[25pt]
+
+            \text{None}, & Otherwise \\
+        \end{cases}$ \vspace*{1mm}\\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Given an entity goal (\tyref{TY_Goal}), the
+\textit{previous WSV} (\tyref{TY_WorldState}), an event that will transform the
+\textit{previous WSV} into the current one (\tyref{TY_WorldStateChange}), and
+two ``tolerance'' thresholds for distance changes between WSVs
+(\tyref{TY_DistanceBetweenWorldStatesChange}), evaluate the elicitation of
+\textit{Disgust} (\tref{T_CalculateEmotionGP}) by determining if the goal is
+gustatory-related ($\mathtt{Gustatory} \in g.\mathtt{type}$), \textit{the
+previous WSV} satisfied that goal within some ``satisfaction threshold''
+($g.\mathtt{goal}$ $(s_{prev}) \leq \epsilon_{DS}$), and the event transitioned
+into the current WSV where the goal is unsatisfied ($g.\mathtt{goal}(s_{prev}
+\oplus s_\Delta) > \epsilon_{DS}$) such that the difference is noticeable
+($| \, g.\mathtt{goal'}(s_{prev}, s_\Delta) \, | > \epsilon_{DN}$).
+
+The threshold $\epsilon_{DS}$ defines an entity's ``tolerance'' for goal
+dissatisfaction such that higher values means that the entity allows larger
+distances between the current WSV and its goal state before experiencing
+\textit{Disgust}. The threshold $\epsilon_{DN}$ controls the entity's
+``sensitivity'' to WSV changes such it experiences \textit{Disgust} more easily
+with lower threshold values compared to high ones. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tref{T_CalculateEmotionGP}, \tyref{TY_WorldState},
+\tyref{TY_WorldStateChange}, \tyref{TY_DistanceBetweenWorldStatesChange},
+\tyref{TY_Goal}
+
+\paragraph{Ref. By} \rref{R_GenerateEmotionCTE} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_CalculateEmotionAcceptanceElicit} &
+        \bf Evaluate \textit{Acceptance} Elicitation \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $r_A : {\socialattachmenttype}^?, g : \goaltype, s_{prev} :
+        \worldstatetype, s_\Delta : \worldstatechangetype, \epsilon_{A1} :
+        \worldstatechangetype, \epsilon_{A2} : \worldstatechangetype$ \\
+
+        \bf Output & $ (r_A : \socialattachmenttype,
+        \mathit{distAttribToA}_\Delta : \statedistancechangetype)^? \defEq
+        \mathit{Acc}$ \vspace*{2mm}\\
+
+        & where $\mathit{Acc} = \begin{cases}
+
+            (r_A, dist_\Delta - \epsilon_{A2}), &
+            \parbox{0.53\linewidth}{$r_A \neq \text{None} \, \land \, | \, J(g,
+                s_{prev}, s_\Delta, \epsilon_{A1}).dist_\Delta \, | >
+                \epsilon_{A2} \\
+                \land \mathtt{CausedBy}(s_\Delta, A)$} \\[10pt]
+
+            \text{None}, & Otherwise \\
+
+        \end{cases} $ \vspace*{1mm}\\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Given an Option type that might contain the entity's
+social attachment to another (\tyref{TY_Relation-CTE}), one of the entity's
+goals (\tyref{TY_Goal}), the \textit{previous WSV} (\tyref{TY_WorldState}), an
+event that will transform the \textit{previous WSV} into the current one
+(\tyref{TY_WorldStateChange}), and two ``tolerance'' thresholds for distance
+changes between WSVs (\tyref{TY_DistanceBetweenWorldStatesChange}), evaluate
+the elicitation of \textit{Acceptance} (\tref{T_CalculateEmotionAcceptance})
+towards some entity $A$ by determining if: the entity has a social attachment
+to $A$ ($r_A \neq \text{None}$); the goal, WSV, event, and a tolerance
+``threshold'' elicit \textit{Joy} ($J(g, s_{prev}, s_\Delta, \epsilon_{A1})$
+from \iref{IM_ElicitJoy}) and the change in distance returned from that
+evaluation exceeds a minimum threshold ($| \, dist_\Delta \, | >
+\epsilon_{A2}$); and the entity attributes the occurrence of the event to $A$
+($\mathtt{CausedBy}(s_\Delta, A)$, \aref{A_CausedByFunction}).
+
+If these conditions fail, the function returns None because the event did not
+elicit \textit{Acceptance} for this goal and entity $A$.
+
+The threshold $\epsilon_{A2}$ controls the entity's ``sensitivity'' to changes
+such it experiences \textit{Acceptance} more easily with lower threshold values
+compared to high ones. This threshold also moderates the elicitation
+``magnitude'' by returning the change in distance between WSVs that exceeds it
+($dist_\Delta - \epsilon_{A2}$) so that the ``magnitude'' is relative to how
+easily ``impressed'' the entity is.
+
+If an entity has no social attachment yet, users could use this as a mechanism
+for establishing one:
+\begin{enumerate}[noitemsep, nosep]
+    \item Create a new social attachment $r_A' : \socialattachmenttype$
+    \item Use it to evaluate the presence of \textit{Acceptance}:
+    \begin{enumerate}[noitemsep]
+        \item If \textit{Acceptance} is present, store $r_A'$
+        \item Otherwise discard it
+    \end{enumerate}
+\end{enumerate} \hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \aref{A_CausedByFunction},
+\tref{T_CalculateEmotionAcceptance}, \tyref{TY_WorldState},
+\tyref{TY_WorldStateChange}, \tyref{TY_DistanceBetweenWorldStatesChange},
+\tyref{TY_Goal}, \tyref{TY_Relation-CTE}, \iref{IM_ElicitJoy}
 
 \paragraph{Ref. By} \rref{R_GenerateEmotionCTE} \\\hrule\vspace{0.5mm}\hrule
 
@@ -244,44 +504,40 @@ differences between $t'$ and $t$). \\\hrule
         \rowcolor[gray]{0.9}
         \bf IM\refstepcounter{instnum}\theinstnum
         \label{IM_CalculateEmotionInterestElicit} &
-        \bf Calculate Emotion of \textit{Interest} \\
+        \bf Evaluate \textit{Interest} Elicitation \\
         \hline
     \end{tabular}
 
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input & $ at : \attentiontype $, $\mathit{tolerance} :
+        \bf Input & $ \mathit{at}_x : \attentiontype, \epsilon_{Inr} :
         \attentiontype $ \\
 
-        \bf Output & $ i : \attentiontype^? \defEq \begin{cases}
+        \bf Output & $ \attentiontype^? \defEq \mathit{Inr}$ \\
 
-            at - \mathit{tolerance}, & at > \mathit{tolerance} \\
+        & where $ \mathit{Inr} = \begin{cases}
 
-            \emptyset, & Otherwise \\
+            \mathit{at}_x - \epsilon_{Inr}, & at > \epsilon_{Inr} \\
+
+            \text{None}, & Otherwise \\
 
         \end{cases} $ \vspace*{1mm}\\
         \hline
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} Given the attention $at : \attentiontype$ paid to an
-entity $x$ (\tyref{TY_Attention}) and a tolerance threshold $\mathit{tolerance}
-: \attentiontype $, output the difference between $at$ and $\mathit{tolerance}$
-(i.e. the ``clearance'' between $at$ and the threshold value) if
-\textit{Interest} is elicited and nothing if it is not.
+\paragraph{Description} Given the attention paid to an entity $x$
+(\tyref{TY_Attention}) and a ``tolerance'' threshold, evaluate the elicitation
+of \textit{Interest} (\tref{T_CalculateEmotionInterest}) by determining if the
+amount of attention paid to $x$ exceeds the threshold ($at > \epsilon_{Inr}$).
 
-\textit{Interest} is elicited if the amount of attention $at$ an entity has
-paid to $x$ is greater than $\mathit{tolerance}$. The value of
-$\mathit{tolerance}$ is a ``tolerance'' such that higher values makes an entity
-less susceptible to \textit{Interest} (i.e. harder to elicit because it
-requires a higher $at$ value).
+If this condition fails, the function returns None because the entity is not
+experiencing \textit{Interest} towards $x$.
 
-\paragraph{Comments} The elicitation of \textit{Interest} is necessarily tied
-to an entity $x$ so that its behaviour can always be linked to a specific game
-event. This makes it possible to reliably test and debug. Modelling a
-``curious'' entity would then require an explicit goal that can be monitored,
-which users can tie to $at$ such that it is checked and/or updated when that
-goal is affected. \\\hrule
+The threshold also moderates the elicitation ``magnitude'' by returning the
+amount of attention that exceeds it ($\mathit{at}_x - \epsilon_{Inr}$) so that
+the ``magnitude'' is relative to how much $x$ ``fascinates'' the entity.
+\\\hrule
 
 \paragraph{Sources} --
 
@@ -298,62 +554,51 @@ goal is affected. \\\hrule
         \hline
         \rowcolor[gray]{0.9}
         \bf IM\refstepcounter{instnum}\theinstnum
-        \label{IM_CalculateEmotionAcceptanceElicit} &
-        \bf Calculate Emotion of \textit{Acceptance} \\
+        \label{IM_CalculateEmotionSurpriseElicit} &
+        \bf Evaluate \textit{Surprise} Elicitation \\
         \hline
     \end{tabular}
 
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input & $s : (\socialattachmenttype)^?$, $\mathit{joyIntensity} :
-        \emotionintensitytype$, $\mathit{tolerance} : \emotionintensitytype$ \\
+        \bf Input & $ s_{prev} : \worldstatetype, s_\Delta :
+        \worldstatechangetype, \epsilon_P : [0,1] $ \\
 
-        \bf Output & $ r : (\socialattachmenttype, \responsestrength)^?
-        \defEq \begin{cases}
+        \bf Output & $ [0,1]^? \defEq \mathit{Sur}$ \\
 
-            (s, \mathit{joyIntensity} - \mathit{tolerance}), & s \neq \emptyset
-            \, \wedge \, \mathit{joyIntensity} > \mathit{tolerance} \\
+        & where $\mathit{Sur} = \begin{cases}
 
-            \emptyset, & Otherwise \\
+            \epsilon_P - P(s_\Delta | s_{prev}), & P(s_\Delta | s_{prev}) <
+            \epsilon_P \\
 
-        \end{cases} $ \vspace*{1mm}\\
-        \hline
+            \text{None}, & Otherwise \\
+
+        \end{cases} $
+        \vspace*{2mm}\\ \hline
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} Given an Option type that contains a social attachment
-that the entity has to $A$ if it exists and is empty otherwise $s :
-(\socialattachmenttype)^?$, the entity's \textit{Joy} intensity
-$\mathit{joyIntensity} : \emotionintensitytype$ (\tyref{TY_EmotionIntensity}),
-and a tolerance threshold $\mathit{tolerance} : \emotionintensitytype $, output
-the social attachment $s : \socialattachmenttype$ (\tyref{TY_Relation-CTE})
-that this entity has to $A$ and the difference between $\mathit{joyIntensity}$
-and $\mathit{tolerance}$ as a change in intensity (\tyref{TY_DeltaIntensity},
-i.e. the intensity change from baseline intensity of zero, where the zero point
-is shifted by $\mathit{tolerance}$) if \textit{Acceptance} is elicited and
-nothing if it is not.
+\paragraph{Description} Given the \textit{previous WSV}
+(\tyref{TY_WorldState}), an event that transformed the \textit{previous WSV}
+into the current one (\tyref{TY_WorldStateChange}), and a ``tolerance''
+threshold, evaluate the elicitation of \textit{Surprise}
+(\tref{T_CalculateEmotionSurprise}) by determining if the improbability of the
+event in \textit{the previous WSV} is below the threshold ($P(s_\Delta |
+s_{prev}) < \epsilon_P$, \aref{A_EventProbabilityFunction}).
 
-\textit{Acceptance} is elicited if there is a social attachment between the
-entity and $A$ and the entity's experienced \textit{Joy} intensity is greater
-than $\mathit{tolerance}$. The value of $\mathit{tolerance}$ is a ``tolerance''
-such that higher values makes an entity less susceptible to \textit{Acceptance}
-(i.e. harder to elicit because it requires a higher $\mathit{joyIntensity}$).
-If $\mathit{joyIntensity} = 0$, the entity is not experiencing \textit{Joy} and
-it is not possible to experience \textit{Acceptance} towards $A$---even if
-$\mathit{tolerance} = 0$.
+If this condition fails, the function returns None because the event did not
+elicit \textit{Surprise} in the entity.
 
-If the entity has an existing social attachment to $A$, then a value for $s$
-already exists and returning it does not offer new information. However, if the
-entity could establish a social attachment with $A$ if \textit{Acceptance} is
-elicited (\tref{T_CalculateEmotionAcceptance}), a new one must be created and
-assigned to $s$. In this way, if \textit{Acceptance} is elicited the value of
-$s$ is a valid social attachment between the entity and $A$. Therefore, it can
-be added to the entity's collection of social attachments. \\\hrule
+The threshold also moderates the elicitation ``magnitude'' by returning how
+much the event's improbability falls below it ($\epsilon_P - P(s_\Delta |
+s_{prev})$) so that the ``magnitude'' is relative to how ``impossible'' the
+entity believes the event is. \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \tref{T_CalculateEmotionAcceptance},
-\tyref{TY_EmotionIntensity}, \tyref{TY_DeltaIntensity}, \tyref{TY_Relation-CTE}
+\paragraph{Depends On} \aref{A_EventProbabilityFunction},
+\tref{T_CalculateEmotionSurprise}, \tyref{TY_WorldState},
+\tyref{TY_WorldStateChange}
 
 \paragraph{Ref. By} \rref{R_GenerateEmotionCTE} \\\hrule\vspace{0.5mm}\hrule
 
@@ -366,130 +611,312 @@ be added to the entity's collection of social attachments. \\\hrule
         \hline
         \rowcolor[gray]{0.9}
         \bf IM\refstepcounter{instnum}\theinstnum
-        \label{IM_CalculateEmotionIntensity} &
-        \bf Calculate Emotion Intensity (\textit{Joy}, \textit{Sadness},
-        \textit{Anger}, \textit{Fear}, \textit{Disgust})\\
+        \label{IM_JoyIntensity} &
+        \bf Evaluate \textit{Joy} Intensity \\
         \hline
     \end{tabular}
 
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input & $ s : \worldstatetype $, $ s_\Delta : \worldstatechangetype
-        $, $ g : \goaltype $ \\
+        \bf Input & $ g : \goaltype, d_\Delta : \statedistancechangetype $ \\
+
+        \bf Output & $ i_\Delta : \responsestrength \defEq | \, d_\Delta \, |
+        \cdot g.\mathtt{importance} $ \\ \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Given an entity goal (\tyref{TY_Goal}) and a change in
+distance between two WSVs (\tyref{TY_DistanceBetweenWorldStatesChange}),
+evaluate the intensity change of \textit{Joy}
+(\tref{T_CalculateEmotionIntensity}, \tyref{TY_DeltaIntensity}) by treating the
+entity goal as the affected ``internal condition'' whose ``value'' is its
+$\mathtt{importance}$ and the magnitude of change in distance caused by the
+event is its ``seriousness'' or ``value'' because it measures how much the
+event moved the entity towards the desired goal state
+(\tref{T_CalculateEmotionGP}).
+
+Using goal $\mathtt{importance}$ as a scaling factor moderates intensity
+changes such that its magnitude varies for entities observing the same
+$d_\Delta$ whose goals only differ in their $\mathtt{importance}$. Note that
+the \textit{Joy} elicitation model outputs a tuple with element
+$\mathit{dist}_\Delta$ (\iref{IM_ElicitJoy}), which users can provide as the
+input $d_\Delta$. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tref{T_CalculateEmotionGP},
+\tref{T_CalculateEmotionIntensity}, \tyref{TY_DeltaIntensity},
+\tyref{TY_DistanceBetweenWorldStatesChange}, \tyref{TY_Goal}
+
+\paragraph{Ref. By} \rref{R_CalculateIntensity} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_SadnessIntensity} &
+        \bf Evaluate \textit{Sadness} Intensity \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $ g : \goaltype^?, p : \plantype^?, s_{prev} :
+        \worldstatetype, i_{\mathit{max}\Delta} : \responsestrength $ \\
 
         \bf Output & $ i_\Delta : \responsestrength \defEq
-        g.\mathtt{goal'}\left(s, s_\Delta\right) \cdot g.\mathtt{importance} $
+        \begin{cases}
+
+            \dfrac{1}{|\mathit{dist}_p|}, & p \neq \text{None} \\[15pt]
+
+            \dfrac{g.\mathtt{importance}}{m_G} \cdot i_{\mathit{max}\Delta}, & g
+            \neq \text{None} \\
+
+        \end{cases} $ \vspace*{1em}\newline
+
+        $\text{where } \text{where } \mathit{dist}_p : \statedistancetype =
+        \mathtt{Dist}(s_{prev}, p.\mathtt{nextStep}(s_{prev},
+        |p.\mathtt{actions}|)) $
         \\ \hline
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} Given a world state $s : \worldstatetype$
-(\tyref{TY_WorldState}), a game event that changes that state $s_\Delta :
-\worldstatechangetype$ (\tyref{TY_WorldStateChange}), and a goal $g :
-\goaltype$ (\tyref{TY_Goal}), output a change in intensity $i_\Delta :
-\responsestrength$ (\tyref{TY_DeltaIntensity}) proportional to the change in
-game state towards goal achievement $g.\mathtt{goal'}\left(s, s_\Delta\right)$,
-scaled by the goal's importance to the entity $g.\mathtt{importance}$.
+\paragraph{Description} Given either an entity goal (\tyref{TY_Goal}) or plan
+(\tyref{TY_Plan}), the \textit{previous WSV} (\tyref{TY_WorldState}), and a
+maximum intensity change (\tyref{TY_DeltaIntensity}), evaluate the intensity
+change of \textit{Sadness} (\tref{T_CalculateEmotionIntensity}) from two
+possible ``internal conditions'' affected by the event that determines the
+eliciting event's ``value'' or ``seriousness'' (\tref{T_CalculateEmotionGP}):
+\begin{itemize}
 
-This assumes that the faster an entity is achieving a goal (i.e. the larger the
-change in distance\linebreak $g.\mathtt{goal'}\left(s, s_\Delta\right)$), the
-larger the momentum behind it. This causes a higher intensity because the
-entity wants to maintain the conditions contributing to goal achievement
-(\tref{T_CalculateEmotionIntensity}). \\\hrule
+    \item An entity plan with a ``value'' equal to the distance to the desired
+    end-state before it became infeasible, such that the event's ``value'' or
+    ``seriousness'' is inversely proportional to the distance between the
+    plan's end-state and the previous WSV where the plan was feasible. This
+    means that plans the entity was close to completing elicit more intense
+    \textit{Sadness} compared to ones that were farther from completion.
 
-\paragraph{Sources} --
+    For evaluating the ``seriousness'' of a plan becoming infeasible, the
+    function generates the plan's end-state from the previous WSV by applying
+    every plan action to it ($p.\mathtt{nextSteps}(s_{prev},
+    |p.\mathtt{actions}|)$), then calculates the distance between the generated
+    plan end-state and the previous WSV $s_{prev}$ (\aref{A_DistFunction}).
+    This emulates an evaluation of ``how close'' the entity was to plan
+    completion.
 
-\paragraph{Depends On} \tref{T_CalculateEmotionIntensity},
-\tyref{TY_DeltaIntensity}, \tyref{TY_WorldState}, \tyref{TY_WorldStateChange},
-\tyref{TY_Goal}
+    \item An entity goal with a ``value'' equal to its $\mathtt{importance}$,
+    but the event's ``value'' or ``seriousness'' is not necessarily tied to the
+    event---an entity can experience intense \textit{Sadness} if they were
+    significantly far from the goal state (e.g. if there is a goal to see a
+    loved one before they pass, losing them feels equally painful if one just
+    began saving money for a plane ticket or if they have already spent a week
+    with them). This means that goals with higher $\mathtt{importance}$ elicit
+    more intense \textit{Sadness} compared to less important ones relative to
+    some maximum \textit{Sadness} an entity can experience.
 
-\paragraph{Ref. By} \rref{R_CalculateIntensity} \\\hrule\vspace{0.5mm}\hrule
+    For evaluating the ``seriousness'' of a goal being ``lost'', the goal's
+    $\mathtt{importance}$ relative to $m_G$
+    (\aref{A_MaxGoalImportanceFunction}) is a scaling factor that moderates a
+    maximum intensity change $i_{\mathit{max}\Delta}$ such that its magnitude
+    varies for entities with different $\mathtt{importance}$ valuations in
+    otherwise identical goals. This effectively normalizing it to $[0,1]$. The
+    function can access $m_G$ itself so that the user does not have to provide
+    it. Users do provide the value of $i_{\mathit{max}\Delta}$ so that they
+    have more control over how much an entity experiences emotion changes (i.e.
+    the model does not have to be relative to the maximum possible
+    \textit{Sadness} intensity).
 
-~\newline
+\end{itemize}
 
-\noindent
-\begin{minipage}{\textwidth}
-    \renewcommand*{\arraystretch}{1.5}
-    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
-        \hline
-        \rowcolor[gray]{0.9}
-        \bf IM\refstepcounter{instnum}\theinstnum
-        \label{IM_CalculateEmotionSurprise} &
-        \bf Calculate Emotion Intensity (\textit{Surprise}) \\
-        \hline
-    \end{tabular}
-
-    \renewcommand*{\arraystretch}{1.5}
-    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input &  $ \Delta t : \deltatimetype$, $\delta : \mathbb{R}_{>0}$ \\
-
-        \bf Output & $ i_\Delta : \responsestrength \defEq \dfrac{1}{\delta
-            \cdot \Delta t} $
-        \vspace*{2mm}\\ \hline
-    \end{tabular}
-\end{minipage}
-
-\paragraph{Description} Given the difference between two times $\Delta t :
-\deltatimetype$ (\tyref{TY_Time}), as well as a strictly positive and
-real-valued $\delta$, output a change in intensity $i_\Delta :
-\responsestrength$ equivalent to:
-$$y = \dfrac{1}{\delta \cdot x}$$
-
-where $y = i$ and $x = \Delta t$. This creates a larger response when $\Delta
-t$ is small and quickly decreases as $\Delta t$ grows. The value of $\delta$ is
-a ``tolerance'' such that higher values decreases the time window and strength
-of an entity's \textit{Surprise}. \\\hrule
-
-\paragraph{Sources} --
-
-\paragraph{Depends On} \tref{T_CalculateEmotionSurprise}, \tyref{TY_Time},
-\tyref{TY_DeltaIntensity}
-
-\paragraph{Ref. By} \rref{R_CalculateIntensity} \\\hrule\vspace{0.5mm}\hrule
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-    \renewcommand*{\arraystretch}{1.5}
-    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
-        \hline
-        \rowcolor[gray]{0.9}
-        \bf IM\refstepcounter{instnum}\theinstnum
-        \label{IM_CalculateEmotionInterest} &
-        \bf Calculate Emotion Intensity (\textit{Interest}) \\
-        \hline
-    \end{tabular}
-
-    \renewcommand*{\arraystretch}{1.5}
-    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input & $ at : \attentiontype $, $ i_\delta : \responsestrength $,
-        $ d : [0, 1] \in \mathbb{R}_{\geq 0}$ \vspace*{1mm}\\
-
-        \bf Output & $ i_\Delta : \responsestrength \defEq {\mathlarger\sum_{i
-        = 0}^{at}} d^i \cdot i_\delta $ \vspace*{2mm}\\
-        \hline
-    \end{tabular}
-\end{minipage}
-
-\paragraph{Description} Given the attention $at : \attentiontype$ paid to an
-entity $x$ (\tyref{TY_Attention}) and how much each time step in $at$ should
-change the intensity by as given by $ i_\delta : \responsestrength $
-(\tyref{TY_DeltaIntensity}) such that a higher $i_\delta$ implies that it is
-easier for the entity to experience \textit{Interest} towards $x$, output a
-change in intensity $i_\Delta : \responsestrength$ equivalent to the product of
-$at$ and $i_\delta$. This represents a constant change in emotion intensity of
-\textit{Interest} for each time step in $at$.
-
-Although constraining $i_\delta$ to strictly positive values is recommended,
-this is not enforced because users might find a use for negative values here.
+Note that the \textit{Sadness} elicitation model outputs a tuple with elements
+$g_{sadness} : \goaltype^?$ and $p_{sadness} : \plantype^?$
+(\iref{IM_ElicitSadness}), which users can supply as the inputs $g$ and $p$.
 \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \tref{T_CalculateEmotionInterest},
-\tyref{TY_DeltaIntensity},
-\tyref{TY_Attention}
+\paragraph{Depends On} \aref{A_DistFunction},
+\aref{A_MaxGoalImportanceFunction}, \tref{T_CalculateEmotionGP},
+\tref{T_CalculateEmotionIntensity}, \tyref{TY_DeltaIntensity},
+\tyref{TY_WorldState}, \tyref{TY_Goal}, \tyref{TY_Plan}
+
+\paragraph{Ref. By} \rref{R_CalculateIntensity} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_FearIntensity} &
+        \bf Evaluate \textit{Fear} Intensity \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $ g : \goaltype, g_{lost} : \goaltype^?, d_\Delta :
+        \statedistancechangetype $ \\
+
+        \bf Output & $ i_\Delta : \responsestrength \defEq \begin{cases}
+
+            d_\Delta \cdot g.\mathtt{importance}, & g_{lost} = \text{None}
+            \\[10pt]
+
+            d_\Delta \cdot
+            \dfrac{g_{lost}.\mathtt{importance}}{g.\mathtt{importance}}, &
+            g_{lost}
+            \neq \text{None} \\
+
+        \end{cases} $
+        \vspace*{2mm}\\ \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Given at least one entity goal (\tyref{TY_Goal}) and a
+change in distance between two WSVs
+(\tyref{TY_DistanceBetweenWorldStatesChange}), evaluate the intensity change of
+\textit{Fear} (\tref{T_CalculateEmotionIntensity}, \tyref{TY_DeltaIntensity})
+by treating the entity goal as the affected ``internal condition'' whose
+``value'' is its $\mathtt{importance}$ and the magnitude of change in distance
+caused by the event is its ``seriousness'' or ``value'' because it measures how
+much the event will move the entity away the desired goal state or, when there
+are two goals, move the entity towards one while making the other unachievable
+(\tref{T_CalculateEmotionGP}).
+
+Using goal $\mathtt{importance}$ as a scaling factor moderates intensity
+changes such that its magnitude varies for entities with different
+$\mathtt{importance}$ valuations in otherwise identical goals that observe the
+same $d_\Delta$. In the case where conflicting goals elicited \textit{Fear},
+the scaling factor is a ratio between their $\mathtt{importance}$ values such
+that the ``value'' of the progressed goal tempers that of the ``lost''
+goal---the intensity of \textit{Fear} is higher when the $\mathtt{importance}$
+of the ``lost'' goal is larger than the $\mathtt{importance}$ of the other goal.
+
+Note that the \textit{Fear} elicitation model (\iref{IM_ElicitFear}) outputs a
+tuple with elements $g_{fear} : \goaltype$, $g_{lost} : \goaltype^?$, and
+$\mathit{dist}_\Delta$, which users can use as the inputs $g$, $g_{lost}$, and
+$d_\Delta$. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tref{T_CalculateEmotionGP},
+\tref{T_CalculateEmotionIntensity}, \tyref{TY_DeltaIntensity},
+\tyref{TY_DistanceBetweenWorldStatesChange}, \tyref{TY_Goal}
+
+\paragraph{Ref. By} \rref{R_CalculateIntensity} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_AngerIntensity} &
+        \bf Evaluate \textit{Anger} Intensity \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $ p : \plantype, ps : \{\plantype\} $ \\
+
+        \bf Output & $ i_\Delta : \responsestrength \defEq
+        \exists p_\beta \in ps \rightarrow $ \newline
+        $(\forall p \in ps \rightarrow p \neq p_\beta \land
+        \mathtt{Cost}(p_\beta) \leq \mathtt{Cost}(p)) \rightarrow
+        \mathtt{Cost}(p_\beta) - \mathtt{Cost}(p)$ \\ \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Given an infeasible entity plan (\tyref{TY_Plan}) and a
+set of feasible plans that achieve the same end-state, evaluate the intensity
+change of \textit{Anger} (\tref{T_CalculateEmotionIntensity},
+\tyref{TY_DeltaIntensity}) by treating the change in entity plan availability
+as the affected ``internal condition'' and their ``value'' is the amount of
+effort the entity needs to execute them (i.e. plan ``cost'',
+\aref{A_CostFunction}). The difference in ``cost'' between the infeasible plan
+and the next lowest ``cost'' plan is its ``seriousness'' or ``value'' because
+it measures how much additional effort the entity needs to achieve the same
+result. Both of these values are subjective because the entity assigns them.
+Therefore, evaluating \textit{Anger} intensity is the difference between the
+subjective ``cost'' of the ``frustrated'' plan and the next lowest ``cost''
+plan (\tref{T_CalculateEmotionGP}).
+
+Taking the difference between plan ``costs'' ensures that \textit{Anger} is
+more intense if the ``cost'' of the next most desirable plan increases compared
+to the original one. If these plans are for achieving a goal, users can choose
+to scale the resulting \textit{Anger} intensity with the goal's importance
+manually.
+
+Note that the \textit{Anger} elicitation model (\iref{IM_ElicitAnger}) outputs
+a tuple with elements $p_{fail} : \plantype$ and $ps_{alt} : \{\plantype\}$,
+which users can use as the inputs $p$ and $ps$. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \aref{A_CostFunction}, \tref{T_CalculateEmotionGP},
+\tref{T_CalculateEmotionIntensity}, \tyref{TY_DeltaIntensity}, \tyref{TY_Plan}
+
+\paragraph{Ref. By} \rref{R_CalculateIntensity} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_DisgustIntensity} &
+        \bf Evaluate \textit{Disgust} Intensity \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $ g : \goaltype, d : \statedistancetype $ \\
+
+        \bf Output & $ i_\Delta : \responsestrength \defEq d \cdot
+        g.\mathtt{importance} $ \\ \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Given an entity goal (\tyref{TY_Goal}) and the distance
+between the \textit{current WSV} and the goal state
+(\tyref{TY_DistanceBetweenWorldStates}), evaluate the intensity change of
+\textit{Disgust} (\tref{T_CalculateEmotionIntensity},
+\tyref{TY_DeltaIntensity}) by treating the the
+entity goal as the affected ``internal condition'' and its ``value'' is its
+$\mathtt{importance}$. The distance between the current state and the desired
+goal state is the event's ``seriousness'' or ``value'' because it measures how
+much the event moved the entity out of it (\tref{T_CalculateEmotionGP}).
+
+Using goal $\mathtt{importance}$ as a scaling factor moderates intensity
+changes such that its magnitude varies for entities observing the same
+$d_\Delta$ whose goals only differ in their $\mathtt{importance}$.
+
+Note that the \textit{Disgust} elicitation model (\iref{IM_ElicitDisgust})
+outputs a tuple with element $\mathit{dist}_{now}$, which users can supply as
+the input $d$. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tref{T_CalculateEmotionGP},
+\tref{T_CalculateEmotionIntensity}, \tyref{TY_DeltaIntensity},
+\tyref{TY_DistanceBetweenWorldStates}, \tyref{TY_Goal}
 
 \paragraph{Ref. By} \rref{R_CalculateIntensity} \\\hrule\vspace{0.5mm}\hrule
 
@@ -503,42 +930,55 @@ this is not enforced because users might find a use for negative values here.
         \rowcolor[gray]{0.9}
         \bf IM\refstepcounter{instnum}\theinstnum
         \label{IM_CalculateEmotionAcceptance} &
-        \bf Calculate Emotion Intensity (\textit{Acceptance}) \\
+        \bf Evaluate \textit{Acceptance} Intensity \\
         \hline
     \end{tabular}
 
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input & $ r : \socialattachmenttype $, $ i_\delta :
-        \responsestrength $, $ d : [0, 1] \in \mathbb{R}_{\geq 0}$
+        \bf Input & $ r_A : \socialattachmenttype, r_\mathit{min} :
+        \socialattachmenttype, d_\Delta : \statedistancechangetype $
         \vspace*{1mm}\\
 
-        \bf Output & $ i_\Delta : \responsestrength \defEq {\mathlarger\sum_{i
-        = 0}^{r}} d^i \cdot i_\delta $ \vspace*{2mm}\\
+        \bf Output & $ i_\Delta : \responsestrength \defEq \begin{cases}
+            |d_\Delta| \cdot \dfrac{r_A}{r_\mathit{min}}, & r_A <
+            r_\mathit{min} \\
+            |d_\Delta|, & \mathit{Otherwise}
+        \end{cases} $ \vspace*{2mm}\\
         \hline
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} Given a social attachment to entity $A$
-(\tyref{TY_Relation-CTE}) $r$ and how much each ``level'' of attachment should
-change the intensity as given by $ i_\delta : \responsestrength $
-(\tyref{TY_DeltaIntensity}), output a change in intensity $i_\Delta :
-\responsestrength$ equivalent to the sum of $i_\delta$ values for each
-``level'' in $r$ such that each value is decayed by a factor of $d^i$. This
-causes increasing ``levels'' of $r$ to have diminishing returns, preserving the
-value of having large $r$ values while recognizes that one might not see a
-difference when adding another ``level'' to an already high-level social
-attachment.
+\paragraph{Description} Given the entity's social attachment to another entity
+$A$ (\tyref{TY_Relation-CTE}), the minimum social attachment that an entity
+must have with $A$ to ``fully'' experience \textit{Acceptance} towards it, and
+a change in distance between two WSVs
+(\tyref{TY_DistanceBetweenWorldStatesChange}) evaluate the intensity change of
+\textit{Acceptance} (\tref{T_CalculateEmotionAcceptance},
+\tyref{TY_DeltaIntensity}) by treating the entity's social attachment to $A$ as
+the affected ``internal condition'' and the magnitude of change in distance
+caused by the event \textit{attributed} to $A$ is its ``seriousness'' or
+``value'' because it measures how much $A$ helped moved the entity towards the
+desired goal state.
 
-The possible values for $i_\delta$ are not restricted to positive or negative
-values because it is possible to have less or no trust in entity $A$. This
-allows this function to be called if an entity experiences emotions that should
-decrease their trust in $A$, which \progname{} does not model. \\\hrule
+Using $r_\mathit{min}$ to ``normalize'' $r_A$ creates a scaling factor that
+moderates intensity changes such its magnitude varies with social attachment
+level. Tuning the minimum ``level'' changes the entity's resistance to the
+experience of \textit{Acceptance} so that they appear more trustful or
+distrustful of other entities. Consequently, the entity's Emotion Intensity
+Change value depends on the entity's relationship to the other relative to
+their minimum ``trust level''.
+
+Note that the \textit{Acceptance} elicitation model
+(\iref{IM_CalculateEmotionAcceptanceElicit}) outputs a tuple with element
+$\mathit{distAttribToA}_\Delta$, which users can use as the input $d_\Delta$.
+\\\hrule
 
 \paragraph{Sources} --
 
 \paragraph{Depends On} \tref{T_CalculateEmotionAcceptance},
-\tyref{TY_DeltaIntensity}, \tyref{TY_Relation-CTE}
+\tyref{TY_DeltaIntensity}, \tyref{TY_DistanceBetweenWorldStatesChange},
+\tyref{TY_Relation-CTE}
 
 \paragraph{Ref. By} \rref{R_CalculateIntensity} \\\hrule\vspace{0.5mm}\hrule
 
@@ -551,82 +991,262 @@ decrease their trust in $A$, which \progname{} does not model. \\\hrule
         \hline
         \rowcolor[gray]{0.9}
         \bf IM\refstepcounter{instnum}\theinstnum
-        \label{IM_DecayEmotionState} &
-        \bf Decaying Emotion State \\
+        \label{IM_CalculateEmotionInterest} &
+        \bf Evaluate \textit{Interest} Intensity \\
         \hline
     \end{tabular}
 
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input & $i_0 : \emotionintensitytype$, $\Delta t : \deltatimetype$,
-        $c : \mathbb{R}_{>0}$, $\left\{ \, i_\lambda : \emotiondecaytype,
-        i_{eq} : \emotionintensitytype \, \right\}$
-        \vspace*{2mm}\\
+        \bf Input & $ at : \attentiontype, at_{min} : \attentiontype,
+        i_{\delta_x} : \responsestrength$ \vspace*{1mm}\\
 
-        \bf Output & $ i : \emotionintensitytype \defEq \left(i_0 - i_{eq}
-        \right) \cdot e^{-\mbox{\scriptsize $\dfrac{c}{2}$} \cdot \Delta t}
-        \cdot \cos \left(\sqrt{i_\lambda - \left(\dfrac{c}{2} \right)^2} \cdot
-        \Delta t \right) $
+        \bf Output & $ i_\Delta : \responsestrength \defEq \begin{cases}
+            i_{\delta_x} \cdot \dfrac{at}{at_{min}} & at < at_{min} \\
+            i_{\delta_x}, & \mathit{Otherwise}
+        \end{cases} $ \vspace*{2mm}\\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Given the entity's elapsed attention invested in $x$
+(\tyref{TY_Attention}), the minimum attention that an entity must spend on
+$x$ to ``fully'' experience \textit{Interest} towards it, and a subjective
+attention ``value'' $i_{\delta_x}$ (\tyref{TY_DeltaIntensity}) representing the
+entity's ``fascination'' with $x$ such higher values elicit more intense
+\textit{Interest} with smaller changes in attention, evaluate the intensity
+change of \textit{Interest} (\tref{T_CalculateEmotionInterest}) by treating the
+entity's entity's attention as the affected ``internal condition'' and the
+entity-specific minimum attention as the event's ``seriousness'' or ``value''
+because the ``event'' driving \textit{Interest} elicitation is not necessarily
+the same as ``world events''.
+
+Users can specify different attention ``valuations'' for $i_{\delta_x}$ so that
+entities are more ``intrigued'' by some $x$ than others.
+
+Using the minimum attention to ``normalize'' $at$ creates a scaling factor that
+moderates intensity changes such its magnitude varies with uninterrupted,
+invested attention. Tuning the minimum ``level'' changes the entity's
+resistance to the experience of \textit{Interest} so that they appear to be
+more or less ``captivated'' by $x$.
+
+Note that the \textit{Interest} elicitation model
+(\iref{IM_CalculateEmotionInterestElicit}) outputs a value with type
+$\attentiontype$, which users can supply as the input $at$. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tref{T_CalculateEmotionInterest},
+\tyref{TY_DeltaIntensity}, \tyref{TY_Attention}
+
+\paragraph{Ref. By} \rref{R_CalculateIntensity} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_CalculateEmotionSurprise} &
+        \bf Evaluate \textit{Surprise} Intensity \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input &  $ \mathit{discr}_{s_\Delta} : [0,1],
+        i_{\mathit{max}\Delta} : \responsestrength$ \\
+
+        \bf Output & $ i_\Delta : \responsestrength \defEq i_{\mathit{max}}
+        \cdot \mathit{discr}_{s_\Delta} $
+        \vspace*{2mm}\\ \hline
+    \end{tabular}
+\end{minipage}
+
+\paragraph{Description} Given the ``discrepancy'' between the event and its
+improbability and a subjective ``unexpectedness value''
+$i_{\mathit{max}\Delta}$ that measures how easily an entity is ``startled''
+such higher values elicit more intense \textit{Surprise} with smaller event
+probability discrepancies, evaluate the intensity change of \textit{Surprise}
+(\tref{T_CalculateEmotionSurprise}, \tyref{TY_DeltaIntensity}) by treating the
+entity's prediction about an event's probability as the affected ``internal
+condition''. Although the ``event'' driving \textit{Surprise} is a ``world
+event'', its elicitation is driven by an entity's internal prediction about it
+rather than some event ``valuation'' or ``seriousness''. Therefore, an
+entity-specific ``unexpectedness value'' is the event's ``seriousness'' or
+``value'' because the ``event'' driving \textit{Interest} elicitation is not
+necessarily the same as ``world events''. This value scales with the based on a
+common-sense hypotheses about the monotonically increasing relation between
+\textit{Surprise} intensity and event unexpectedness.
+
+Users can specify different values for $i_{\mathit{max}\Delta}$ so that
+entities are more ``startled'' by some events than others.
+
+Note that the \textit{Surprise} elicitation model
+(\iref{IM_CalculateEmotionSurpriseElicit}) outputs a value with type $[0,1]^?$,
+which users can supply as the input $\mathit{discr}_{s_\Delta}$ if it is not
+None. \\\hrule
+
+\paragraph{Sources} \citet[p.~54, 56]{reisenzein2019cognitive}
+
+\paragraph{Depends On} \tref{T_CalculateEmotionSurprise},
+\tyref{TY_DeltaIntensity}
+
+\paragraph{Ref. By} \rref{R_CalculateIntensity} \\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_DecayEmotionIntensity} &
+        \bf Decaying an Emotion Intensity \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $i_0 : \emotionintensitytype, i_{Eq} :
+        \emotionintensitytype, i_\lambda : \emotiondecaytype, \Delta t :
+        \deltatimetype, \zeta : \mathbb{R}_{>0}$ \vspace*{2mm}\\
+
+        \bf Output & $\begin{gathered}
+         i : \emotionintensitytype \defEq I_\lambda + i_{Eq} \\
+         \text{where } I_\lambda = \begin{cases}
+             \begin{gathered}
+                 e^{\text{\mbox{\footnotesize $-\sqrt{i_\lambda} \cdot \zeta
+                             \cdot \Delta t$}}} \cdot (i_0 - i_{Eq}) \cdot
+                             \Bigg(\cos(\omega
+                 \cdot \Delta t) \\
+                 + \left(\dfrac{\sqrt{i_\lambda} \cdot \zeta}{\omega}\right)
+                 \cdot \sin(\omega \cdot \Delta t) \Bigg) \\
+                 \text{where } \omega = \sqrt{i_\lambda} \cdot \sqrt{1 -
+                 \zeta^2}
+             \end{gathered}, & 0 < \zeta < 1 \\
+             & \\
+             \begin{gathered}
+                 e^{\text{\mbox{\footnotesize $-\sqrt{i_\lambda} \cdot \Delta
+                             t$}}} \cdot (i_0 - i_{Eq}) \cdot \left( 1 +
+                             \sqrt{i_\lambda}
+                 \cdot \Delta t\right)
+             \end{gathered}, & \zeta = 1 \\
+             & \\
+             \begin{gathered}
+                 \dfrac{i_0 - i_{Eq}}{2} \cdot \Bigg( \left(1 +
+                 \dfrac{\zeta}{Q}\right) \cdot e^{\text{\mbox{\footnotesize
+                             $-\sqrt{i_\lambda} \cdot \left(\zeta - Q\right)
+                             \cdot \Delta
+                             t$}}} \\
+                 + \left(1 - \dfrac{\zeta}{Q}\right) \cdot
+                 e^{\text{\mbox{\footnotesize $-\sqrt{i_\lambda} \cdot
+                             \left(\zeta + Q\right) \cdot \Delta t$}}}\Bigg) \\
+                 \text{where } Q = \sqrt{\zeta^2 - 1}
+             \end{gathered} , & \zeta > 1
+         \end{cases}
+        \end{gathered}$
         \vspace*{2mm}\\\hline
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} Given an the emotion intensity before it has been
-decayed $i_0 : \emotionintensitytype$ (\tyref{TY_EmotionIntensity}), the
-elapsed time since emotion decay began $\Delta t : \deltatimetype$
-(\tyref{TY_Time}), a strictly positive and real-valued damping coefficient $c$,
-an emotion decay rate $i_\lambda : \emotiondecaytype$
-(\tyref{TY_EmotionDecay}), and ``equilibrium'' intensity $i_{eq} :
-\emotionintensitytype$, output a ``decayed'' intensity $i :
-\emotionintensitytype$. Emotion decay (\tref{T_DecayEmotionState}) is modelled
-by a damped harmonic oscillator mass-spring system of the form:
-$$x''\left(t\right) + c \cdot x'\left(t\right) + k_s \cdot x\left(t\right) = 0
-$$
+\paragraph{Description} Given an initial emotion intensity $i_0 :
+\emotionintensitytype$ (\tyref{TY_EmotionIntensity}) and equilibrium intensity
+$i_{Eq} : \emotionintensitytype$, an emotion decay rate $i_\lambda :
+\emotiondecaytype$ (\tyref{TY_EmotionDecay}), the elapsed time since emotion
+decay began $\Delta t : \deltatimetype$ (\tyref{TY_Time}), and a strictly
+positive and real-valued damping ratio $\zeta$, evaluate the ``decayed''
+intensity $i : \emotionintensitytype$ based on the case of $\zeta$.
 
-where the spring constant $k_s = i_\lambda$. The general model for position at
-time $t = t_0 + \Delta t$ in this system is given by:
-$$x\left(t\right) = A_0 \cdot e^{-\sigma \cdot t} \cdot \cos\left(\omega \cdot
-t - \phi\right)$$
+Adding $i_{Eq}$ to $I_\lambda$ shifts the position from 0 to the equilibrium
+point. The damping ratio $\zeta : \mathbb{R}_{>0}$ determines how much emotion
+intensity oscillates as an returns to equilibrium.
 
-where $A_0 = x\left(t_0\right)$, $\sigma = \dfrac{c}{2 \cdot m}$, and $\omega =
-\sqrt{\dfrac{k_s}{m} - \left(\dfrac{c}{2 \cdot m}\right)^2}$. Assuming that
-$k_s = i_\lambda$, $m = 1$, $A_0 = x\left(t_0\right) = i - i_{eq}$, phase shift
-$\phi = 0$, and $t_0 = 0$ such that $t = \Delta t$ gives the function for
-emotion decay.
+\paragraph{Model Derivation} Emotion decay (\tref{T_DecayEmotionState}) is
+modelled by a damped harmonic oscillator mass-spring system of the form:
+$$x''\left(t\right) + c \cdot x'\left(t\right) + k_s \cdot x\left(t\right) = 0$$
 
-The damping coefficient $c$ determines the amount of oscillation that occurs as
-an emotion intensity returns to equilibrium. Oscillation behaviour is given by:
-$$\zeta = \frac{c}{2 \cdot \sqrt{m \cdot k_s}}$$
+where $x''\left(t\right)$, $x'\left(t\right)$, and $x\left(t\right)$ are the
+acceleration, speed, and position of a mass $m$ at time $t$, $c$ is a strictly
+positive and real-valued damping coefficient, and $k_s$ is a spring constant.
+Emotion intensity is then equivalent to the ``position'' of the mass in the
+system and the system's oscillation behaviour is a way for users to define an
+entity's ``emotional stability''.
 
-The system's ``mass'' $m$ is assumed to be $1$ and $k_s = i_\lambda$, so this
-simplifies to:
-$$\zeta = \dfrac{c}{2 \cdot \sqrt{i_\lambda}}$$
+The damping ratio $\zeta$ and natural angular frequency of the system
+$\omega_n$ govern its behaviour:
+$$\zeta = \dfrac{c}{2 \cdot \sqrt{m \cdot k_s}}, \; \omega_n =
+\sqrt{\dfrac{k_s}{m}}$$
 
-When:
+Closed-forms of each case for $\zeta$ are necessary because the general
+solution allows for imaginary numbers, which are not computationally tractable:
 \begin{itemize}
-    \item $\zeta > 1$, emotion decay is \textit{overdamped} such that it does
-    not oscillate as it returns to $i_{eq}$. It reaches equilibrium more slowly
-    as $\zeta$ increases.
+    \item If $0 < \zeta < 1$, the system is \textit{underdamped} such that it
+    oscillates as it returns to equilibrium. As $\zeta$ approaches 1, the
+    oscillations decrease more quickly. This could represent an entity that is
+    ``emotionally unstable'', alternating between high and low emotion
+    intensities before returning to their ``normal'' state. Position $x$ at
+    time $t$ is given by:
+    $$\begin{gathered}
+        x(t) = e^{-r \cdot t} \cdot \left( A \cdot \cos(\omega \cdot t) + B
+        \cdot \sin(\omega \cdot t) \right) \\
+        \text{where } A = x_0, \; B = \dfrac{v_0 + x_0 \cdot \omega_n \cdot
+            \zeta}{\omega}, \; r = \omega_n \cdot \zeta \\
+        \text{and } \omega = \omega_n \cdot \sqrt{1 - \zeta^2}
+    \end{gathered}$$
 
-    \item $\zeta = 1$, emotion decay is \textit{critically damped} such that it
-    returns to $i_{eq}$ as quickly as possible without overshooting it.
+    \item If $\zeta = 1$, the system is \textit{critically damped} such that
+    it returns to equilibrium as quickly as possible without overshooting it.
+    This could represent an entity that is the most ``emotionally stable'',
+    recovering more quickly and directly than entities with other $\zeta$
+    values. Position $x$ at time $t$ is given by:
+    $$\begin{gathered}
+        x(t) = e^{-\omega_n \cdot t} \cdot \left(x_0 + \left(v_0 + x_0
+        \cdot \omega_n\right) \cdot t \right)
+    \end{gathered}$$
 
-    \item $0 < \zeta < 1$, emotion decay is \textit{underdamped} such that it
-    oscillates as it returns to $i_{eq}$. Oscillations decrease more quickly as
-    $\zeta$ approaches 1.
+    \item If $\zeta > 1$, the system is \textit{overdamped} such that it does
+    not oscillate as it returns to equilibrium. As $\zeta$ increases, the
+    system reaches equilibrium more slowly. This could represent an entity that
+    is ``emotionally unstable'', experiencing their emotions longer than
+    others. Position $x$ at time $t$ is given by:
+    $$\begin{gathered}
+        x(t) = C \cdot e^{-r_1 \cdot t} + D \cdot e^{-r_2 \cdot t} \\
+        \text{where } C = \dfrac{1}{2} \cdot \left( x_0 + \dfrac{v_0 + x_0
+            \cdot \omega_n \cdot \zeta}{\omega}\right), \; D = \dfrac{1}{2}
+        \cdot \left( x_0 - \dfrac{v_0 + x_0 \cdot \omega_n \cdot
+            \zeta}{\omega}\right), \\
+        r_1 = \omega_n(\zeta - \sqrt{\zeta^2 - 1}), \; r_2 = \omega_n(\zeta
+        + \sqrt{\zeta^2 - 1}) \\
+        \text{and } \omega = \omega_n \cdot \sqrt{\zeta^2 - 1}
+    \end{gathered}$$
 \end{itemize}
-\hrule
+
+Substitutes $k_s = i_\lambda$, $m = 1$ such that $\omega_n = \sqrt{i_\lambda}$,
+$x_0 = x\left(t_0\right) = i_0 - i_{eq}$, $v_0 = 0$, and $t_0 = 0$ such that $t
+= 0 + \Delta t = \Delta t$ into each model of position, where $i_0 :
+\emotionintensitytype$ is the ``initial'' intensity, $i_{eq} :
+\emotionintensitytype$ is the ``equilibrium'' intensity, $\Delta t :
+\deltatimetype$ is the elapsed time since $t : \timetype = 0$, and $i_\lambda :
+\emotiondecaytype$ is the intensity's decay rate and simplifying produces the
+described output model. \\\hrule
 
 \paragraph{Sources}
 {\small\url{https://en.wikipedia.org/wiki/Harmonic_oscillator#Damped_harmonic_oscillator},
 
-    \url{https://www.lehman.edu/faculty/anchordoqui/chapter23.pdf}}
+    \url{https://www.lehman.edu/faculty/anchordoqui/chapter23.pdf},
+    \cite{alexiou2013solution}}
 
-\paragraph{Depends On} \tref{T_DecayEmotionState}, \tyref{TY_Time},
-\tyref{TY_EmotionIntensity}, \tyref{TY_EmotionDecay}
+\paragraph{Depends On} \tref{T_DecayEmotionState}, \tyref{TY_EmotionIntensity},
+\tyref{TY_EmotionDecay}, \tyref{TY_Time}
 
-\paragraph{Ref. By} \iref{IM_DecayEmotion}, \rref{R_DecayIntensity}
-\\\hrule\vspace{0.5mm}\hrule
+\paragraph{Ref. By} \tyref{TY_EmotionDecay}, \iref{IM_DecayEmotionState},
+\rref{R_DecayIntensity} \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
 
@@ -638,41 +1258,40 @@ When:
         \rowcolor[gray]{0.9}
         \bf IM\refstepcounter{instnum}\theinstnum
         \label{IM_UpdateEmotionState} &
-        \bf Updating the Intensity of an Emotion Kind \\
+        \bf Updating an Emotion Intensity with an Emotion Intensity Change \\
         \hline
     \end{tabular}
 
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input & $k : \emotionkindstype$, $ i : \emotionkindstype
-        \rightarrow \emotionintensitytype $, $ I : \emotionkindstype
-        \rightarrow \responsestrength, m : \emotionkindstype \rightarrow
-        \emotionintensitytype $ \\
+        \bf Input & $i : \emotionintensitytype, i_{\Delta} : \responsestrength
+        $ \\
 
-        \bf Output & $ i'\left(k\right): \emotionintensitytype \defEq
-        \mathtt{clamp}\left(i\left(k\right) + I\left(k\right), 0,
-        m\left(k\right) \right) $ \\
+        \bf Output & $ i' : \emotionintensitytype \defEq \begin{cases}
+            0.1 \cdot \log_2 \left(2^{10 \cdot i} + 2^{10 \cdot
+                i_{\Delta}}\right), & i_{\Delta} > 0 \\
+            0.1 \cdot \log_2 \left(2^{10 \cdot i} - 2^{10 \cdot | i_{\Delta}
+                |}\right), & i_{\Delta} < 0 \\
+            i, & \mathit{Otherwise} \\
+        \end{cases} $ \\
         \hline
     \end{tabular}
 \end{minipage}
 
-\paragraph{Description} Given emotion kinds $k : \emotionkindstype$
-(\tyref{TY_EmotionKind}), a function from emotion kinds to intensities $i :
-\emotionkindstype \rightarrow \emotionintensitytype$
-(\tyref{TY_EmotionIntensity}), and to changes in intensity $I :
-\emotionkindstype \rightarrow \responsestrength$ (\tyref{TY_DeltaIntensity}),
-output a new intensity for each emotion kind, $i'\left(k\right) :
-\emotionintensitytype$, by adding $i\left(k\right) : \emotionintensitytype$ and
-$I\left(k\right) : \responsestrength$ (\aref{A_UpdateEmotionState}). The sum is
-clamped to the range $\left[0, m(k)\right]$, where m is a function from emotion
-kinds to maximum intensities. \\\hrule
+\paragraph{Description} Given an emotion intensity $i : \emotionintensitytype$
+(\tyref{TY_EmotionIntensity}) and emotion intensity change $i_\Delta :
+\responsestrength$ (\tyref{TY_DeltaIntensity}), output a new emotion intensity
+$i' : \emotionintensitytype$ using the logarithmic function so that it not
+strictly additive and both values contribute to the output such that its
+magnitude is at least as much as the highest input. \\\hrule
 
-\paragraph{Sources} --
+\paragraph{Sources} \cite{reilly2006modelling},
+\citet[p.~370]{broekens2021emotion}
 
-\paragraph{Depends On} \aref{A_UpdateEmotionState},
-\tyref{TY_EmotionIntensity}, \tyref{TY_DeltaIntensity}, \tyref{TY_EmotionKind}
+\paragraph{Depends On} \tyref{TY_EmotionIntensity}, \tyref{TY_DeltaIntensity}
 
-\paragraph{Ref. By} \rref{R_UpdateAnIntensity} \\\hrule\vspace{0.5mm}\hrule
+\paragraph{Ref. By} \iref{IM_UpdateEmotionState2}, \rref{R_UpdateAnIntensity}
+\\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
 
@@ -684,34 +1303,45 @@ kinds to maximum intensities. \\\hrule
         \rowcolor[gray]{0.9}
         \bf IM\refstepcounter{instnum}\theinstnum
         \label{IM_UpdateEmotionState2} &
-        \bf Updating the Intensity Component of an Emotion State \\
+        \bf Create a new Emotion State by Updating Emotion Intensities in an
+        Existing Emotion State \\
         \hline
     \end{tabular}
 
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input & $ es : \emotionstatetype $, $ i : \emotionkindstype
-        \rightarrow \emotionintensitytype $ \\
+        \bf Input & $ es : \emotionstatetype, i_\Delta : \emotionkindstype
+        \rightarrow \responsestrength $ \\
 
-        \bf Output & $ es' : \emotionstatetype \defEq \left\{ \, es \text{ with
-        } \mathtt{intensities} = i \, \right\} $ \\
+        \bf Output & $ es' : \emotionstatetype \defEq es' \text{ with }
+        (\forall k : \emotionkindstype $ \newline
+        $\text{ } \rightarrow es'.\mathtt{intensities}\left(k\right) =
+        \mathtt{clamp}\left(I_k, 0, es.\mathtt{max}(k) \right),
+        es'.\mathtt{max}(k) = es.\mathtt{max}(k))$ \newline
+        $\text{where } I_k =
+        \mathtt{UpdateIntensity}(es.\mathtt{intensities}\left(k\right),
+        i_{\Delta}\left(k\right)) $ from \iref{IM_UpdateEmotionState} \\
         \hline
     \end{tabular}
 \end{minipage}
 
 \paragraph{Description} Given an emotion state $es : \emotionstatetype$
-(\tyref{TY_EmotionState}) and a function from emotion kinds to intensity $i :
-\emotionkindstype \rightarrow \emotionintensitytype$ (\tyref{TY_EmotionKind},
-\tyref{TY_EmotionIntensity}), output a new emotion state $es'$ by replacing
-$es.\mathtt{intensities}$ with $i$. \\\hrule
+(\tyref{TY_EmotionState}) and a function from emotion kinds to intensity
+changes $i_\Delta : \emotionkindstype \rightarrow \emotionintensitytype$
+(\tyref{TY_EmotionKind}, \tyref{TY_DeltaIntensity}), output a new emotion state
+$es'$ by replacing updating the intensities in $es.\mathtt{intensities}$ with
+$i_\Delta$ using \iref{IM_UpdateEmotionState}.
+
+A logarithm is an unbounded function and emotion intensities are assumed to be
+finite (i.e. have a maximum value), so it is necessary to clamp the updated
+intensity. \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \tyref{TY_EmotionIntensity}, \tyref{TY_EmotionKind},
-\tyref{TY_EmotionState}
+\paragraph{Depends On} \tyref{TY_DeltaIntensity}, \tyref{TY_EmotionKind},
+\tyref{TY_EmotionState}, \iref{IM_UpdateEmotionState}
 
-\paragraph{Ref. By} \iref{IM_DecayEmotion}, \rref{R_UpdateEmotionState}
-\\\hrule\vspace{0.5mm}\hrule
+\paragraph{Ref. By} \rref{R_UpdateEmotionState} \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
 
@@ -745,10 +1375,11 @@ a new emotion $e'$ by adding $es$ to $e$ at time $t$. \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \tyref{TY_Time}, \tyref{TY_EmotionState},
-\tyref{TY_Emotion}
+\paragraph{Depends On} \tyref{TY_EmotionState}, \tyref{TY_Emotion},
+\tyref{TY_Time}
 
-\paragraph{Ref. By} \rref{R_UpdateEmotion} \\\hrule\vspace{0.5mm}\hrule
+\paragraph{Ref. By} \iref{IM_GetNextEmotionByDecay}, \rref{R_UpdateEmotion}
+\\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
 
@@ -780,10 +1411,10 @@ $e\left(t\right)$. \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \tyref{TY_Time}, \tyref{TY_EmotionState},
-\tyref{TY_Emotion}
+\paragraph{Depends On} \tyref{TY_EmotionState}, \tyref{TY_Emotion},
+\tyref{TY_Time}
 
-\paragraph{Ref. By} \iref{IM_DecayEmotion}, \rref{R_GetEmotionState}
+\paragraph{Ref. By} \iref{IM_GetNextEmotionByDecay}, \rref{R_GetEmotionState}
 \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
@@ -795,48 +1426,90 @@ $e\left(t\right)$. \\\hrule
         \hline
         \rowcolor[gray]{0.9}
         \bf IM\refstepcounter{instnum}\theinstnum
-        \label{IM_DecayEmotion} &
-        \bf Decaying Emotion \\
+        \label{IM_DecayEmotionState} &
+        \bf Decay an Emotion State \\
         \hline
     \end{tabular}
 
     \renewcommand*{\arraystretch}{1.5}
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
-        \bf Input & $e : \emotiontype$, $\left\{ t : \timetype, t' : \timetype
-        \rightarrow t < t' \right\}$, $c : \mathbb{R}_{>0}$, , $es_\lambda :
-        \emotionstatedecaytype$ \\
+        \bf Input & $es_0 : \emotionstatetype, es_\lambda :
+        \emotionstatedecaytype, \Delta t : \deltatimetype, \zeta :
+        \mathbb{R}_{>0}$ \\
 
-        \bf Output & $ es : \emotionstatetype \defEq \left\{ \, \forall k
-        \rightarrow es \text{ with } es.\mathtt{intensities}\left(k\right) = D
-        \, \right\} $ from \iref{IM_UpdateEmotionState2} \\
+        \bf Output & $ \begin{gathered} es : \emotionstatetype \defEq \left\{
+        \, \forall k \rightarrow es \text{ with }
+            es.\mathtt{intensities}\left(k\right) = D \, \right\} \\
+            \text{where } D = \mathtt{Decay}(\,
+            es_0.\mathtt{intensities}\left(k\right), \Delta t, \zeta,
+            es_\lambda.\mathtt{decayRates}\left(k\right), \\
+            es_\lambda.\mathtt{equilibrium}\left(k\right) \, ) \text{ from
+            \iref{IM_DecayEmotionIntensity}}
+        \end{gathered}$ \\
+        \hline
+    \end{tabular}
+\end{minipage}
 
-        & where $D = \mathtt{decay}\left(\,
-        es_0.\mathtt{intensities}\left(k\right), t' - t, c, E \, \right) $
-        from \iref{IM_DecayEmotionState} \\
-        & \hspace*{3mm} where $es_0 = e\left(t'\right)$ from
-        \iref{IM_GetEmotionState} \\
-        & and $E = \left\{es_\lambda.\mathtt{decayRates}\left(k\right),
-        es_\lambda.\mathtt{equilibrium}\left(k\right) \right\}$ \\
+\paragraph{Description} Given an initial emotion state $es_0 :
+\emotionstatetype$ (\tyref{TY_EmotionState}), an emotion decay state
+$es_\lambda : \emotionstatedecaytype$ (\tyref{TY_EmotionDecayState}), the
+difference between two times $\Delta t : \deltatimetype$ (\tyref{TY_Time}), and
+a damping ratio $\zeta : \mathbb{R}_{>0}$, generate a new emotion state $es :
+\emotionstatetype$ by decaying intensity for every emotion intensity in $es_0$
+using \iref{IM_DecayEmotionIntensity}. \\\hrule
+
+\paragraph{Sources} --
+
+\paragraph{Depends On} \tyref{TY_EmotionState}, \tyref{TY_EmotionDecayState},
+\tyref{TY_Time}, \iref{IM_DecayEmotionIntensity}
+
+\paragraph{Ref. By} \iref{IM_GetNextEmotionByDecay}, \rref{R_DecayEmotion}
+\\\hrule\vspace{0.5mm}\hrule
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{| p{\colAwidth}  p{\colBwidth}|}
+        \hline
+        \rowcolor[gray]{0.9}
+        \bf IM\refstepcounter{instnum}\theinstnum
+        \label{IM_GetNextEmotionByDecay} &
+        \bf Generating the Next State in Emotion By Decay \\
+        \hline
+    \end{tabular}
+
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
+        \bf Input & $e : \emotiontype, es_\lambda : \emotionstatedecaytype,
+        \left\{ t : \timetype, t' : \timetype \rightarrow t < t' \right\},
+        \zeta : \mathbb{R}_{>0}$ \\
+
+        \bf Output & $ e \defEq \left\{ \, e \text{ with } e\left(t'\right) =
+        \mathtt{DecayState}\left(\, e\left(t\right), t' - t, \zeta, es_\lambda
+        \, \right) \, \right\}$ from \iref{IM_UpdateEmotion},
+        \iref{IM_GetEmotionState}, and \iref{IM_DecayEmotionState} \\
         \hline
     \end{tabular}
 \end{minipage}
 
 \paragraph{Description} Given an emotion $e : \emotiontype$
-(\tyref{TY_Emotion}), two times $t', t : \timetype$ (\tyref{TY_Time}), a
-damping coefficient $c : \mathbb{R}_{>0}$, and emotion state decay values
-$es_\lambda : \emotionstatedecaytype$ (\tyref{TY_EmotionDecayState}), create a
-new emotion state $es : \emotionstatetype$ (\tyref{TY_EmotionState}) by
-decaying intensity for every $k : \emotionkindstype$ (\tyref{TY_EmotionKind})
-in $e\left(t'\right).\mathtt{intensities}$. \\\hrule
+(\tyref{TY_Emotion}), an emotion decay state $es_\lambda :
+\emotionstatedecaytype$ (\tyref{TY_EmotionDecayState}), two times $t, t' :
+\timetype$ (\tyref{TY_Time}) such that $t$ comes before $t'$, and a damping
+ratio $\zeta : \mathbb{R}_{>0}$, update emotion $e$ by extracting the emotion
+state at time $t$ using \iref{IM_GetEmotionState} and generating a new emotion
+state from it using \iref{IM_DecayEmotionState} and adding it to $e$ at time
+$t'$ using \iref{IM_UpdateEmotion}. \\\hrule
 
 \paragraph{Sources} --
 
-\paragraph{Depends On} \tyref{TY_Time}, \tyref{TY_EmotionKind},
-\tyref{TY_EmotionState}, \tyref{TY_EmotionDecayState}, \tyref{TY_Emotion},
-\iref{IM_DecayEmotionState}, \iref{IM_UpdateEmotionState2},
-\iref{IM_GetEmotionState}
+\paragraph{Depends On} \tyref{TY_EmotionDecayState}, \tyref{TY_Emotion},
+\tyref{TY_Time}, \iref{IM_UpdateEmotion}, \iref{IM_GetEmotionState},
+\iref{IM_DecayEmotionState}
 
-\paragraph{Ref. By} \rref{R_DecayEmotion} \\\hrule\vspace{0.5mm}\hrule
+\paragraph{Ref. By} \rref{R_NewESFromDecay} \\\hrule\vspace{0.5mm}\hrule
 
 ~\newline
 
@@ -856,22 +1529,25 @@ in $e\left(t'\right).\mathtt{intensities}$. \\\hrule
     \begin{tabular}{ p{\colAwidth}  p{\colBwidth}}
         \bf Input & $es : \emotionstatetype$ \\
 
-        \bf Output & $ p : \padpoint \defEq \mathtt{clamp} \left(
-        {\mathlarger\sum_{k \in \emotionkindstype}} v\left(k\right) \cdot
-        \dfrac{es.\mathtt{intensities}\left(k\right)}{es.\mathtt{max}\left(k\right)},
-         -1, 1 \right) $
-        \vspace*{2mm}\\
-
-        & where $v\left(k\right) : \padpoint = \begin{cases}
-            \left\{ -0.62, +0.82, -0.43 \right\}, & k = \mFear \\
-            \left\{ -0.51, +0.59, +0.25 \right\}, & k = \mAnger \\
-            \left\{ -0.63, -0.27, -0.33 \right\}, & k = \mSadness \\
-            \left\{ +0.76, +0.48, +0.35 \right\}, & k = \mJoy \\
-            \left\{ +0.64, +0.51, +0.17 \right\}, & k = \mInterest \\
-            \left\{ +0.16, +0.88, -0.15 \right\}, & k = \mSurprise \\
-            \left\{ -0.60, +0.35, +0.11 \right\}, & k = \mDisgust \\
-            \left\{ +0.64, +0.35, +0.24 \right\}, & k = \mTrust \\
-        \end{cases}$
+        \bf Output & $ \begin{gathered} p : \padpoint \defEq
+        \mathtt{clamp}\left(0.1 \cdot \log_2 \left( {\mathlarger\sum_{k
+                    \in \emotionkindstype}} 2^{10 \cdot v\left(k\right) \cdot
+                    I_k }
+            \right), -1, 1 \right) \\
+            \text{where } I_k =
+            \dfrac{es.\mathtt{intensities}(k)}{es.\mathtt{max}(k)} \\
+            \text{and } v\left(k : \emotionkindstype\right) : \padpoint =
+            \begin{cases}
+                \left( -0.62, +0.82, -0.43 \right), & k = \mFear \\
+                \left( -0.51, +0.59, +0.25 \right), & k = \mAnger \\
+                \left( -0.63, -0.27, -0.33 \right), & k = \mSadness \\
+                \left( +0.76, +0.48, +0.35 \right), & k = \mJoy \\
+                \left( +0.64, +0.51, +0.17 \right), & k = \mInterest \\
+                \left( +0.16, +0.88, -0.15 \right), & k = \mSurprise \\
+                \left( -0.60, +0.35, +0.11 \right), & k = \mDisgust \\
+                \left( +0.64, +0.35, +0.24 \right), & k = \mTrust \\
+            \end{cases}
+    \end{gathered}$
         \vspace*{2mm}\\
         \hline
     \end{tabular}
@@ -879,22 +1555,35 @@ in $e\left(t'\right).\mathtt{intensities}$. \\\hrule
 
 \paragraph{Description} Given an emotion state $es : \emotionstatetype$
 (\tyref{TY_EmotionState}), output a point in PAD space $p : \padpoint$
-(\tyref{TY_PAD}) by summing the PAD point value $v\left(k\right) : \padpoint$
-multiplied by the intensity relative to the maximum possible intensity
-$es.\mathtt{max}$ for each emotion $k : \emotionkindstype$
-(\tyref{TY_EmotionKind}). The purpose of making
-$es.\mathtt{intensities}\left(k\right)$ relative to $es.\mathtt{max}$ is so
-that higher intensity emotions weigh more than lower intensity emotions,
-contributing more to the overall PAD value.
+(\tyref{TY_PAD}) by converting each intensity in $es$ to a PAD point by scaling
+it to the associated maximum intensity such that multiplying it with the chosen
+reference points returns its relative PAD position to that point
+(\tref{T_GetEmotionStatePAD}). This ensures that higher intensity emotions
+weigh more than lower intensity emotions, contributing more to the overall PAD
+value. The model evaluates these points such that an emotion kind with zero
+intensity has the coordinates $(0, 0, 0)$---the neutral PAD value---and one at
+maximum intensity has the same value as the corresponding reference point. It
+then sums the individual points into an overall PAD point, clamping it to $[-1,
+1]$ to adhere to the constraints on \tyref{TY_PAD}.
 
-Values for $v\left(k\right)$ correspond to the statistical means of PAD terms
-for \textit{pleasure}, \textit{arousal}, and \textit{dominance}
-(\tref{T_GetEmotionStatePAD}). Each element in $p$ is clamped to the range
-$\left[-1, 1\right]$ due to \tyref{TY_PAD}. \\\hrule
+The function inside $\mathtt{clamp}$ is based on the one from
+Em/Oz~\citep{reilly2006modelling} and
+GAMYGDALA~\citep[p.~38]{popescu2014gamygdala}. It relies on a logarithm so that
+it not strictly additive and all values contribute to the output such that its
+magnitude is at least as much as the highest input. Although not experimentally
+verified, it emulates these desired behaviours and reportedly works well.
 
-\paragraph{Sources} \citet[p.~42--45]{mehrabian1980basic}
+This model does lose information about the converted emotion state because it
+is combining information from eight discrete categories into one point in a
+three-dimensional space (\citepg{schaap2008towards}{172};
+\citepg{broekens2021emotion}{353}). After conversion, it is nearly impossible
+to determine which emotion kind-intensity combinations contributed to the
+point's generation. Should a user need this information, they must associate
+the state with the point manually. \\\hrule
 
-\paragraph{Depends On} \tref{T_GetEmotionStatePAD}, \tyref{TY_EmotionKind},
-\tyref{TY_EmotionState}, \tyref{TY_PAD}
+\paragraph{Sources} \citet[p.~40, 42--45]{mehrabian1980basic}
+
+\paragraph{Depends On} \tref{T_GetEmotionStatePAD}, \tyref{TY_EmotionState},
+\tyref{TY_PAD}
 
 \paragraph{Ref. By} \rref{R_Convert2PAD} \\\hrule\vspace{0.5mm}\hrule
