@@ -1,0 +1,139 @@
+\documentclass[11pt, titlepage]{article}
+
+\usepackage[letterpaper, hmargin=1in, bmargin=1in, tmargin=1.3in,
+headheight=26pt]{geometry}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{array}   % Used for table formatting
+\newcolumntype{P}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{N}[1]{>{\centering\arraybackslash}p{#1}}
+\usepackage{multirow}
+\usepackage[shortcuts]{extdash}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage{url}
+
+\usepackage[nottoc,notlof,notlot,numbib]{tocbibind}
+
+\usepackage{natbib}
+
+\usepackage[page]{totalcount}
+
+\usepackage{fancyhdr}
+\fancyhf{}
+\lhead{Master Test Plan \\ \progname{}}
+\rhead{Geneva M. Smith \\ Dept. of Computing and Software---McMaster University}
+\lfoot{Ver.~\ref{current_version_TestPlan}}
+\rfoot{\thepage\ of \thepages}
+
+\renewcommand{\footrule}{\vbox to 0pt
+    {\makebox[\textwidth]{\hrulefill}\vss}}
+
+\newcommand{\colourRow}{\rowcolor[gray]{0.9}}
+\newcommand{\colourCell}{\cellcolor[gray]{0.9}}
+
+\definecolor{CoolPurple}{RGB}{117, 0, 235}
+\definecolor{NatureGreen}{RGB}{8, 104, 11}
+\definecolor{SeaBlue}{RGB}{6, 97, 122}
+\definecolor{Lilac}{RGB}{178, 131, 206}
+
+\hypersetup{
+    bookmarks=true,
+    colorlinks=true,
+    linktoc=all,
+    linkcolor=CoolPurple,
+    citecolor=NatureGreen,
+    filecolor=WildStrawberry,
+    urlcolor=SeaBlue
+}
+
+\newcommand{\citepg}[2]{\citeauthor{#1}, \citeyear{#1}, p.~#2}
+\newcommand{\citeg}[1]{\citeauthor{#1}, \citeyear{#1}}
+
+\makeatletter
+\newcommand\newref[1]{#1\def\@currentlabel{#1}}
+\makeatother
+
+\input{../../comments}
+
+\input{../../commands}
+
+\usepackage[shortlabels, inline]{enumitem}
+
+\begin{document}
+
+    \newcounter{pages}
+    \setcounter{pages}{\totalpages}
+
+    \begin{titlepage}
+        \thispagestyle{empty}
+
+        \title{Master Test Plan for \progname{}: A Computational Model of
+        Emotion for Enhancing Non-Player Character Believability in Games}
+        \author{Geneva M. Smith}
+        \date{Version~\ref{current_version_TestPlan} (March 24, 2023)}
+
+        \maketitle
+    \end{titlepage}
+
+    \pagestyle{fancy}
+
+    \vspace*{\fill}
+    \section*{Revision History}
+    \begin{center}
+        \begin{tabular}{m{0.17\linewidth}C{0.13\linewidth}m{0.6\linewidth}}
+            \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+            \midrule
+            \vspace*{1mm}March 24, 2023 &
+            \vspace*{1mm}\newref{1.0}\label{current_version_TestPlan} &
+            \vspace*{5mm}
+            \begin{itemize}[noitemsep, nosep]
+                \item Initial version
+            \end{itemize} \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    \vspace*{\fill}
+
+    \clearpage
+
+    \tableofcontents
+
+    \clearpage
+
+    \listoftables
+
+    \listoffigures
+
+    \clearpage
+
+    \input{refmaterial}
+
+    \clearpage
+
+    \input{General/general}
+
+    \clearpage
+
+    \input{Plan/plan}
+
+    \clearpage
+
+    \input{Reporting/reporting}
+
+    \clearpage
+
+    \bibliographystyle {ACM-Reference-Format}
+    \bibliography{../../../refs/references_test,
+    ../../../refs/references_gamedesign, ../../../refs/references,
+    ../../../refs/references_documentation}
+
+    \clearpage
+
+    \input{Appendix/appendix}
+
+\end{document}

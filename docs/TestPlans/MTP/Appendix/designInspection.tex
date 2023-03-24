@@ -1,0 +1,77 @@
+\subsection{Design Inspection Guide}\label{appendix:designInspection}
+This list is a guide for reviewers in the peer review of the Module Interface
+Specification (MIS) document (Section~\ref{sec:designVV}). The list organizes
+prompts by MIS section in the order that they appear in the document. Reviewers
+are encouraged to include their own checks to this guide.
+
+\paragraph{Introduction}
+\begin{itemize}
+
+    \item Does the introduction summarize the problem domain described in the
+    SRS?
+
+    \item Does the introduction have references/links to the SRS and MG?
+
+\end{itemize}
+
+\paragraph{Notation}
+\begin{itemize}
+
+    \item Is the notation unambiguous?
+
+    \item Is the notation complete?
+
+    \item Is the notation used consistently throughout the MIS?
+
+\end{itemize}
+
+\paragraph{Module Hierarchy}
+\begin{itemize}
+
+    \item Does the module hierarchy match the MG?
+
+    \item Is there a specification for each module in the module hierarchy?
+
+\end{itemize}
+
+\paragraph{Module Specifications}
+\begin{itemize}
+
+    \item Does the introductory content describe the purpose and key
+    characteristics of the module?
+
+    \item Are the modules classified correctly (e.g. Interface, ADT, Generic)?
+
+    \item Are all exported constants defined with a literal value?
+
+    \item Are the assumptions justified?
+
+    \item Do all access routines do something (i.e. output or state transition)?
+
+    \item Are all operations type safe?
+
+    \item Are all state invariants initially satisfied?
+
+    \item Are all state invariants satisfied when an access routine terminates?
+
+    \item Do local functions make the specification easier to understand?
+
+    \item Does each module satisfy the principle of high cohesion?
+
+\end{itemize}
+
+\paragraph{Readability}
+\begin{itemize}
+
+    \item Is the document well structured?
+
+    \item Is the writing clear and cohesive?
+
+    \item Is the writing concise?
+
+    \item Do all symbols, abbreviations, and notation in the MIS appear/have a
+    reference to a definition in the Reference Material?
+
+    \item Is the document free of spelling and grammar errors?
+
+\end{itemize}

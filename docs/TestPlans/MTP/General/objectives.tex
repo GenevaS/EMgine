@@ -1,0 +1,84 @@
+\subsection{Scope of Testing Efforts}
+The overall goals of \progname{}'s testing effort are:
+\begin{enumerate}
+
+    \item Ensure traceability between \progname{}'s concept and each of its
+    software development artifacts (SDAs)
+
+    \item Create a basis for building confidence in the grounding of
+    \progname{}'s behaviours in affective science/psychology
+
+    \item Create a basis for building confidence in \progname{}'s functionality
+    and usability (i.e learnability and amount of effort required to use it)
+
+\end{enumerate}
+
+A test plan must be executed in full for each new major version of a software
+development artifact (SDA). Previous versions of that SDA do not need to be
+retested. An informal version of a test plan can be executed for new minor
+versions of a SDA to help reduce the effort required when testing the next
+major version.
+
+The testing effort includes a verification and/or validation plan for each SDA
+that is expected from \progname{}'s SDLC stages (Table~\ref{tab:slc}). Each
+plan has an associated report that documents the results of the testing
+activities:
+\begin{itemize}
+
+    \item The Master Test Report (MTR) documents the results of
+    \textit{document} verification (i.e. SRS, MG, MIS, Test Plans) and
+    references all other test reports
+
+    \item The System, Integration, and Unit Test Report (SIUTR) documents the
+    results of system, integration, and unit testing
+
+    \item The Acceptance Test Report (ATR) documents the results of acceptance
+    testing
+
+\end{itemize}
+
+\begin{table}[!h]
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \caption{Expected SDAs for \progname{}'s SDLC Stages}
+    \label{tab:slc}
+    \begin{tabular}{P{0.3\linewidth}P{0.58\linewidth}}
+        \toprule
+        \textbf{Stage} & \textbf{SDA} \\
+
+        \midrule
+
+        \colourCell Concept Definition &
+        \colourCell \textbullet{} Concept Summary \newline
+        \textbullet{} Master Test Plan \newline
+        \textbullet{} Master Test Report (Partial) \\
+
+        Requirements Analysis & \textbullet{} Software Requirements
+        Specification \newline
+        \textbullet{} System Test Plan \newline
+        \textbullet{} Acceptance Test Plan \newline
+        \textbullet{} Master Test Report (Partial) \\
+
+        \colourCell Architecture Definition &
+        \colourCell \textbullet{} Module Guide \newline
+        \textbullet{} Integration Test Plan \newline
+        \textbullet{} Master Test Report (Partial) \\
+
+        Design Definition & \textbullet{} Module Interface Specification
+        \newline
+        \textbullet{} Unit Test Plan \newline
+        \textbullet{} Master Test Report (Partial) \\
+
+        \colourCell Implementation &
+        \colourCell \textbullet{} Source Code \newline
+        \textbullet{} Source Code Documentation \\
+
+        Verification & \textbullet{} System, Integration, and Unit Test Report
+        \\
+
+        \colourCell Validation & \colourCell \textbullet{}
+        Acceptance Test Report \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}

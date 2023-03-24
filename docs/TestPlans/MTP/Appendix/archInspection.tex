@@ -1,0 +1,108 @@
+\subsection{Architecture Inspection Guide}\label{appendix:archInspection}
+This list is a guide for reviewers in the peer review of the Module Guide (MG)
+document (Section~\ref{sec:archVV}). The list organizes prompts by MG section
+in the order that they appear in the document. Reviewers are encouraged to
+include their own checks to this guide.
+
+\paragraph{Introduction}
+\begin{itemize}
+
+    \item Does the introduction summarize the problem domain described in the
+    SRS?
+
+    \item Is the document's purpose described unambiguously?
+
+    \item Is the document's purpose described accurately?
+
+    \item Are the characteristics of the intended reader describing the readers
+    of the MG?
+
+    \item Are the characteristics of the intended reader complete?
+
+    \item Is the document accessible to its intended readers?
+
+    \item Is the description of the MG's document structure accurate?
+
+\end{itemize}
+
+\paragraph{Anticipated and Unlikely Changes}
+\begin{itemize}
+
+    \item Are the likely changes from the SRS associated with at least one
+    anticipated change?
+
+    \item Are the unlikely changes justified?
+
+\end{itemize}
+
+\paragraph{Connection Between Requirements and Design}
+\begin{itemize}
+
+    \item Is the justification for the proposed architecture unambiguous?
+
+    \item Is the justification for the proposed architecture traceable to
+    stakeholder needs as described in the SRS?
+
+    \item Is the justification for the proposed architecture traceable to one
+    or more functional and/or nonfunctional requirements from the SRS?
+
+\end{itemize}
+
+\paragraph{Module Hierarchy and Decomposition}
+\begin{itemize}
+
+    \item Do the modules satisfy the principle of information hiding?
+
+    \item Is there one secret per module? If not, is it justified?
+
+    \item Are the behaviour-hiding modules related to requirements in the SRS?
+
+    \item Are the software decision modules related to concepts that are not in
+    the SRS?
+
+    \item Are the software decision modules necessary to the design?
+
+\end{itemize}
+
+\paragraph{Traceability Matrices}
+\begin{itemize}
+
+    \item Is every functional requirement from the SRS satisfied by at least
+    one module?
+
+    \item Is every module used to satisfy at least one functional requirement
+    from the SRS?
+
+    \item Is there one anticipated change per module? If not, is it justified?
+
+\end{itemize}
+
+\paragraph{Use Hierarchy Between Modules}
+\begin{itemize}
+
+    \item Is the use hierarchy complete?
+
+    \item Is the use hierarchy accurate?
+
+    \item Is the use hierarchy hierarchical?
+
+    \item Does the hierarchy satisfy the principle of low coupling between
+    modules?
+
+\end{itemize}
+
+\paragraph{Readability}
+\begin{itemize}
+
+    \item Is the document well structured?
+
+    \item Is the writing clear and cohesive?
+
+    \item Is the writing concise?
+
+    \item Do all symbols, abbreviations, and notation in the MG appear in the
+    Reference Material?
+
+    \item Is the document free of spelling and grammar errors?
+
+\end{itemize}

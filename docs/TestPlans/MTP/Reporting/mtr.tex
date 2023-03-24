@@ -1,0 +1,60 @@
+\subsection{Master Test Report}\label{reporting:mtr}
+The Master Test Report (MTR) provides an overview of all V \& V efforts,
+including those documented in other test reports. The document's content and
+organization is based on IEEE Std 829-2008 Clause 17: Master Test
+Report~\citep{vvDocIEEE}. The MTR must include:
+\begin{enumerate}
+
+    \item Document Revision History
+
+    \item Reference Material (e.g. symbols, acronyms, definitions)
+
+    \item Introduction \\
+    Identify who prepared the report, its purpose, and its current status (e.g.
+    Draft, Final)
+    \begin{enumerate}
+
+        \item Scope \\
+        Summarize the components of \progname{} tested, which might include a
+        reference/addition/ changes to the Master Test Plan (MTP) and/or a
+        component's testing history
+
+        \item Relevant Documentation \\
+        Provide references to documents necessary for compiling the MTR,
+        including the: Acceptance Test Report (Section~\ref{reporting:atr}),
+        System, Integration, and Unit Test Report
+        (Section~\ref{reporting:siutr}), and all other test reports created
+        during V \& V; and Software Development Artifacts (SDAs) and standards
+        (e.g. IEEE Std 829-2008)
+
+    \end{enumerate}
+
+    \item Details of the MTR \\
+    ``This section describes the overview of all aggregate test results,
+    rational for any decisions, and the final conclusions and
+    recommendations.''~\citep[p.~67]{vvDocIEEE}
+    \begin{enumerate}
+
+        \item Overview of Aggregated Test Results \\
+        Provide executive-level summaries of testing activities and tasks with
+        references to the MTP (i.e. Section~\ref{testplan_highlevel}),
+        categorized summaries of resolved and unresolved issues with references
+        to reports (Section~\ref{reporting:issues}), summaries of collected
+        metrics, and an overall assessment of \progname{}'s quality with
+        justification
+
+        \item Decision Rationale \\
+        Explain if \progname{} passes or fails its V \& V; if it conditionally
+        passes, describe the qualifying restrictions and/or issues that must be
+        resolved for \progname{} to pass
+
+        \item Conclusions and Recommendations \\
+        Describe the overall evaluation of \progname{}, recommendations and
+        circumstances for use, recommendations concerning its readiness for
+        release, lessons learned during testing which might include the
+        identification of issue categories and/or root cause analysis, and how
+        to handle deferred issues
+
+    \end{enumerate}
+
+\end{enumerate}

@@ -1,0 +1,89 @@
+\subsection{Implementation Validation}\label{plan:validate}
+The goal of implementation validation is to evaluate \progname{}'s ability to
+meet its stakeholders' expectations with respect to its behaviour and
+characteristics. This corresponds to the software acceptance test procedure V
+\& V and traceability analysis tasks in Section 9.7 of IEEE Std
+1012-2016~\citep{vvIEEE}.
+
+\paragraph{Method} Validation relies on test cases and user studies:
+\begin{itemize}
+
+    \item Test cases evaluate \progname{}'s models to see if they produce the
+    ``correct'' emotion type and intensity given an emotion-eliciting context.
+    This involves the creation of test cases from scenarios where ``inputs''
+    are deducible and ``outputs'' are readily observable.
+
+    \item User studies evaluate meets the needs of \progname{}'s stakeholders
+    by involving them directly in the testing process. Their design is based on
+    methods and techniques from Human-Computer Interaction (HCI).
+
+\end{itemize}
+
+For information about test case specifications, user study designs, and
+traceability to \progname{}'s requirements, see the ``Acceptance Test Plan for
+\progname{}: A Computational Model of Emotion for Enhancing Non-Player
+Character Believability in Games'' document.
+
+\paragraph{Role Assignments} To assist in the achievement of their
+assigned goals (Table~\ref{tab:rolesAcceptance}):
+\begin{itemize}
+
+    \item Primary team members are responsible for preparing testing reports
+    and providing them to other members of the validation team
+
+    \item Secondary team members are responsible for advising primary members
+    during test report preparation in accordance with their expertise
+
+    \item Tertiary team members are responsible for evaluating test reports for
+    clarity and comprehensiveness
+
+\end{itemize}
+
+\paragraph{Inputs}
+\begin{itemize}
+
+    \item Source Code and Documentation for \progname{}: A Computational Model
+    of Emotion for Enhancing Non-Player Character Believability in Games
+
+    \item User Manual for \progname{}: A Computational Model
+    of Emotion for Enhancing Non-Player Character Believability in Games
+
+    \item Acceptance Test Plan for \progname{}: A Computational Model of
+    Emotion for Enhancing Non-Player Character Believability in Games
+
+    \item Master Test Report (MTR)
+
+    \item System, Integration, and Unit Test Report (SIUTR)
+
+\end{itemize}
+
+\paragraph{Outputs}
+\begin{itemize}
+
+    \item Objective evidence that \progname{} satisfies all allocated system
+    requirements and its intended use and user needs
+
+    \item Input to MTR
+
+    \item Input to the Acceptance Test Report (ATR)
+
+\end{itemize}
+
+\paragraph{Estimated Completion Time} Two (2) weeks + X $\times$ four (4)
+weeks, where X is the number of user studies
+
+This value is derived from estimates pertaining to the quantity of required
+test cases and the number and nature of the user studies.
+
+It is difficult to know how many test cases are necessary to validate a CME.
+One report estimates that researchers created approximately 600 different
+scenarios for a CME with 24 emotion kinds~\citep{elliott1998hunting}. For
+\progname{}, this is approximately 200 scenarios for eight emotion kinds.
+Accounting for time to analyze and reason about tests the \progname{} fails,
+the expected completion time for test case validation is two weeks if roughly
+20 test cases are completed per day.
+
+Due to the involvement of human participants, completing user studies is an
+extended process. It is estimated that---per user study---data collection will
+take approximately two and a half weeks and data analysis one and a half weeks
+for a total of four weeks.

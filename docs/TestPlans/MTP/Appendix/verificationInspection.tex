@@ -1,0 +1,97 @@
+\subsection{Implementation Inspection
+Guide}\label{appendix:verificationInspection}
+This list is a guide for reviewers in the peer review of the source code and
+source code documentation (Section~\ref{plan:implementation}). The list
+includes prompts for reviewing test case documentation, source code, and source
+code documentation. Reviewers are encouraged to include their own checks to
+this guide.
+
+\paragraph{Test Case Documentation}
+\begin{itemize}
+
+    \item Is the documentation's purpose described unambiguously?
+
+    \item Is the documentation's purpose described accurately?
+
+    \item Is the scope of the test case verification accurate?
+
+    \item Are the types of test cases used accurate?
+
+    \item Are the types of test cases used sufficient?
+
+    \item Are automated testing and/or verification tools documented?
+
+    \item Do the test cases have specific inputs?
+
+    \item Do the test cases have explicitly defined expected outputs?
+
+    \item Is every functional requirement from the SRS satisfied by at least
+    one system-level test case?
+
+    \item Is there at least one test case where a set of modules is tested as
+    an integrated unit such that only one new module is added to the set in a
+    single test case?
+
+    \item Are there sufficient test cases for each module?
+
+\end{itemize}
+
+\paragraph{Source Code and Documentation}
+\begin{itemize}
+
+    \item Does each source code file have a header listing the:
+    \begin{itemize}
+        \item Last modified date
+        \item Programming language and its version
+        \item Imported libraries and/or components and their version
+        \item Operating System and its version
+        \item License
+        \item Author(s)
+    \end{itemize}
+
+    \item Does each function have a header describing its purpose, inputs, and
+    outputs?
+
+    \item Are the coding standards of the implementation language used
+    consistently throughout the source code and its documentation?
+
+    \item Are constants named consistently?
+
+    \item Are constants given symbolic names?
+
+    \item Are variables named consistently?
+
+    \item Are functions named consistently?
+
+    \item Are source code files organized consistently with respect to each
+    other?
+
+    \item Are source code files formatted consistently with respect to each
+    other?
+
+    \item Is the source code as simple as possible?
+
+    \item Are modifications to the source code clearly documented?
+
+    \item Is the source code documentation complete/traceable to the source
+    code?
+
+    \item Is the source code documentation unambiguous?
+
+\end{itemize}
+
+\paragraph{Readability}
+\begin{itemize}
+
+    \item Is the code/document well structured?
+
+    \item Is the writing clear and cohesive?
+
+    \item Is the writing concise?
+
+    \item (If applicable) Do all symbols, abbreviations, and notation in the
+    document appear/have a reference to a definition in the Reference Material?
+
+    \item Is the code/document free of spelling and grammar errors?
+
+\end{itemize}

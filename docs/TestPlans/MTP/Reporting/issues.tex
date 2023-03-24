@@ -1,0 +1,77 @@
+\subsection{Issue Report}\label{reporting:issues}
+The Issue Report (IR) is for documenting any event that happens during testing
+that must be investigated. The document's content and organization is a
+combination of IEEE Std 829-2008 Clause 14: Anomaly Report~\citep{vvDocIEEE}.
+The ATR must include:
+\begin{enumerate}
+
+    \item Document Revision History
+
+    \item Introduction \\
+    Identify who prepared the report, its purpose, and its current status (e.g.
+    Draft, Final)
+    \begin{enumerate}
+
+        \item Issue Identification Code/Number
+
+        \item Scope \\
+        Describe any contextual information necessary for understanding the IR
+
+        \item Relevant Documentation \\
+        Provide references to documents necessary for understanding the IR,
+        such as a reference to a test plan and/or report
+
+    \end{enumerate}
+
+    \item Details of the IR \\
+    ``This section identifies the items contained in the [IR] including its
+    status and corrective actions taken.''~\citep[p.~61]{vvDocIEEE}
+    \begin{enumerate}
+
+        \item Summary \\
+        Provide a summary of the issue
+
+        \item Status of the Issue \\
+        State the current status of the issue as one of:
+        \begin{itemize}
+            \item Open
+            \item Assigned
+            \item Fixed
+            \item Retested with Fix
+            \item Resolved
+        \end{itemize}
+
+        \item Description of Issue \\
+        Provide a description of the issue, sufficient conditions to
+        reproduce it, which might include inputs, expected and actual outputs,
+        unexpected outcomes, procedure step, environment, attempts to repeat
+        the test, and the involved testers and/or observers, and any
+        observations and/or activities that could help isolate and correct the
+        issue
+
+        \item Context \\
+        Identify the version and components of the Software Development
+        Artifact (SDA) and/or Software Development Life Cycle (SDLC) stage the
+        issue was discovered in; and the associated test level and items with
+        their version level involved in the discovery
+
+        \item Date Discovered \\
+        Record the date that the issue was first discovered
+
+        \item Impact \\
+        If known, describe the breadth and depth of the issue's impact on
+        affected SDAs and/or stakeholder needs, and any known workarounds for
+        the issue
+
+        \item Description of Corrective Action \\
+        Provide a summary of the activities taken to resolve the issue, which
+        can include deferral or retirement of duplicate issue
+
+        \item Conclusions and Recommendations \\
+        Describe the source/cause of the issue and/or provide recommendations
+        for changes to development and/or testing processes to help prevent
+        this issue in the future
+
+    \end{enumerate}
+
+\end{enumerate}
