@@ -1,0 +1,191 @@
+\section{Social Attachment Type Module (\mref{mSocial}):
+SocialAttachmentT}\label{socialModule}
+
+The Social Attachment ADT $\socialattachmenttype$ is for defining how socially
+``attached'' an entity is to $A$ in discrete levels of liking. It is allowed to
+be negative to represent disliking $A$.
+
+The $\mathit{levelUpSize} : \mathbb{N}$ and $\mathit{levelDownSize} :
+\mathbb{N}$ state variables are for utility such that users can modify how many
+steps each ``attachment'' increment should take, which could differ in each
+direction.
+
+\subsection{Uses}
+\begin{itemize}[noitemsep, nosep]
+
+    \item None
+
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Types}
+\begin{itemize}
+
+    \item SocialAttachmentT = $\left\{ \, \mathit{attachmentLevel} :
+    \mathbb{Z}, \, \mathit{levelUpSize} : \mathbb{N}, \, \mathit{levelDownSize}
+    : \mathbb{N} \, \right\} $
+
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.32\linewidth} m{0.04\linewidth} m{0.175\linewidth}
+            m{0.32\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}new SocialAttachmentT & $\mathbb{Z}$ &
+        SocialAttachmentT & -- \\
+
+        GetAttachmentLevel & -- & $\mathbb{Z}$ & -- \\
+
+        \rowcolor[gray]{0.9}ChangeAttachmentLevel & $\mathbb{Z}$ & -- & -- \\
+
+        GetAttachmentLevelUpSize & -- & $\mathbb{N}$ & -- \\
+
+        \rowcolor[gray]{0.9}ChangeAttachmentLevelUpSize & $\mathbb{N}$ & -- &
+        W-SA\_NEGATIVE\_LEVELSIZE \\
+
+        GetAttachmentLevelDownSize & -- & $\mathbb{N}$ & -- \\
+
+        \rowcolor[gray]{0.9}ChangeAttachmentLevelDownSize & $\mathbb{N}$ & -- &
+        W-SA\_NEGATIVE\_LEVELSIZE \\
+
+        IncrementAttachmentLevel & -- & -- & -- \\
+
+        \rowcolor[gray]{0.9}DecrementAttachmentLevel & -- & -- & -- \\
+
+        AddToAttachmentLevel & $\mathbb{Z}$ & -- & -- \\
+
+        \rowcolor[gray]{0.9}ResetAttachmentLevelToZero & -- & -- & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+
+    \item $ \mathit{attachmentLevel} : \mathbb{Z} $
+
+    \item $ \mathit{levelUpSize} : \mathbb{N} $
+
+    \item $ \mathit{levelDownSize} : \mathbb{N} $
+
+\end{itemize}
+
+\clearpage\subsubsection{Access Routine Semantics}
+
+\noindent new SocialAttachmentT($\mathit{level}$):
+\begin{itemize}
+
+    \item output: $out :=$ self
+
+    \item transition: $ \mathit{attachmentLevel}, \mathit{levelUpSize},
+    \mathit{levelDownSize} := \mathit{level}, 1, 1 $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GetAttachmentLevel():
+\begin{itemize}
+
+    \item output: $out := \mathit{attachmentLevel} $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent ChangeAttachmentLevel($\mathit{level}$):
+\begin{itemize}
+
+    \item transition: $\mathit{attachmentLevel} := \mathit{level} $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GetAttachmentLevelUpSize():
+\begin{itemize}
+
+    \item output: $out := \mathit{levelUpSize} $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent ChangeAttachmentLevelUpSize($\mathit{numLevels}$):
+\begin{itemize}
+
+    \item transition: $\mathit{levelUpSize} := \mathit{numLevels} $
+
+    \item exception: $exc := ( \mathit{numLevels} < 0 \Rightarrow
+    \text{W-SA\_NEGATIVE\_LEVELSIZE} )$
+
+\end{itemize}
+
+\noindent GetAttachmentLevelDownSize():
+\begin{itemize}
+
+    \item output: $out := \mathit{levelDownSize} $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent ChangeAttachmentLevelDownSize($\mathit{numLevels}$):
+\begin{itemize}
+
+    \item transition: $\mathit{levelDownSize} := \mathit{numLevels} $
+
+    \item exception: $exc := ( \mathit{numLevels} < 0 \Rightarrow
+    \text{W-SA\_NEGATIVE\_LEVELSIZE} )$
+
+\end{itemize}
+
+\noindent IncrementAttachmentLevel():
+\begin{itemize}
+
+    \item transition: $\mathit{attachmentLevel} :=
+    \mathit{attachmentLevel} + \mathit{levelUpSize} $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent DecrementAttachmentLevel():
+\begin{itemize}
+
+    \item transition: $\mathit{attachmentLevel} :=
+    \mathit{attachmentLevel} - \mathit{levelDownSize} $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent AddToAttachmentLevels($\mathit{numLevels}$):
+\begin{itemize}
+
+    \item transition: $\mathit{attachmentLevel} :=
+    \mathit{attachmentLevel} + \mathit{numLevels} $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent ResetAttachmentLevelToZero():
+\begin{itemize}
+
+    \item transition: $\mathit{attachmentLevel} := 0 $
+
+    \item exception: None
+
+\end{itemize}

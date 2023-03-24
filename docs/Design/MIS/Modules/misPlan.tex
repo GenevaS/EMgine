@@ -1,0 +1,147 @@
+\section{Plan Type Module (\mref{mPlan}): PlanT(S)} \label{planModule}
+
+The Plan Generic ADT is for defining entity plans $\plantype$ as a sequence of
+world states $\worldstatetype$. Each world state in the sequence is a ``step''
+in the plan achievable by a world event $\worldstatechangetype$ that alters the
+current world state to a plan ``step''.
+
+The Plan ADT does \textit{not} use GoalT(T) (Section~\ref{goalModule}) directly
+so that it can work for any target world state, which might not be part of a
+GoalT(T) structure. It is possible to check if a plan moves towards achieving a
+goal by passing the goal state into \texttt{IsPlanUseful}.
+
+\subsection{Uses}
+\begin{itemize}[noitemsep, nosep]
+
+    \item IWorld(T) (Section~\ref{worldstateModule})
+
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Types}
+\begin{itemize}
+
+    \item PlanT(T) = Seq. of WorldStateT(T)
+
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.2\linewidth} m{0.23\linewidth} m{0.22\linewidth}
+    m{0.25\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}new PlanT(T) & Seq. of WorldStateT(T) & PlanT(T) &
+        -- \\
+
+        GetPlan & -- & Seq. of WorldStateT(T) & -- \\
+
+        \rowcolor[gray]{0.9}GetNumStatesInPlan & -- & $\mathbb{Z}$ & -- \\
+
+        UpdatePlanAt & $\mathbb{Z}$, WorldStateT(T) & -- & E-P\_OUT\_OF\_BOUNDS
+        \\
+
+        \rowcolor[gray]{0.9}IsPlanUseful & WorldStateT(T) & $\mathbb{B}$ & -- \\
+
+        IsPlanFeasible & Set of WorldEventT(T) & $\mathbb{B}$ &
+        E-P\_TOO\_FEW\_EVENTS \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsubsection{Assumptions}
+The concrete type of T is the same as the concrete type of T in IWorld(T).
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+
+    \item $\mathit{plan} : $ Seq. of WorldStateT(T)
+
+\end{itemize}
+
+\clearpage
+\subsubsection{Access Routine Semantics}
+
+\noindent new PlanT(T)($\mathit{worldStateSequence}$):
+\begin{itemize}
+
+    \item output: $out :=$ self
+
+    \item transition: $ \mathit{plan} := \mathit{worldStateSequence} $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GetPlan():
+\begin{itemize}
+
+    \item output: $out := \mathit{plan} $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GetNumStatesInPlan():
+\begin{itemize}
+
+    \item output: $out := | \, \mathit{plan} \, |$
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent UpdatePlanAt($\mathit{step}, \mathit{newState}$):
+\begin{itemize}
+
+    \item transition: $ \mathit{plan}[\mathit{step}] := \mathit{newState} $
+
+    \item exception: $exc := ( \mathit{step} \notin
+    \left[0..\text{GetNumStatesInPlan} - 1 \right] \Rightarrow
+    \text{E-P\_OUT\_OF\_BOUNDS} )$
+
+\end{itemize}
+
+\noindent IsPlanUseful($\mathit{targetState}$):
+\begin{itemize}
+
+    \item output: $out := F < S $
+        \begin{nospaceflalign*}
+            \text{where } F &=
+            \text{CalcDistBtw}(\mathit{plan}[\text{GetNumStatesInPlan} - 1],
+            \mathit{targetState}) &\\
+            \text{and } S &= \text{CalcDistBtw}(\mathit{plan}[0],
+            \mathit{targetState}) \text{ }
+        \end{nospaceflalign*}
+        \# CalcDistBtw from IWorld(T)
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent IsPlanFeasible($\mathit{worldEvents}$):
+\begin{itemize}
+
+    \item output: $ out := $
+        \begin{nospaceflalign*}
+            (\forall& p_j \in \mathit{plan} \wedge j \in
+            \left[1..\text{GetNumStatesInPlan} - 1 \right] &\\
+            &| \; \exists \, \{ p_i, e \} \in \mathit{plan} \times
+            \mathit{worldEvents} \wedge 0 \leq i < j \Rightarrow
+            \text{ApplyEvent}(p_i, e) = p_j )
+        \end{nospaceflalign*}
+        \# ApplyEvent from IWorld(T)
+
+    \item exception: $exc := (\, | \, \mathit{worldEvents} \, | \neq
+    \text{GetNumStatesInPlan} - 1 \Rightarrow \text{E-P\_TOO\_FEW\_EVENTS} )$
+
+\end{itemize}

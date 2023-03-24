@@ -1,0 +1,136 @@
+\section{PAD Type Module (\mref{mPADType}): PAD3DPointT}\label{padModule}
+The PAD ADT is for defining a PAD point $\padpoint$, a point in 3D Cartesian
+space with axes \textit{pleasure} (P), \textit{arousal} (A), and
+\textit{dominance} (D). Each of P, A, and D are in the range $[-1, 1]$.
+
+This design is application-agnostic and can exist independently of \progname{}.
+
+\subsection{Uses}
+\begin{itemize}[noitemsep, nosep]
+
+    \item None
+
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+\begin{itemize}
+
+    \item MIN\_BOUND : $-1 \in \mathbb{R}$
+
+    \item MAX\_BOUND : $1 \in \mathbb{R}$
+
+    \item DIM\_ORDER : Tuple of $\left( \text{'P'}, \text{'A'}, \text{'D' :
+    char} \right)$
+
+\end{itemize}
+
+\subsubsection{Exported Types}
+
+\begin{itemize}
+
+    \item PAD3DPointT = Tuple of $\left( P, A, D : \mathbb{R} \right)$
+
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.22\linewidth} m{0.14\linewidth} m{0.2\linewidth}
+    m{0.34\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}new PAD3DPointT & $\mathbb{R}$, $\mathbb{R}$,
+        $\mathbb{R}$ & PAD3DPointT & W-PADPNT\_OUT\_OF\_BOUNDS \\
+
+        GetPADPoint & -- & Tuple of $\left( P, A, D : \mathbb{R} \right)$ & --
+        \\
+
+        \rowcolor[gray]{0.9}ScaleByValue & $\mathbb{R}$ & PAD3DPointT & -- \\
+
+        Equals & PAD3DPointT & $\mathbb{B}$ & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+
+    \item $\mathit{PAD3DPnt} : $ Tuple of $\left( P, A, D : \mathbb{R} \right)$
+
+\end{itemize}
+
+\subsubsection{State Invariant}
+\begin{itemize}
+
+    \item MIN\_BOUND $ \leq \mathit{PAD3DPnt}.P \leq $ MAX\_BOUND
+
+    \item MIN\_BOUND $ \leq \mathit{PAD3DPnt}.A \leq $ MAX\_BOUND
+
+    \item MIN\_BOUND $ \leq \mathit{PAD3DPnt}.D \leq $ MAX\_BOUND
+
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new PAD3DPointT($p, a, d$):
+\begin{itemize}
+
+    \item output: $out :=$ self
+
+    \item transition: ($P$, $A$, $D) := p$, $a$, $d$
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{exception: } \mathit{exc := } \, ( \; p - \text{MIN\_BOUND} <
+            -\epsilon &\vee p - \text{MAX\_BOUND} > \epsilon &\\
+            &\Rightarrow \text{W-PADPNT\_OUT\_OF\_BOUNDS} &\\
+        | \; a - \text{MIN\_BOUND} < -\epsilon &\vee a - \text{MAX\_BOUND} >
+        \epsilon &\\
+        &\Rightarrow \text{W-PADPNT\_OUT\_OF\_BOUNDS} &\\
+        | \; d - \text{MIN\_BOUND} < -\epsilon &\vee d - \text{MAX\_BOUND} >
+        \epsilon &\\
+        &\Rightarrow \text{W-PADPNT\_OUT\_OF\_BOUNDS} \; )
+    \end{nospaceflalign*}
+    }
+
+\end{itemize}
+
+\noindent GetPADPoint():
+\begin{itemize}
+
+    \item output: $out := $ ($P$, $A$, $D$)
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent ScaleByValue($v$):
+\begin{itemize}
+
+    \item output: $\mathit{out := } \, \text{new PAD3DPointT}( \;
+            \mathit{PAD3DPnt}.P \cdot v, \mathit{PAD3DPnt}.A \cdot v,
+            \mathit{PAD3DPnt}.D \cdot v \; ) $
+
+    \item exception: None \# Exceptions thrown from new PAD3DPointT
+
+\end{itemize}
+
+\noindent Equals($padPnt$):
+\begin{itemize}
+
+    \item output: $out := \left( \; | \, P - padPnt.\text{P} \, | \, \leq
+    \epsilon \wedge \; | \, A - padPnt.\text{A} \, | \, \leq \epsilon \wedge \;
+    | \, D - padPnt.\text{D} \, | \, \leq \epsilon \; \right)$
+
+    \item exception: None
+
+\end{itemize}

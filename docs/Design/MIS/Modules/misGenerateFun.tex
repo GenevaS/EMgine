@@ -1,0 +1,303 @@
+\section{Emotion Generation Module (\mref{mGenerate}):
+EmGenFunLib}\label{generateModule}
+
+The Emotion Generation Function Library collects methods for determining if an
+entity is experiencing an emotion by making evaluations about the
+environment---world state, event, and time---and internal factors such as
+goals, plans, attention, social attachments, and---potentially---the entity's
+emotion state. Each emotion in EmotionTypesT (Section~\ref{emotionstateModule})
+has its own function to make it easier to use, reuse, and/or modify them
+individually.
+
+The functions are application-specific, as they are modelled on specific
+emotion theories and \progname{} assumptions.
+
+\subsection{Uses}
+\begin{itemize}[noitemsep, nosep]
+
+    \item EmotionIntensityT (Section~\ref{intensityModule})
+
+    \item ITime(T, U) (Section~\ref{timeModule})
+
+    \item IWorld(T) (Section~\ref{worldstateModule})
+
+    \item GoalT(T) (Section~\ref{goalModule})
+
+    \item PlanT(T) (Section~\ref{planModule})
+
+    \item IAttention(U) (Section~\ref{attentionModule})
+
+    \item SocialAttachmentT (Section~\ref{socialModule})
+
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.19\linewidth} m{0.17\linewidth} m{0.28\linewidth}
+            m{0.26\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}GenerateJoy & WorldStateT(T), WorldEventT(T),
+        GoalT(T) & Tuple of \newline (DistBtwWorldStatesT(T),
+        DistBtwWorldStatesT(T), DistChgBtwWorldStatesT(T))$^?$ & -- \\
+
+        GenerateSadness & WorldStateT(T), WorldEventT(T), GoalT(T),
+        PlanT(T)$^?$, Seq. of WorldEventT(T)$^?$ & Tuple of
+        (WorldStateT(T)$^?$, \newline DistBtwWorldStatesT(T), \newline
+        $\mathbb{Z}^?$, WorldEventT(T)$^?$)$^?$ & -- \\
+
+        \rowcolor[gray]{0.9}GenerateFear & WorldStateT(T), WorldEventT(T),
+        GoalT(T), $\mathbb{B}$ & Tuple of \newline (DistBtwWorldStatesT(T),
+        DistBtwWorldStatesT(T), DistChgBtwWorldStatesT(T))$^?$ & -- \\
+
+        GenerateAnger & WorldStateT(T), WorldEventT(T), PlanT(T), Seq. of
+        WorldEventT(T)$^?$ & Tuple of (WorldStateT(T), \newline $\mathbb{Z}$,
+        WorldEventT(T))$^?$ & -- \\
+
+        \rowcolor[gray]{0.9}GenerateDisgust & WorldStateT(T), WorldEventT(T),
+        GoalT(T), $\mathbb{B}$ & Tuple of \newline (DistBtwWorldStatesT(T),
+        DistBtwWorldStatesT(T), DistChgBtwWorldStatesT(T))$^?$ & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.19\linewidth} m{0.17\linewidth} m{0.28\linewidth}
+            m{0.26\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}GenerateAcceptance & SocialAttachmentT$^?$,
+        EmIntensityT, \newline EmIntensityT & Tuple of (SocialAttachmentT,
+        EmIntensityChgT)$^?$ & -- \\
+
+        GenerateInterest & AttentionT(U), \newline AttentionT(U) &
+        AttentionT(U)$^?$ & -- \\
+
+        \rowcolor[gray]{0.9}GenerateSurprise & TimeT(T), TimeT(T), \newline
+        DeltaTimeT(U) & DeltaTimeT(U)$^?$ & -- \\
+
+        GenerateGoalEmotions & WorldStateT(T), WorldEventT(T), GoalT(T),
+        $\mathbb{B}$, $\mathbb{B}$ & Tuple of (Tuple of \newline
+        (DistBtwWorldStatesT(T), DistBtwWorldStatesT(T),
+        DistChgBtwWorldStatesT(T))$^?$, Tuple of (WorldStateT(T),
+        DistBtwWorldStatesT(T))$^?$, Tuple of \newline (DistBtwWorldStatesT(T),
+        DistBtwWorldStatesT(T), DistChgBtwWorldStatesT(T))$^?$, Tuple of
+        \newline (DistBtwWorldStatesT(T), DistBtwWorldStatesT(T),
+        DistChgBtwWorldStatesT(T))$^?$) & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent GenerateJoy($\mathit{wState}$, $\mathit{wEvent}$, $\mathit{g}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } out := ( \, g.\text{Dist2GoalChg}&(\mathit{wState},
+            \mathit{wEvent}) > 0 &\\
+            \wedge \, g.\text{Dist2Goal}(&\text{ApplyEvent}(\mathit{wState},
+            \mathit{wEvent})) < g.\text{Dist2Goal}(\mathit{wState}) &\\
+            \Rightarrow \, &( \, g.\text{Dist2Goal}(\mathit{wState}), &\\
+            &g.\text{Dist2Goal}(\text{ApplyEvent}(\mathit{wState},
+            \mathit{wEvent})), &\\
+            &g.\text{Dist2GoalChg}(\mathit{wState}, \mathit{wEvent}) \, ) &\\
+            | \, \text{Otherwise} \Rightarrow \, &\emptyset \, )
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+\end{itemize}
+
+\clearpage
+\noindent GenerateSadness($\mathit{wState}$, $\mathit{wEvent}$, $g$, $p$,
+$\mathit{pEvents}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } out := ( \, g.\text{Dist2Goal}(\mathit{wState}&) =
+            \pm \infty \Rightarrow (\emptyset,
+            g.\text{Dist2Goal}(\mathit{wState}), \emptyset, \emptyset) &\\
+            | \, ( \, p \neq \emptyset \, \wedge \,
+            p.\text{IsPlan}&\text{Useful}(g) = \True \wedge \exists p_i \in
+            p.\text{GetPlan()} \rightarrow p_i = \mathit{wState} &\\
+            \Rightarrow \, ( \, \exists j : \mathbb{N} &\rightarrow p_{i + j}
+            \in p.\text{GetPlan()} = \text{ApplyEvent}(\mathit{wState},
+            \mathit{wEvent}) &\\
+            \Rightarrow \, ( \, &\text{ApplyEvent}(\mathit{wState},
+            \mathit{wEvent}), g.\text{Dist2Goal}(\mathit{wState}), i + j,
+            \mathit{wEvent} \, ) &\\
+            | \, \nexists j \in \mathbb{N} &\rightarrow p_{i + j} \in
+            p.\text{GetPlan()} = \text{ApplyEvent}(\mathit{wState},
+            \mathit{wEvent}) &\\
+            &\wedge \exists a \in \mathit{pEvents}, x \in \mathbb{N}
+            \rightarrow p_{i+x} = \text{ApplyEvent}(\mathit{wState}, a) &\\
+            &\Rightarrow \, ( \, \text{ApplyEvent}(\mathit{wState}, a),
+            g.\text{Dist2Goal}(\mathit{wState}), i+x, a \, ) &\\
+            | \, \text{Other}&\text{wise} \Rightarrow \, ( \,
+            \text{ApplyEvent}(\mathit{wState}, \mathit{wEvent}),
+            g.\text{Dist2Goal}(\mathit{wState}), \emptyset, \emptyset \, ) \, )
+            &\\
+            | \, \text{Otherwise} \Rightarrow \, \emptyset \, )&
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GenerateFear($\mathit{wState}$, $\mathit{wEvent}$, $g$,
+$\mathit{gIsPreservational}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } out := ( \, \mathit{gIsPreservational} &= \True \,
+            \wedge \, g.\text{Dist2GoalChg}(\mathit{wState}, \mathit{wEvent}) >
+            0 &\\
+            \wedge \, g.\text{Dist2Goal}(&\text{ApplyEvent}(\mathit{wState},
+            \mathit{wEvent})) < g.\text{Dist2Goal}(\mathit{wState}) &\\
+            \Rightarrow \, &( \, g.\text{Dist2Goal}(\mathit{wState}), &\\
+            &g.\text{Dist2Goal}(\text{ApplyEvent}(\mathit{wState},
+            \mathit{wEvent})), &\\
+            &g.\text{Dist2GoalChg}(\mathit{wState}, \mathit{wEvent}) \, ) &\\
+            | \, \text{Otherwise} \Rightarrow \, &\emptyset \, )
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GenerateAnger($\mathit{wState}$, $\mathit{wEvent}$, $p$,
+$\mathit{pEvents}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } out := ( \, p \neq \emptyset \, \wedge \,
+            p.&\text{IsPlanUseful}(g) = \True \wedge \exists p_i \in
+            p.\text{GetPlan()} \rightarrow p_i = \mathit{wState} &\\
+            \Rightarrow \, ( \, &\nexists j \in \mathbb{N} \rightarrow p_{i +
+            j} \in p.\text{GetPlan()} = \text{ApplyEvent}(\mathit{wState},
+            \mathit{wEvent}) &\\
+            &\wedge \exists a \in \mathit{pEvents}, x \in \mathbb{N}
+            \rightarrow p_{i+x} = \text{ApplyEvent}(\mathit{wState}, a) &\\
+            &\Rightarrow \, ( \, \text{ApplyEvent}(\mathit{wState}, a), i+x, a
+            \, ) &\\
+            &| \, \text{Otherwise} \Rightarrow \, \emptyset\, ) \, )&\\
+            | \, \text{Otherwise}& \Rightarrow \, \emptyset \, )
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GenerateDisgust($\mathit{wState}$, $\mathit{wEvent}$, $g$,
+$\mathit{gIsGustatory}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } out := ( \, \mathit{gIsGustatory} = \True& \,
+            \wedge \, g.\text{Dist2GoalChg}(\mathit{wState}, \mathit{wEvent}) >
+            0 &\\
+            \wedge \, g.\text{Dist2Goal}(&\text{ApplyEvent}(\mathit{wState},
+            \mathit{wEvent})) < g.\text{Dist2Goal}(\mathit{wState}) &\\
+            \Rightarrow \, &( \, g.\text{Dist2Goal}(\mathit{wState}), &\\
+            &g.\text{Dist2Goal}(\text{ApplyEvent}(\mathit{wState},
+            \mathit{wEvent})), &\\
+            &g.\text{Dist2GoalChg}(\mathit{wState}, \mathit{wEvent}) \, ) &\\
+            | \, \text{Otherwise} \Rightarrow \, &\emptyset \, )
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GenerateAcceptance($\mathit{relationToA}$, $\mathit{joyIntensity}$,
+$\mathit{tolerance}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } out := ( \, \mathit{relationToA} &\neq \emptyset
+            \wedge \, \mathit{joyIntensity} > \mathit{tolerance} &\\
+            &\Rightarrow \, ( \, \mathit{relationToA}, \, \mathit{joyIntensity}
+            - \mathit{tolerance} \, ) &\\
+            | \, \text{Otherwise} &\Rightarrow \, \emptyset \, )
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GenerateInterest($\mathit{attentionToX}$, $\mathit{tolerance}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } out := ( \, \mathit{attentionToX} &>
+            \mathit{tolerance} \Rightarrow \, \mathit{attentionToX} -
+            \mathit{tolerance} &\\
+            | \, \text{Otherwise} &\Rightarrow \, \emptyset \, )
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GenerateSurprise($\mathit{tLastChange}$, $\mathit{tCurrent}$,
+$\mathit{tolerance}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } out := ( \, \text{Difference}(&\mathit{tCurrent},
+            \mathit{tLastChange}) < \mathit{tolerance} &\\
+            &\Rightarrow \, \text{Difference}(\mathit{tCurrent},
+            \mathit{tLastChange}) &\\
+            | \, \text{Otherwise} &\Rightarrow \, \emptyset \, )
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GenerateGoalEmotions($\mathit{wState}$, $\mathit{wEvent}$, $g$,
+$\mathit{gIsPreservational}$, $\mathit{gIsGustatory}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } out := ( \, &\text{GenerateJoy}(\mathit{wState},
+            \mathit{wEvent}, g),&\\
+            &\text{GenerateSadness}(\mathit{wState}, \mathit{wEvent}, g,
+            \emptyset), &\\
+            &\text{GenerateFear}(\mathit{wState}, \mathit{wEvent}, g,
+            \mathit{gIsPreservational}), &\\
+            &\text{GenerateDisgust}(\mathit{wState}, \mathit{wEvent}, g,
+            \mathit{gIsGustatory}) \, )
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+    \# Exceptions thrown from GenerateJoy, GenerateSadness, GenerateFear,
+    GenerateDisgust if they exist
+
+\end{itemize}

@@ -1,0 +1,19 @@
+\section{Warning Messages}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{longtable}{m{0.36\linewidth} m{0.58\linewidth}}
+    \toprule
+    \textbf{ID} & \textbf{Description} \\
+    \midrule
+
+    \colourRow W-EIT\_INTENSITY\_TOO\_SMALL & Warning: Value provided is
+    smaller than the minimum emotion intensity. Clamping to the range $\left[
+    \text{MIN\_INTENSITY}, \infty \right)$. \\
+
+    W-EST\_INTENSITY\_TOO\_LARGE & Warning: Emotion intensity for
+    $\mathit{emotion}$ is larger than its maximum intensity. Clamping to the
+    range $[\mathit{intensities}.\mathit{emotion}.$ $\text{GetMinIntensity}(),
+    \mathit{max}.\mathit{emotion}]$. \\
+
+    \bottomrule
+\end{longtable}

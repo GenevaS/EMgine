@@ -1,0 +1,287 @@
+\section{Emotion State Type Module (\mref{mStateType}): EmotionKindsT and
+EmStateT}\label{emotionstateModule}
+
+The Emotion State ADT defines the emotion kinds/categories/types
+$\emotionkindstype$ and emotion state $\emotionstatetype$ data types. They are
+defined in the same module because $\emotionstatetype$ directly depends on the
+size and order of $\emotionkindstype$.
+
+The $\emotionstatetype$ data type contains two records defining the current
+intensity and maximum intensity for each emotion kind $k \in
+\emotionkindstype$. Emotion state current intensities are bounded by
+$[\mathit{min}, \mathit{max}.k]$, where $\mathit{min}$ is defined by
+EmIntensityT and $\mathit{max}.k$ is the maximum intensity for emotion type
+$k$. For convenience, a default maximum intensity of $100$ is available if
+users do not want to define their own.
+
+This design is application-agnostic and can exist independently of \progname{}
+iff EmIntensityT or equivalent are available.
+
+\subsection{Uses}
+\begin{itemize}[noitemsep, nosep]
+
+    \item EmIntensityT (Section~\ref{intensityModule})
+
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+\begin{itemize}
+
+    \item MAX\_INTENSITY\_DEFAULT = new EmIntensityT(100.0)
+
+    \item NUM\_EMOTION\_KINDS = $|$ EmotionKindsT $|$
+
+\end{itemize}
+
+\subsubsection{Exported Types}
+\begin{itemize}
+
+    \item EmotionKindsT = $\left\{ \mFear, \mAnger, \mSadness, \mJoy,
+    \mInterest, \mSurprise, \mDisgust, \mTrust \right\}$
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{EmStateT} = \Big\{ \, \mathit{intensities} &=
+            \text{Tuple of } \left( \, \forall k \in \text{ EmotionKindsT}
+            \rightarrow k : \text{ EmIntensityT} \, \right), &\\
+            \mathit{max} &= \text{Tuple of } \left( \, \forall k \in \text{
+            EmotionKindsT} \rightarrow k : \text{ EmIntensityT} \, \right)
+            \Big\}
+            \end{nospaceflalign*}
+        }
+
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \small
+    \begin{tabular}{m{0.25\linewidth} m{0.145\linewidth} m{0.11\linewidth}
+            m{0.385\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \colourRow new EmStateT & Seq. of \newline EmIntensityT, \newline Seq.
+        of \newline EmIntensityT & EmStateT &
+        E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE, \newline
+        E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE \\
+
+        GetNumEmotionKinds & -- & $\mathbb{N}$ & -- \\
+
+        \colourRow GetIntensityOf & EmotionKindsT & EmIntensityT & -- \\
+
+        UpdateAllIntensitiesWithChgs & Seq. of \newline EmIntensityChgT &
+        EmStateT & E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE, \newline
+        E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE \\
+
+        \colourRow GetMaxIntensityOf & EmotionKindsT & EmIntensityT & -- \\
+
+        ChangeMaxIntensityOf & EmotionKindsT, \newline EmIntensityT & -- & -- \\
+
+        \colourRow ResetMaxIntensityOf & EmotionKindsT & -- & -- \\
+
+        UpdateAllMaxIntensities & Seq. of \newline EmIntensityT & -- &
+        E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE, \newline
+        E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsubsection{Local Access Programs}
+
+\begin{center}
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.25\linewidth} m{0.145\linewidth} m{0.11\linewidth}
+            m{0.385\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \colourRow ValidateIntensityOf & EmotionKindsT & -- &
+        W-EST\_INTENSITY\_TOO\_LARGE \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+
+    \item $\mathit{intensities}$ : $\text{Tuple of } \left( \, \forall k \in
+    \text{EmotionKindsT} \rightarrow k : \, \text{EmIntensityT} \, \right)$
+
+    \item $\mathit{max}$ : $\text{Tuple of } \left( \, \forall k \in \text{
+    EmotionKindsT} \rightarrow k : \text{EmIntensityT} \, \right)$
+
+\end{itemize}
+
+\subsubsection{State Invariant}
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            &\forall k \in \text{EmotionKindsT} \rightarrow \,
+            \mathit{intensities}.k.\text{CompareToIntensity}(\mathit{max}.k)
+            \leq 0 &\\
+            &\wedge \, \exists k \in \text{EmotionKindsT} \rightarrow \, \neg
+            \mathit{intensities}.k.\text{EqualsMinIntensity}()
+        \end{nospaceflalign*}
+    }
+
+    \# CompareToIntensity, EqualsMinIntensity from EmIntensityT
+
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new EmStateT($i$, $m$):
+\begin{itemize}
+
+    \item output: $out :=$ self
+
+    \item transition: $\mathit{intensities}, \mathit{max} := \, i,
+    \text{UpdateAllMaxIntensities}(m)$
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{exception: } \mathit{exc} := \,
+            ( \, | \, i \, | < \text{NUM\_EMOTION\_KINDS}
+            \Rightarrow \text{E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE} &\\
+            | \, i \, | > \text{NUM\_EMOTION\_KINDS}
+            \Rightarrow \text{E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE} &\\
+            | \, m \, | < \text{NUM\_EMOTION\_KINDS}
+            \Rightarrow \text{E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE} &\\
+            | \, | \, m \, | > \text{NUM\_EMOTION\_KINDS}
+            \Rightarrow \text{E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE} \, )
+        \end{nospaceflalign*}
+    }
+
+    \# Additional exceptions thrown from UpdateAllMaxIntensities
+
+\end{itemize}
+
+\noindent GetNumEmotionKinds():
+\begin{itemize}
+
+    \item output: out := NUM\_EMOTION\_KINDS
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GetIntensityOf($\mathit{emotion}$):
+\begin{itemize}
+
+    \item output: $out := \mathit{intensities}.\mathit{emotion}$
+
+    \item exception: None
+
+\end{itemize}
+
+\clearpage\noindent UpdateAllIntensitiesWithChgs($\mathit{chgs}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } \mathit{out} := \,
+            & \text{new EmStateT}(i, \mathit{max}) &\\
+            & \text{where } i = \mathit{intensities} \text{ with } \forall k
+            \in \text{EmotionKindsT} \rightarrow
+            \text{ValidateIntensityOf}(I(k)) &\\
+            & \text{where } I(k) =
+            \mathit{intensities}.k.\text{UpdateWithChg}(\mathit{chgs}.k) \text{
+            \# from EmIntensityT}
+        \end{nospaceflalign*}
+    }
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{exception: } \mathit{exc} := \,
+            ( \, | \, \mathit{chgs} \, | < \text{NUM\_EMOTION\_KINDS}
+            \Rightarrow \text{E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE} &\\
+            | \, \mathit{chgs} \, | > \text{NUM\_EMOTION\_KINDS}
+            \Rightarrow \text{E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE} \, )
+        \end{nospaceflalign*}
+    }
+
+    \# Additional exceptions thrown from ValidateIntensityOf
+
+\end{itemize}
+
+\noindent GetMaxIntensityOf($\mathit{emotion}$):
+\begin{itemize}
+
+    \item output: $out := \mathit{max}.\mathit{emotion}$
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent ChangeMaxIntensityOf($\mathit{emotion}, \mathit{max}$):
+\begin{itemize}
+
+    \item transition: $\mathit{max}.\mathit{emotion},
+    \mathit{intensities}.\mathit{emotion} := \mathit{max},
+    \text{ValidateIntensityOf}(\mathit{emotion})$
+
+    \item None \# Additional exceptions thrown from ValidateIntensityOf
+
+\end{itemize}
+
+\noindent ResetMaxIntensityOf($\mathit{emotion}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{transition: } &\text{ChangeMaxIntensityOf}(\mathit{emotion},
+            M) &\\
+            &\text{where } M = \text{new EmIntensityT(MAX\_INTENSITY\_DEFAULT)}
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None \# Additional exceptions thrown from
+    ChangeMaxIntensityOf
+
+\end{itemize}
+
+\noindent UpdateAllMaxIntensities($m$):
+\begin{itemize}
+
+    \item transition: $\mathit{max} := \forall k \in \text{EmotionKindsT}
+    \rightarrow \text{ChangeMaxIntensityOf}(k, m.k)$
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{exception: } \mathit{exc} := \,
+            ( \, | \, m \, | < \text{NUM\_EMOTION\_KINDS}
+            \Rightarrow \text{E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE} &\\
+            | \, | \, m \, | > \text{NUM\_EMOTION\_KINDS}
+            \Rightarrow \text{E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE} \, )
+        \end{nospaceflalign*}
+    }
+
+    \# Additional exceptions thrown from ChangeMaxIntensityOf
+
+\end{itemize}
+
+\subsection{Local Functions}
+
+\noindent ValidateIntensityOf($\mathit{emotion}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{transition: } \mathit{intensities}&.\mathit{emotion} := &\\
+            &( \,
+            \mathit{intensities}.\mathit{emotion}.\text{CompareToIntensity}(\mathit{max}.\mathit{emotion})
+             > 0 \Rightarrow \mathit{max}.\mathit{emotion} &\\
+            &| \; \epsilon  \Rightarrow i \, )
+        \end{nospaceflalign*}
+    }
+
+    \item exception: $exc := ( \,
+    i.\text{CompareToIntensity}(\mathit{max}.\mathit{emotion}) > 0 \Rightarrow
+    \text{W-EST\_INTENSITY\_TOO\_LAR-}$ $\text{GE} \, )$
+
+\end{itemize}

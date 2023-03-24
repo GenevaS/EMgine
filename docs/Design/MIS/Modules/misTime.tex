@@ -1,0 +1,76 @@
+\section{Time Type Module (\mref{mTime}): TimeT(T) and
+DeltaTimeT(U)}\label{timeModule}
+The Time Generic Interface is for providing a specification for the Time
+$\timetype$ and Delta Time $\deltatimetype$ types. Time has some concrete type
+T whose values are linearly ordered and comparable. Delta Time has some
+concrete type U whose values represent the difference of two values of type
+$\timetype$. Depending on the concrete type of T, the concrete type of U might
+also be T. Users provide the implementation so it is tailored for their needs.
+
+\subsection{Uses}
+\begin{itemize}[noitemsep, nosep]
+
+    \item None
+
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Access Programs: TimeT(T)}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.25\linewidth} m{0.17\linewidth} m{0.17\linewidth}
+    m{0.31\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \colourRow IsAfter & TimeT(T) & $\mathbb{B}$ & -- \\
+
+        Difference & TimeT(T) & DeltaTimeT(U) & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs: DeltaTimeT(U)}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.25\linewidth} m{0.17\linewidth} m{0.17\linewidth}
+            m{0.31\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \colourRow SumWith & DeltaTimeT(U) & DeltaTimeT(U) & -- \\
+
+        Difference & DeltaTimeT(U) & DeltaTimeT(U) & -- \\
+
+        \colourRow MultiplyByValue & $\mathbb{R}$ & DeltaTimeT(U) &
+        -- \\
+
+        CompareTo & DeltaTimeT(U) & $\mathbb{Z}$ & -- \\
+
+        \colourRow IsNegative & -- & $\mathbb{B}$ & -- \\
+
+        IsZero & -- & $\mathbb{B}$ & -- \\
+
+        \colourRow GetAsValue & -- & T & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsubsection{Assumptions}
+\begin{itemize}
+
+    \item The concrete type T is linearly ordered
+
+    \item The concrete types T and U can be converted to an element of
+    $\mathbb{R}$
+
+    \item The T and U might have the same concrete types
+
+\end{itemize}

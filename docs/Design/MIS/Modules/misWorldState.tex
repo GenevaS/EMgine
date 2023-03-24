@@ -1,0 +1,93 @@
+\section[World Type Module (\mref{mWorld}): WorldStateViewT(S), WorldEventT(S),
+DistBtwWorldStatesT(S), and DistChgBtwWorldStatesT(S)]{World Type Module
+(\mref{mWorld}): WorldStateViewT(S), WorldEventT(S), \\ DistBtwWorldStatesT(S),
+and DistChgBtwWorldStatesT(S)}\label{worldstateModule}
+The World Generic Interface is for providing a specification for the World
+types $\worldstatetype$, $\worldstatechangetype$, $\statedistancetype$, and
+$\statedistancechangetype$ that has some concrete type S whose value is
+comparable. Users provide the implementation so it is tailored for their needs.
+
+\subsection{Uses}
+\begin{itemize}[noitemsep, nosep]
+
+    \item None
+
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Access Programs: WorldStateViewT(S)}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabular}{m{0.22\linewidth} m{0.27\linewidth}m{0.27\linewidth}
+            m{0.14\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}ApplyEvent & WorldEventT(S) & WorldStateViewT(S)
+        & -- \\
+
+        CalcDistanceTo & WorldStateViewT(S) & DistBtwWorldStatesT(S) & -- \\
+
+        \rowcolor[gray]{0.9}CalcChangeCausedBy & WorldEventT(S) &
+        DistChgBtwWorldStatesT(S) & -- \\
+
+        CompareTo & WorldStateViewT(S) & $\mathbb{Z}$ & -- \\
+
+        \rowcolor[gray]{0.9}IsMutuallyExclusiveOf & WorldStateViewT(S) &
+        $\mathbb{B}$ & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs: WorldEventT(S)}
+
+N/A
+
+\subsubsection{Exported Access Programs: DistBtwWorldStatesT(S)}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabular}{m{0.22\linewidth} m{0.27\linewidth}m{0.27\linewidth}
+            m{0.14\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}CompareTo & DistBtwWorldStatesT(S) & $\mathbb{Z}$
+        & -- \\
+
+        IsFinite & -- & $\mathbb{B}$ & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsubsection{Exported Access Programs: DistChgBtwWorldStatesT(S)}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabular}{m{0.22\linewidth} m{0.27\linewidth}m{0.27\linewidth}
+            m{0.14\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}Difference & DistChgBtwWorldStatesT(S) &
+        DistChgBtwWorldStatesT(S) & -- \\
+
+        DistChgToValue & -- & $\mathbb{R}$ & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsubsection{Assumptions}
+\begin{itemize}
+
+    \item Variables declared with the concrete type S are comparable
+
+\end{itemize}

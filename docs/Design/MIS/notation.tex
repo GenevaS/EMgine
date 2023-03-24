@@ -1,0 +1,58 @@
+\section{Notation}
+
+The module structure in this MIS comes from \citet{HoffmanAndStrooper1995},
+with the addition that template modules have been adapted from
+\cite{ghezzifundamentals2003}.  The mathematical notation comes from Chapter 3
+of \citet{HoffmanAndStrooper1995}.  For instance, the symbol := represents a
+multiple assignment statement and conditional rules follow the form $(c_1
+\Rightarrow r_1 \, | \, c_2 \Rightarrow r_2 \, | \, ... \, | \, c_n \Rightarrow
+r_n )$.
+
+The following table summarizes the primitive data types used by \progname.
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \noindent
+    \begin{tabular}{l c p{0.5\linewidth}}
+        \toprule
+        \textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\
+        \midrule
+
+        \rowcolor[gray]{0.9}Boolean & $\mathbb{B}$ & An element in the set of
+        $\{ \True, \False \}$ \\
+
+        Character & char & A single symbol or digit \\
+
+        \rowcolor[gray]{0.9}Integer & $\mathbb{Z}$ & A number without a
+        fractional component in (-$\infty$, $\infty$) \\
+
+        Natural & $\mathbb{N}$ & A number without a fractional component in [0,
+        $\infty$) \\
+
+        \rowcolor[gray]{0.9}Real & $\mathbb{R}$ & Any number in (-$\infty$,
+        $\infty$)\\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\noindent
+The specification of \progname{} uses some derived data types:
+\begin{itemize}
+
+    \item \textit{Sets}: Unordered lists filled with elements of the same data
+    type
+
+    \item \textit{Sequences}: Ordered lists filled with elements of the same
+    data type
+
+    \item \textit{Strings}: Sequences of characters
+
+    \item \textit{Tuples}: Contain a list of labelled values, potentially of
+    different data types
+
+\end{itemize}
+
+\progname{} also uses functions, defined by the data types of their inputs and
+outputs. The MIS describes local functions by giving their type signature,
+followed by their specification.

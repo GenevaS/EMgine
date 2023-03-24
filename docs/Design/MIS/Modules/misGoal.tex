@@ -1,0 +1,150 @@
+\section{Goal Type Module (\mref{mGoal}): GoalT(S)} \label{goalModule}
+The Goal Generic ADT is for defining entity goals $\goaltype$ as a record
+containing two elements. One is a world state $\worldstatetype$ representing
+the world configuration necessary for a goal to be considered
+``completed''/achieved. The other is a non-negative value,
+$\mathit{importance}$, denoting the goal's relative importance to the entity.
+
+\subsection{Uses}
+\begin{itemize}[noitemsep, nosep]
+
+    \item IWorldStateT(S), IWorldEventT(S), IDistBtwWorldStatesT(S), and
+    IDistChgBtwWorldStatesT(S) (Section~\ref{worldstateModule})
+
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Types}
+\begin{itemize}
+
+    \item GoalT(S) = $ \left\{ \, \mathit{goalState} : \text{IWorldStateT(S)},
+    \,
+    \mathit{importance} : \mathbb{R}_{\geq 0} \, \right\} $
+
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.21\linewidth} m{0.21\linewidth} m{0.28\linewidth}
+            m{0.2\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}new GoalT(S) & IWorldStateT(S), $\mathbb{R}_{\geq
+        0}$ & GoalT(S) & W-G\_LT\_ZERO \\
+
+        GetGoalState & -- & IWorldStateT(S) & -- \\
+
+        \rowcolor[gray]{0.9}UpdateGoalState & IWorldStateT(S) & -- & -- \\
+
+        GetGoalImportance & -- & $\mathbb{R}_{\geq 0}$ & -- \\
+
+        \rowcolor[gray]{0.9}UpdateGoalImportance & $\mathbb{R}_{\geq 0}$ & -- &
+        W-G\_LT\_ZERO \\
+
+        Dist2Goal & IWorldStateT(S) & IDistBtwWorldStatesT(S) & -- \\
+
+        \rowcolor[gray]{0.9}Dist2GoalChg & IWorldStateT(S), IWorldEventT(S) &
+        IDistChgBtwWorldStatesT(S) & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsubsection{Assumptions}
+\begin{itemize}
+    \item The concrete type of T is the same as the concrete type of T in
+    IWorld(S)
+\end{itemize}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+
+    \item $ \mathit{goalState} : $ IWorldStateT(S)
+
+    \item $ \mathit{importance} : \mathbb{R} $
+
+\end{itemize}
+
+\clearpage
+\subsubsection{Access Routine Semantics}
+
+\noindent new GoalT(S)($g$, $\mathit{impt}$):
+\begin{itemize}
+
+    \item output: $out :=$ self
+
+    \item transition: $ \mathit{goalState}, \mathit{importance} := g,
+    \mathit{impt} $
+
+    \item exception: $ exc := ( \mathit{impt} < 0 \Rightarrow
+    \text{W-G\_LT\_ZERO} ) $
+
+\end{itemize}
+
+\noindent GetGoalState():
+\begin{itemize}
+
+    \item output: $out := \mathit{goalState}$
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent UpdateGoalState($g$):
+\begin{itemize}
+
+    \item transition: $ \mathit{goalState} := g $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent GetGoalImportance():
+\begin{itemize}
+
+    \item output: $out := \mathit{importance}$
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent UpdateGoalImportance($\mathit{impt}$):
+\begin{itemize}
+
+    \item transition: $ \mathit{importance} := \mathit{impt}$
+
+    \item exception: $exc := ( \mathit{impt} < 0 \Rightarrow
+    \text{W-G\_LT\_ZERO} )$
+
+\end{itemize}
+
+\noindent Dist2Goal($\mathit{worldState}$):
+\begin{itemize}
+
+    \item output: $out := \mathit{worldState}.\text{CalcDistanceTo}
+    (\mathit{goalState})$ \# From IWorldStateT(S)
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent Dist2GoalChg($\mathit{worldState}, \mathit{worldEvent}$):
+\begin{itemize}
+
+    \item output: $ out := \text{CalcDistChg} \left( \text{Dist2Goal}
+    (\mathit{worldState}), \text{Dist2Goal} (W) \right) $ \# CalcDistChg from
+    IWorld(T) \\
+    where $ W = \text{ApplyEvent}(\mathit{worldState}, \mathit{worldEvent}) $
+    \# From IWorld(T)
+
+    \item exception: None
+
+\end{itemize}

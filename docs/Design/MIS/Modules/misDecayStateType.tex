@@ -1,0 +1,296 @@
+\section{Emotion State Decay Module (\mref{mDecayState}):
+EmDecayStateT}\label{decayStateModule}
+
+The Emotion Intensity Decay State ADT defines the emotion decay state
+$\emotionstatedecaytype$ data type. The emotion state decay type contains two
+records defining the equilibrium intensity $\emotionintensitytype$ and decay
+rate $\emotiondecaytype$ for each emotion given in $\emotionkindstype$. The
+constraints for equilibrium intensities are the same as those on
+$\mathit{intensities}$ in EmotionStateT (i.e. the equilibrium intensity must be
+in the corresponding emotion's intensity range). It also has an associated
+emotion state to ensure that $\mathit{intensities}$ adheres to the intended
+maximum intensity bounds in EmotionStateT.
+
+This design is application-agnostic and can exist independently of \progname{}
+iff EmotionTypesT, EmotionStateT, and EmotionDecayRateT or equivalents are
+available.
+
+\subsection{Uses}
+\begin{itemize}[noitemsep, nosep]
+
+    \item EmotionIntensityT (Section~\ref{intensityModule})
+
+    \item EmotionStateT (Section~\ref{emotionstateModule}) \# Includes
+    EmotionTypesT
+
+    \item EmotionDecayRateT (Section~\ref{decayModule})
+
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Types}
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{EmDecayStateT} = \Big\{ \, \mathit{assocEmState} &= \{ \, es
+            : \text{ EmotionStateT } \; | \; \mathit{es} \neq \emptyset :
+            \mathit{es} \, \}, &\\ \mathit{stateEquilibrium} &=
+            \text{Tuple of } \left( \, \forall k \in \text{ EmotionTypesT} \; |
+            \; k : \text{ EmotionIntensityT} \, \right), &\\
+            \mathit{stateDecayRates} &= \text{Tuple of } \left( \, \forall k \in
+            \text{ EmotionTypesT} \; | \; k : \text{ EmDecayT} \, \right)
+            \Big\}
+        \end{nospaceflalign*}
+    }
+
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+\begin{center}
+    \small
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabular}{m{0.185\linewidth} m{0.23\linewidth} m{0.15\linewidth}
+            m{0.335\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \rowcolor[gray]{0.9}new EmDecayStateT & EmotionStateT, \newline Seq. of
+        EmotionIntensityT, \newline Seq. of EmDecayT & EmDecayStateT &
+        E-EDS\_NO\_ASSOC\_EM\_STATE \\
+
+        GetAssocEmState & -- & EmotionStateT & -- \\
+
+        \rowcolor[gray]{0.9}ChangeAssocEmState & EmotionStateT & -- &
+        E-EDS\_NO\_ASSOC\_EM\_STATE, \newline W-EDS\_EQ\_OUT\_OF\_BOUNDS,
+        \newline E-EDS\_EQ\_SUM\_ZERO \\
+
+        GetEquilibriumOf & EmotionTypesT & EmotionIntensityT & -- \\
+
+        \rowcolor[gray]{0.9}UpdateEquilibriumOf & EmotionTypesT, \newline
+        EmotionIntensityT & -- & W-EDS\_EQ\_OUT\_OF\_BOUNDS, \newline
+        E-EDS\_EQ\_SUM\_ZERO \\
+
+        UpdateAllEquilibriums & Seq. of EmotionIntensityT &
+        -- & E-EDS\_BAD\_COUNT\_EQUIL\_INTST, \newline
+        W-EDS\_EQ\_OUT\_OF\_BOUNDS,
+        \newline E-EDS\_EQ\_SUM\_ZERO \\
+
+        \rowcolor[gray]{0.9}GetDecayRateOf & EmotionTypesT & EmDecayT & -- \\
+
+        UpdateDecayRateOf & EmotionTypesT, \newline EmDecayT & -- & -- \\
+
+        \rowcolor[gray]{0.9}UpdateAllDecayRates & Seq. of EmDecayT & -- &
+        E-EDS\_BAD\_COUNT\_DECAY\_RATES \\
+
+        ResetDecayRateOf & EmotionTypesT & -- & -- \\
+
+        \rowcolor[gray]{0.9}ResetAllDecayRates & -- & -- & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\begin{itemize}
+
+    \item $\mathit{assocEmState}$ : EmotionStateT
+
+    \item $\mathit{stateEquilibrium}$ : Tuple of $\left( \, \forall k \in
+    \text{ EmotionTypesT} \; | \; k : \text{ EmotionIntensityT} \, \right)$
+
+    \item $\mathit{stateDecayRates}$ : Tuple of $\left( \, \forall k \in \text{
+        EmotionTypesT} \; | \; k : \text{ EmDecayT} \, \right)$
+
+\end{itemize}
+
+\subsubsection{State Invariant}
+\begin{itemize}
+
+    \item $ \forall k \in \text{ EmotionTypesT } \rightarrow \exists
+    \mathit{stateEquilibrium}.k \wedge \exists \mathit{stateDecayRates}.k $
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+             \forall k \in \mathit{assocEmState.intensities} &\rightarrow &\\
+    \mathit{stateEquilibrium}.&k.\text{GetIntensity()} \leq
+    \mathit{assocEmState.max}.k.\text{GetIntensity()}
+    \end{nospaceflalign*}
+    }
+
+    \item $ \sum_{i \in \mathit{stateEquilibrium}} i.\text{GetIntensity()} > 0 $
+
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new EmDecayStateT($\mathit{emState}$, $\mathit{eqIntensities}$,
+$\mathit{decayRates}$):
+\begin{itemize}
+
+    \item output: $out :=$ self
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{transition: } \mathit{assocEmState} &:= \mathit{emState}, &\\
+            \mathit{stateEquilibrium} &:=
+            \text{UpdateAllEquilibriums(}\mathit{eqIntensities}\text{)}, &\\
+            \mathit{stateDecayRates} &:=
+            \text{UpdateAllDecayRates(}\mathit{decayRates}\text{)}
+        \end{nospaceflalign*}
+    }
+
+    \item exception: $exc := ( \, \mathit{emState} = \emptyset \Rightarrow
+    \text{E-EDS\_NO\_ASSOC\_EM\_STATE} \, )$
+
+    \# Validity of $\mathit{stateEquilibrium}$ checked by UpdateAllEquilibriums
+
+    \# Validity of $\mathit{stateDecayRates}$ checked by UpdateAllDecayRates
+
+\end{itemize}
+
+\noindent GetAssocEmState():
+\begin{itemize}
+
+    \item output: $out := \mathit{assocEmState}$
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent ChangeAssocEmState($\mathit{emState}$):
+\begin{itemize}
+
+    \item transition: $ \mathit{assocEmState} := \mathit{emState} $
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{exception: } \mathit{exc := } \, ( \, \mathit{emState} =
+            \emptyset &\Rightarrow \text{E-EDS\_NO\_ASSOC\_EM\_STATE} &\\
+            | \, &\exists k : \text{EmotionTypesT} \rightarrow &\\
+            \mathit{eqIntensities}.k.&\text{GetIntensity()} > \,
+            \mathit{assocEmState}.\text{GetMaxIntensityOf}(k).\text{GetIntensity()}
+            &\\
+            &\Rightarrow \text{W-EDS\_EQ\_OUT\_OF\_BOUNDS}&\\
+            | \, \sum_{i \in \mathit{stateEquilibrium}}
+            i.&\text{GetIntensity()}
+            \leq 0 \Rightarrow \text{E-EDS\_EQ\_SUM\_ZERO} \, )
+        \end{nospaceflalign*}
+    }
+
+    \# GetIntensity from EmotionIntensityT, GetNumEmotionTypes from
+    EmotionTypesT
+
+\end{itemize}
+
+\noindent GetEquilibriumOf($k$):
+\begin{itemize}
+
+    \item output: $out := \mathit{stateEquilibrium}.k$
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent UpdateEquilibriumOf($k$, $\mathit{kEquilibrium}$):
+\begin{itemize}
+
+    \item transition: $\mathit{stateEquilibrium}.k := \mathit{kEquilibrium}$
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{exception: } \mathit{exc := } \, ( \,
+        \mathit{kEquilibrium}.&\text{GetIntensity()} &\\
+        &>
+        \mathit{assocEmState}.\text{GetMaxIntensityOf}(k).\text{GetIntensity()}
+        &\\
+        &\Rightarrow \text{W-EDS\_EQ\_OUT\_OF\_BOUNDS} &\\
+        | \, \sum_{i \in \mathit{stateEquilibrium}} i.\text{GetIntensity()} &-
+        \mathit{stateEquilibrium}.k.\text{GetIntensity()} &\\
+        + \, \mathit{kEquilibrium}.&\text{GetIntensity()} \leq 0 \Rightarrow
+        \text{E-EDS\_EQ\_SUM\_ZERO} \, )
+    \end{nospaceflalign*}
+    }
+
+    \# GetIntensity from EmotionIntensityT, GetMaxIntensityOf from EmotionStateT
+
+\end{itemize}
+
+\noindent UpdateAllEquilibriums($\mathit{eqIntensities}$):
+\begin{itemize}
+
+    \item transition: $\left(\forall k : \text{ EmotionTypesT } \rightarrow
+    \mathit{stateEquilibrium}.k := \mathit{eqIntensities}.k \right)$
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+        \text{exception: } \mathit{exc := } \, ( \, | \,
+        \mathit{eqIntensities} \, | \neq
+        \mathit{assocEmState}.&\text{GetNumEmotionTypes()} &\\
+        &\Rightarrow \text{E-EDS\_BAD\_COUNT\_EQUIL\_INTST} &\\
+        | \, \sum_{i \in \mathit{eqIntensities}} i.\text{GetIntensity()} \leq 0
+        &\Rightarrow \text{E-EDS\_EQ\_SUM\_ZERO} &\\
+        | \, \exists k : \text{EmotionTypesT} \rightarrow& &\\
+        \mathit{eqIntensities}.k.\text{GetIntensity()} > \,
+        \mathit{assocEmState}.&\text{GetMaxIntensityOf}(k).\text{GetIntensity()}
+         &\\
+        &\Rightarrow \text{W-EDS\_EQ\_OUT\_OF\_BOUNDS} \, )
+    \end{nospaceflalign*}
+    }
+
+    \# GetIntensity from EmotionIntensityT, GetNumEmotionTypes from
+    EmotionTypesT
+
+\end{itemize}
+
+\noindent GetDecayRateOf($k$):
+\begin{itemize}
+
+    \item output: $out := \mathit{stateDecayRates}.k$
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent UpdateDecayRateOf($k$, $\mathit{kDecayRate}$):
+\begin{itemize}
+
+    \item transition: $\mathit{stateDecayRates}.k := \mathit{kDecayRate}$
+
+    \item exception: None \# Validity of $\mathit{kDecayRate}$ checked by
+    EmotionDecayRateT
+
+\end{itemize}
+
+\noindent UpdateAllDecayRates($\mathit{decayRates}$):
+\begin{itemize}
+
+    \item transition: $\left(\forall k : \text{ EmotionTypesT } \rightarrow
+    \text{UpdateDecayRateOf}(k, \mathit{decayRates}.k) \right)$
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{exception: } \mathit{exc := } \, ( \, | \,
+            \mathit{decayRates} \, | &\neq
+            \mathit{assocEmState}.\text{GetNumEmotionTypes()} &\\ &\Rightarrow
+    \text{E-EDS\_BAD\_COUNT\_DECAY\_RATES} \, )
+    \end{nospaceflalign*}
+    }
+
+\end{itemize}
+
+\noindent ResetDecayRateOf($k$):
+\begin{itemize}
+
+    \item transition: $\mathit{stateDecayRates}.k :=
+    \mathit{stateDecayRates}.k.\text{ResetDecayRate}()$
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent ResetAllDecayRates():
+\begin{itemize}
+
+    \item transition: $\left(\forall k : \text{ EmotionTypesT } \rightarrow
+    \text{ResetDecayRateOf}(k) \right)$
+
+    \item exception: None
+\end{itemize}

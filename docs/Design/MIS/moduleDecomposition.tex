@@ -1,0 +1,60 @@
+\section{Module Hierarchy}
+This table is taken directly from \progname{}'s Module Guide
+(Version~\mgversion).
+
+\begin{table}[h!]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{p{0.16\linewidth} p{0.3\linewidth} p{0.44\linewidth}}
+        \toprule
+        \textbf{Level 1} & \textbf{Level 2} & \textbf{Level 3} \\
+        \midrule
+
+        \multirow{14}{\linewidth}{Behaviour\-/Hiding Module} &
+        \colourCell & \colourCell[\mref{mIntensity}]
+        Emotion Intensity Type Module \\
+        & \colourCell\multirow{-2}{\linewidth}{Emotion Intensity
+        Module} & \colourCell[\mref{mIntensityFun}] Emotion Intensity
+        Function Module \\
+
+        &  & [\mref{mStateType}] Emotion State Type Module \\
+        & \multirow{-2}{\linewidth}{Emotion State Module} & [\mref{mGenerate}]
+        Emotion Generation Module \\
+
+        & \colourCell & \colourCell[\mref{mDecay}]
+        Emotion Intensity Decay Module \\
+        & \colourCell\multirow{-2}{\linewidth}{Emotion Decay Module}
+        & \colourCell[\mref{mDecayState}] Emotion State Decay Module
+        \\
+
+        &  & [\mref{mPADType}] PAD Type Module \\
+        & \multirow{-2}{\linewidth}{PAD Module} & [\mref{mPADFun}] PAD Function
+        Module \\
+
+        & \colourCell & \colourCell[\mref{mEmotionType}]
+        Emotion Type Module \\
+        & \colourCell\multirow{-2}{\linewidth}{Emotion Module} &
+        \colourCell[\mref{mEmotionFun}] Emotion Function Module \\
+
+        &  & [\mref{mGoal}] Goal Type Module \\
+
+        &  & [\mref{mPlan}] Plan Type Module \\
+
+        &  & [\mref{mSocial}] Social Attachment Type Module \\
+
+        & \multirow{-4}{\linewidth}{Entity Module} & [\mref{mAttention}]
+        Attention Type Module \\
+
+        \midrule
+
+        \multirow{2}{\linewidth}{Software Decision Module} &
+        \colourCell & \colourCell[\mref{mTime}] Time Type
+        Module \\
+
+        & \colourCell\multirow{-2}{\linewidth}{World Module} &
+        \colourCell[\mref{mWorld}] World Type Module \\
+
+        \bottomrule
+    \end{tabular}
+\end{table}

@@ -1,0 +1,177 @@
+\documentclass[11pt, titlepage]{article}
+
+\usepackage[letterpaper, hmargin=1in, bmargin=1in, tmargin=1.3in,
+headheight=26pt]{geometry}
+
+\usepackage{amsmath, mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage[section]{placeins}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage{txfonts}
+\usepackage[shortcuts]{extdash}
+\usepackage{relsize}
+
+\usepackage{listings}
+
+\usepackage[nottoc,notlof,notlot,numbib]{tocbibind}
+
+\usepackage{natbib}
+
+\usepackage[page]{totalcount}
+
+\usepackage{fancyhdr}
+\fancyhf{}
+\lhead{Module Interface Specification \\ \progname{}}
+\rhead{Geneva M. Smith and Dr. Jacques Carette \\ Dept. of Computing and
+Software---McMaster University}
+\lfoot{Ver.~\ref{current_version_MIS}}
+\rfoot{\thepage\ of \thepagesMIS}
+
+\renewcommand{\footrule}{\vbox to 0pt
+    {\makebox[\textwidth]{\hrulefill}\vss}}
+
+\newcommand{\colourRow}{\rowcolor[gray]{0.9}}
+\newcommand{\colourCell}{\cellcolor[gray]{0.9}}
+
+\definecolor{CoolPurple}{RGB}{117, 0, 235}
+\definecolor{NatureGreen}{RGB}{8, 104, 11}
+\definecolor{SeaBlue}{RGB}{6, 97, 122}
+\definecolor{Lilac}{RGB}{178, 131, 206}
+
+\hypersetup{
+    bookmarks=true,
+    colorlinks=true,
+    linktoc=all,
+    linkcolor=CoolPurple,
+    citecolor=NatureGreen,
+    filecolor=WildStrawberry,
+    urlcolor=SeaBlue
+}
+
+\usepackage[shortlabels, inline]{enumitem}
+
+% Modified from https://tex.stackexchange.com/questions/253910/reference-to
+% -enumerate-item-with-manually-set-label
+\makeatletter
+\newcommand\newref[1]{#1\def\@currentlabel{#1}}
+\makeatother
+%%%
+
+% From https://tex.stackexchange.com/questions/101040/how-to-remove-unnecessary
+% -space-after-flalign-environment
+\newenvironment{nospaceflalign*}
+{\setlength{\abovedisplayskip}{0pt}\setlength{\belowdisplayskip}{0pt}%
+    \csname flalign*\endcsname}
+{\csname endflalign*\endcsname\ignorespacesafterend}
+%%%
+
+\input{../../comments}
+
+\usepackage{xr}
+\externaldocument{../../SRS/EMgine_SRS}
+\newcommand{\rref}[1]{SRS-R\ref{#1}}
+\newcommand{\nfref}[1]{SRS-NF\ref{#1}}
+
+\externaldocument{../MG/EMgine_MG}
+\newcommand{\mref}[1]{M\ref{#1}}
+
+\input{../../commands}
+
+\begin{document}
+
+    \newcounter{pagesMIS}
+    \setcounter{pagesMIS}{\totalpages}
+
+    \begin{titlepage}
+        \thispagestyle{empty}
+        \title{Module Interface Specification for \progname{}: A Computational
+        Model of Emotion for Enhancing Non-Player Character Believability in
+        Games}
+        \author{Geneva M. Smith and Dr. Jacques Carette}
+        \date{Version~\ref{current_version_MIS} (March 24, 2023)}
+
+        \maketitle
+    \end{titlepage}
+
+    \pagestyle{fancy}
+
+    \vspace*{\fill}
+    \section*{Revision History}
+    \begin{center}
+        \begin{tabular}{m{0.19\linewidth}C{0.15\linewidth}m{0.56\linewidth}}
+            \toprule
+            {\bf Date} & {\bf Version} & {\bf Notes}\\
+            \midrule
+            \vspace*{1mm}March 24, 2023 &
+            \vspace*{1mm}\newref{0.1}\label{current_version_MIS} & \vspace*{6mm}
+            \begin{itemize}[noitemsep, nosep, leftmargin=*]
+                \item Initial document with the Emotion Intensity Component
+                (Emotion Intensity Type [\mref{mIntensity}] and Emotion State
+                Type [\mref{mStateType}] Modules) based on SRS Version~1.5~ and
+                MG Version~1.5
+            \end{itemize} \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    \vspace*{\fill}
+
+    \clearpage
+
+    \tableofcontents
+
+    \clearpage
+
+    \input{abbrv}
+
+    \clearpage
+
+    \input{introduction}
+
+    \input{notation}
+
+    \clearpage
+
+    \input{moduleDecomposition}
+
+    \clearpage
+
+    \input{Modules/misIntensityType}
+
+    \clearpage
+
+    \input{Modules/misEmotionStateType}
+
+    \clearpage
+
+    \bibliographystyle{ACM-Reference-Format}
+    \bibliography{../../../refs/references_documentation,
+    ../../../refs/references_SEPerspective}
+
+    \clearpage
+
+    \begin{appendix}
+
+        \input{errorMsg}
+
+        \clearpage
+
+        \input{warningMsg}
+
+    \end{appendix}
+
+\end{document}

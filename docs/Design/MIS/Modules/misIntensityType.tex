@@ -1,0 +1,327 @@
+\section[Emotion Intensity Type Module (\mref{mIntensity}): EmIntensityT and
+EmIntensityChgT]{Emotion Intensity Type Module (\mref{mIntensity}):
+EmIntensityT and \\ EmIntensityChgT}\label{intensityModule}
+The Emotion Intensity ADT defines the emotion intensity $\emotionintensitytype$
+and emotion intensity change $\responsestrength$ data types. They are defined
+in the same module because $\responsestrength$ directly depends on the
+existence of $\emotionintensitytype$.
+
+Emotion intensity is bounded by $[0, +\infty)$, but emotion intensity change is
+unbounded. This design is application-agnostic and can exist independently of
+\progname{}.
+
+\subsection{Known Information Leaks}
+\begin{itemize}
+
+    \item The internal representation of EmIntensityT and EmIntensityChgT
+    ($\mathbb{R}$) is manipulated with arithmetic operations, which are not
+    meaningful outside \progname{}'s modules
+
+\end{itemize}
+
+\subsection{Uses}
+\begin{itemize}[noitemsep, nosep]
+
+    \item None
+
+\end{itemize}
+
+\subsection{Syntax: EmIntensityT}
+
+\subsubsection{Exported Constants}
+
+\begin{itemize}
+
+    \item MIN\_INTENSITY = 0
+
+\end{itemize}
+
+\subsubsection{Exported Types}
+
+\begin{itemize}
+
+    \item EmIntensityT = $\left\{ \, \mathit{intensity} : \mathbb{R} \; | \;
+    \text{MIN\_INTENSITY} \leq \mathit{intensity} : \mathit{intensity} \,
+    \right\}$
+
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+%    \small
+    \begin{tabular}{m{0.185\linewidth} m{0.165\linewidth} m{0.13\linewidth}
+    m{0.4\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \colourRow new EmIntensityT & $\mathbb{R}$ & EmIntensityT &
+        W-EIT\_INTENSITY\_TOO\_SMALL \\
+
+        CompareToIntensity & EmIntensityT & $\mathbb{Z}$ & -- \\
+
+        \colourRow EqualsMinIntensity & -- & $\mathbb{B}$ & -- \\
+
+        Normalize & EmIntensityT & EmIntensityT &
+        E-EIT\_INTENSITY\_CANNOT\_BE\_ZERO \\
+
+        \colourRow ToReal & -- & $\mathbb{R}$ & -- \\
+
+        UpdateWithChg & EmIntensityChgT & EmIntensityT & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsubsection{Local Access Programs}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.21\linewidth} m{0.17\linewidth} m{0.16\linewidth}
+            m{0.34\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \colourRow GetIntensity & -- & $\mathbb{R}$ & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsection{Semantics: EmIntensityT}
+
+\subsubsection{State Variables}
+\begin{itemize}
+
+    \item $\mathit{intensity}$ : $\mathbb{R}$
+
+\end{itemize}
+
+\subsubsection{State Invariant}
+\begin{itemize}
+
+    \item $\text{MIN\_INTENSITY} \leq \mathit{intensity}$
+
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new EmIntensityT($i$):
+\begin{itemize}
+
+    \item output: $out :=$ self
+
+    \item transition: $\mathit{intensity} := \mathtt{clamp}\left( \, i,
+    \text{MIN\_INTENSITY}, +\infty \, \right)$
+
+    \item exception: $exc := \left( \, i < \text{MIN\_INTENSITY} \Rightarrow
+    \text{W-EIT\_INTENSITY\_TOO\_SMALL} \, \right)$
+
+\end{itemize}
+
+\noindent CompareToIntensity($i$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } \mathit{out := } \, ( \; | \, &C \, | \, \leq
+            \epsilon \Rightarrow 0 \; | \; C > \epsilon \Rightarrow 1 \; | \;
+            C < -\epsilon \Rightarrow -1 \; ) &\\
+            \text{where } &C = \mathit{intensity} - i.\text{GetIntensity()}
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent EqualsMinIntensity():
+\begin{itemize}
+
+    \item output: $out := | \, \mathit{intensity} - \text{MIN\_INTENSITY} \, |
+    \, \leq \epsilon $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent Normalize($\mathit{scale}$):
+\begin{itemize}
+
+    \item output: $out := \text{new EmIntensityT}
+    \left(\dfrac{\mathit{intensity}}{\mathit{scale}.\text{GetIntensity()}}\right)$
+
+    \item exception: $exc := ( \, \mathit{scale}.\text{GetIntensity()} = 0
+    \Rightarrow \text{E-EIT\_INTENSITY\_CANNOT\_BE\_ZERO} \, )$
+
+\end{itemize}
+
+\noindent ToReal():
+\begin{itemize}
+
+    \item output: $out := \mathit{intensity}$
+
+    \item exception: None
+
+\end{itemize}
+
+\clearpage\noindent UpdateWithChg($\mathit{chg}$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: }\mathit{out} := \, &\text{new EmIntensityT}(i')&\\
+            \text{where } i' &= \begin{cases}
+                0.1 \cdot \log_2\left(2^{10 \cdot \mathit{intensity}} + 2^{10
+                \cdot C} \right), & C > \epsilon \\
+                0.1 \cdot \log_2\left(2^{10 \cdot \mathit{intensity}} - 2^{10
+                \cdot | C |} \right), & C \leq \epsilon \, \wedge \,
+                \mathit{intensity} >  | C |  \\
+                0.0, & C \leq \epsilon \, \wedge \, \mathit{intensity} \leq | C
+                | \\
+                \mathit{intensity}, & \mathit{Otherwise} \\
+            \end{cases} &\\
+            &\text{where } C = \mathit{chg}.\text{GetDelta}() \text{ \# from
+            EmIntensityChgT}
+        \end{nospaceflalign*}
+    }
+    \item exception: None
+
+\end{itemize}
+
+\subsubsection{Local Functions}
+\noindent GetIntensity():
+\begin{itemize}
+
+    \item output: $out := \mathit{intensity}$
+
+    \item exception: None
+
+\end{itemize}
+
+\clearpage\subsection{Syntax: EmIntensityChgT}
+
+\subsubsection{Exported Types}
+
+\begin{itemize}
+
+    \item EmIntensityChgT : $\mathbb{R}$
+
+\end{itemize}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.23\linewidth} m{0.17\linewidth} m{0.17\linewidth}
+            m{0.31\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \colourRow new EmIntensityChgT & $\mathbb{R}$ &
+        EmIntensityChgT & -- \\
+
+        CompareToIntensityChg & EmIntensityChgT & $\mathbb{Z}$ & -- \\
+
+        \colourRow EqualsMinIntensity & -- & $\mathbb{B}$ & -- \\
+
+        ScaleByValue & $\mathbb{R}$ & EmIntensityChgT & -- \\
+
+        \colourRow ToReal & -- & $\mathbb{R}$ & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsubsection{Local Access Programs}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{m{0.23\linewidth} m{0.17\linewidth} m{0.17\linewidth}
+            m{0.31\linewidth}}
+        \toprule
+        \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+        \midrule
+
+        \colourRow GetDelta & -- & $\mathbb{R}$ & -- \\
+
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\subsection{Semantics: EmIntensityChgT}
+
+\subsubsection{State Variables}
+\begin{itemize}
+
+    \item $\mathit{iDelta}$ : $\mathbb{R}$
+
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent new EmIntensityChgT($\mathit{delta}$):
+\begin{itemize}
+
+    \item output: $out :=$ self
+
+    \item transition: $\mathit{iDelta} := \mathit{delta}$
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent CompareToIntensityChg($d$):
+\begin{itemize}
+
+    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
+            \text{output: } \mathit{out := } \, ( \; | \, &C \, | \, \leq
+            \epsilon \Rightarrow 0 \; | \; C > \epsilon \Rightarrow 1 \; | \;
+            C < -\epsilon \Rightarrow -1 \; ) &\\
+            \text{where } &C = \mathit{iDelta} - d.\text{GetDelta()}
+        \end{nospaceflalign*}
+    }
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent EqualsMinIntensity():
+\begin{itemize}
+
+    \item output: $out := | \, \mathit{iDelta} - \text{MIN\_INTENSITY} \, | \,
+    \leq \epsilon $
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent ScaleByValue($v$):
+\begin{itemize}
+
+    \item output: $out := \text{new EmIntensityT}(\mathit{iDelta} \cdot v)$
+
+    \item exception: None
+
+\end{itemize}
+
+\noindent ToReal():
+\begin{itemize}
+
+    \item output: $out := \mathit{iDelta}$
+
+    \item exception: None
+
+\end{itemize}
+
+\subsubsection{Local Functions}
+\noindent GetDelta():
+\begin{itemize}
+
+    \item output: $out := \mathit{iDelta}$
+
+    \item exception: None
+
+\end{itemize}
