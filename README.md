@@ -12,6 +12,7 @@ The repository for this project is organized as:
 
 1. docs: Any and all documentation produced during EMgine's development
 2. refs: Supporting research and resources
+3. src: EMgine source code
 
 ## License ##
 EMgine's concept, specification, design, and testing documentation are licensed 
