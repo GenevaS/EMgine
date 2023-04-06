@@ -173,7 +173,7 @@ headheight=26pt]{geometry}
         Computational Model of Emotion for Enhancing Non-Player Character
         Believability in Games}
         \author{Geneva M. Smith and Dr. Jacques Carette}
-        \date{Version~\ref{current_version_SRS} (March 22, 2023)}
+        \date{Version~\ref{current_version_SRS} (April 6, 2023)}
 
         \maketitle
     \end{titlepage}
@@ -181,14 +181,24 @@ headheight=26pt]{geometry}
     \pagestyle{fancy}
 
     \vspace*{\fill}
-    \section*{Revision History}
+    \noindent\textbf{\Large Revision History}
     \begin{center}
         \begin{tabular}{m{0.17\linewidth}C{0.15\linewidth}m{0.58\linewidth}}
             \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+
+            \midrule
+
+            \vspace*{1mm}April 6, 2023 &
+            \vspace*{1mm}\newref{1.5.1}\label{current_version_SRS} &
+            \vspace*{5mm}
+            \begin{itemize}[noitemsep, nosep]
+                \item Added assumption \aref{A_PositiveIntensity} to type
+                definition \tyref{TY_EmotionState}
+            \end{itemize} \\
+
             \midrule
             \vspace*{1mm}March 22, 2023 &
-            \vspace*{1mm}\newref{1.5}\label{current_version_SRS} &
-            \vspace*{5mm}
+            \vspace*{1mm}\newref{1.5} & \vspace*{5mm}
             \begin{itemize}[noitemsep, nosep]
                 \item Separated Emotion Generation Goal into Elicitation
                 \gsref{G_EmotionElicitation} and Intensity Evaluation

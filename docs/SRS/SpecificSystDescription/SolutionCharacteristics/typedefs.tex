@@ -218,8 +218,12 @@ types and number labels than PES. \\\hrule
         \rightarrow \emotionintensitytype, \mathtt{max} : \emotionkindstype
         \rightarrow \emotionintensitytype \right\}  $ \\
 
-        \bf Invariant & $\forall k : \emotionkindstype \Rightarrow 0 \leq
-        \mathtt{intensities}(k) \leq \mathtt{max}(k) $ \\
+        \bf Invariants & $\bullet$ $\forall k : \emotionkindstype \rightarrow 0
+        \leq \mathtt{intensities}(k) \leq \mathtt{max}(k) $
+
+        $\bullet$ $\exists k : \emotionkindstype \rightarrow \mathtt{max}(k) >
+        0 $ \\
+
         \hline
     \end{tabular}
 \end{minipage}
@@ -242,7 +246,12 @@ types and number labels than PES. \\\hrule
     Data Type localizes these constraints to a specific state, allowing the
     maximum intensities of other states to vary. This also makes it easy to
     ensure that its constraints are satisfied when updating
-    $\mathtt{intensities}$.
+    $\mathtt{intensities}$. It must satisfy the invariant $\exists k :
+    \emotionkindstype \rightarrow \mathtt{max}(k) > 0 $ to prevent situations
+    where every value in $\mathtt{max}$ is zero (i.e. constantly zero,
+    \aref{A_PositiveIntensity}). This is assumed to be a state of ``deep
+    sleep'', so at least one emotion type must have a non-zero maximum for the
+    entity to be ``awake''.
 
 \end{itemize}
 
@@ -252,15 +261,17 @@ types and number labels than PES. \\\hrule
 
 \paragraph{Sources} \citet[p.~358]{broekens2021emotion}
 
-\paragraph{Depends On} \aref{A_EmotionPairs}, \aref{A_LimitIntensity},
-\cref{C_Emotion}, \tyref{TY_EmotionIntensity}, \tyref{TY_EmotionKind}
+\paragraph{Depends On} \aref{A_PositiveIntensity}, \aref{A_EmotionPairs},
+\aref{A_LimitIntensity}, \cref{C_Emotion}, \tyref{TY_EmotionIntensity},
+\tyref{TY_EmotionKind}
 
 \paragraph{Ref. By} \tyref{TY_Emotion}, \iref{IM_UpdateEmotionState2},
 \iref{IM_UpdateEmotion}, \iref{IM_GetEmotionState}, \iref{IM_DecayEmotionState},
 \iref{IM_GetEmotionStatePAD}, \rref{R_EmotionStateType}
 \\\hrule\vspace{0.5mm}\hrule
 
-~\newline
+%~\newline
+\clearpage
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -281,8 +292,8 @@ types and number labels than PES. \\\hrule
         \rightarrow \emotionintensitytype, \mathtt{decayRates} :
         \emotionkindstype \rightarrow \emotiondecaytype \right\} $ \\
 
-        \bf Invariants & $\left(\mathlarger\sum_{k \in\emotionkindstype}
-        \mathtt{equilibrium}\left(k\right)\right) > 0$ \vspace*{2mm}\\\hline
+        \bf Invariant & $\exists k \in \emotionkindstype \rightarrow
+        \mathtt{equilibrium}\left(k\right) > 0$ \vspace*{2mm}\\\hline
     \end{tabular}
 \end{minipage}
 
@@ -294,8 +305,9 @@ that has:
     \item The function $\mathtt{equilibrium}$ maps Emotion Kinds to Emotion
     Intensities ($\emotionkindstype \rightarrow \emotionintensitytype$,
     \tyref{TY_EmotionIntensity}), encoding the ``equilibrium'' intensity for
-    each $k : \emotionkindstype$. It must satisfies the invariant to prevent
-    situations where every value in $\mathtt{equilibrium}$ is zero (i.e.
+    each $k : \emotionkindstype$. It must satisfy the invariant $\exists k \in
+    \emotionkindstype \rightarrow \mathtt{equilibrium}\left(k\right) > 0$ to
+    prevent situations where every value in $\mathtt{equilibrium}$ is zero (i.e.
     constantly zero, \aref{A_PositiveIntensity}), assumed to be a state of
     ``deep sleep''. Therefore, at least one emotion type in the equilibrium
     state must be non-zero for the entity to be ``awake''.

@@ -126,14 +126,11 @@ iff EmIntensityT or equivalent are available.
 \subsubsection{State Invariant}
 \begin{itemize}
 
-    \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
-            &\forall k \in \text{EmotionKindsT} \rightarrow \,
-            \mathit{intensities}.k.\text{CompareToIntensity}(\mathit{max}.k)
-            \leq 0 &\\
-            &\wedge \, \exists k \in \text{EmotionKindsT} \rightarrow \, \neg
-            \mathit{intensities}.k.\text{EqualsMinIntensity}()
-        \end{nospaceflalign*}
-    }
+    \item $ \forall k \in \text{EmotionKindsT} \rightarrow \,
+    \mathit{intensities}.k.\text{CompareToIntensity}(\mathit{max}.k) \leq 0 $
+
+    \item $ \exists k \in \text{EmotionKindsT} \rightarrow \,
+    \neg\mathit{max}.k.\text{EqualsMinIntensity}() $
 
     \# CompareToIntensity, EqualsMinIntensity from EmIntensityT
 
