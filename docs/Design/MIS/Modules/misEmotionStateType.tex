@@ -67,7 +67,8 @@ iff EmIntensityT or equivalent are available.
         \colourRow new EmStateT & Seq. of \newline EmIntensityT, \newline Seq.
         of \newline EmIntensityT & EmStateT &
         E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE, \newline
-        E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE \\
+        E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE, \newline
+        E-EST\_ALL\_MAX\_VALUES\_ARE\_ZERO \\
 
         GetNumEmotionKinds & -- & $\mathbb{N}$ & -- \\
 
@@ -79,13 +80,15 @@ iff EmIntensityT or equivalent are available.
 
         \colourRow GetMaxIntensityOf & EmotionKindsT & EmIntensityT & -- \\
 
-        ChangeMaxIntensityOf & EmotionKindsT, \newline EmIntensityT & -- & -- \\
+        ChangeMaxIntensityOf & EmotionKindsT, \newline EmIntensityT & -- &
+        E-EST\_ALL\_MAX\_VALUES\_ARE\_ZERO \\
 
         \colourRow ResetMaxIntensityOf & EmotionKindsT & -- & -- \\
 
         UpdateAllMaxIntensities & Seq. of \newline EmIntensityT & -- &
         E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE, \newline
-        E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE \\
+        E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE, \newline
+        E-EST\_ALL\_MAX\_VALUES\_ARE\_ZERO \\
 
         \bottomrule
     \end{tabular}
@@ -155,7 +158,9 @@ iff EmIntensityT or equivalent are available.
             | \, m \, | < \text{NUM\_EMOTION\_KINDS}
             \Rightarrow \text{E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE} &\\
             | \, | \, m \, | > \text{NUM\_EMOTION\_KINDS}
-            \Rightarrow \text{E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE} \, )
+            \Rightarrow \text{E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE} &\\
+            | \, \nexists x \in m \rightarrow x \geq 0 \Rightarrow
+            \text{E-EST\_ALL\_MAX\_VALUES\_ARE\_ZERO} \, )
         \end{nospaceflalign*}
     }
 
@@ -225,7 +230,10 @@ iff EmIntensityT or equivalent are available.
     \mathit{intensities}.\mathit{emotion} := \mathit{max},
     \text{ValidateIntensityOf}(\mathit{emotion})$
 
-    \item None \# Additional exceptions thrown from ValidateIntensityOf
+    \item exception: $\mathit{exec} := \,( \nexists x \in m \rightarrow x \geq
+    0 \Rightarrow \text{E-EST\_ALL\_MAX\_VALUES\_ARE\_ZERO} \, )$
+
+    \# Additional exceptions thrown from ChangeMaxIntensityOf
 
 \end{itemize}
 
@@ -240,7 +248,7 @@ iff EmIntensityT or equivalent are available.
     }
 
     \item exception: None \# Additional exceptions thrown from
-    ChangeMaxIntensityOf
+    ValidateIntensityOf
 
 \end{itemize}
 
@@ -255,7 +263,9 @@ iff EmIntensityT or equivalent are available.
             ( \, | \, m \, | < \text{NUM\_EMOTION\_KINDS}
             \Rightarrow \text{E-EST\_TOO\_FEW\_VALUES\_FOR\_STATE} &\\
             | \, | \, m \, | > \text{NUM\_EMOTION\_KINDS}
-            \Rightarrow \text{E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE} \, )
+            \Rightarrow \text{E-EST\_TOO\_MANY\_VALUES\_FOR\_STATE} &\\
+            | \, \nexists x \in m \rightarrow x \geq 0 \Rightarrow
+            \text{E-EST\_ALL\_MAX\_VALUES\_ARE\_ZERO} \, )
         \end{nospaceflalign*}
     }
 
