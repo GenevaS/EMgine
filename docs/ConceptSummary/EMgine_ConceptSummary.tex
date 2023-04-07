@@ -32,14 +32,19 @@ headheight=26pt]{geometry}
 \renewcommand{\footrule}{\vbox to 0pt
     {\makebox[\textwidth]{\hrulefill}\vss}}
 
+\definecolor{CoolPurple}{RGB}{117, 0, 235}
+\definecolor{NatureGreen}{RGB}{8, 104, 11}
+\definecolor{SeaBlue}{RGB}{6, 97, 122}
+\definecolor{Lilac}{RGB}{178, 131, 206}
+
 \hypersetup{
     bookmarks=true,
     colorlinks=true,
     linktoc=all,
-    linkcolor=Purple,
-    citecolor=ForestGreen,
+    linkcolor=CoolPurple,
+    citecolor=NatureGreen,
     filecolor=WildStrawberry,
-    urlcolor=Cerulean
+    urlcolor=SeaBlue
 }
 
 \newcommand{\citepg}[2]{\citeauthor{#1}, \citeyear{#1}, p.~#2}
@@ -66,7 +71,7 @@ headheight=26pt]{geometry}
         \title{Concept Summary for \progname{}: A Computational Model of
         Emotion for Enhancing Non-Player Character Believability in Games}
         \author{Geneva M. Smith}
-        \date{October 23, 2022}
+        \date{Version~\ref{current_version_concept} (October 23, 2022)}
 
         \maketitle
     \end{titlepage}
