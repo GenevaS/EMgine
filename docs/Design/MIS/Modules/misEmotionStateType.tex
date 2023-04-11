@@ -233,16 +233,15 @@ iff EmIntensityT or equivalent are available.
     \item exception: $\mathit{exec} := \,( \nexists x \in m \rightarrow x \geq
     0 \Rightarrow \text{E-EST\_ALL\_MAX\_VALUES\_ARE\_ZERO} \, )$
 
-    \# Additional exceptions thrown from ChangeMaxIntensityOf
-
 \end{itemize}
 
 \noindent ResetMaxIntensityOf($\mathit{emotion}$):
 \begin{itemize}
 
     \item \parbox[t]{\linewidth}{\vspace*{-1.2em}\begin{nospaceflalign*}
-            \text{transition: } &\text{ChangeMaxIntensityOf}(\mathit{emotion},
-            M) &\\
+            \text{transition: } &\mathit{max}.\mathit{emotion},
+            \mathit{intensities}.\mathit{emotion} := M,
+            \text{ValidateIntensityOf}(\mathit{emotion}) &\\
             &\text{where } M = \text{new EmIntensityT(MAX\_INTENSITY\_DEFAULT)}
         \end{nospaceflalign*}
     }
