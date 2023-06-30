@@ -1,0 +1,36 @@
+\subsection{Traceability Between Test Cases and Modules}
+In the traceability graphs, test suites appear at the tail of an arrow and
+modules appear at the head. In the traceability matrices, the test suites
+related to a module's verification are marked with an ``X'' in the
+requirement's column.
+
+\vspace*{\fill}
+\begin{figure}[tbh]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/testSuites2modules.pdf}
+    \caption{Traceability between Unit-Level Test Suites and Modules}
+    \label{fig:traceUnitTS2Modules}
+\end{figure}
+\vspace*{\fill}
+
+\begin{landscape}
+    \vspace*{\fill}
+    \begin{table}[tbh]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            & \mref{mIntensity} & \mref{mIntensityFun} & \mref{mStateType} &
+            \mref{mGenerate} & \mref{mDecay} & \mref{mDecayState} &
+            \mref{mPADType}
+            & \mref{mPADFun} & \mref{mEmotionType} & \mref{mEmotionFun} &
+            \mref{mGoal} & \mref{mPlan} & \mref{mSocial} & \mref{mAttention} &
+            \mref{mTime} & \mref{mWorld} \\\hline
+
+            \ref{sec:unit_intensity} & X &  &  &&& &&&&&&&&&&\\\hline
+
+        \end{tabular}
+        \caption{Traceability between Unit-Level Test Suites and Modules}
+        \label{tab:traceUnitTS2Modules}
+    \end{table}
+    \vspace*{\fill}
+\end{landscape}

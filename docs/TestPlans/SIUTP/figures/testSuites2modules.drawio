@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" modified="2023-04-07T02:14:21.383Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0" etag="GbjunMo2R3-aEqyyEtIl" version="21.1.5" type="device">
+  <diagram id="Ijfi6axgYDM7E5HNz20h" name="Page-1">
+    <mxGraphModel dx="1372" dy="822" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-2" value="M1 &lt;br&gt;Emotion Intensity Type" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="340" y="110" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-4" value="M3&lt;br&gt;Emotion State Type" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="230" y="270" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-7" value="&lt;div&gt;M6&lt;/div&gt;Emotion State Decay" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="10" y="340" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-9" value="M7&lt;br&gt;PAD Type" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="120" y="340" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-10" value="M8&lt;br&gt;PAD Function" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="230" y="340" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-11" value="M9&lt;br&gt;Emotion Type" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="340" y="340" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-12" value="M10&lt;br&gt;Emotion Function" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="450" y="340" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-13" value="M15&lt;br&gt;Time" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="450" y="410" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-14" value="M16&lt;br&gt;World State" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="10" y="480" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-15" value="M12&lt;br&gt;Plan" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="120" y="410" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-16" value="M11&lt;br&gt;Goal" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="10" y="410" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-17" value="M14&lt;br&gt;Attention" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="340" y="410" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-18" value="M13&lt;br&gt;Social Attachment" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="230" y="410" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Hy1vOjRzFsi8qatX1zJ2-4" value="&lt;div&gt;M5&lt;/div&gt;Emotion Intensity Decay" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="450" y="270" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-3" value="M2 &lt;br&gt;Emotion Intensity Function" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="120" y="270" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vsHfyyIj6KERhxad7ZAa-6" value="M4&lt;br&gt;Emotion Generation" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="340" y="270" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9bRDIfW3k8-YHFRWHDxr-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="9bRDIfW3k8-YHFRWHDxr-2" target="vsHfyyIj6KERhxad7ZAa-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9bRDIfW3k8-YHFRWHDxr-2" value="&lt;div&gt;Emotion Intensity Types Module &lt;br&gt;&lt;/div&gt;&lt;div&gt;(4.1.1)&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="110" width="142" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

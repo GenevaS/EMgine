@@ -1,0 +1,620 @@
+\subsubsection{\progname{} Methods}\label{sec_sysMethods}
+These tests evaluate the correctness and precision of \progname{}'s methods as
+described in the SRS. Unless otherwise specified:
+\begin{itemize}
+    \item The NUnit Unit Testing Framework (Section~\ref{sec:tools}) automates
+    all tests,
+    \item Tests have an error tolerance $\epsilon = 1 \times 10^{-15}$, and
+    \item All user messages are printed to the console.
+\end{itemize}
+
+\paragraph{\thesubsubsection.1 Manipulating Emotion
+Intensities}\label{sec:sys-methods-emotionintensity}
+These tests check the satisfaction of \rref{R_UpdateAnIntensity}.
+
+\begin{enumerate}
+
+    \item{systemtest-UpdateWithChg\_GivenPositiveChg-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $ \mathit{i} : \emotionintensitytype = 2
+            $, $ \mathit{d} : \responsestrength = 1 $ \\
+            \textbf{Input} & $\mathit{i}.
+            $UpdateWithChg$(\mathit{d}) $ \\ \midrule
+            \textbf{Expected Output} & $ \mathit{i}' = 0.1 \cdot \log_2(2^{20}
+            + 2^{10}) $ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-UpdateWithChg\_GivenPositiveChg-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $ \mathit{i} : \emotionintensitytype =
+            40.89 $, $ \mathit{d} : \responsestrength = 1 $ \\
+            \textbf{Input} & $\mathit{i}.
+            $UpdateWithChg$(\mathit{d}) $ \\ \midrule
+            \textbf{Expected Output} & $ \mathit{i}' = 0.1 \cdot
+            \log_2(2^{408.9} + 2^{10}) $ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-UpdateWithChg\_GivenNegativeChg-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $ \mathit{i} : \emotionintensitytype = 2
+            $, $ \mathit{d} : \responsestrength = -1 $ \\
+            \textbf{Input} & $\mathit{i}.
+            $UpdateWithChg$(\mathit{d}) $ \\ \midrule
+            \textbf{Expected Output} & $ \mathit{i}' = 0.1 \cdot \log_2(2^{20}
+            - 2^{10}) $ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-UpdateWithChg\_GivenNegativeChg-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $ \mathit{i} : \emotionintensitytype =
+            40.89 $, $ \mathit{d} : \responsestrength = -1 $ \\
+            \textbf{Input} & $\mathit{i}.
+            $UpdateWithChg$(\mathit{d}) $ \\ \midrule
+            \textbf{Expected Output} & $ \mathit{i}' = 0.1 \cdot
+            \log_2(2^{408.9} - 2^{10}) $ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \clearpage
+
+    \item{systemtest-UpdateWithChg\_GivenZeroChg-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $ \mathit{i} : \emotionintensitytype =
+            2 $, $ \mathit{d} : \responsestrength = 0 $ \\
+            \textbf{Input} & $\mathit{i}.
+            $UpdateWithChg$(\mathit{d}) $ \\ \midrule
+            \textbf{Expected Output} & $ \mathit{i}' = \mathit{i} $ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-UpdateWithChg\_GivenZeroChg-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $ \mathit{i} : \emotionintensitytype =
+            40.89 $, $ \mathit{d} : \responsestrength = 0 $ \\
+            \textbf{Input} & $\mathit{i}.
+            $UpdateWithChg$(\mathit{d}) $ \\ \midrule
+            \textbf{Expected Output} & $ \mathit{i}' = \mathit{i} $ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-UpdateWithChg\_IntensityZero}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $ \mathit{i} : \emotionintensitytype =
+            0 $, $ \mathit{d} : \responsestrength = 1 $ \\
+            \textbf{Input} & $\mathit{i}.
+            $UpdateWithChg$(\mathit{d}) $ \\ \midrule
+            \textbf{Expected Output} & $ \mathit{i}' = 0.1 \cdot
+            \log_2(1 + 2^{10}) $ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+\end{enumerate}
+
+%\paragraph{Emotion Generation} These tests check the satisfaction of
+%\rref{R_GenerateEmotionCTE}.
+%
+%\clearpage\paragraph{Evaluating Emotion Intensity} These tests check the
+%satisfaction of \rref{R_CalculateIntensity}.
+%
+%\clearpage\paragraph{Decaying Emotion Intensity}\label{sec_sysMethods_emDecay}
+%These tests check the satisfaction of \rref{R_DecayIntensity} and
+%\rref{R_DecayEmotion}. They rely on concrete implementations of $\timetype$ and
+%$\deltatimetype$ ($\timetype^T$ and $\deltatimetype^T$) to see how these
+%functions behave when given concrete values.
+%\begin{enumerate}
+%
+%    \item{systemtest-DecayIntensityOverdamped}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 1$,
+%            $\mathit{dt} : \deltatimetype^T = 1$, $d : \emotiondecaytype = 1$,
+%            $\zeta : \mathbb{R} = 2.0$, $i_{Eq} : \emotionintensitytype = 0$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d, \zeta,
+%            i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & $ \left(0.5 + \dfrac{1}{\sqrt{3}}
+%            \right) \cdot e^{-\mbox{\footnotesize $\left(2 - \sqrt{3}\right)$}}
+%            + \left(0.5 - \dfrac{1}{\sqrt{3}} \right) \cdot
+%            e^{-\mbox{\footnotesize $\left(2 + \sqrt{3}\right)$}} :
+%            \emotionintensitytype$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayIntensityUnderdamped}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 1$,
+%            $\mathit{dt} : \deltatimetype^T = 1$, $d : \emotiondecaytype = 1$,
+%            $\zeta : \mathbb{R} = 0.5$, $i_{Eq} : \emotionintensitytype = 0$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d, \zeta,
+%            i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & $e^{-\mbox{\footnotesize $0.5$}} \cdot
+%            \cos\left(\dfrac{\sqrt{3}}{2}\right) + \dfrac{1}{\sqrt{3}} \cdot
+%            \sin\left(\dfrac{\sqrt{3}}{2}\right) : \emotionintensitytype$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayIntensityCriticallyDamped}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 1$,
+%            $\mathit{dt} : \deltatimetype^T = 1$, $d : \emotiondecaytype = 1$,
+%            $\zeta : \mathbb{R} = 1.0$, $i_{Eq} : \emotionintensitytype
+%            = 0$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & $e^{-\mbox{\footnotesize $1.0$}} \cdot 2
+%            : \emotionintensitytype$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayIntensityIisEquilibrium}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 1$,
+%            $\mathit{dt} : \deltatimetype^T = 1$, $d : \emotiondecaytype = 1$,
+%            $\zeta : \mathbb{R} = 1$, $i_{Eq} : \emotionintensitytype =
+%            1$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & $1 : \emotionintensitytype$ \\
+%            \textbf{Test Case Derivation} & If $i_0 = i_{Eq}$, the function
+%            should return an intensity equal to $i_{Eq}$, not zero (0). \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-DecayIntensityNegativeZeta}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 1$,
+%            $\mathit{dt} : \deltatimetype^T = 1$, $d : \emotiondecaytype = 1$,
+%            $\zeta : \mathbb{R} = 0$, $i_{Eq} : \emotionintensitytype =
+%            0$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & \texttt{null} \\
+%            \textbf{User Message} & \texttt{Error: Zeta must be greater than
+%            zero. Cannot complete evaluation.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayIntensityTimeZero}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 1$,
+%            $\mathit{dt} : \deltatimetype^T = 0$, $d : \emotiondecaytype = 1$,
+%            $\zeta : \mathbb{R}_{>0}$, $i_{Eq} : \emotionintensitytype =
+%            0$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & $i_0 : \emotionintensitytype$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayIntensityTimeNegative}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 1$,
+%            $\mathit{dt} : \deltatimetype^T = -1$, $d : \emotiondecaytype = 1$,
+%            $\zeta : \mathbb{R}_{>0}$, $i_{Eq} : \emotionintensitytype =
+%            0$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & $i_0 : \emotionintensitytype$ \\
+%            \textbf{User Message} & \texttt{Warning: Cannot evaluate emotion
+%            decay prior to time = 0. Evaluating at time = 0.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayGraphOverdampingAboveEq}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Type} & Manual, Graphing \\
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 10$,
+%            Seq. $\mathit{dt} : \deltatimetype^T = \{ 0..25 \}$, $d :
+%            \emotiondecaytype = 1$, Seq. $\zeta : \mathbb{R} = \{ 1.5,
+%            1.75, 2\}$, $i_{Eq} : \emotionintensitytype = 5$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & Figure~\ref{fig:overdamping} \\
+%            \textbf{Test Case Derivation} & A graph of emotion decay over time
+%            for different values of $\zeta$ is a way to visually check
+%            that the function is behaving as expected. \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-DecayGraphUnderdampingAboveEq}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Type} & Manual, Graphing \\
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 10$,
+%            Seq. $\mathit{dt} : \deltatimetype^T = \{ 0..50 \}$, $d :
+%            \emotiondecaytype = 1$, Seq. $\zeta : \mathbb{R} = \{ 0.05,
+%            0.125, 0.25, 0.5\}$, $i_{Eq} : \emotionintensitytype = 5$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & Figure~\ref{fig:underdamping} \\
+%            \textbf{Test Case Derivation} & A graph of emotion decay over time
+%            for different values of $\zeta$ is a way to visually check
+%            that the function is behaving as expected. \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayGraphCriticaldampingAboveEq}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Type} & Manual, Graphing \\
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 10$,
+%            Seq. $\mathit{dt} : \deltatimetype^T = \{ 0..25 \}$, $d :
+%            \emotiondecaytype = 1$, $\zeta : \mathbb{R} = 1$, $i_{Eq} :
+%            \emotionintensitytype = 5$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & Figure~\ref{fig:criticallydamping} \\
+%            \textbf{Test Case Derivation} & A graph of emotion decay over time
+%            is a way to visually check that the function is behaving as
+%            expected for $\zeta = 1$. \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayGraphOverdampingBelowEq}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Type} & Manual, Graphing \\
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 2.5$,
+%            Seq. $\mathit{dt} : \deltatimetype^T = \{ 0..25 \}$, $d :
+%            \emotiondecaytype = 1$, Seq. $\zeta : \mathbb{R} = \{ 1.5,
+%            1.75, 2\}$, $i_{Eq} : \emotionintensitytype = 5$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & Figure~\ref{fig:overdamping2} \\
+%            \textbf{Test Case Derivation} & A graph of emotion decay over time
+%            for different values of $\zeta$ is a way to visually check
+%            that the function is behaving as expected. \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-DecayGraphUnderdampingBelowEq}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Type} & Manual, Graphing \\
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 2.5$,
+%            Seq. $\mathit{dt} : \deltatimetype^T = \{ 0..50 \}$, $d :
+%            \emotiondecaytype = 1$, Seq. $\zeta : \mathbb{R} = \{ 0.05,
+%            0.125, 0.25, 0.5\}$, $i_{Eq} : \emotionintensitytype = 5$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & Figure~\ref{fig:underdamping2} \\
+%            \textbf{Test Case Derivation} & A graph of emotion decay over time
+%            for different values of $\zeta$ is a way to visually check
+%            that the function is behaving as expected. \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayGraphCriticaldampingBelowEq}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Type} & Manual, Graphing \\
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 2.5$,
+%            Seq. $\mathit{dt} : \deltatimetype^T = \{ 0..25 \}$, $d :
+%            \emotiondecaytype = 1$, $\zeta : \mathbb{R} = 1$, $i_{Eq} :
+%            \emotionintensitytype = 5$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & Figure~\ref{fig:criticallydamping2} \\
+%            \textbf{Test Case Derivation} & A graph of emotion decay over time
+%            is a way to visually check that the function is behaving as
+%            expected for $\zeta = 1$. \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayGraphNegativePoints}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Type} & Manual, Graphing \\
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = 3$,
+%            Seq. $\mathit{dt} : \deltatimetype^T = \{ 0..25 \}$, $d :
+%            \emotiondecaytype = 1$, $\zeta : \mathbb{R} = 0.05$,
+%            $i_{Eq} : \emotionintensitytype = 1$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & Figure~\ref{fig:dampingNegative} \\
+%            \textbf{Test Case Derivation} & It is possible for under damped
+%            emotion decay to fall below the minimum value of
+%            $\emotionintensitytype$ due to its oscillatory behaviour. When it
+%            does, those values should be the minimum value and the remaining
+%            values should remain unchanged. \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-DecayGraphMaxedOutPoints}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Type} & Manual, Graphing \\
+%            \textbf{Initial State} & $i_0 : \emotionintensitytype = ?$,
+%            Seq. $\mathit{dt} : \deltatimetype^T = \{ 0..25 \}$, $d :
+%            \emotiondecaytype = 1$, $\zeta : \mathbb{R} = 0.05$,
+%            $i_{Eq} : \emotionintensitytype = ?$ \\
+%            \textbf{Input} & DecayIntensity$(i_0, \mathit{dt}, d,
+%            \zeta, i_{Eq})$ \\ \midrule
+%            \textbf{Expected Output} & Figure~\ref{fig:dampingMaxed} \\
+%            \textbf{Test Case Derivation} & It is possible for under damped
+%            emotion decay to exceed the maximum value of
+%            $\emotionintensitytype$ due to its oscillatory behaviour. When it
+%            does, those values should be the maximum value and the remaining
+%            values should remain unchanged. \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%\end{enumerate}
+%
+%\begin{landscape}
+%    \vspace*{\fill}
+%    \begin{figure}[!ht]
+%        \centering
+%        \includegraphics[width=\linewidth]{figures/emotionDecay_overdamped.png}
+%        \caption{Expected Graph of Over-damped Emotion Decay ($i_0 > i_{Eq}$)}
+%        \label{fig:overdamping}
+%    \end{figure}
+%    \vspace*{\fill}
+%
+%    \vspace*{\fill}
+%    \begin{figure}[!ht]
+%        \centering
+%
+%\includegraphics[width=\linewidth]{figures/emotionDecay_underdamped.png}
+%        \caption{Expected Graph of Under-damped Emotion Decay ($i_0 > i_{Eq}$)}
+%        \label{fig:underdamping}
+%    \end{figure}
+%    \vspace*{\fill}
+%
+%    \vspace*{\fill}
+%    \begin{figure}[!ht]
+%        \centering
+%
+%\includegraphics[width=\linewidth]{figures/emotionDecay_criticallydamped.png}
+%        \caption{Expected Graph of Critically Damped Emotion Decay ($i_0 >
+%        i_{Eq}$)}
+%        \label{fig:criticallydamping}
+%    \end{figure}
+%    \vspace*{\fill}
+%\end{landscape}
+%
+%\begin{landscape}
+%    \vspace*{\fill}
+%    \begin{figure}[!ht]
+%        \centering
+%
+%\includegraphics[width=\linewidth]{figures/emotionDecay_overdamped2.png}
+%        \caption{Expected Graph of Over-damped Emotion Decay ($i_0 < i_{Eq}$)}
+%        \label{fig:overdamping2}
+%    \end{figure}
+%    \vspace*{\fill}
+%
+%    \vspace*{\fill}
+%    \begin{figure}[!ht]
+%        \centering
+%
+%\includegraphics[width=\linewidth]{figures/emotionDecay_underdamped2.png}
+%        \caption{Expected Graph of Under-damped Emotion Decay ($i_0 < i_{Eq}$)}
+%        \label{fig:underdamping2}
+%    \end{figure}
+%    \vspace*{\fill}
+%
+%    \vspace*{\fill}
+%    \begin{figure}[!ht]
+%        \centering
+%
+%\includegraphics[width=\linewidth]{figures/emotionDecay_criticallydamped2.png}
+%        \caption{Expected Graph of Critically Damped Emotion Decay ($i_0 <
+%        i_{Eq}$)}
+%        \label{fig:criticallydamping2}
+%    \end{figure}
+%    \vspace*{\fill}
+%
+%    \vspace*{\fill}
+%    \begin{figure}[!ht]
+%        \centering
+%
+%\includegraphics[width=\linewidth]{figures/emotionDecay_constrained.png}
+%        \caption{Expected Graph of Under-Damped Emotion Decay ($\exists i :
+%        \emotionintensitytype < \text{min}(\emotionintensitytype)$)}
+%        \label{fig:dampingNegative}
+%    \end{figure}
+%    \vspace*{\fill}
+%
+%    \vspace*{\fill}
+%    \begin{figure}[!ht]
+%        \centering
+%
+%%%\includegraphics[width=\linewidth]{figures/emotionDecay_constrained.png}
+%        \caption{Expected Graph of Under-Damped Emotion Decay ($\exists i :
+%            \emotionintensitytype > \text{max}(\emotionintensitytype)$)}
+%        \label{fig:dampingMaxed}
+%    \end{figure}
+%    \vspace*{\fill}
+%\end{landscape}
+
+%\clearpage\paragraph{Manipulating Emotion
+%States}\label{sec:sys-methods-emotionstate} These tests check the satisfaction
+%of \rref{R_UpdateEmotionState}.
+%
+%\begin{enumerate}
+%
+%    \item{systemtest-EmotionStateUpdateAllIntensitiesWithChg}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & $ \mathit{es} : \emotionstatetype = \{
+%            \mathit{intensities} = i, \mathit{max} = m \} $, \newline where $i
+%            = \langle \, 2 : \emotionintensitytype, 3.8 :
+%            \emotionintensitytype, 40.89 : \emotionintensitytype, 67.3 :
+%            \emotionintensitytype, 89.3 : \emotionintensitytype, 34.678 :
+%            \emotionintensitytype,$ $ 4.678 : \emotionintensitytype, 78.4 :
+%            \emotionintensitytype \, \rangle$, \newline $m = \langle \, 16 :
+%            \emotionintensitytype, 10 : \emotionintensitytype, 100 :
+%            \emotionintensitytype, 100.536 : \emotionintensitytype, 140.2 :
+%            \emotionintensitytype,$ $ 50.7: \emotionintensitytype, 40.78 :
+%            \emotionintensitytype, 80.234 : \emotionintensitytype \, \rangle$,
+%            $\mathit{chgs} = \langle -36, -22, -19, 0, 16, 27, 33, 49 \rangle :
+%            \langle \responsestrength \rangle $ \\
+%            \textbf{Input} &
+%            $\mathit{es}.$UpdateAllIntensities$(\mathit{chgs}) $ \\
+%            \midrule
+%            \textbf{Expected Output} & $ \mathit{es}' = \mathit{es}$ with
+%            $\mathit{es}.\mathit{intensities} = \langle 0, 0,$ $0.1 \cdot
+%            \log_2(2^{408.9} - 2^{190}),
+%            \mathit{es}.\mathit{intensities}[\emotionkindstype.\mathtt{Fear}],$
+%             $0.1 \cdot \log_2(2^{893} + 2^{160}), 0.1 \cdot \log_2(2^{346.78}
+%             + 2^{270}),$ $0.1 \cdot \log_2(2^{46.78} + 2^{330}), 0.1 \cdot
+%             \log_2(2^{784} + 2^{490}) \rangle$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-EmotionStateUpdateAllIntensitiesWithTooFewChg}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & $ \mathit{es} : \emotionstatetype = \{
+%            \mathit{intensities} = i, \mathit{max} = m \} $, \newline where $i
+%            = \langle \, 2 : \emotionintensitytype, 3.8 :
+%            \emotionintensitytype, 40.89 : \emotionintensitytype, 67.3 :
+%            \emotionintensitytype, 89.3 : \emotionintensitytype, 34.678 :
+%            \emotionintensitytype,$ $ 4.678 : \emotionintensitytype, 78.4 :
+%            \emotionintensitytype \, \rangle$, \newline $m = \langle \, 16 :
+%            \emotionintensitytype, 10 : \emotionintensitytype, 100 :
+%            \emotionintensitytype, 100.536 : \emotionintensitytype, 140.2 :
+%            \emotionintensitytype,$ $ 50.7: \emotionintensitytype, 40.78 :
+%            \emotionintensitytype, 80.234 : \emotionintensitytype \, \rangle$,
+%            $\mathit{chgs} = \langle -36, -22, -19, 0, 16, 27, 33 \rangle :
+%            \langle \responsestrength \rangle $ \\
+%            \textbf{Input} &
+%            $\mathit{es}.$UpdateAllIntensities$(\mathit{chgs}) $ \\
+%            \midrule
+%            \textbf{Expected Output} & $ \mathit{es}' = \mathit{es}$ \\
+%            \textbf{User Message} & \texttt{Error: 7 intensity changes given,
+%            but there are exactly 8 types in the emotion state. Emotion state
+%            intensities are unchanged.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-EmotionStateUpdateAllIntensitiesWithTooManyChg}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & $ \mathit{es} : \emotionstatetype = \{
+%            \mathit{intensities} = i, \mathit{max} = m \} $, \newline where $i
+%            = \langle \, 2 : \emotionintensitytype, 3.8 :
+%            \emotionintensitytype, 40.89 : \emotionintensitytype, 67.3 :
+%            \emotionintensitytype, 89.3 : \emotionintensitytype, 34.678 :
+%            \emotionintensitytype,$ $ 4.678 : \emotionintensitytype, 78.4 :
+%            \emotionintensitytype \, \rangle$, \newline $m = \langle \, 16 :
+%            \emotionintensitytype, 10 : \emotionintensitytype, 100 :
+%            \emotionintensitytype, 100.536 : \emotionintensitytype, 140.2 :
+%            \emotionintensitytype,$ $ 50.7: \emotionintensitytype, 40.78 :
+%            \emotionintensitytype, 80.234 : \emotionintensitytype \, \rangle$,
+%            $\mathit{chgs} = \langle -36, -22, -19, 0, 16, 27, 33, 49, 49
+%            \rangle : \langle \responsestrength \rangle $ \\
+%            \textbf{Input} &
+%            $\mathit{es}.$UpdateAllIntensities$(\mathit{chgs}) $ \\
+%            \midrule
+%            \textbf{Expected Output} & $ \mathit{es}' = \mathit{es}$ \\
+%            \textbf{User Message} & \texttt{Error: 9 intensity changes given,
+%            but there are exactly 8 types in the emotion state. Emotion state
+%            intensities are unchanged.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%\end{enumerate}
+%
+%\clearpage\paragraph{Manipulating Emotion} These tests check the satisfaction
+%of
+%\rref{R_UpdateEmotion} and \rref{R_GetEmotionState}.
+%
+%\clearpage\paragraph{Translating Emotion States to PAD Space} These tests check
+%the satisfaction of \rref{R_Convert2PAD}.

@@ -1,0 +1,323 @@
+\subsubsection{Emotion Intensity Types Module
+(\mref{mIntensity})}\label{sec:unit_intensity}
+
+\begin{enumerate}
+
+    \item{unittest-Normalize\_GivenPositiveIntensity-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype = 5$,
+            $\mathit{i2} : \emotionintensitytype = 2.5$ \\
+            \textbf{Input} &
+            $\mathit{i1}$.Normalize($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $2 : \emotionintensitytype$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-Normalize\_GivenPositiveIntensity-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype = 5$,
+            $\mathit{i2} : \emotionintensitytype = 1.6$ \\
+            \textbf{Input} &
+            $\mathit{i1}$.Normalize($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $3.125 : \emotionintensitytype$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-Normalize\_GivenPositiveIntensity-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype =
+            2.5$, $\mathit{i2} : \emotionintensitytype = 5$ \\
+            \textbf{Input} &
+            $\mathit{i1}$.Normalize($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $0.5 : \emotionintensitytype$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-Normalize\_GivenPositiveIntensity-4}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype =
+            2.5$, $\mathit{i2} : \emotionintensitytype = 1.6$ \\
+            \textbf{Input} &
+            $\mathit{i1}$.Normalize($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $1.5625 : \emotionintensitytype$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-Normalize\_GivenPositiveIntensity-5}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype =
+            2.5$, $\mathit{i2} : \emotionintensitytype = 2.5$ \\
+            \textbf{Input} &
+            $\mathit{i1}$.Normalize($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $1 : \emotionintensitytype$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-Normalize\_GivenZeroIntensity}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype = 5$,
+            $\mathit{i2} : \emotionintensitytype = 0$ \\
+            \textbf{Input} &
+            $\mathit{i1}$.Normalize($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & \texttt{null} \\
+            \textbf{Test Case Derivation} & Normalization is division-based and
+            divide-by-zero is undefined. \progname{} cannot normalize an
+            intensity when the normalization factor is zero. \\
+            \textbf{User Message} & \texttt{Error: Reference intensity has a
+                value of zero. Cannot complete normalization.} \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-Normalize\_IntensityToNormalizeIsZero}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype = 0$,
+            $\mathit{i2} : \emotionintensitytype = 1.6$ \\
+            \textbf{Input} &
+            $\mathit{i1}$.Normalize($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $0 : \emotionintensitytype$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ScaleByValue\_GivenPositiveValue-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 0$,
+            $v : \mathbb{R} = 4.5$ \\
+            \textbf{Input} & $\mathit{d}$.ScaleByValue($\mathit{v}$) \\
+            \midrule
+            \textbf{Expected Output} & $0 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ScaleByValue\_GivenPositiveValue-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = -1.5$,
+            $v : \mathbb{R} = 4.5$ \\
+            \textbf{Input} & $\mathit{d}$.ScaleByValue($\mathit{v}$) \\
+            \midrule
+            \textbf{Expected Output} & $-6.75 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \clearpage
+
+    \item{unittest-ScaleByValue\_GivenPositiveValue-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 2.8$,
+            $v : \mathbb{R} = 4.5$ \\
+            \textbf{Input} & $\mathit{d}$.ScaleByValue($\mathit{v}$) \\
+            \midrule
+            \textbf{Expected Output} & $12.6 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ScaleByValue\_GivenNegativeValue-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 0$,
+            $v : \mathbb{R} = -1$ \\
+            \textbf{Input} & $\mathit{d}$.ScaleByValue($\mathit{v}$) \\
+            \midrule
+            \textbf{Expected Output} & $0 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ScaleByValue\_GivenNegativeValue-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = -1.5$,
+            $v : \mathbb{R} = -1$ \\
+            \textbf{Input} & $\mathit{d}$.ScaleByValue($\mathit{v}$) \\
+            \midrule
+            \textbf{Expected Output} & $1.5 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ScaleByValue\_GivenNegativeValue-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 2.8$,
+            $v : \mathbb{R} = -1$ \\
+            \textbf{Input} & $\mathit{d}$.ScaleByValue($\mathit{v}$) \\
+            \midrule
+            \textbf{Expected Output} & $-2.8 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ScaleByValue\_GivenZero-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 0$,
+            $v : \mathbb{R} = 0$ \\
+            \textbf{Input} & $\mathit{d}$.ScaleByValue($\mathit{v}$) \\
+            \midrule
+            \textbf{Expected Output} & $0 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ScaleByValue\_GivenZero-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = -1.5$,
+            $v : \mathbb{R} = 0$ \\
+            \textbf{Input} & $\mathit{d}$.ScaleByValue($\mathit{v}$) \\
+            \midrule
+            \textbf{Expected Output} & $0 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ScaleByValue\_GivenZero-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 2.8$,
+            $v : \mathbb{R} = 0$ \\
+            \textbf{Input} & $\mathit{d}$.ScaleByValue($\mathit{v}$) \\
+            \midrule
+            \textbf{Expected Output} & $0 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+
+    \item{unittest-ToReal\_Intensity-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i} : \emotionintensitytype = 0$ \\
+            \textbf{Input} & $\mathit{i}$.ConvertToValue() \\
+            \midrule
+            \textbf{Expected Output} & $0 : \mathbb{R}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ToReal\_Intensity-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i} : \emotionintensitytype = 2.3$
+            \\
+            \textbf{Input} & $\mathit{i}$.ConvertToValue() \\
+            \midrule
+            \textbf{Expected Output} & $2.3 : \mathbb{R}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ToReal\_Intensity-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i} : \emotionintensitytype = 5$ \\
+            \textbf{Input} & $\mathit{i}$.ConvertToValue() \\
+            \midrule
+            \textbf{Expected Output} & $5 : \mathbb{R}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ToReal\_IntensityChg-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 0$ \\
+            \textbf{Input} & $\mathit{d}$.ConvertToValue() \\
+            \midrule
+            \textbf{Expected Output} & $0 : \mathbb{R}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ToReal\_IntensityChg-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = -2.3$ \\
+            \textbf{Input} & $\mathit{d}$.ConvertToValue() \\
+            \midrule
+            \textbf{Expected Output} & $-2.3 : \mathbb{R}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{unittest-ToReal\_IntensityChg-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 5$ \\
+            \textbf{Input} & $\mathit{d}$.ConvertToValue() \\
+            \midrule
+            \textbf{Expected Output} & $5 : \mathbb{R}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+\end{enumerate}

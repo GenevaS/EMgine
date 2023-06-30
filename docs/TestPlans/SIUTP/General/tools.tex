@@ -1,0 +1,35 @@
+\subsection{Testing and Verification Tools}\label{sec:tools}
+\progname{}'s development uses the C\# programming language because it is one
+of the languages supported in Unity, a well-known game development
+platform~\citep{unity3Dcsharp}. The supporting Integrated Development
+Environment (IDE), Microsoft Visual Studio (VS), is the default script editor
+in Unity. \progname{} development uses VS 2022 (Community Edition), which can
+access the following tools:
+\begin{itemize}
+
+    \item \textbf{NUnit Unit Testing Framework} \\
+    This supports the bulk of the automated testing approach for unit,
+    integration, system, and regression testing. The IDE is configured to
+    automatically run existing unit tests when it is compiling the code base.
+    Unity Testing Framework uses custom integration of NUnit
+    3.5~\citep{unity3Dtestingfw}.
+
+    \item \textbf{Moq Library for .NET} \\
+    This supports tests that rely on components that do not have a concrete
+    implementation, such as the user-defined data types
+    %(Section~\ref{sec_sysUserDataTypes}).
+    It allows the definition of mocked
+    interface calls within unit tests that are type-safe~\citep{moq}.
+
+    \item \textbf{Performance Analysis} \\
+    \progname{} uses the performance tools built into VS 2022, which includes
+    CPU, memory, and time usage tools~\citep{vs2022perf}.
+
+    \item \textbf{Code Style and Quality Analyzers} \\
+    \progname{}'s development uses the official .NET Compiler Platform
+    (Roslyn)~\citep{roslyn} and the third-party Roslynator~\citep{roslynator}
+    analyzers to help adhere to good code quality and style practices. The
+    Unity documentation also references Roslyn analyzers for code style and
+    quality~\citep{unity3Droslyn}.
+
+\end{itemize}

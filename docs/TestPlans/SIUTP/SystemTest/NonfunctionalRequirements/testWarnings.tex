@@ -1,0 +1,16 @@
+\subsubsection{Recoverable User Error}\label{sec:sys-nf-recover}
+\progname{} relies on warning messages, not error messages, to inform users
+when it encounters a recoverable error (\nfref{N_RecoverNeutral}). It must also
+produce a valid output to compensate for its inability to produce one from
+user-provided inputs. %(Section~\ref{sec:sys-nf-nonrecover})
+Relevant tests for \progname{}-defined data types
+(Section~\ref{sec_sysDataTypes}) are:
+\begin{itemize}
+    \item systemtest-IntensityConstructor\_GivenNegativeNumber
+\end{itemize}
+
+%\noindent Relevant tests for \progname{}-defined methods
+%(Section~\ref{sec_sysMethods}) are
+%\begin{itemize}
+%    \item
+%\end{itemize}

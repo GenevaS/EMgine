@@ -1,0 +1,160 @@
+\documentclass[11pt, titlepage]{article}
+
+\usepackage[letterpaper, hmargin=1in, bmargin=1in, tmargin=1.3in,
+headheight=26pt]{geometry}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{array}   % Used for table formatting
+\newcolumntype{P}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{N}[1]{>{\centering\arraybackslash}p{#1}}
+\usepackage{multirow}
+\usepackage[shortcuts]{extdash}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{pdflscape}
+
+\usepackage[nottoc,notlof,notlot,numbib]{tocbibind}
+
+\usepackage{natbib}
+
+\usepackage[page]{totalcount}
+
+\usepackage{fancyhdr}
+\fancyhf{}
+\lhead{System, Integration, and Unit Test Plan \\ \progname{}}
+\rhead{Geneva M. Smith \\ Dept. of Computing and Software---McMaster University}
+\lfoot{Ver.~\ref{current_version_TestPlan}}
+\rfoot{\thepage\ of \thepages}
+
+\renewcommand{\footrule}{\vbox to 0pt
+    {\makebox[\textwidth]{\hrulefill}\vss}}
+
+\definecolor{CoolPurple}{RGB}{117, 0, 235}
+\definecolor{NatureGreen}{RGB}{8, 104, 11}
+\definecolor{SeaBlue}{RGB}{6, 97, 122}
+\definecolor{Lilac}{RGB}{178, 131, 206}
+
+\hypersetup{
+    bookmarks=true,
+    colorlinks=true,
+    linktoc=all,
+    linkcolor=CoolPurple,
+    citecolor=NatureGreen,
+    filecolor=WildStrawberry,
+    urlcolor=SeaBlue
+}
+
+\newcommand{\colourRow}{\rowcolor[gray]{0.9}}
+\newcommand{\colourCell}{\cellcolor[gray]{0.9}}
+
+\newcommand{\citepg}[2]{\citeauthor{#1}, \citeyear{#1}, p.~#2}
+\newcommand{\citeg}[1]{\citeauthor{#1}, \citeyear{#1}}
+
+\makeatletter
+\newcommand\newref[1]{#1\def\@currentlabel{#1}}
+\makeatother
+
+\input{../../comments}
+
+\input{../../commands}
+
+\usepackage{xr}
+\externaldocument{../../SRS/EMgine_SRS}
+\newcommand{\rref}[1]{R\ref{#1}}
+\newcommand{\nfref}[1]{NF\ref{#1}}
+
+\externaldocument{../../Design/MG/EMgine_MG}
+\newcommand{\mref}[1]{M\ref{#1}}
+
+\externaldocument{../MTP/EMgine_MTP}
+
+% From https://tex.stackexchange.com/questions/101040/how-to-remove-unnecessary
+% -space-after-flalign-environment
+\newenvironment{nospaceflalign*}
+{\setlength{\abovedisplayskip}{0pt}\setlength{\belowdisplayskip}{0pt}%
+    \csname flalign*\endcsname}
+{\csname endflalign*\endcsname\ignorespacesafterend}
+%%%
+
+\usepackage[shortlabels, inline]{enumitem}
+
+\begin{document}
+
+    \newcounter{pages}
+
+    \begin{titlepage}
+
+        \thispagestyle{empty}
+
+        \title{System, Integration, and Unit Test Plan for \progname{}: A
+        Computational Model of Emotion for Enhancing Non-Player Character
+        Believability in Games}
+        \author{Geneva M. Smith}
+        \date{Version~\ref{current_version_TestPlan} (April 20, 2023)}
+
+        \maketitle
+
+    \end{titlepage}
+
+    \pagestyle{fancy}
+
+    \vspace*{\fill}
+    \noindent\textbf{\Large Revision History}
+    \begin{center}
+        \begin{tabular}{m{0.18\linewidth}C{0.13\linewidth}m{0.59\linewidth}}
+            \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+            \midrule
+            \vspace*{1mm}April 20, 2023 &
+            \vspace*{1mm}\newref{0.1}\label{current_version_TestPlan} &
+            \vspace*{5mm}
+            \begin{itemize}[noitemsep, nosep]
+                \item Initial document with the Emotion Intensity Component
+                (Emotion Intensity Type [\mref{mIntensity}] and Emotion State
+                Type [\mref{mStateType}] Modules) based on SRS Version~1.5.1,
+                MG Version~1.5, and MIS Version~0.1.1
+            \end{itemize} \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    \vspace*{\fill}
+
+    \clearpage
+
+    \tableofcontents
+
+    \listoftables
+
+    \listoffigures
+
+    \clearpage
+
+    \input{refmaterial}
+
+    \clearpage
+
+    \input{General/general}
+
+    \clearpage
+
+    \input{SystemTest/systemtest}
+
+    \clearpage
+
+    \input{UnitTest/unittest}
+
+    \clearpage
+
+    \bibliographystyle {ACM-Reference-Format}
+    \bibliography{../../../refs/references_test,
+    ../../../refs/references_gamedesign}
+
+    \setcounter{pages}{\totalpages}
+
+\end{document}

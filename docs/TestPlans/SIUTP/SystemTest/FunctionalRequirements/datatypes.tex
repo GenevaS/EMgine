@@ -1,0 +1,1389 @@
+\subsubsection{\progname{}-Defined Data Types}\label{sec_sysDataTypes}
+These tests evaluate the correctness and precision of \progname{}-defined data
+types as described in the SRS. Tests that check for adherence to data type
+constraints (\rref{R_Types}) also address \progname{}'s response to recoverable
+(Section~\ref{sec:sys-nf-recover}) %and non-recoverable
+%(Section~\ref{sec:sys-nf-nonrecover})
+ errors. Unless otherwise specified:
+\begin{itemize}
+    \item The NUnit Unit Testing Framework (Section~\ref{sec:tools}) automates
+    all tests,
+    \item Tests have an error tolerance $\epsilon = 1 \times 10^{-15}$, and
+    \item All user messages are printed to the console.
+\end{itemize}
+
+\noindent Section~\ref{sec_unitFunctional} describes tests of other functions
+necessary to manipulate data types that are \textit{not} described in the SRS.
+
+\paragraph{\thesubsubsection.1 Emotion Intensity $\emotionintensitytype$ and
+Intensity Change
+$\responsestrength$}\label{sec_IntensityAndIntensityChg}
+These tests check the satisfaction of \rref{R_IntensityTypeUse},
+\rref{R_IntensityChangeType}, and adherence to the constraints on
+$\emotionintensitytype$ and $\responsestrength$ (\rref{R_Types}). This includes
+testing their constructors and comparison methods.
+
+\begin{enumerate}
+
+    \item{systemtest-IntensityConstructor\_GivenPositiveNumber}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $5 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $5 : \emotionintensitytype$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-IntensityConstructor\_GivenPositiveNumberWithDecimals-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $5.8 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $5.8 : \emotionintensitytype$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \clearpage
+
+    \item{systemtest-IntensityConstructor\_GivenPositiveNumberWithDecimals-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $2.000000000000001 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $2.000000000000001 :
+            \emotionintensitytype$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-IntensityConstructor\_GivenZero}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $0 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $0 : \emotionintensitytype$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-IntensityConstructor\_GivenNegativeNumber}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $-5 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $0 : \emotionintensitytype$ \\
+            \textbf{Test Case Derivation} & When given a negative value,
+            \progname{} sets the intensity value to $0$ because values of
+            $\emotionintensitytype$ must be $\geq 0$.\\
+            \textbf{User Message} & \texttt{Warning: Value for emotion
+            intensity is out of bounds. Clamping to the range [0, infty).} \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-IntensityChgConstructor\_GivenPositiveNumber}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $5 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $5 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-IntensityChgConstructor\_GivenPositiveNumberWithDecimals-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $5.8 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $5.8 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \clearpage
+
+    \item{systemtest-IntensityChgConstructor\_GivenPositiveNumberWithDecimals-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $2.000000000000001 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $2.000000000000001 : \responsestrength$
+            \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-IntensityChgConstructor\_GivenZero}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $0 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $0 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-IntensityChgConstructor\_GivenNegativeNumber}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $-5 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $-5 : \responsestrength$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+
+
+    \item{systemtest-IntensityChgConstructor\_GivenNegativeNumberWithDecimals}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & New Session \\
+            \textbf{Input} & $-1.000000000000007 : \mathbb{R}$ \\ \midrule
+            \textbf{Expected Output} & $-1.000000000000007 : \responsestrength$
+            \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensity\_FirstIsLarger-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype = 5$,
+            $\mathit{i2} : \emotionintensitytype = 1$ \\
+            \textbf{Input} & $\mathit{i1}$.CompareToIntensity($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensity\_FirstIsLarger-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype = 5$,
+            $\mathit{i2} : \emotionintensitytype = 2.1$ \\
+            \textbf{Input} & $\mathit{i1}$.CompareToIntensity($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensity\_FirstIsSmaller-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype = 1$,
+            $\mathit{i2} : \emotionintensitytype = 5$ \\
+            \textbf{Input} & $\mathit{i1}$.CompareToIntensity($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensity\_FirstIsSmaller-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype = 5$,
+            $\mathit{i2} : \emotionintensitytype = 5.8$ \\
+            \textbf{Input} & $\mathit{i1}$.CompareToIntensity($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensity\_FirstIsSmaller-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype = 2$,
+            $\mathit{i2} : \emotionintensitytype = 2.000000000000001$ \\
+            \textbf{Input} & $\mathit{i1}$.CompareToIntensity($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensity\_EqualValues}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i1} : \emotionintensitytype = 5$,
+            $\mathit{i2} : \emotionintensitytype = 5$ \\
+            \textbf{Input} & $\mathit{i1}$.CompareToIntensity($\mathit{i2}$) \\
+            \midrule
+            \textbf{Expected Output} & $0 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-EqualsMinIntensity\_IntensityIsLarger-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i} : \emotionintensitytype = 5$,
+            $\mathit{i_{min}} : \emotionintensitytype = 0$ \\
+            \textbf{Input} & $\mathit{i}$.EqualsMinIntensity() \\ \midrule
+            \textbf{Expected Output} & $\False : \mathbb{B}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+
+
+    \item{systemtest-EqualsMinIntensity\_IntensityIsLarger-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i} : \emotionintensitytype$ =
+            2.3, $\mathit{i_{min}} : \emotionintensitytype = 0$ \\
+            \textbf{Input} & $\mathit{i}$.EqualsMinIntensity() \\ \midrule
+            \textbf{Expected Output} & $\False : \mathbb{B}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-EqualsMinIntensity\_IntensityIsLarger-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i} : \emotionintensitytype =
+            0.000000000000001$, $\mathit{i_{min}} : \emotionintensitytype = 0$
+            \\
+            \textbf{Input} & $\mathit{i}$.EqualsMinIntensity() \\
+            \midrule
+            \textbf{Expected Output} & $\False : \mathbb{B}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-EqualsMinIntensity\_IntensityIsMin}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{i} : \emotionintensitytype = 0$,
+            $\mathit{i_{min}} : \emotionintensitytype = 0$ \\
+            \textbf{Input} & $\mathit{i}$.EqualsMinIntensity() \\
+            \midrule
+            \textbf{Expected Output} & $\True : \mathbb{B}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensityChg\_FirstIsLarger-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d1} : \responsestrength = 5$,
+            $\mathit{d2} : \responsestrength = 0$ \\
+            \textbf{Input} & $\mathit{d1}$.CompareToIntensityChg($\mathit{d2}$)
+            \\ \midrule
+            \textbf{Expected Output} & $1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensityChg\_FirstIsLarger-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d1} : \responsestrength = 5.8$,
+            $\mathit{d2} : \responsestrength = 2.1$ \\
+            \textbf{Input} & $\mathit{d1}$.CompareToIntensityChg($\mathit{d2}$)
+            \\ \midrule
+            \textbf{Expected Output} & $1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensityChg\_FirstIsLarger-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d1} : \responsestrength = 5.8$,
+            $\mathit{d2} : \responsestrength = -1.7$ \\
+            \textbf{Input} & $\mathit{d1}$.CompareToIntensityChg($\mathit{d2}$)
+            \\ \midrule
+            \textbf{Expected Output} & $1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensityChg\_FirstIsSmaller-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d1} : \responsestrength = 0$,
+            $\mathit{d2} : \responsestrength = 5$ \\
+            \textbf{Input} & $\mathit{d1}$.CompareToIntensityChg($\mathit{d2}$)
+            \\ \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensityChg\_FirstIsSmaller-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d1} : \responsestrength = 5$,
+            $\mathit{d2} : \responsestrength = 5.8$ \\
+            \textbf{Input} & $\mathit{d1}$.CompareToIntensityChg($\mathit{d2}$)
+            \\ \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensityChg\_FirstIsSmaller-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d1} : \responsestrength = -1.7$,
+            $\mathit{d2} : \responsestrength = 5.8$ \\
+            \textbf{Input} & $\mathit{d1}$.CompareToIntensityChg($\mathit{d2}$)
+            \\ \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensityChg\_FirstIsSmaller-4}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d1} : \responsestrength = -1.7$,
+            $\mathit{d2} : \responsestrength = 0$ \\
+            \textbf{Input} & $\mathit{d1}$.CompareToIntensityChg($\mathit{d2}$)
+            \\ \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareToIntensityChg\_FirstIsSmaller-5}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d1} : \responsestrength = 5$,
+            $\mathit{d2} : \responsestrength = 5.000000000000001$ \\
+            \textbf{Input} & $\mathit{d1}$.CompareToIntensityChg($\mathit{d2}$)
+            \\ \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareIntensityChg\_EqualValues}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d1} : \responsestrength = 5$,
+            $\mathit{d2} : \responsestrength = 5$ \\
+            \textbf{Input} & $\mathit{d1}$.CompareToIntensityChg($\mathit{d2}$)
+            \\ \midrule
+            \textbf{Expected Output} & $0 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+
+    \item{systemtest-CompareIntensityChgtoMinIntensity\_ChgIsLarger-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 5$,
+            $\mathit{i_{min}} : \emotionintensitytype = 0$ \\
+            \textbf{Input} & $\mathit{d}$.CompareToMinIntensity() \\ \midrule
+            \textbf{Expected Output} & $1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareIntensityChgtoMinIntensity\_ChgIsLarger-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 5.8$,
+            $\mathit{i_{min}} : \emotionintensitytype = 0$ \\
+            \textbf{Input} & $\mathit{d}$.CompareToMinIntensity() \\ \midrule
+            \textbf{Expected Output} & $1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareIntensityChgtoMinIntensity\_ChgIsLarger-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 2.1$,
+            $\mathit{i_{min}} : \emotionintensitytype = 0$ \\
+            \textbf{Input} & $\mathit{d}$.CompareToMinIntensity() \\ \midrule
+            \textbf{Expected Output} & $1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareIntensityChgtoMinIntensity\_ChgIsSmaller-1}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = -5$,
+            $\mathit{i_{min}} : \emotionintensitytype = 0$ \\
+            \textbf{Input} & $\mathit{d}$.CompareToMinIntensity() \\ \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareIntensityChgtoMinIntensity\_ChgIsSmaller-2}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = -1.7$,
+            $\mathit{i_{min}} : \emotionintensitytype = 0$ \\
+            \textbf{Input} & $\mathit{d}$.CompareToMinIntensity() \\ \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareIntensityChgtoMinIntensity\_ChgIsSmaller-3}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength =
+            -0.000000000000001$, $\mathit{i_{min}} : \emotionintensitytype = 0$
+            \\
+            \textbf{Input} & $\mathit{d}$.CompareToMinIntensity() \\ \midrule
+            \textbf{Expected Output} & $-1 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item{systemtest-CompareIntensityChgtoMinIntensity\_ChgIsEqual}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+            \toprule
+            \textbf{Initial State} & $\mathit{d} : \responsestrength = 0$,
+            $\mathit{i_{min}} : \emotionintensitytype = 0$ \\
+            \textbf{Input} & $\mathit{d}$.CompareToMinIntensity() \\ \midrule
+            \textbf{Expected Output} & $0 : \mathbb{Z}$ \\
+            \textbf{User Message} & -- \\ \bottomrule
+        \end{tabular}
+    \end{table}
+
+\end{enumerate}
+
+%\clearpage\paragraph{Emotion Decay Rate $\emotiondecaytype$} These tests check
+%the satisfaction of \rref{R_IntensityDecayType} and adherence to the
+%constraints on $\emotiondecaytype$ (\rref{R_Types}). This only includes testing
+%its constructor.
+%
+%\begin{enumerate}
+%
+%    \item{systemtest-DecayRateConstructor1}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $5 : \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $ 5 : \emotiondecaytype$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayRateConstructor2}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $2.000000000000001 : \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $ 2.000000000000001 : \emotiondecaytype$
+%            \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayRateConstructor3}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $0.000000000000001 : \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $ 0.000000000000001 : \emotiondecaytype$
+%            \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DecayRateConstructorZeroInput}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $0 : \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & EM\_DECAY\_RATE\_DEFAULT $ :
+%            \emotiondecaytype$ \\
+%            \textbf{Test Case Derivation} & When given a negative value,
+%            \progname{} sets the decay rate to the default rate because values
+%            of $\emotiondecaytype$ must be $> 0$.\\
+%            \textbf{User Message} & \texttt{Warning: Emotion cannot decay at a
+%                rate of zero or less. Setting to default decay rate of
+%                EM\_DECAY\_RATE\_DEFAULT.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-DecayRateConstructorNegativeInput}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $-5 : \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & EM\_DECAY\_RATE\_DEFAULT $ :
+%            \emotiondecaytype$ \\
+%            \textbf{Test Case Derivation} & When given a negative value,
+%            \progname{} sets the decay rate to the default rate because values
+%            of $\emotiondecaytype$ must be $> 0$.\\
+%            \textbf{User Message} & \texttt{Warning: Emotion cannot decay at a
+%                rate of zero or less. Setting to default decay rate of
+%                EM\_DECAY\_RATE\_DEFAULT.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%\end{enumerate}
+%
+%\clearpage\paragraph{Emotion Kinds $\emotionkindstype$} These tests check the
+%satisfaction of \rref{R_EmotionKindsType} and adherence to the constraints on
+%$\emotionkindstype$ (\rref{R_Types}). This means testing for the presence of
+%the expected type, count, and order of emotion kinds.
+%
+%\begin{enumerate}
+%
+%    \item{systemtest-JoyKind}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $\emotionkindstype[0] = \mathtt{Joy}$ \\ \midrule
+%            \textbf{Expected Output} & $ \True : \mathbb{B}$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-SadnessKind}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $\emotionkindstype[1] = \mathtt{Sadness}$ \\
+%            \midrule
+%            \textbf{Expected Output} & $ \True : \mathbb{B}$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-AngerKind}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $\emotionkindstype[2] = \mathtt{Anger}$ \\
+%\midrule
+%            \textbf{Expected Output} & $ \True : \mathbb{B}$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-FearKind}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $\emotionkindstype[3] = \mathtt{Fear}$ \\ \midrule
+%            \textbf{Expected Output} & $ \True : \mathbb{B}$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-DisgustKind}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $\emotionkindstype[4] = \mathtt{Disgust}$ \\
+%            \midrule
+%            \textbf{Expected Output} & $ \True : \mathbb{B}$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-AcceptanceKind}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $\emotionkindstype[5] = \mathtt{Acceptance}$ \\
+%            \midrule
+%            \textbf{Expected Output} & $ \True : \mathbb{B}$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-SurpriseKind}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $\emotionkindstype[6] = \mathtt{Surprise}$ \\
+%            \midrule
+%            \textbf{Expected Output} & $ \True : \mathbb{B}$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-InterestKind}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $\emotionkindstype[7] = \mathtt{Interest}$ \\
+%            \midrule
+%            \textbf{Expected Output} & $ \True : \mathbb{B}$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-KindCount}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $| \emotionkindstype | = 8 $ \\ \midrule
+%            \textbf{Expected Output} & $ \True : \mathbb{B}$ \\
+%            \textbf{Test Case Derivation} & An additional test to ensure there
+%            are no more than the eight expected emotion kinds. \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%\end{enumerate}
+%
+%\clearpage\paragraph{Emotion State
+%$\emotionstatetype$}\label{sec:sys-datatypes-emotionstate} These tests check
+%the
+%satisfaction of \rref{R_EmotionStateType} and adherence to the constraints on
+%$\emotionstatetype$ (\rref{R_Types}). This only includes testing its
+%constructor.
+%
+%\begin{enumerate}
+%
+%    \item{systemtest-EmotionStateConstructor}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $i = \langle \, 2 : \emotionintensitytype, 3.8 :
+%            \emotionintensitytype, 40.89 : \emotionintensitytype, 67.3 :
+%            \emotionintensitytype, 89.3 : \emotionintensitytype, 34.678 :
+%            \emotionintensitytype,$ $ 4.678 : \emotionintensitytype, 78.4 :
+%            \emotionintensitytype \, \rangle$, \newline $m = \langle \, 16 :
+%            \emotionintensitytype, 10 : \emotionintensitytype, 100 :
+%            \emotionintensitytype, 100.536 : \emotionintensitytype, 140.2 :
+%            \emotionintensitytype,$ $ 50.7: \emotionintensitytype, 40.78 :
+%            \emotionintensitytype, 80.234 : \emotionintensitytype \, \rangle$
+%            \\ \midrule
+%            \textbf{Expected Output} & $ \{ \mathit{intensities} = i,
+%            \mathit{max} = m \} : \emotionstatetype $ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-EmotionStateConstructorFirstIValueExceedsMValue}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $i = \langle \, 16.1 : \emotionintensitytype, 3.8
+%:
+%            \emotionintensitytype, 40.89 : \emotionintensitytype, 67.3 :
+%            \emotionintensitytype, 89.3 : \emotionintensitytype, 34.678 :
+%            \emotionintensitytype,$ $ 4.678 : \emotionintensitytype, 78.4 :
+%            \emotionintensitytype \, \rangle$, \newline $m = \langle \, 16 :
+%            \emotionintensitytype, 10 : \emotionintensitytype, 100 :
+%            \emotionintensitytype, 100.536 : \emotionintensitytype, 140.2 :
+%            \emotionintensitytype,$ $ 50.7: \emotionintensitytype, 40.78 :
+%            \emotionintensitytype, 80.234 : \emotionintensitytype \, \rangle$
+%            \\ \midrule
+%            \textbf{Expected Output} & $ \{ \mathit{intensities} = i',
+%            \mathit{max} = m \} : \emotionstatetype $, \newline where $i' = i$
+%            with $i[0] = m[0]$ \\
+%            \textbf{Test Case Derivation} & If $i.k > m.k$, \progname{} sets
+%            $\mathit{intensities}.k$ to $m.k$ so that the invariant
+%            $\mathit{intensities}.k < \mathit{max}.k$ holds. \\
+%            \textbf{User Message} & \texttt{Warning: Value for
+%            $\emotionkindstype[0]$ intensity is out of bounds. Clamping to the
+%            range [$i[0].$MIN\_INTENTISTY, $m[0]$].} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-EmotionStateConstructorMultiIValueExceedsMValue}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $i = \langle \, 2 : \emotionintensitytype, 3.8 :
+%            \emotionintensitytype, 101 : \emotionintensitytype, 67.3 :
+%            \emotionintensitytype, 89.3 : \emotionintensitytype, 34.678 :
+%            \emotionintensitytype,$ $ 4.678 : \emotionintensitytype, 80.235 :
+%            \emotionintensitytype \, \rangle$, \newline $m = \langle \, 16 :
+%            \emotionintensitytype, 10 : \emotionintensitytype, 100 :
+%            \emotionintensitytype, 100.536 : \emotionintensitytype, 140.2 :
+%            \emotionintensitytype,50.7: \emotionintensitytype,$ $  40.78 :
+%            \emotionintensitytype, 80.234 : \emotionintensitytype \, \rangle$
+%            \\ \midrule
+%            \textbf{Expected Output} & $ \{ \mathit{intensities} = i',
+%            \mathit{max} = m \} : \emotionstatetype $, \newline where $i' = i$
+%            with $i[2] = m[2]$ \\
+%            \textbf{Test Case Derivation} & If $i.k > m.k$, \progname{} sets
+%            $\mathit{intensities}.k$ to $m.k$ so that the invariant
+%            $\mathit{intensities}.k < \mathit{max}.k$ holds. \\
+%            \textbf{User Message} & \texttt{Warning: Value for
+%            $\emotionkindstype[2]$ intensity is out of bounds. Clamping to the
+%            range [$i[2].$MIN\_INTENTISTY, $m[2]$].} \newline
+%           \texttt{Warning: Value for $\emotionkindstype[7]$ intensity is out
+%           of bounds. Clamping to the range [$i[7].$MIN\_INTENTISTY, $m[7]$].}
+%           \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-EmotionStateConstructorTooFewIntensitiesinI}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $i = \langle \, 2 : \emotionintensitytype, 3.8 :
+%            \emotionintensitytype, 40.89 : \emotionintensitytype, 67.3 :
+%            \emotionintensitytype, 89.3 : \emotionintensitytype, 34.678 :
+%            \emotionintensitytype,$ $ 78.4 : \emotionintensitytype \, \rangle$,
+%            \newline $m = \langle \, 16 : \emotionintensitytype, 10 :
+%            \emotionintensitytype, 100 : \emotionintensitytype, 100.536 :
+%            \emotionintensitytype, 140.2 : \emotionintensitytype,$ $ 50.7:
+%            \emotionintensitytype, 40.78 : \emotionintensitytype, 80.234 :
+%            \emotionintensitytype \, \rangle$ \\ \midrule
+%            \textbf{Expected Output} & $ \{ \mathit{intensities} =
+%            \mathtt{null}, \mathit{max} = \mathtt{null} \} : \emotionstatetype
+%            $ \\
+%            \textbf{Test Case Derivation} & The function $\emotionkindstype
+%            \rightarrow \emotionintensitytype$ expects that there are exactly
+%            the same number of values in $\emotionintensitytype$ as
+%            $\emotionkindstype$. There is no way to know which values the user
+%            intended to provide, so \progname{} makes no changes to
+%            $\emotionstatetype$. \\
+%            \textbf{User Message} & \texttt{Error: 7 intensity values given,
+%            but there are exactly 8 types in the emotion state. Emotion state
+%            intensities are unchanged.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-EmotionStateConstructorTooManyIntensitiesinI}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $i = \langle \, 2 : \emotionintensitytype, 3.8 :
+%            \emotionintensitytype, 40.89 : \emotionintensitytype, 67.3 :
+%            \emotionintensitytype, 89.3 : \emotionintensitytype, 34.678 :
+%            \emotionintensitytype,$ $ 4.678 : \emotionintensitytype, 78.4 :
+%            \emotionintensitytype, 78.4 : \emotionintensitytype \, \rangle$,
+%            \newline $m = \langle \, 16 : \emotionintensitytype, 10 :
+%            \emotionintensitytype, 100 : \emotionintensitytype, 100.536 :
+%            \emotionintensitytype, 140.2 : \emotionintensitytype,$ $ 50.7:
+%            \emotionintensitytype, 40.78 : \emotionintensitytype, 80.234 :
+%            \emotionintensitytype \, \rangle$ \\ \midrule
+%            \textbf{Expected Output} & $ \{ \mathit{intensities} =
+%            \mathtt{null}, \mathit{max} = \mathtt{null} \} : \emotionstatetype
+%            $ \\
+%            \textbf{Test Case Derivation} & The function $\emotionkindstype
+%            \rightarrow \emotionintensitytype$ expects that there are exactly
+%            the same number of values in $\emotionintensitytype$ as
+%            $\emotionkindstype$. There is no way to know which values the user
+%            intended to provide, so \progname{} makes no changes to
+%            $\emotionstatetype$. \\
+%            \textbf{User Message} & \texttt{Error: 9 intensity values given,
+%            but there are exactly 8 types in the emotion state. Emotion state
+%            intensities are unchanged.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-EmotionStateConstructorTooFewIntensitiesinM}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $i = \langle \, 2 : \emotionintensitytype, 3.8 :
+%            \emotionintensitytype, 40.89 : \emotionintensitytype, 67.3 :
+%            \emotionintensitytype, 89.3 : \emotionintensitytype, 34.678 :
+%            \emotionintensitytype,$ $ 4.678 : \emotionintensitytype, 78.4 :
+%            \emotionintensitytype \, \rangle$, \newline $m = \langle \, 16 :
+%            \emotionintensitytype, 10 : \emotionintensitytype, 100 :
+%            \emotionintensitytype, 100.536 : \emotionintensitytype, 140.2 :
+%            \emotionintensitytype,$ $ 50.7: \emotionintensitytype, 40.78 :
+%            \emotionintensitytype \, \rangle$ \\ \midrule
+%            \textbf{Expected Output} & $ \{ \mathit{intensities} =
+%            \mathtt{null}, \mathit{max} = \mathtt{null} \} : \emotionstatetype
+%            $ \\
+%            \textbf{Test Case Derivation} & The function $\emotionkindstype
+%            \rightarrow \emotionintensitytype$ expects that there are exactly
+%            the same number of values in $\emotionintensitytype$ as
+%            $\emotionkindstype$. There is no way to know which values the user
+%            intended to provide, so \progname{} makes no changes to
+%            $\emotionstatetype$. \\
+%            \textbf{User Message} & \texttt{Error: 7 maximum values given, but
+%            there are exactly 8 types in the emotion state. Emotion state max
+%            intensities are unchanged.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-EmotionStateConstructorTooManyIntensitiesinM}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $i = \langle \, 2 : \emotionintensitytype, 3.8 :
+%            \emotionintensitytype, 40.89 : \emotionintensitytype, 67.3 :
+%            \emotionintensitytype, 89.3 : \emotionintensitytype, 34.678 :
+%            \emotionintensitytype,$ $ 4.678 : \emotionintensitytype, 78.4 :
+%            \emotionintensitytype \, \rangle$, \newline $m = \langle \, 16 :
+%            \emotionintensitytype, 10 : \emotionintensitytype, 100 :
+%            \emotionintensitytype, 100.536 : \emotionintensitytype, 140.2 :
+%            \emotionintensitytype,$ $ 50.7: \emotionintensitytype, 40.78 :
+%            \emotionintensitytype, 80.234 : \emotionintensitytype, 80.234 :
+%            \emotionintensitytype \, \rangle$ \\ \midrule
+%            \textbf{Expected Output} & $ \{ \mathit{intensities} =
+%            \mathtt{null}, \mathit{max} = \mathtt{null} \} : \emotionstatetype
+%            $ \\
+%            \textbf{Test Case Derivation} & The function $\emotionkindstype
+%            \rightarrow \emotionintensitytype$ expects that there are exactly
+%            the same number of values in $\emotionintensitytype$ as
+%            $\emotionkindstype$. There is no way to know which values the user
+%            intended to provide, so \progname{} makes no changes to
+%            $\emotionstatetype$. \\
+%            \textbf{User Message} & \texttt{Error: 9 maximum values given, but
+%            there are exactly 8 types in the emotion state. Emotion state max
+%            intensities are unchanged.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%\end{enumerate}
+%
+%\clearpage\paragraph{Emotion Decay State $\emotionstatedecaytype$} These tests
+%check the satisfaction of \rref{R_EmotionDecayStateType} and adherence to the
+%constraints on $\emotionstatedecaytype$ (\rref{R_Types}). This only includes
+%testing its constructor (?).
+%
+%\clearpage\paragraph{Emotion $\emotiontype$} These tests check the satisfaction
+%of \rref{R_EmotionType} and adherence to the constraints on $\emotiontype$
+%(\rref{R_Types}). This only includes testing its constructor (?).
+%
+%\clearpage\paragraph{PAD Point $\padpoint$} These tests check the satisfaction
+%of \rref{R_PADPointType} and adherence to the constraints on $\padpoint$
+%(\rref{R_Types}). This only includes testing its constructor.
+%
+%\begin{enumerate}
+%
+%    \item{systemtest-PADPntConstructor1}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $-1 : \mathbb{R}$, $-1 : \mathbb{R}$, $-1 :
+%            \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $(-1, -1, -1) : \padpoint$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-PADPntConstructor2}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $0 : \mathbb{R}$, $0 : \mathbb{R}$, $0 :
+%            \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $(0, 0, 0) : \padpoint$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-PADPntConstructor3}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $1 : \mathbb{R}$, $1 : \mathbb{R}$, $1 :
+%            \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $(1, 1, 1) : \padpoint$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-PADPntConstructor4}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $-0.000000000000001 : \mathbb{R}$,
+%            $-0.000000000000001 : \mathbb{R}$, $-0.000000000000001 :
+%            \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $(-0.000000000000001,
+%            -0.000000000000001,$ $-0.000000000000001) : \padpoint$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-PADPntConstructor5}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $0.000000000000001 : \mathbb{R}$,
+%            $0.000000000000001 : \mathbb{R}$, $0.000000000000001 :
+%            \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $(0.000000000000001,
+%            0.000000000000001,$ $0.000000000000001) : \padpoint$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-PADPntConstructor6}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $0.999999999999999 : \mathbb{R}$,
+%            $0.999999999999999 : \mathbb{R}$, $0.999999999999999 :
+%            \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $(0.999999999999999,
+%            0.999999999999999,$ $0.999999999999999) : \padpoint$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-PADPntConstructor7}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $-0.999999999999999 : \mathbb{R}$,
+%            $-0.999999999999999 : \mathbb{R}$, $-0.999999999999999 :
+%            \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $(-0.999999999999999,
+%            -0.999999999999999,$ $-0.999999999999999) : \padpoint$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-PADPntConstructorExceedMinBound}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $-1.000000000000001 : \mathbb{R}$,
+%            $-1.000000000000001 : \mathbb{R}$, $-1.000000000000001 :
+%            \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $(-1, -1, -1) : \padpoint$ \\
+%            \textbf{Test Case Derivation} & When given values that are outside
+%            the range $[-1, 1]$, \progname{} sets the dimension to the closest
+%            bound.\\
+%            \multirow{6}{*}{\textbf{User Message}} & \texttt{Warning: Value for
+%            P dimension (-1.000000000000001) is out of bounds. Clamping to the
+%            range [-1, 1].} \\
+%            & \texttt{Warning: Value for A dimension (-1.000000000000001) is
+%            out of bounds. Clamping to the range [-1, 1].} \\
+%            & \texttt{Warning: Value for D dimension (-1.000000000000001) is
+%            out of bounds. Clamping to the range [-1, 1].} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-PADPntConstructorExceedMaxBound}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $1.000000000000001 : \mathbb{R}$,
+%            $1.000000000000001 : \mathbb{R}$, $1.000000000000001 :
+%            \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $(1, 1, 1) : \padpoint$ \\
+%            \textbf{Test Case Derivation} & When given values that are outside
+%            the range $[-1, 1]$, \progname{} sets the dimension to the closest
+%            bound.\\
+%            \multirow{6}{*}{\textbf{User Message}} & \texttt{Warning: Value for
+%            P dimension (1.000000000000001) is out of bounds. Clamping to the
+%            range [-1, 1].} \\
+%            & \texttt{Warning: Value for A dimension (1.000000000000001) is out
+%            of bounds. Clamping to the range [-1, 1].} \\
+%            & \texttt{Warning: Value for D dimension (1.000000000000001) is out
+%            of bounds. Clamping to the range [-1, 1].} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-PADPntConstructorExceedBoundsMixed}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $-0.000000000000001 : \mathbb{R}$,
+%            $-1.000000000000001 : \mathbb{R}$, $1 : \mathbb{R}$ \\ \midrule
+%            \textbf{Expected Output} & $(-0.000000000000001, -1,$ $1) :
+%            \padpoint$ \\
+%            \textbf{Test Case Derivation} & When given values that are outside
+%            the range $[-1, 1]$, \progname{} sets the dimension to the closest
+%            bound.\\
+%            \textbf{User Message} & \texttt{Warning: Value for A dimension
+%            (-1.000000000000001) is out of bounds. Clamping to the range [-1,
+%            1].} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%\end{enumerate}
+%
+%\clearpage\paragraph{Goal $\goaltype$} These tests check the satisfaction of
+%\rref{R_GoalType} and adherence to the constraints on $\goaltype$
+%(\rref{R_Types}).
+%
+%\clearpage\paragraph{Plan $\plantype$} These tests check the satisfaction of
+%\rref{R_PlanType} and adherence to the constraints on $\plantype$
+%(\rref{R_Types}).
+%
+%\clearpage\paragraph{Attention $\attentiontype$} These tests check the
+%satisfaction of \rref{R_Attention} and adherence to the constraints on
+%$\attentiontype$ (\rref{R_Types}). This only includes testing its constructor.
+%
+%\begin{enumerate}
+%
+%    \item{systemtest-AttentionConstructorPositiveStepSize1}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $5 : \mathbb{Z}$, $\mathit{dt} : \deltatimetype >
+%            0$ \\ \midrule
+%            \textbf{Expected Output} & $\{ 5, \mathit{dt} \} : \attentiontype$
+%            \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-AttentionConstructorPositiveStepSize2}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $0 : \mathbb{Z}$, $\mathit{dt} : \deltatimetype >
+%            0$ \\ \midrule
+%            \textbf{Expected Output} & $\{ 0, \mathit{dt} \} : \attentiontype$
+%            \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-AttentionConstructorZeroStepSize1}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $5 : \mathbb{Z}$, $\mathit{dt} : \deltatimetype =
+%            0$ \\ \midrule
+%            \textbf{Expected Output} & $\{ 5, \mathit{dt} \} : \attentiontype$
+%            \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-AttentionConstructorZeroStepSize2}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $0 : \mathbb{Z}$, $\mathit{dt} : \deltatimetype =
+%            0$ \\ \midrule
+%            \textbf{Expected Output} & $\{ 0, \mathit{dt} \} : \attentiontype$
+%            \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-AttentionConstructorPositiveStepSizeNegativeInput}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $-5 : \mathbb{Z}$, $\mathit{dt} : \deltatimetype >
+%            0$ \\ \midrule
+%            \textbf{Expected Output} & $\{ 0, \mathit{dt} \} : \attentiontype$
+%            \\
+%            \textbf{Test Case Derivation} & When given negative values for
+%            elapsed steps, \progname{} sets it to 0 because allocated attention
+%            cannot be negative.\\
+%            \textbf{User Message} & \texttt{Warning: Cannot allocate fewer than
+%                zero steps of attention. Setting to zero.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \clearpage
+%
+%    \item{systemtest-AttentionConstructorZeroStepSizeNegativeInput}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $-5 : \mathbb{Z}$, $\mathit{dt} : \deltatimetype =
+%            0$ \\ \midrule
+%            \textbf{Expected Output} & $\{ 0, \mathit{dt} \} : \attentiontype$
+%            \\
+%            \textbf{Test Case Derivation} & When given negative values for
+%            elapsed steps, \progname{} sets it to 0 because allocated attention
+%            cannot be negative.\\
+%            \textbf{User Message} & \texttt{Warning: Cannot allocate fewer than
+%                zero steps of attention. Setting to zero.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-AttentionConstructorNegativeStepSize1}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $5 : \mathbb{Z}$, $\mathit{dt} : \deltatimetype <
+%            0$ \\ \midrule
+%            \textbf{Expected Output} & $\{ 5, 0 : \deltatimetype \} :
+%            \attentiontype$ \\
+%            \textbf{Test Case Derivation} & When given negative values for
+%            step size, \progname{} sets it to 0 because attention grows by
+%            default.\\
+%            \textbf{User Message} & \texttt{Warning: Step size cannot be
+%                negative. Setting to zero.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-AttentionConstructorNegativeStepSize2}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $0 : \mathbb{Z}$, $\mathit{dt} : \deltatimetype <
+%            0$ \\ \midrule
+%            \textbf{Expected Output} & $\{ 0, 0 : \deltatimetype \} :
+%            \attentiontype$ \\
+%            \textbf{Test Case Derivation} & When given negative values for
+%            step size, \progname{} sets it to 0 because attention grows by
+%            default.\\
+%            \textbf{User Message} & \texttt{Warning: Step size cannot be
+%                negative. Setting to zero.} \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-AttentionConstructorPositiveStepSize3}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $-5 : \mathbb{Z}$, $\mathit{dt} : \deltatimetype <
+%            0$ \\ \midrule
+%            \textbf{Expected Output} & $\{ 0, 0 : \deltatimetype \} :
+%            \attentiontype$ \\
+%            \textbf{Test Case Derivation} & When given negative values for
+%            step size, \progname{} sets it to 0 because attention grows by
+%            default.\\
+%            \textbf{User Message} & \texttt{Warning: Cannot allocate fewer than
+%                zero steps of attention. Setting to zero.} \newline
+%            \texttt{Warning: Step size cannot be negative. Setting to zero.} \\
+%            \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%\end{enumerate}
+%
+%\clearpage
+%
+%\paragraph{Social Attachment $\socialattachmenttype$} These tests check the
+%satisfaction of \rref{R_SocialAttachment} and adherence to the constraints on
+%$\socialattachmenttype$ (\rref{R_Types}). This only includes testing its
+%constructor.
+%
+%\begin{enumerate}
+%
+%    \item{systemtest-SocialAttachmentConstructor1}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $0 : \mathbb{Z}$ \\ \midrule
+%            \textbf{Expected Output} & $0 : \socialattachmenttype$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-SocialAttachmentConstructor2}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $1 : \mathbb{Z}$ \\ \midrule
+%            \textbf{Expected Output} & $1 : \socialattachmenttype$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-SocialAttachmentConstructor3}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & $-1 : \mathbb{Z}$ \\ \midrule
+%            \textbf{Expected Output} & $-1 : \socialattachmenttype$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-SocialAttachmentConstructor4}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & max$(\mathbb{Z})$ \\ \midrule
+%            \textbf{Expected Output} & max$(\mathbb{Z}) :
+%            \socialattachmenttype$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%    \item{systemtest-SocialAttachmentConstructor5}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{P{0.25\linewidth}P{0.6\linewidth}}
+%            \toprule
+%            \textbf{Initial State} & New Session \\
+%            \textbf{Input} & min$(\mathbb{Z})$ \\ \midrule
+%            \textbf{Expected Output} & min$(\mathbb{Z}) :
+%            \socialattachmenttype$ \\
+%            \textbf{User Message} & -- \\ \bottomrule
+%        \end{tabular}
+%    \end{table}
+%
+%\end{enumerate}
